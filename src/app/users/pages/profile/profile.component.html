@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <h3>Información personal</h3>
+        @if(user){
+        <table>
+            <tbody>
+                <tr>
+                    <td><strong>Usuario:</strong></td>
+                    <td>{{user.name_user}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Nombre:</strong></td>
+                    <td>{{user.real_name}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Apellido:</strong></td>
+                    <td>{{user.last_name}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>{{user.email}}</td>
+                </tr>
+                <tr>
+                    <td><strong>DNI:</strong></td>
+                    <td>{{user.dni}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Teléfono:</strong></td>
+                    <td>{{user.phone}}</td>
+                </tr>
+                <tr>
+                    <td><strong>País:</strong></td>
+                    <td>{{address?.country}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Ciudad:</strong></td>
+                    <td>{{address?.city}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Código postal:</strong></td>
+                    <td>{{address?.postal_code}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Calle:</strong></td>
+                    <td>{{address?.street}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Altura:</strong></td>
+                    <td>{{address?.address_number}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Piso:</strong></td>
+                    <td>{{address?.floor}}</td>
+                </tr>
+                <tr>
+                    <td><strong>Departamento:</strong></td>
+                    <td>{{address?.apartment}}</td>
+                </tr>
+            </tbody>
+        </table>
+        }
+        <div class="button-container">
+            <button [routerLink]="['/update-profile', userId]">Modificar perfil</button>
+        </div>
+    </div>
+</div>
