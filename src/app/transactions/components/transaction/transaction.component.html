@@ -1,0 +1,21 @@
+<div class="transaction-card">
+  <p class="transaction-date">
+    {{ transaction.transaction_date | date : "dd/MM/yyyy" }}
+  </p>
+
+  <p
+    [ngClass]="{
+      'transaction-amount': true,
+      'transaction-in': isIncoming(),
+      'transaction-out': !isIncoming()
+    }"
+  >
+    {{ formattedAmount }}
+  </p>
+
+  <button (click)="toggleFlag()" [ngClass]="{'show': flag}">Ver comprobante</button>
+
+
+  <app-receipt *ngIf="flag" [transaction]="transaction" (cancel)="onCancel()"></app-receipt>
+  
+</div>
