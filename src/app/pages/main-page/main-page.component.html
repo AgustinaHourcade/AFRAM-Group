@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+
+<main>
+  <section class="sectionA">
+    <div class="accounts">
+      <h2 class="section-title">
+        Cuentas
+        <!-- ! agregar ojo para mostrar saldos -->
+      </h2>
+      <div class="accounts-div">
+        @for (account of accounts; track $index){
+          <app-card-account
+          [account]="account"
+          
+        ></app-card-account>
+        }
+          
+      </div>
+    </div>
+
+    <div class="transactions">
+      <h2 class="section-title">Movimientos</h2>
+      <div class="filters">
+        <label for="filter-amount">Monto:</label>
+        <input type="number" id="filter-amount" placeholder="Ej: 5000" />
+
+        <label for="filter-date">Fecha:</label>
+        <input type="date" id="filter-date" />
+
+        <label for="filter-type">Tipo:</label>
+        <select id="filter-type">
+          <option value="">Todos</option>
+          <option value="transfer">Transferencia</option>
+          <option value="deposit">Depósito</option>
+          <option value="withdrawal">Retiro</option>
+        </select>
+
+        <button class="filter-btn">Aplicar Filtros</button>
+      </div>
+
+      <div
+        class="transactions-container"
+        *ngFor="let transaction of transactions; let i = index"
+      >
+        <app-transaction
+          [transaction]="transaction"
+        ></app-transaction>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectionB">
+    <h2 class="section-title">Tarjetas</h2>
+    <div class="cardInfo">
+      <div class="card">
+        <div class="card-header">
+          <div class="master">
+            <div class="circle master-red"></div>
+            <div class="circle master-yellow"></div>
+          </div>
+          <span class="balance">$90000</span>
+        </div>
+        <div class="card-details">
+          <span class="card-number">**** 4715</span>
+          <span class="expiry-date">09/27</span>
+        </div>
+      </div>
+      <div class="actions">
+		<!-- Agregar icono -->
+        <button (click)="toggleActions(divAct)">:</button>
+        <div class="actions-div"  #divAct>
+          <p>Ver información</p>
+          <p>Denunciar robo o extravío</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
