@@ -1,0 +1,39 @@
+<div #pdfContent class="cbuAlias">
+  <div class="cbu">
+    <p>CBU</p>
+    <p>{{ account.cbu }}</p>
+  </div>
+  <div class="alias">
+    <p>Alias</p>
+    @if (!isEditing){
+    <p>{{ account.alias }}</p>
+    } @if (isEditing){
+    <form [formGroup]="formulario">
+      <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" />
+    </form>
+    }
+  </div>
+  <button
+    class="no-print"
+    (click)="isEditing ? modifyAlias() : toggleEditing()"
+  >
+    {{ isEditing ? "Guardar" : "Modificar" }}
+    <i class="bi bi-pencil-square"></i>
+  </button>
+  
+  <div class="name">
+    <p>Titular</p>
+    <p>{{ user.last_name }} {{ user.real_name }}</p>
+  </div>
+  <div class="dni">
+    <p>DNI</p>
+    <p>{{ user.dni }}</p>
+    <button (click)="copyToClipboard()" class="no-print">
+      Copiar datos <i class="bi bi-copy"></i>
+    </button>
+    <button (click)="downloadAsPDF()" class="no-print">
+      Descargar <i class="bi bi-download"></i>
+  </button>
+</div>
+
+</div>

@@ -1,0 +1,40 @@
+.cbuAlias {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.cbuAlias div {
+  margin-bottom: 15px;
+}
+
+.cbuAlias p {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--gray-4);
+}
+
+.cbuAlias button {
+  width: 100%;
+  background-color: var(--accent-color);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: var(--font-buttons);
+  transition: background-color 0.3s;
+}
+
+.cbuAlias button:hover {
+  background-color: var(--button-hover);
+}
+
+.cbuAlias div p:first-child {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
