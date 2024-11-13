@@ -1,0 +1,32 @@
+<div class="chat-widget" (click)="preventClose($event)">
+  <button class="chat-button" (click)="toggleChat($event)">
+    💬
+  </button>
+  
+  <div class="chat-container" [class.active]="isOpen">
+    <div class="chat-header">
+      <img src="https://img.freepik.com/vector-gratis/chatbot-mensaje-chat-vectorart_78370-4104.jpg" alt="Afrika Avatar" class="chat-avatar">
+      <span class="chat-name">Afrika</span>
+    
+    </div>
+
+    <div #chatMessages class="chat-messages">
+      <app-chat-message
+        *ngFor="let message of messages"
+        [message]="message"
+        (faqSelected)="selectFaq($event)"
+        (topicSelected)="selectTopic($event)">
+      </app-chat-message>
+    </div>
+
+    <div class="chat-input">
+      <input
+        type="text"
+        [(ngModel)]="currentMessage"
+        (keyup.enter)="sendMessage()"
+        placeholder="Escribe tu pregunta aquí..."
+      />
+      <button (click)="sendMessage()">Enviar</button>
+    </div>
+  </div>
+</div>
