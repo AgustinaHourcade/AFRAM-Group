@@ -1,0 +1,11 @@
+<div class="suggestions">
+  <h3>Preguntas frecuentes:</h3>
+  <div class="suggestion-list">
+    <button
+      *ngFor="let faq of faqs"
+      (click)="selectSuggestion(faq.question)"
+      class="suggestion-button">
+      {{ faq.question }}
+    </button>
+  </div>
+</div>
