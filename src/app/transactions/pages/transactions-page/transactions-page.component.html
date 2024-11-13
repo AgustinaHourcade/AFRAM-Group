@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+ <nav class="nav-cards">
+  <a (click)="openModal()">Transferir</a>
+  <a routerLink="/my-transactions">Mis transferencias</a>
+  <a routerLink="/scheduled-transactions">Transferencias programadas</a>
+</nav>
+
+<!-- Modal Component -->
+<app-transfer-modal 
+  *ngIf="isModalOpen" 
+  (close)="isModalOpen = false" 
+  (confirm)="goToNewTransfer($event)">
+</app-transfer-modal>
+
+
