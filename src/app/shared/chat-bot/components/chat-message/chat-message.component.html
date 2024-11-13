@@ -1,0 +1,30 @@
+<div class="message" [ngClass]="{'bot': message.isBot, 'user': !message.isBot}">
+  <div class="message-content" *ngIf="!message.isFaqList && !message.isTopicList">
+    {{ message.content }}
+  </div>
+  
+  <div class="topic-list" *ngIf="message.isTopicList">
+    <h3>¿Sobre qué tema te gustaría consultar?</h3>
+    <button
+      *ngFor="let topic of message.topics"
+      (click)="selectTopic(topic.title)"
+      class="topic-button">
+      <span class="topic-icon">{{ topic.icon }}</span>
+      {{ topic.title }}
+    </button>
+  </div>
+
+  <div class="faq-list" *ngIf="message.isFaqList">
+    <h3>Selecciona tu consulta:</h3>
+    <button
+      *ngFor="let faq of message.faqs"
+      (click)="selectFaq(faq.question)"
+      class="faq-button">
+      {{ faq.question }}
+    </button>
+  </div>
+
+  <div class="message-time">
+    {{ message.timestamp | date:'shortTime' }}
+  </div>
+</div>
