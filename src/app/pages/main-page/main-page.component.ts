@@ -8,7 +8,7 @@ import { TransactionService } from '../../transactions/services/transaction.serv
 import { Transaction } from '../../transactions/interface/transaction.interface';
 import { NgFor, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
-import { Account } from '../../accounts/interface/account.intarface';
+import { Account } from '../../accounts/interface/account.interface';
 import { Observable, catchError, of } from 'rxjs';
 
 @Component({

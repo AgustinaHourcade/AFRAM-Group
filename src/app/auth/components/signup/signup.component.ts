@@ -6,7 +6,7 @@ import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';
 import { Router } from '@angular/router';
 import { AccountService } from '../../../accounts/services/account.service';
-import { Account } from '../../../accounts/interface/account.intarface';
+import { Account } from '../../../accounts/interface/account.interface';
 import { AddressService } from '../../../addresses/service/address.service';
 import { Address } from '../../../addresses/interface/address.interface';
 

@@ -1,5 +1,5 @@
 export interface Card {
-    cardId:number,
+    card_id:number,
     card_number: string,
     cardHolder_name: string,
     cardHolder_last_name: string,

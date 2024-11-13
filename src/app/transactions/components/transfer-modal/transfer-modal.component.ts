@@ -8,7 +8,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Account } from '../../../accounts/interface/account.intarface';
+import { Account } from '../../../accounts/interface/account.interface';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';

@@ -5,7 +5,7 @@ import jsPDF from 'jspdf';
 import { Transaction } from '../../interface/transaction.interface';
 import { UserService } from '../../../users/services/user.service';
 import { AccountService } from '../../../accounts/services/account.service';
-import { Account } from '../../../accounts/interface/account.intarface';
+import { Account } from '../../../accounts/interface/account.interface';
 
 @Component({
   selector: 'app-receipt',

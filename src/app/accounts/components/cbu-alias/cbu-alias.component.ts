@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Account } from '../../interface/account.intarface';
+import { Account } from '../../interface/account.interface';
 import { switchMap } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { ActivatedRoute } from '@angular/router';

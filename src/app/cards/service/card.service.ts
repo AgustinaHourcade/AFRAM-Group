@@ -25,8 +25,8 @@ export class CardService {
     return this.http.post<Card>(this.urlBase, card);
   }
 
-  disableCard(cardId: number): Observable<boolean>{
-    return this.http.put<boolean>(`${this.urlBase}deactivate`, cardId);
+  disableCard(card_id: number): Observable<boolean>{
+    return this.http.put<boolean>(`${this.urlBase}deactivate`, {card_id});
   }
 
   

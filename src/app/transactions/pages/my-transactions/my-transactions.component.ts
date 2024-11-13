@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, of } from 'rxjs';
-import { Account } from '../../../accounts/interface/account.intarface';
+import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { Transaction } from '../../interface/transaction.interface';

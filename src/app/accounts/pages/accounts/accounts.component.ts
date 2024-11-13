@@ -4,7 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { CardAccountComponent } from '../../components/card-account/card-account.component';
 import { CbuAliasComponent } from '../../components/cbu-alias/cbu-alias.component';
-import { Account } from '../../interface/account.intarface';
+import { Account } from '../../interface/account.interface';
 import { Router } from '@angular/router';
 
 @Component({
