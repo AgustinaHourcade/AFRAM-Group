@@ -1,0 +1,105 @@
+body {
+  font-family: var(--font-body);
+  background-color: var(--extra-light-color);
+}
+
+.modal {
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  background-color: var(--white);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin: 2rem auto;
+  font-family: var(--font-body);
+}
+
+.modal h2 {
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal button {
+  font-family: var(--font-buttons);
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal button:hover {
+  background-color: var(--button-hover);
+}
+
+.modal button:disabled {
+  background-color: var(--gray);
+  cursor: not-allowed;
+}
+
+.modal button:first-child {
+  background-color: var(--gray);
+  margin-top: -1rem;
+}
+
+.modal label {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-menu-form);
+  color: var(--primary-color);
+}
+
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 0.5rem;
+  font-family: var(--font-menu-form);
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  color: var(--primary-color);
+}
+
+.modal input::placeholder {
+  color: var(--gray);
+}
+
+.modal input:focus,
+.modal select:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+.modal p {
+  font-family: var(--font-body);
+  color: var(--primary-color);
+  margin: 0.5rem 0;
+}
+
+#cantidad {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #6c63ff; /* Un color púrpura suave */
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#cantidad:focus {
+  border-color: #4e4ae8; /* Color púrpura más oscuro para el enfoque */
+  box-shadow: 0 0 8px rgba(78, 74, 232, 0.3);
+}
+
+#cantidad::placeholder {
+  color: #999;
+  font-style: italic;
+}
