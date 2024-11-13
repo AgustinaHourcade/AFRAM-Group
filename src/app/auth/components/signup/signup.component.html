@@ -1,0 +1,128 @@
+
+<form [formGroup]="formulario" (ngSubmit)="addUsuario()">
+  <div class="input-container">
+    <input type="text" id="real_name" formControlName="real_name" placeholder=" " />
+    <label for="nombre"> Nombre </label>
+    @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
+      <span>
+        Campo requerido
+      </span>
+    }
+    @if (formulario.controls['real_name'].getError('minlength') && formulario.controls['real_name'].touched) {
+      <span>
+        Minimo 2 caracteres
+      </span>
+    }
+  </div>
+  <div class="input-container">
+    <input type="text" id="last_name" formControlName="last_name" placeholder=" " />
+    <label for="last_name">Apellido</label>
+    @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
+      <span>
+        Campo requerido
+      </span>
+    }
+    @if (formulario.controls['last_name'].getError('minlength') && formulario.controls['last_name'].touched) {
+      <span>
+        Minimo 2 caracteres
+      </span>
+    }
+  </div>
+  <div class="input-container">
+    <input type="text" id="name-user" formControlName="name_user" placeholder=" " />
+    <label for="name-user" >Usuario</label>
+    @if (formulario.controls['name_user'].getError('required') && formulario.controls['name_user'].touched) {
+      <span>
+        Campo requerido
+      </span>
+    }
+    @if (formulario.controls['name_user'].getError('minlength') && formulario.controls['name_user'].touched) {
+      <span>
+        Minimo 4 caracteres
+      </span>
+    }
+  </div>
+
+  <div class="input-container">
+    <input type="text" id="dni" formControlName="dni" placeholder=" "/>
+    <label for="dni">DNI</label>
+    @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
+      <span>
+        Campo requerido
+      </span>
+    }
+    @if (formulario.controls['dni'].getError('pattern') && formulario.controls['dni'].touched) {
+      <span>
+        Solo puede ingresar numeros
+      </span>
+    }
+    @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minlength')) {
+      <span>
+        Minimo 7 numeros
+      </span>
+    }
+    @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxlength')) {
+      <span>
+        Maximo 8 numeros
+      </span>
+    }
+  </div>
+  
+  @if (formulario.hasError('matchPasswords')) {
+    <span>Las contraseñas no coinciden.</span>
+  }
+
+  <div class="input-container">
+    <input type="password" id="hashed_password" formControlName="hashed_password" placeholder=" "/>
+    <label for="hashed_password">Contraseña</label>
+    @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
+      <span>
+        Campo requerido
+      </span>
+    }
+    @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
+      <span>
+        Minimo 6 caracteres
+      </span>
+    }
+    @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('passwordStrength')) {
+      <span>
+        La contraseña deve contener al menos una mayuscula y un numero
+      </span>
+    }
+  </div>
+  
+  <div class="input-container">
+    <input type="password" id="confirm_password" formControlName="confirm_password" placeholder=" "/>
+    <label for="confirm_password">Repetir contraseña</label>
+    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('required')) {
+      <span>
+        Campo requerido
+      </span>
+    }
+    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('minlength')) {
+      <span>
+        Minimo 6 caracteres
+      </span>
+    }
+    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('passwordStrength')) {
+      <span>
+        La contraseña deve contener al menos una mayuscula y un numero
+      </span>
+    }
+    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('passwordsMismatch')) {
+      <span>
+        Las contraseñas no coinciden
+      </span>
+    }
+  </div>
+  <!-- ! aar ojo  en ambas contraseñas-->
+   <!-- ! despues de ingresar por primera vez, pedir que ingrese telefono, direcciom  email y crear Caja de ahorro
+    !comparar contarseñas
+  <div class="input-container">
+    <input type="text" id="telefono" formControlName="phone" />
+    <label [ngClass]="{'filled': formulario.get('phone')?.value}">Teléfono</label>
+  </div>-->
+  <!-- agregar campos requeridos, long contrasela, patrones para contraseña -->
+  <button type="submit">Registrarse</button>
+</form>
