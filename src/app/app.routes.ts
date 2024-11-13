@@ -10,6 +10,7 @@ import { UpdateProfileComponent } from './users/components/update-profile/update
 import { MyTransactionsComponent } from './transactions/pages/my-transactions/my-transactions.component';
 import { FixedtermComponent } from './fixedTerms/components/fixedterm/fixedterm.component';
 import { CardComponent } from './cards/components/card/card.component';
+import { NewcardComponent } from './cards/components/newcard/newcard.component';
 
 
 export const routes: Routes = [
@@ -24,5 +25,6 @@ export const routes: Routes = [
     {path: 'transactions', component: TransactionsPageComponent},
     {path: 'my-transactions', component: MyTransactionsComponent},
     {path: 'cards', component: CardComponent},
+    {path: 'newcard', component: NewcardComponent},
     {path: '**', redirectTo: ''}
 ];

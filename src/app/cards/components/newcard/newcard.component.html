@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div class="card-container">
+  <div class="card-content">
+    <h3>Solicitar Tarjeta</h3>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+      <label for="cardType">Tipo de Tarjeta</label>
+      <select id="cardType" class="input-field" formControlName="cardType">
+        <option value="" disabled selected>Seleccione el tipo de tarjeta</option>
+        <option value="credit">Tarjeta de Crédito</option>
+        <option value="debit">Tarjeta de Débito</option>
+      </select>
+
+      <label for="account">Cuenta Asociada</label>
+      <select id="account" class="input-field" formControlName="account">
+        <option value="" disabled selected>Seleccione una cuenta</option>
+        @for (item of accounts; track $index) {
+          @if (item.account_type === 'Savings') {
+            <option value="{{item.id}}">Cuenta {{ item.id }} - {{ item.balance }}</option>
+          }
+        }
+        </select>
+
+      <div class="button-container">
+        <button type="submit">Solicitar</button>
+        <button type="button" [routerLink]="['/cards']">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

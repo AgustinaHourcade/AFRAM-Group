@@ -21,13 +21,20 @@ export class CardService {
     return this.http.get<Card[]>(`${this.urlBase}user/${user_id}`);
   }
 
-  createCard(card : Card): Observable<Card>{
-    return this.http.post<Card>(this.urlBase, card);
+  createCard(card : {
+    card_number: string,
+    expiration_date: string,
+    cvv: number,
+    card_type: string | undefined,
+    user_id: number,
+    account_id: number | undefined
+  }): Observable<boolean>{
+    return this.http.post<boolean>(this.urlBase, card);
   }
 
   disableCard(card_id: number): Observable<boolean>{
     return this.http.put<boolean>(`${this.urlBase}deactivate`, {card_id});
   }
 
-  
+
 }

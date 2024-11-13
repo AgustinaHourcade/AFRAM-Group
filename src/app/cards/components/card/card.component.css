@@ -9,7 +9,7 @@ body {
   font-size: 14px;
   line-height: 1.3;
   background-color: white;
-  
+
 }
 
 .card {
@@ -273,8 +273,22 @@ button:hover {
   width: 20%;
 }
 
+.tipo{
+  color: #000;
+  margin-right: 10px;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
 .buttonDiv{
   display: flex;
   justify-content: center;
   padding: 15px;
+}
+
+.type{
+  display: flex;
+  flex-direction: column;
+  row-gap: 3px;
 }
