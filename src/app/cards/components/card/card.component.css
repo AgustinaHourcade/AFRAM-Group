@@ -1,0 +1,280 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Montserrat', 'Helvetica', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  background-color: white;
+  
+}
+
+.card {
+  width: 400px;
+  height: 250px;
+  perspective: 1000px;
+}
+
+@keyframes flip {
+  0%, 100% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip {
+  width: inherit;
+  height: inherit;
+  transition: 0.7s;
+  transform-style: preserve-3d;
+  animation: flip 2.5s ease;
+}
+
+.front, .back {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border-radius: 15px;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 10px 1px rgba(0, 0, 0, 0.3);
+  backface-visibility: hidden;
+  background-image: linear-gradient(to right, #111, #555);
+  overflow: hidden;
+}
+
+.front {
+  transform: translateZ(0);
+}
+
+.strip-bottom, .strip-top {
+  position: absolute;
+  right: 0;
+  height: inherit;
+  background-image: linear-gradient(to bottom, var(--light-color), var(--extra-light-color));
+  box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.strip-bottom {
+  width: 200px;
+  transform: skewX(-15deg) translateX(50px);
+}
+
+.strip-top {
+  width: 180px;
+  transform: skewX(20deg) translateX(50px);
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+}
+
+.chip {
+  position: relative;
+  top: 60px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 40px;
+  border-radius: 5px;
+  background-image: linear-gradient(to bottom left, #ffecc7, #d0b978);
+  overflow: hidden;
+}
+
+.chip .chip-line {
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: #333;
+}
+
+.chip .chip-line:nth-child(1) {
+  top: 13px;
+}
+
+.chip .chip-line:nth-child(2) {
+  top: 20px;
+}
+
+.chip .chip-line:nth-child(3) {
+  top: 28px;
+}
+
+.chip .chip-line:nth-child(4) {
+  left: 25px;
+  width: 1px;
+  height: 50px;
+}
+
+.chip .chip-main {
+  width: 20px;
+  height: 25px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  background-image: linear-gradient(to bottom left, #efdbab, #e1cb94);
+  z-index: 1;
+}
+
+.wave {
+  position: relative;
+  top: 20px;
+  left: 100px;
+}
+
+.card-number {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 25px 10px;
+  font-size: 23px;
+  font-family: 'cc font', monospace;
+}
+
+.end {
+  margin-left: 25px;
+  text-transform: uppercase;
+  font-family: 'cc font', monospace;
+  text-align: left;
+
+}
+
+.end .end-text {
+  font-size: 9px;
+  color: white;
+}
+
+.card-holder {
+  margin: 10px 25px;
+  text-transform: uppercase;
+  font-family: 'cc font', monospace;
+  text-align: left;
+}
+
+.master {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+}
+
+.master .circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.master .master-red {
+  background-color: #eb001b;
+}
+
+.master .master-yellow {
+  margin-left: -10px;
+  background-color: rgba(255, 209, 0, 0.7);
+}
+
+.card:hover .flip {
+  transform: rotateY(180deg);
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(0);
+  background: #ffffff;
+}
+
+.back .strip-black {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: black;
+}
+
+.back .ccv {
+  position: absolute;
+  top: 110px;
+  left: 0;
+  right: 0;
+  height: 36px;
+  width: 90%;
+  padding: 10px;
+  margin: 0 auto;
+  border-radius: 5px;
+  text-align: right;
+  letter-spacing: 1px;
+  color: #000;
+  background: var(--gray);
+}
+
+.back .ccv label {
+  display: block;
+  margin: -30px 0 15px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: black;
+}
+
+.back .terms {
+  position: absolute;
+  top: 150px;
+  padding: 20px;
+  font-size: 10px;
+  text-align: justify;
+}
+
+.terms p{
+  color: black;
+}
+
+.cardsDiv{
+  display: flex;
+  flex-direction: column;
+  row-gap: 200px;
+  align-items: center;
+  padding: 75px;
+}
+
+.cardsDiv-card{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+#solicitar{
+  width: 20%;
+}
+
+.buttonDiv{
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
