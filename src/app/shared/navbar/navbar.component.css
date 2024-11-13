@@ -1,0 +1,139 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 120px;
+  height: auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a,
+.logout-button {
+  font-family: var(--font-menu-form);
+  font-size: 1rem;
+  color: var(--white);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-links a:hover,
+.nav-links a.active,
+.logout-button:hover {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: var(--accent-color);
+  border-radius: 2px;
+}
+
+.logout-button {
+  background-color: #dc3545; 
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c82333; 
+  transform: translateY(-2px); /* Efecto de hover */
+}
+
+.logout-button:active {
+  background-color: #bd2130; 
+  transform: translateY(0); 
+}
+
+.logout-button:focus {
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
+.menu-toggle-checkbox {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.main-content {
+  margin-top: 60px;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .menu-toggle-checkbox:checked + .menu-icon + .nav-links {
+    display: flex;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .main-content {
+    margin-top: 160px;
+  }
+}
