@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<button>
+  <span><i class="bi bi-plus-circle"></i></span>Abrir nueva cuenta
+</button>
+
+@for (account of accounts; track $index){
+<app-card-account
+  [account]="account"
+  
+></app-card-account
+>}
+
+<h2>CBU y Alias</h2>
+<select name="" id="">
+  Buscar por cuenta @for (account of accounts; track $index){ @if
+  (account.account_type == "Savings"){
+  <option value="account.id">CA {{ account.id }}-{{ userId }}/1</option>
+  } @if (account.account_type == "Checking"){
+  <option value="">CC {{ account.id }}-{{ userId }}/2</option>
+  } }
+</select>
+<app-cbu-alias>
+</app-cbu-alias> 
