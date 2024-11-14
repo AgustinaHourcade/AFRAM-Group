@@ -10,17 +10,13 @@ import { NgFor, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { Account } from '../../accounts/interface/account.interface';
 import { Observable, catchError, of } from 'rxjs';
+import { Card } from '../../cards/interface/card';
+import { CardService } from '../../cards/service/card.service';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [
-    NavbarComponent,
-    CardAccountComponent,
-    TransactionComponent,
-    NgFor,
-    NgForOf,
-  ],
+  imports: [NavbarComponent, CardAccountComponent, TransactionComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })
@@ -28,6 +24,7 @@ import { Observable, catchError, of } from 'rxjs';
 export class MainPageComponent implements OnInit {
   accounts: Account[] = [];
   transactions: Array<Transaction> = [];
+  cards: Array<Card> = [];
   userId: number = 0;
   showActions = false;
 
@@ -35,10 +32,10 @@ export class MainPageComponent implements OnInit {
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
   transactionService = inject(TransactionService);
+  cardService = inject(CardService);
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-    console.log('ACAAAAAAAA'+ this.userId);
 
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
@@ -50,10 +47,7 @@ export class MainPageComponent implements OnInit {
               this.transactions.push(...transactions);
             },
             error: (error: Error) => {
-              console.error(
-                `Error loading transactions for account ${a.id}:`,
-                error
-              );
+              console.error(`Error loading transactions for account ${a.id}:`,error);
             },
           });
         }
@@ -62,15 +56,19 @@ export class MainPageComponent implements OnInit {
         console.error('Error fetching accounts:', error);
       },
     });
+
+    this.cardService.getCardsById(this.userId).subscribe({
+      next: (cards) =>{
+        this.cards = cards
+      },error: (error: Error) => {
+        console.log(error.message)
+      }})
   }
 
   private loadTransactions(accountId: number): Observable<Transaction[]> {
     return this.transactionService.getTransactionsByAccountId(accountId).pipe(
       catchError((error: Error) => {
-        console.error(
-          `Error loading transactions for account ${accountId}:`,
-          error
-        );
+        console.error (`Error loading transactions for account ${accountId}:`, error );
         return of([]);
       })
     );

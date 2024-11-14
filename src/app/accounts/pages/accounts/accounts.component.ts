@@ -5,12 +5,14 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 import { CardAccountComponent } from '../../components/card-account/card-account.component';
 import { CbuAliasComponent } from '../../components/cbu-alias/cbu-alias.component';
 import { Account } from '../../interface/account.interface';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
-  imports: [NavbarComponent, CardAccountComponent, CbuAliasComponent],
+  imports: [NavbarComponent, CardAccountComponent, CbuAliasComponent, RouterModule, CommonModule],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.css'
 })
@@ -24,10 +26,11 @@ export class AccountsComponent {
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-
-    this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
+    
+    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts) => {
         this.accounts = accounts;
+        console.log(this.accounts);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);
@@ -36,9 +39,35 @@ export class AccountsComponent {
 
   }
   
-  changeAccount(){
-    
 
+  darBaja(id: number ){
+    Swal.fire({
+      title: `¿Está seguro que desea dar de baja la cuenta?`,
+      icon: "warning",
+      iconColor: "#0077b6",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, dar de baja",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.accountService.deactivateAccount(id).subscribe({
+          next: (flag) => {
+            if(flag){
+
+              Swal.fire({
+                title: "Cuenta suspendida correctamente!",
+                icon: "success"
+              });
+            }
+          },
+          error: (err: Error) => {
+            console.log(err.message);
+          }
+        });
+      }
+    });
   }
 
 }

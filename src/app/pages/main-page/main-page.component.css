@@ -24,13 +24,16 @@ main {
 
 .sectionB {
   width: 30%;
+  display: flex;
+  flex-direction: column; /* Esto asegura que las tarjetas se muestren una debajo de la otra */
+  gap: 20px; /* Espaciado entre las tarjetas */
 }
 
 .accounts-div {
   display: flex;
   flex-direction: row;
   justify-content: left;
- gap: 15px; 
+  gap: 15px; 
   flex-wrap: wrap;
 }
 

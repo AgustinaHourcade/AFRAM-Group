@@ -1,9 +1,9 @@
 export interface Account {
     id: number;
     balance: number;
-    opening_date: Date;
-    closing_Date: Date | null;  
+    opening_date: string;
     cbu: string;
+    closing_date: string;  
     alias: string;
     account_type: 'Checking' | 'Savings';  
     overdraft_limit: number;

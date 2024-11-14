@@ -1,29 +1,24 @@
+/* Barra de navegación principal */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: var(--primary-color);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  width: 100vw;
-  z-index: 1000;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 .logo-image {
   width: 120px;
-  height: auto;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: 20px;
 }
 
@@ -31,38 +26,59 @@
   position: relative;
 }
 
-.nav-links a,
-.logout-button {
-  font-family: var(--font-menu-form);
-  font-size: 1rem;
+/* Estilo general de los enlaces */
+.nav-links a, .dropdown-link {
+  cursor: pointer;
   color: var(--white);
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
 }
 
-.nav-links a:hover,
-.nav-links a.active,
-.logout-button:hover {
+.nav-links a:hover, .dropdown-link:hover {
   background-color: var(--secondary-color);
   color: var(--white);
 }
 
-.nav-links a.active::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background-color: var(--accent-color);
-  border-radius: 2px;
+/* Menú desplegable de Cuentas y Perfil */
+.account-dropdown, .profile-dropdown {
+  position: relative;
 }
 
+.account-menu, .profile-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--white);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  z-index: 10;
+  min-width: 150px;
+}
+
+/* La clase .show se utiliza para mostrar los menús cuando se activa con el clic */
+.account-menu.show, .profile-menu.show {
+  display: block;
+}
+
+.account-menu li a, .profile-menu li a {
+  display: block;
+  padding: 10px 15px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.account-menu li a:hover, .profile-menu li a:hover {
+  background-color: var(--extra-light-color);
+}
+
+/* Estilo del botón de Cerrar Sesión */
 .logout-button {
   background-color: #dc3545; 
   border: none;
@@ -74,7 +90,7 @@
 
 .logout-button:hover {
   background-color: #c82333; 
-  transform: translateY(-2px); /* Efecto de hover */
+  transform: translateY(-2px);
 }
 
 .logout-button:active {
@@ -87,21 +103,7 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
 }
 
-.menu-toggle-checkbox {
-  display: none;
-}
-
-.menu-icon {
-  display: none;
-  font-size: 24px;
-  color: var(--white);
-  cursor: pointer;
-}
-
-.main-content {
-  margin-top: 60px;
-}
-
+/* Estilo móvil */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -121,87 +123,20 @@
     justify-content: space-around;
   }
 
+  .nav-links li {
+    margin: 10px 0;
+  }
+
   .menu-icon {
     display: block;
   }
 
-  .menu-toggle-checkbox:checked + .menu-icon + .nav-links {
+  .nav-links {
     display: flex;
-  }
-
-  .nav-links li {
-    margin: 10px 0;
+    flex-direction: column;
   }
 
   .main-content {
     margin-top: 160px;
   }
-
-  /* Estilos generales de la navbar */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  background-color: var(--primary-color);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  list-style: none;
-}
-
-/* Estilo del elemento "Perfil" con submenú */
-.profile-dropdown {
-  position: relative;
-}
-
-.profile-link {
-  cursor: pointer;
-  color: var(--white);
-  padding: 8px 15px;
-  transition: color 0.3s ease;
-}
-
-.profile-link:hover {
-  color: var(--secondary-color);
-}
-
-/* Submenú de Perfil */
-.profile-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--white);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  list-style: none;
-  padding: 0;
-  min-width: 150px;
-  z-index: 10;
-}
-
-.profile-dropdown:hover .profile-menu,
-.profile-dropdown .profile-menu[ng-reflect-ng-if="true"] {
-  display: block;
-}
-
-.profile-menu li {
-  width: 100%;
-}
-
-.profile-menu li a {
-  display: block;
-  padding: 10px 15px;
-  color: var(--secondary-color);
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.profile-menu li a:hover {
-  background-color: var(--extra-light-color);
-}
-
 }

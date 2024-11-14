@@ -32,6 +32,10 @@ export class AccountService {
     return this.http.put<string>(`${this.baseUrl}/alias/${id}`, { alias: newAlias });
   }
 
+  deactivateAccount(id: number): Observable<boolean> {
+    return this.http.put<boolean>(`${this.baseUrl}/deactivate`, {id});
+  }
+
   createAccount(account : {
     cbu: string,
     alias: string,

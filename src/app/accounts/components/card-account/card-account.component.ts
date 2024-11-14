@@ -2,11 +2,12 @@ import { UserSessionService } from './../../../auth/services/user-session.servic
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Account } from '../../interface/account.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-account',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './card-account.component.html',
   styleUrl: './card-account.component.css',
 })

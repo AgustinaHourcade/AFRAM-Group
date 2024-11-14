@@ -11,6 +11,8 @@ import { MyTransactionsComponent } from './transactions/pages/my-transactions/my
 import { FixedtermComponent } from './fixedTerms/components/fixedterm/fixedterm.component';
 import { CardComponent } from './cards/components/card/card.component';
 import { NewcardComponent } from './cards/components/newcard/newcard.component';
+import { NewAccountComponent } from './accounts/components/new-account/new-account.component';
+import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 
 
 export const routes: Routes = [
@@ -19,9 +21,11 @@ export const routes: Routes = [
     {path: 'main', component: MainPageComponent},
     {path: 'accounts', component: AccountsComponent},
     {path: 'accounts/account/:id', component: AccountInfoComponent},
+    {path: 'accounts/new-account', component: NewAccountComponent},
     {path: 'fixed-terms', component: FixedtermComponent},
     {path: 'profile', component: ProfileComponent},
     {path: 'update-profile/:id', component: UpdateProfileComponent},
+    {path: 'update-password', component: UpdatePasswordComponent},
     {path: 'transactions', component: TransactionsPageComponent},
     {path: 'my-transactions', component: MyTransactionsComponent},
     {path: 'cards', component: CardComponent},
