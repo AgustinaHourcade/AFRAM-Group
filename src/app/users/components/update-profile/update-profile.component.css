@@ -150,3 +150,12 @@ form button:hover {
     font-size: 1em;
   }
 }
+
+/* Validaciones */
+span {
+  color: red;
+  font-size: 0.875em;
+  padding: 2px 4px;
+  display: inline-block;
+  margin-top: 5px;
+}

@@ -49,14 +49,13 @@ ngOnInit(): void {
 }
 
 
-passwordValidator(control: AbstractControl) {
+passwordValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
   const hasUpperCase = /[A-Z]/.test(value);
   const hasLowerCase = /[a-z]/.test(value);
   const hasNumber = /[0-9]/.test(value);
-  
-  const valid = hasUpperCase && hasLowerCase && hasNumber
-  
+
+  const valid = hasUpperCase && hasLowerCase && hasNumber;
   return valid ? null : { passwordStrength: true };
 }
 
@@ -99,7 +98,6 @@ formularioContra = this.fb.group({
   confirm_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]]
 },{ validators: this.matchPasswords }
 );
-
 
 updateAddress(){
   if(this.formulario.invalid) return;

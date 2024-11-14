@@ -9,7 +9,7 @@
         <div>
           <label for="email">Email</label>
           <input type="email" id="email" formControlName="email" >
-          @if (formulario.controls['email'].get('required') && formulario.controls['email'].touched) {
+          @if (formulario.controls['email'].getError('required') && formulario.controls['email'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -17,7 +17,7 @@
         <div>
           <label for="phone">Telefono</label>
           <input type="text" id="phone" formControlName="phone">
-          @if (formulario.controls['phone'].get('required') && formulario.controls['phone'].touched) {
+          @if (formulario.controls['phone'].getError('required') && formulario.controls['phone'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -25,7 +25,7 @@
         <div>
           <label for="country">Pais</label>
           <input type="text" id="country" formControlName="country">
-          @if (formulario.controls['country'].get('required') && formulario.controls['country'].touched) {
+          @if (formulario.controls['country'].getError('required') && formulario.controls['country'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -33,7 +33,7 @@
         <div>
           <label for="city">Ciudad</label>
           <input type="text" id="city" formControlName="city">
-          @if (formulario.controls['city'].get('required') && formulario.controls['city'].touched) {
+          @if (formulario.controls['city'].getError('required') && formulario.controls['city'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -41,7 +41,7 @@
         <div>
           <label for="postal_code">Codigo postal</label>
           <input type="string" id="postal_code" formControlName="postal_code">
-          @if (formulario.controls['postal_code'].get('required') && formulario.controls['postal_code'].touched) {
+          @if (formulario.controls['postal_code'].getError('required') && formulario.controls['postal_code'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -49,7 +49,7 @@
         <div>
           <label for="street">Calle</label>
           <input type="text" id="street" formControlName="street">
-          @if (formulario.controls['street'].get('required') && formulario.controls['street'].touched) {
+          @if (formulario.controls['street'].getError('required') && formulario.controls['street'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -57,7 +57,7 @@
         <div>
           <label for="address_number">Numero</label>
           <input type="number" id="address_number" formControlName="address_number">
-          @if (formulario.controls['address_number'].get('required') && formulario.controls['address_number'].touched) {
+          @if (formulario.controls['address_number'].getError('required') && formulario.controls['address_number'].touched) {
             <span> Campo requerido. </span>
           }
         </div>
@@ -75,10 +75,24 @@
         <button (click)="updateProfile()" >Actualizar</button>
       </form>
     </div>
-  
+
+    
+    <form [formGroup]="formularioContra"  (ngSubmit)="updatePassword()">
+
+      
+      <div class="input-container">
+        <label for="current_password">Contraseña actual</label>
+      <input type="password" id="current_password" formControlName="current_password" placeholder=" "/>
+      @if (formularioContra.controls['current_password'].touched && formularioContra.controls['current_password'].getError('required')) {
+        <span>
+          Campo requerido
+        </span>
+      }
+
+
     <div class="input-container">
+      <label for="hashed_password">Nueva contraseña</label>
       <input type="password" id="hashed_password" formControlName="hashed_password" placeholder=" "/>
-      <label for="hashed_password">Contraseña</label>
       @if (formularioContra.controls['hashed_password'].touched && formularioContra.controls['hashed_password'].getError('required')) {
         <span>
           Campo requerido
@@ -94,12 +108,11 @@
           La contraseña debe contener al menos una mayuscula y un numero
         </span>
       }
-    
     </div>
     
     <div class="input-container">
-      <input type="password" id="confirm_password" formControlName="confirm_password" placeholder=" "/>
       <label for="confirm_password">Repetir contraseña</label>
+      <input type="password" id="confirm_password" formControlName="confirm_password" placeholder=" "/>
       
       @if (formularioContra.controls['confirm_password'].touched && formularioContra.controls['confirm_password'].getError('required')) {
         <span>
@@ -113,6 +126,7 @@
       }
       
     </div>
-
-        <button (click)="updatePassword()"> Actualizar </button>
-    </div>
+    
+    <button type="submit"> Actualizar </button>
+  </div>
+</form>
