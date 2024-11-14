@@ -1,18 +1,18 @@
 <app-navbar></app-navbar>
-<button [routerLink]="['new-account']" >
-  <span><i class="bi bi-plus-circle"></i></span>Abrir nueva cuenta
-</button>
 
-@for (account of accounts; track $index){
+
+@for (account of accounts; track $index) {
   @if (!account.closing_date) {
-    <app-card-account
-    [account]="account">
-    </app-card-account>
-    <button routerLink="['accounts/account/{{account.id}}']">Ver datos</button>
-    <button (click)="darBaja(account.id)">Dar de baja</button>
+    <div class="app-card-account-container">
+      <app-card-account [account]="account"></app-card-account>
+      <div class="app-card-account-buttons">
+        <button routerLink="/accounts/account/{{account.id}}">Ver datos</button>
+        <button (click)="darBaja(account.id)">Dar de baja</button>
+      </div>
+    </div>
   }
-
 }
+
 
 <!-- <h2>CBU y Alias</h2>
 <select name="" id="">

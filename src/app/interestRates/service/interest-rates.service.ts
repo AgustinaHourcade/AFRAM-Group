@@ -14,6 +14,10 @@ export class InterestRatesService {
   private urlBase = 'http://localhost:3000/interestrates';
 
   getLastRate(): Observable<InterestRates>{
-    return this.http.get<InterestRates>(`${this.urlBase}/latest`)
+    return this.http.get<InterestRates>(`${this.urlBase}/latest`);
   }
+
+  getRateById(id: number): Observable<InterestRates>{
+    return this.http.get<InterestRates>(`${this.urlBase}/id/${id}`);
+  }  
 }

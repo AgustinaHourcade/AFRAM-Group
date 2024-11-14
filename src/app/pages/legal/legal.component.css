@@ -1,0 +1,104 @@
+:root {
+  --primary-color: #003559;
+  --secondary-color: #0077b6;
+  --accent-color: #00b4d8;
+  --light-color: #90e0ef;
+  --extra-light-color: #caf0f8;
+  --white: #ffffff;
+  --gray-1: #adb5bd;
+  --gray-2: #dee2e6;
+  --gray-3: #495057;
+  --gray-4: #212529;
+  --background-dark: #1b262c;
+  --text-light: #f1f1f1;
+  --font-title: "Open Sans", sans-serif;
+  --font-body: "Roboto", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--light-color);
+  color: var(--gray-4);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+}
+
+.container {
+  background-color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  width: 90%;
+  max-width: 800px;
+  line-height: 1.75;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode .container {
+  background-color: var(--gray-4);
+  color: var(--text-light);
+}
+
+header h1 {
+  font-family: var(--font-title);
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.intro {
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--gray-1);
+  margin-bottom: 1.5rem;
+}
+
+.legal-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.legal-list li {
+  font-size: 1rem;
+  color: var(--gray-3);
+  margin-bottom: 1rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.legal-list li::before {
+  content: "•";
+  color: var(--accent-color);
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+}
+
+.legal-list li a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.legal-list li a:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --light-color: #1b262c;
+    --text-light: #f1f1f1;
+    --container-bg: #212529;
+  }
+}

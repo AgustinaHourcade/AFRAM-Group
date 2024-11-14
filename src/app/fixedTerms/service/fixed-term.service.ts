@@ -16,7 +16,7 @@ export class FixedTermService {
   }
 
   getFixedTerm(id: number): Observable<FixedTerm> {
-    return this.http.get<FixedTerm>(`${this.baseUrl}/${id}`);
+    return this.http.get<FixedTerm>(`${this.baseUrl}${id}`);
   }
 
   createFixedTerm(fixedTerm: FixedTerm ): Observable<FixedTerm> {
@@ -24,7 +24,7 @@ export class FixedTermService {
   }
 
   getFixedTermsByAccountId(id: number): Observable<FixedTerm[]> {
-    return this.http.get<FixedTerm[]>(`${this.baseUrl}/account/${id}`);
+    return this.http.get<FixedTerm[]>(`${this.baseUrl}account/${id}`);
   }
 
 }

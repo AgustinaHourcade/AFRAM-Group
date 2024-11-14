@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { AccountService } from '../../../accounts/services/account.service';
 import { Account } from '../../../accounts/interface/account.interface';
-import { FixedTermsComponent } from '../../pages/fixed-terms/fixed-terms.component';
 import { InterestRatesService } from '../../../interestRates/service/interest-rates.service';
 import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
 import Swal from 'sweetalert2';
@@ -21,11 +20,11 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-fixedterm',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NavbarComponent, FixedTermsComponent],
+  imports: [CommonModule, ReactiveFormsModule, NavbarComponent],
   templateUrl: './fixedterm.component.html',
   styleUrl: './fixedterm.component.css',
 })
-export class FixedtermComponent implements OnInit {
+export class NewFixedtermComponent implements OnInit {
   fb = inject(FormBuilder);
   fixedTermService = inject(FixedTermService);
   router = inject(Router);
@@ -55,6 +54,7 @@ export class FixedtermComponent implements OnInit {
     start_date: this.formatDate(new Date()),
     expiration_date: this.formatDate(new Date()),
     interest_rate_id: 0,
+    interest_earned: 0
   };
 
   formulario = this.fb.nonNullable.group({
@@ -67,26 +67,29 @@ export class FixedtermComponent implements OnInit {
     if (this.formulario.invalid) {
       return;
     }
-
-
+  
 
     this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value as number;
     this.fixedTerm.account_id = this.formulario.get('account_id')?.value as number;
     this.fixedTerm.interest_rate_id = this.rate.id;
-    this.fixedTerm.expiration_date = this.formatDate(this.updateDate());
-    this.fixedTerm.start_date = this.formatDate(new Date());
-
-    const dias = this.formulario.get('daysToAdd')?.value || 0;
-    const total = this.fixedTerm.invested_amount  + this.fixedTerm.invested_amount * (this.rate.fixed_term_interest_rate * dias)/100;
-
+    
+  
     this.accountService.getAccountById(this.fixedTerm.account_id).subscribe({
       next: (account) => {
         this.account = account;
-
+  
         if (this.fixedTerm.invested_amount <= this.account.balance) {
+          const dias = this.formulario.get('daysToAdd')?.value || 0;
+          const total = this.fixedTerm.invested_amount + 
+                        this.fixedTerm.invested_amount * (this.rate.fixed_term_interest_rate * dias) / 100;
+  
+          this.fixedTerm.interest_earned = total - this.fixedTerm.invested_amount;
+          this.fixedTerm.expiration_date = this.formatDate(this.updateDate());
+          this.fixedTerm.start_date = this.formatDate(new Date());
+  
           Swal.fire({
             title: `¿Está seguro que desea crear el plazo fijo?`,
-            text: 'El monto a recibir el '+ this.formatearFecha() +'  es de $'+ total,
+            text: 'El monto a recibir el ' + this.formatearFecha() + ' es de $' + total,
             icon: "warning",
             iconColor: "#0077b6",
             showCancelButton: true,
@@ -100,7 +103,7 @@ export class FixedtermComponent implements OnInit {
                 next: (response) => {
                   console.log('Plazo fijo creado', response);
                   const descontar = -1 * this.fixedTerm.invested_amount;
-
+  
                   this.accountService.updateBalance(descontar, this.fixedTerm.account_id).subscribe({
                     next: (flag: any) => {
                       if (flag) {
@@ -111,7 +114,7 @@ export class FixedtermComponent implements OnInit {
                       console.log(e.message);
                     },
                   });
-
+  
                   this.router.navigate(['/fixed-terms']);
                 },
                 error: (error: Error) => {
@@ -122,7 +125,7 @@ export class FixedtermComponent implements OnInit {
           });
         } else {
           Swal.fire({
-            title: "No tiene saldo suficiente!",
+            title: "Saldo suficiente!",
             icon: "error"
           });
         }
@@ -137,11 +140,9 @@ export class FixedtermComponent implements OnInit {
     const days = parseInt(this.formulario.get('daysToAdd')?.value?.toString() || '0', 10);
     const today = new Date();
 
-    // Calcula la nueva fecha sumando los días especificados
     const newDate = new Date(today);
     newDate.setDate(today.getDate() + days);
 
-    // Asigna el resultado a `calculatedDate`
     this.calculatedDate = newDate;
 
     return this.calculatedDate;

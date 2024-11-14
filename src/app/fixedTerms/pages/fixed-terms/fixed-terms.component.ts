@@ -6,11 +6,13 @@ import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { catchError, Observable, of } from 'rxjs';
+import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+
 
 @Component({
   selector: 'app-fixed-terms',
   standalone: true,
-  imports: [],
+  imports: [NavbarComponent],
   templateUrl: './fixed-terms.component.html',
   styleUrl: './fixed-terms.component.css',
 })
@@ -23,10 +25,13 @@ export class FixedTermsComponent implements OnInit {
   router = inject(Router);
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
-
+  
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-
+    this.loadAccounts();
+  }
+  
+  loadAccounts(){
     this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
       next: (accounts) => {
         this.accounts = accounts;
@@ -36,19 +41,20 @@ export class FixedTermsComponent implements OnInit {
               this.fixedTerms.push(...fixedTerms);
             },
             error: (error: Error) => {
-              console.error(
-                `Error loading transactions for account ${account.id}:`,
-                error
-              );
+              console.error(`Error loading transactions for account ${account.id}:`,error);
             },
           });
         }
+        this.router.navigate(['/fixed-terms']);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);
       },
     });
   }
+
+
+
 
   private loadFixedTerms(accountId: number): Observable<FixedTerm[]> {
     return this.fixedTermService.getFixedTermsByAccountId(accountId).pipe(

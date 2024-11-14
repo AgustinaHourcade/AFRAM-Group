@@ -107,4 +107,13 @@ export class ReceiptComponent implements OnInit{
   onCancel(): void {
     this.cancel.emit(); 
   }
+
+  formatearFecha(date : Date){
+    const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    return formattedDate;
+  }
 }

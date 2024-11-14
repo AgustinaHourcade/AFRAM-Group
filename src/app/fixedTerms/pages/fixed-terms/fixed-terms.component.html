@@ -1,18 +1,21 @@
+<app-navbar></app-navbar>
 <h2>Mis plazos fijos</h2>
-@for (ft of fixedTerms; track $index){
-    <table>
-        <thead>
-            <th>Numero de cuenta</th>
-            <th>Cantidad invertida</th>
-            <th>Fecha de expiracion</th>
-        </thead>
-
-        <tbody>
-            <td>{{ft.account_id}}</td>
-            <td>{{ft.invested_amount}}</td>
+<table>
+    <thead>
+        <th>Numero de cuenta</th>
+        <th>Cantidad invertida</th>
+        <th>Intereses ganados</th>
+        <th>Fecha de expiracion</th>
+    </thead>
+    
+    @for (ft of fixedTerms; track $index){
+    <tbody>
+             <td>{{ft.account_id}}</td>
+            <td>${{ft.invested_amount}}</td>
+            <td>{{ft.interest_earned}} </td>
             <td>{{formatearFecha(ft.expiration_date)}}</td>
         </tbody>
+    }
 
 
-    </table>
-}
+</table>

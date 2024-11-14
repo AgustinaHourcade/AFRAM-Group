@@ -1,5 +1,5 @@
 
-<header>
+<header [class.scrolled]="isScrolled">
   <a class="navbar-brand" href="">
     <img id="logo" src="/logo-navbar-png.png" alt="" />
   </a>
@@ -36,26 +36,5 @@
   </section>
 </main>
 
+<app-footer></app-footer>
 
-<footer class="footer">
-  <div class="footer-content">
-    <div class="footer-logo">
-      <h1>AFRAM Group</h1>
-    </div>
-    <div class="footer-links">
-      <a routerLink="/legal">Aviso legal</a>
-      <a href="#">Aviso sobre navegadores</a>
-      <a href="#">Mapa</a>
-      <a href="#">Recomendaciones de seguridad</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2024 AFRAM Group Argentina S.A.</p>
-    <div class="footer-social">
-      <a href="#"><i class="bi bi-facebook"></i></a>
-      <a href="#"><i class="bi bi-twitter-x"></i></a>
-      <a href="#"><i class="bi bi-instagram"></i></a>
-      <a href="#"><i class="bi bi-youtube"></i></a>
-    </div>
-  </div>
-</footer>

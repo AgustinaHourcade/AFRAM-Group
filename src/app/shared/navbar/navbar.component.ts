@@ -8,37 +8,42 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   isMenuOpen = false;
   isAccountOpen = false;
+  isFixedTermsOpen = false;
+  isProfileMenuOpen = false;
+
   router = inject(Router);
   userSessionService = inject(UserSessionService);
 
-  isProfileMenuOpen = false;
-
-  // Métodos para abrir los menús cuando el mouse entra
   openAccountMenu() {
     this.isAccountOpen = true;
+  }
+  closeAccountMenu() {
+    this.isAccountOpen = false;
   }
 
   openProfileMenu() {
     this.isProfileMenuOpen = true;
   }
-
-  // Métodos para cerrar los menús cuando el mouse sale
-  closeAccountMenu() {
-    this.isAccountOpen = false;
-  }
-
   closeProfileMenu() {
     this.isProfileMenuOpen = false;
   }
+
+  openFixedTermsMenu() {
+    this.isFixedTermsOpen = true;
+  }
+  closeFixedTermsMenu() {
+    this.isFixedTermsOpen = false;
+  }
+
+  
 
   logout(): void {
     this.userSessionService.clearUserId();
     this.router.navigate(['/home']);
   }
-
 }

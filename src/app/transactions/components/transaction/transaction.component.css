@@ -1,12 +1,22 @@
+*{
+  padding: 0%;
+  margin: 0%;
+}
+
 .transaction-card {
   background-color: #f4f4f9;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  width: 300px;
+  width: 600px;
   transition: transform 0.2s;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
+
 
 .transaction-card:hover {
   transform: translateY(-4px);
@@ -16,22 +26,20 @@
 .transaction-date {
   font-size: 14px;
   color: #6b7280;
-  margin-bottom: 8px;
 }
 
 .transaction-amount {
   font-size: 20px;
   font-weight: bold;
   color: #111827;
-  margin-bottom: 16px;
 }
 
 .transaction-in {
-  color: #10b981; /* Verde para ingresos */
+  color: #10b981; 
 }
 
 .transaction-out {
-  color: #ef4444; /* Rojo para egresos */
+  color: #ef4444; 
 }
 
 button {
@@ -50,9 +58,6 @@ button:hover {
 }
 
 button.show {
-  background-color: #f97316; /* Color destacado cuando está activo */
+  background-color: #f97316; 
 }
 
-app-receipt {
-  margin-top: 12px;
-}

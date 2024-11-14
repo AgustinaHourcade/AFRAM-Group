@@ -4,4 +4,5 @@ export interface FixedTerm {
   start_date: string;
   expiration_date: string;
   interest_rate_id: number;
+  interest_earned: number
 }
