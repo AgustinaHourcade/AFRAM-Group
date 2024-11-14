@@ -23,5 +23,8 @@ export class FixedTermService {
     return this.http.post<FixedTerm>(this.baseUrl, fixedTerm);
   }
 
+  getFixedTermsByAccountId(id: number): Observable<FixedTerm[]> {
+    return this.http.get<FixedTerm[]>(`${this.baseUrl}/account/${id}`);
+  }
 
 }

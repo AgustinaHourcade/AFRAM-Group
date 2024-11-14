@@ -1,44 +1,62 @@
 <app-navbar></app-navbar>
 <form [formGroup]="formulario" (ngSubmit)="createFixedTerm()">
-    <div>
-      <label for="account_id">ID de Cuenta:</label>
-      <input id="account_id" type="number" formControlName="account_id">
-        @if(formulario.controls['account_id'].touched &&  formulario.controls['account_id'].getError('required')){
-          <p>El ID de cuenta es obligatorio.</p>
-        }
-        <div>
+  <div>
+    <label for="account_id">Seleccione una cuenta</label>
+    <select name="account_id" id="account_id" formControlName="account_id">
+      <option *ngFor="let item of accounts" [value]="item.id">
+        {{ item.id }} - {{ item.balance }}
+      </option>
+    </select>
+    <!-- <label for="account_id">ID de Cuenta:</label>
+      <input id="account_id" type="number" formControlName="account_id"> -->
+    @if(formulario.controls['account_id'].touched &&
+    formulario.controls['account_id'].getError('required')){
+    <p>El ID de cuenta es obligatorio.</p>
+    }
+    <!-- <div>
           @if(formulario.controls['account_id'].touched &&  formulario.controls['account_id'].getError('min')){
             <p>El ID de cuenta debe ser mayor a 0.</p>
           }
-        </div>
-    </div>
-  
-    <div>
-      <label for="invested_amount">Monto Invertido:</label>
-      <input id="invested_amount" type="number" formControlName="invested_amount">
-      @if(formulario.controls['invested_amount'].touched &&  formulario.controls['invested_amount'].getError('required')){
-        <p>El monto invertido es obligatorio.</p>
-      }
-      <div>
-        @if(formulario.controls['invested_amount'].touched &&  formulario.controls['invested_amount'].getError('min')){
-          <p>El monto invertido debe ser mayor a 0.</p>
-        }
-      </div>
-        
-      
-    </div>
+        </div> -->
+  </div>
 
-  
+  <div>
+    <label for="invested_amount">Monto Invertido:</label>
+    <input
+      id="invested_amount"
+      type="number"
+      formControlName="invested_amount"
+    />
+    @if(formulario.controls['invested_amount'].touched &&
+    formulario.controls['invested_amount'].getError('required')){
+    <p>El monto invertido es obligatorio.</p>
+    }
     <div>
-      <label for="start_date">Fecha de Inicio:</label>
-      <input id="start_date" type="date" formControlName="start_date">
+      @if(formulario.controls['invested_amount'].touched &&
+      formulario.controls['invested_amount'].getError('min')){
+      <p>El monto invertido debe ser mayor a 0.</p>
+      }
     </div>
-  
-    <div>
-      <label for="expiration_date">Fecha de Expiración:</label>
-      <input id="expiration_date" type="date" formControlName="expiration_date">
-    </div>
-  
-    <button type="submit" [disabled]="formulario.invalid">Crear Plazo Fijo</button>
-  </form>
-  
+  </div>
+
+
+  <div>
+    <label for="daysToAdd">Seleccione el plazo en días:</label>
+    <select id="daysToAdd" formControlName="daysToAdd" (change)="updateDate()">
+      <option value="30">30 días</option>
+      <option value="60">60 días</option>
+      <option value="90">90 días</option>
+    </select>
+  </div>
+
+  <div>
+    <label>Fecha de expiración:</label>
+    <input type="date" [value]="calculatedDate" readonly />
+  </div>
+
+  <button type="submit" [disabled]="formulario.invalid">
+    Crear Plazo Fijo
+  </button>
+</form>
+
+<app-fixed-terms></app-fixed-terms>
