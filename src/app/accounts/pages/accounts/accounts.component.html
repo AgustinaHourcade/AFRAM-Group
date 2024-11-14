@@ -1,23 +1,26 @@
 <app-navbar></app-navbar>
-<button>
+<button [routerLink]="['new-account']" >
   <span><i class="bi bi-plus-circle"></i></span>Abrir nueva cuenta
 </button>
 
 @for (account of accounts; track $index){
-<app-card-account
-  [account]="account"
-  
-></app-card-account
->}
+  @if (!account.closing_date) {
+    <app-card-account
+    [account]="account">
+    </app-card-account>
+    <button routerLink="['accounts/account/{{account.id}}']">Ver datos</button>
+    <button (click)="darBaja(account.id)">Dar de baja</button>
+  }
 
-<h2>CBU y Alias</h2>
+}
+
+<!-- <h2>CBU y Alias</h2>
 <select name="" id="">
   Buscar por cuenta @for (account of accounts; track $index){ @if
   (account.account_type == "Savings"){
-  <option value="account.id">CA {{ account.id }}-{{ userId }}/1</option>
+  <option value="account.id">Caja de ahorro {{ account.id }}-{{ userId }}/1</option>
   } @if (account.account_type == "Checking"){
-  <option value="">CC {{ account.id }}-{{ userId }}/2</option>
+  <option value="">Cuenta corriente {{ account.id }}-{{ userId }}/2</option>
   } }
-</select>
-<app-cbu-alias>
-</app-cbu-alias> 
+</select> -->
+

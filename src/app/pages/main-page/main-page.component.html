@@ -8,11 +8,14 @@
         <!-- ! agregar ojo para mostrar saldos -->
       </h2>
       <div class="accounts-div">
+
         @for (account of accounts; track $index){
-          <app-card-account
-          [account]="account"
-          
-        ></app-card-account>
+          @if (!account.closing_date) {
+            <app-card-account
+            [account]="account"
+            
+            ></app-card-account>
+          }
         }
           
       </div>
@@ -48,31 +51,28 @@
       </div>
     </div>
   </section>
-
+  
   <section class="sectionB">
     <h2 class="section-title">Tarjetas</h2>
-    <div class="cardInfo">
-      <div class="card">
-        <div class="card-header">
-          <div class="master">
-            <div class="circle master-red"></div>
-            <div class="circle master-yellow"></div>
-          </div>
-          <span class="balance">$90000</span>
-        </div>
-        <div class="card-details">
-          <span class="card-number">**** 4715</span>
-          <span class="expiry-date">09/27</span>
-        </div>
-      </div>
-      <div class="actions">
-		<!-- Agregar icono -->
-        <button (click)="toggleActions(divAct)">:</button>
-        <div class="actions-div"  #divAct>
-          <p>Ver información</p>
-          <p>Denunciar robo o extravío</p>
+    @for (item of cards; track $index) {
+      @if (item.is_Active === 'yes') {
+        <div class="cardInfo">
+          <div class="card">
+            <div class="card-header">
+              <div class="master">
+                <div class="circle master-red"></div>
+                <div class="circle master-yellow"></div>
+              </div>
+            </div>
+            <div class="card-details">
+              <span class="card-number">**** **** **** {{ item.card_number.slice(-4) }}</span>
+              <span class="expiry-date">{{ item.expiration_date.slice(5, 7) }}/{{
+                item.expiration_date.slice(2, 4)
+              }}</span>
         </div>
       </div>
     </div>
+  }
+  }
   </section>
 </main>
