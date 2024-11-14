@@ -3,17 +3,17 @@
     <img src="/logo-navbar.png" alt="Logo del Banco" class="logo-image" />
   </a>
   <ul class="nav-links">
-    <li class="account-dropdown" (click)="toggleAccountMenu()">
+    <li class="account-dropdown" (mouseover)="openAccountMenu()" (mouseout)="closeAccountMenu()">
       <a class="dropdown-link">Cuentas</a>
       <ul class="account-menu" [class.show]="isAccountOpen">
         <li><a routerLink="/accounts">Mis cuentas</a></li>
-        <li><a routerLink="/accounts/new-account">Crear cuenta</a></li>
+        <li><a routerLink="/accounts/new-account">Solicitar cuenta</a></li>
       </ul>
     </li>
     <li><a routerLink="/transactions">Transferencias</a></li>
     <li><a routerLink="/fixed-terms">Plazo fijo</a></li>
     <li><a routerLink="/cards">Mis tarjetas</a></li>
-    <li class="profile-dropdown" (click)="toggleProfileMenu()">
+    <li class="profile-dropdown" (mouseover)="openProfileMenu()" (mouseout)="closeProfileMenu()">
       <a class="profile-link dropdown-link">Perfil</a>
       <ul class="profile-menu" [class.show]="isProfileMenuOpen">
         <li><a routerLink="/profile">Ver perfil</a></li>

@@ -6,7 +6,7 @@ import { AccountService } from '../../accounts/services/account.service';
 import { UserSessionService } from '../../auth/services/user-session.service';
 import { TransactionService } from '../../transactions/services/transaction.service';
 import { Transaction } from '../../transactions/interface/transaction.interface';
-import { NgFor, NgForOf } from '@angular/common';
+import { CommonModule, NgFor, NgForOf } from '@angular/common';
 import { Router } from '@angular/router';
 import { Account } from '../../accounts/interface/account.interface';
 import { Observable, catchError, of } from 'rxjs';
@@ -16,7 +16,7 @@ import { CardService } from '../../cards/service/card.service';
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavbarComponent, CardAccountComponent, TransactionComponent],
+  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })

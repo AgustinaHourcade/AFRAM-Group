@@ -1,23 +1,21 @@
 <app-navbar></app-navbar>
 <form [formGroup]="formulario" (ngSubmit)="createFixedTerm()">
   <div>
+    <div>
+          <h2>Crear plazo fijo</h2>
+          <h3>Tasa de interes: {{rate.fixed_term_interest_rate * 30}}% mensual</h3>
+    </div>
     <label for="account_id">Seleccione una cuenta</label>
     <select name="account_id" id="account_id" formControlName="account_id">
       <option *ngFor="let item of accounts" [value]="item.id">
         {{ item.id }} - {{ item.balance }}
       </option>
     </select>
-    <!-- <label for="account_id">ID de Cuenta:</label>
-      <input id="account_id" type="number" formControlName="account_id"> -->
+
     @if(formulario.controls['account_id'].touched &&
     formulario.controls['account_id'].getError('required')){
     <p>El ID de cuenta es obligatorio.</p>
     }
-    <!-- <div>
-          @if(formulario.controls['account_id'].touched &&  formulario.controls['account_id'].getError('min')){
-            <p>El ID de cuenta debe ser mayor a 0.</p>
-          }
-        </div> -->
   </div>
 
   <div>
@@ -37,6 +35,7 @@
       <p>El monto invertido debe ser mayor a 0.</p>
       }
     </div>
+
   </div>
 
 
@@ -49,13 +48,8 @@
     </select>
   </div>
 
-  <div>
-    <label>Fecha de expiración:</label>
-    <input type="date" [value]="calculatedDate" readonly />
-  </div>
-
   <button type="submit" [disabled]="formulario.invalid">
-    Crear Plazo Fijo
+    Confirmar
   </button>
 </form>
 

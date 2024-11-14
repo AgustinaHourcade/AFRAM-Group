@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <main>
   <section class="sectionA">
     <div class="accounts">
@@ -13,11 +12,11 @@
           @if (!account.closing_date) {
             <app-card-account
             [account]="account"
-            
+
             ></app-card-account>
           }
         }
-          
+
       </div>
     </div>
 
@@ -51,7 +50,7 @@
       </div>
     </div>
   </section>
-  
+
   <section class="sectionB">
     <h2 class="section-title">Tarjetas</h2>
     @for (item of cards; track $index) {

@@ -18,14 +18,16 @@ export class NavbarComponent {
 
   isProfileMenuOpen = false;
 
-  toggleAccountMenu() {
-    this.isAccountOpen = !this.isAccountOpen;
+  // Métodos para abrir los menús cuando el mouse entra
+  openAccountMenu() {
+    this.isAccountOpen = true;
   }
 
-  toggleProfileMenu() {
-    this.isProfileMenuOpen = !this.isProfileMenuOpen;
+  openProfileMenu() {
+    this.isProfileMenuOpen = true;
   }
-  
+
+  // Métodos para cerrar los menús cuando el mouse sale
   closeAccountMenu() {
     this.isAccountOpen = false;
   }
@@ -34,13 +36,9 @@ export class NavbarComponent {
     this.isProfileMenuOpen = false;
   }
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen; 
-  }
-  
-  logout(): void{
+  logout(): void {
     this.userSessionService.clearUserId();
     this.router.navigate(['/home']);
   }
-  
+
 }

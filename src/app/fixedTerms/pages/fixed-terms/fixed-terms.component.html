@@ -1,5 +1,18 @@
+<h2>Mis plazos fijos</h2>
 @for (ft of fixedTerms; track $index){
-    <p>{{ft.account_id}} </p>
-    <p>{{ft.invested_amount}} </p>
+    <table>
+        <thead>
+            <th>Numero de cuenta</th>
+            <th>Cantidad invertida</th>
+            <th>Fecha de expiracion</th>
+        </thead>
 
+        <tbody>
+            <td>{{ft.account_id}}</td>
+            <td>{{ft.invested_amount}}</td>
+            <td>{{formatearFecha(ft.expiration_date)}}</td>
+        </tbody>
+
+
+    </table>
 }

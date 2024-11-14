@@ -14,6 +14,9 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 import { AccountService } from '../../../accounts/services/account.service';
 import { Account } from '../../../accounts/interface/account.interface';
 import { FixedTermsComponent } from '../../pages/fixed-terms/fixed-terms.component';
+import { InterestRatesService } from '../../../interestRates/service/interest-rates.service';
+import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fixedterm',
@@ -28,28 +31,30 @@ export class FixedtermComponent implements OnInit {
   router = inject(Router);
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
+  interestService = inject(InterestRatesService);
+  rate!: InterestRates;
+  calculatedDate: Date | undefined;
+  accounts?: Array<Account>;
+  account?: Account;
+
+  ngOnInit() {
+    this.cargarCuentas();
+    this.interestService.getLastRate().subscribe({
+      next: (rate) => {
+        this.rate = rate;
+      },
+      error: (e: Error) => {
+        console.log(e.message);
+      }
+    });
+  }
 
   fixedTerm: FixedTerm = {
     account_id: 0,
     invested_amount: 0,
     start_date: this.formatDate(new Date()),
     expiration_date: this.formatDate(new Date()),
-    interest_rate_id: 1,
-  };
-
-  calculatedDate: string | null = null;
-  accounts!: Array<Account>;
-
-  account: Account = {
-    id: 0,
-    balance: 0,
-    opening_date: new Date(),
-    closing_Date: new Date(), 
-    cbu: '',
-    alias: '',
-    account_type: 'Savings',  
-    overdraft_limit: 0,
-    user_id: 0
+    interest_rate_id: 0,
   };
 
   formulario = this.fb.nonNullable.group({
@@ -62,43 +67,64 @@ export class FixedtermComponent implements OnInit {
     if (this.formulario.invalid) {
       return;
     }
-  
+
+
+
     this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value as number;
     this.fixedTerm.account_id = this.formulario.get('account_id')?.value as number;
-    this.fixedTerm.interest_rate_id = 1;
+    this.fixedTerm.interest_rate_id = this.rate.id;
     this.fixedTerm.expiration_date = this.formatDate(this.updateDate());
     this.fixedTerm.start_date = this.formatDate(new Date());
-  
+
+    const dias = this.formulario.get('daysToAdd')?.value || 0;
+    const total = this.fixedTerm.invested_amount  + this.fixedTerm.invested_amount * (this.rate.fixed_term_interest_rate * dias)/100;
+
     this.accountService.getAccountById(this.fixedTerm.account_id).subscribe({
       next: (account) => {
         this.account = account;
-        console.log("cuenta 1 " + this.account);
-        console.log("cuenta 1 id " + this.account.id); 
-  
-        if (this.fixedTerm.invested_amount < this.account.balance) {
-          this.fixedTermService.createFixedTerm(this.fixedTerm).subscribe({
-            next: (response) => {
-              console.log('Plazo fijo creado', response);
-  
-              this.accountService.updateBalance(this.fixedTerm.invested_amount, this.fixedTerm.account_id).subscribe({
-                next: (flag: any) => {
-                  if (flag) {
-                    console.log('Saldo actualizado en la cuenta de destino');
-                  }
+
+        if (this.fixedTerm.invested_amount <= this.account.balance) {
+          Swal.fire({
+            title: `¿Está seguro que desea crear el plazo fijo?`,
+            text: 'El monto a recibir el '+ this.formatearFecha() +'  es de $'+ total,
+            icon: "warning",
+            iconColor: "#0077b6",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, crear plazo fijo",
+            cancelButtonText: "Cancelar"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.fixedTermService.createFixedTerm(this.fixedTerm).subscribe({
+                next: (response) => {
+                  console.log('Plazo fijo creado', response);
+                  const descontar = -1 * this.fixedTerm.invested_amount;
+
+                  this.accountService.updateBalance(descontar, this.fixedTerm.account_id).subscribe({
+                    next: (flag: any) => {
+                      if (flag) {
+                        console.log('Saldo actualizado en la cuenta de destino');
+                      }
+                    },
+                    error: (e: Error) => {
+                      console.log(e.message);
+                    },
+                  });
+
+                  this.router.navigate(['/fixed-terms']);
                 },
-                error: (e: Error) => {
-                  console.log(e.message);
+                error: (error: Error) => {
+                  console.log(error.message);
                 },
               });
-  
-              this.router.navigate(['/fixed-terms']);
-            },
-            error: (error: Error) => {
-              console.error('Error al crear plazo fijo', error);
-            },
+            }
           });
         } else {
-          console.log('Saldo insuficiente');
+          Swal.fire({
+            title: "No tiene saldo suficiente!",
+            icon: "error"
+          });
         }
       },
       error: (error) => {
@@ -106,20 +132,30 @@ export class FixedtermComponent implements OnInit {
       },
     });
   }
-  
 
   updateDate(): Date {
-    const days = this.formulario.get('daysToAdd')?.value || 0;
+    const days = parseInt(this.formulario.get('daysToAdd')?.value?.toString() || '0', 10);
     const today = new Date();
-    const resultDate = new Date(today.setDate(today.getDate() + days));
-    this.calculatedDate = resultDate.toISOString().split('T')[0];
-    return resultDate;
+
+    // Calcula la nueva fecha sumando los días especificados
+    const newDate = new Date(today);
+    newDate.setDate(today.getDate() + days);
+
+    // Asigna el resultado a `calculatedDate`
+    this.calculatedDate = newDate;
+
+    return this.calculatedDate;
   }
 
-  ngOnInit() {
-    this.updateDate();
-    this.cargarCuentas();
-  }
+
+formatearFecha(){
+  const formattedDate = new Date(this.fixedTerm.expiration_date).toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
+  return formattedDate;
+}
 
   cargarCuentas() {
     const id = this.userSessionService.getUserId();

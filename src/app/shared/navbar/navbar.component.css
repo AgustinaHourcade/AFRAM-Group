@@ -51,7 +51,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: var(--white);
+  background-color: var(--primary-color); /* Cambiar el color de fondo a igual que la barra */
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   list-style: none;
@@ -61,26 +61,28 @@
   min-width: 150px;
 }
 
-/* La clase .show se utiliza para mostrar los menús cuando se activa con el clic */
-.account-menu.show, .profile-menu.show {
+/* Mostrar menú desplegable al hacer hover */
+.account-dropdown:hover .account-menu,
+.profile-dropdown:hover .profile-menu {
   display: block;
 }
 
+/* Estilo de los enlaces dentro del menú desplegable */
 .account-menu li a, .profile-menu li a {
   display: block;
   padding: 10px 15px;
-  color: var(--secondary-color);
+  color: var(--white); /* Asegura que el texto del menú sea blanco */
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
 
 .account-menu li a:hover, .profile-menu li a:hover {
-  background-color: var(--extra-light-color);
+  background-color: var(--secondary-color);
 }
 
 /* Estilo del botón de Cerrar Sesión */
 .logout-button {
-  background-color: #dc3545; 
+  background-color: #dc3545;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -89,19 +91,68 @@
 }
 
 .logout-button:hover {
-  background-color: #c82333; 
+  background-color: #c82333;
   transform: translateY(-2px);
 }
 
 .logout-button:active {
-  background-color: #bd2130; 
-  transform: translateY(0); 
+  background-color: #bd2130;
+  transform: translateY(0);
 }
 
 .logout-button:focus {
-  outline: none; 
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
+
+/* Menú desplegable de Cuentas y Perfil */
+.account-dropdown, .profile-dropdown {
+  position: relative;
+}
+
+/* Asegurando que el menú de Cuentas no tenga un espacio extra */
+.account-menu, .profile-menu {
+  display: none;
+  position: absolute;
+  top: 100%; /* Asegúrate de que esté justo debajo del item */
+  left: 0;
+  background-color: var(--white);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  padding: 0;
+  margin: 0;  /* Elimina márgenes extra */
+  z-index: 10;
+  min-width: 150px;
+}
+
+/* No hay separación entre el botón y el menú */
+.account-dropdown:hover .account-menu,
+.profile-dropdown:hover .profile-menu {
+  display: block;
+}
+
+/* Estilo de los elementos li en el menú */
+.account-menu li, .profile-menu li {
+  display: flex; /* Hacemos que el li sea un contenedor flexible */
+  justify-content: center; /* Centra el <a> horizontalmente */
+  align-items: center; /* Centra el <a> verticalmente */
+}
+
+/* Estilo de los enlaces dentro del menú */
+.account-menu li a, .profile-menu li a {
+  padding: 10px 15px;
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: block; /* Hacemos que el <a> ocupe el ancho del li */
+  width: 100%; /* Esto garantiza que el <a> ocupe todo el espacio disponible */
+}
+
+.account-menu li a:hover, .profile-menu li a:hover {
+  background-color: var(--extra-light-color);
+}
+
 
 /* Estilo móvil */
 @media (max-width: 768px) {
