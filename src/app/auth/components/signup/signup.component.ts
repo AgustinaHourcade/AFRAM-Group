@@ -1,7 +1,7 @@
 import { UserSessionService } from './../../services/user-session.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';
 import { Router } from '@angular/router';
@@ -19,98 +19,100 @@ import { Address } from '../../../addresses/interface/address.interface';
 })
 export class SignupComponent{
   account!: Account;
- 
-  password_validation = '';
   showPassword = false;
-  
-
-  togglePasswordVisibility(input: HTMLInputElement) {
-    input.type = this.showPassword ? 'password' : 'text';
-    this.showPassword = !this.showPassword;
-  }
 
   fb = inject(FormBuilder);
-  sesionService = inject(UserSessionService)
+  sesionService = inject(UserSessionService);
   userService = inject(UserService);
   accountService = inject(AccountService);
   addressService = inject(AddressService);
   route = inject(Router);
-  
-  passwordValidator(control: AbstractControl) {
-    const value = control.value;
-    const hasUpperCase = /[A-Z]/.test(value);
-    const hasLowerCase = /[a-z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-    
-    const valid = hasUpperCase && hasLowerCase && hasNumber
-    
-    return valid ? null : { passwordStrength: true };
-  }
 
-  matchPasswords(control: FormGroup) {
-    const password = control.get('hashed_password')?.value;
-    const confirmPassword = control.get('confirm_password')?.value;
-  
-    return password === confirmPassword ? null : { passwordsMismatch: true };
-  }
-  
   formulario = this.fb.group(
     {
       name_user: ['', [Validators.required, Validators.minLength(4)]],
       last_name: ['', [Validators.required, Validators.minLength(2)]],
       real_name: ['', [Validators.required, Validators.minLength(4)]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(8)]],
-      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]],
-      confirm_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]]
-    },{ validators: this.matchPasswords }
+      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
+      confirm_password: ['', [Validators.required]]
+    },
+    { validators: this.matchPasswords }
   );
 
+  togglePasswordVisibility(input: HTMLInputElement) {
+    input.type = this.showPassword ? 'password' : 'text';
+    this.showPassword = !this.showPassword;
+  }
+
+  passwordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+
+    const valid = hasUpperCase && hasLowerCase && hasNumber;
+    return valid ? null : { passwordStrength: true };
+  }
+
+  matchPasswords(group: FormGroup): ValidationErrors | null {
+    const password = group.get('hashed_password')?.value;
+    const confirmPassword = group.get('confirm_password')?.value;
+
+    return password === confirmPassword ? null : { matchPasswords: true };
+  }
+
+
   addUsuario() {
-    if (this.formulario.invalid) return;
-    
+    if (this.formulario.invalid) {
+      return;
+    }
+
     const { confirm_password, ...user } = this.formulario.getRawValue();
     const user1 = {
       isActive: 'yes',
       user_type: 'user',
       ...user
     };
-    this.agregarCliente((user1) as User);
+
+    // Llamamos a agregarCliente solo si el formulario es válido y las contraseñas coinciden
+    this.agregarCliente(user1 as User);
   }
 
+
   generateRandomCBU() {
-    let cbu = '' ;
+    let cbu = '';
     for (let i = 0; i < 22; i++) {
-        cbu += Math.floor(Math.random() * 10).toString();
+      cbu += Math.floor(Math.random() * 10).toString();
     }
     return cbu;
   }
-  
+
   generateRandomAlias() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let alias = '';
     for (let i = 0; i < 14; i++) {
-        alias += characters.charAt(Math.floor(Math.random() * characters.length));
+      alias += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return alias;
   }
 
-  createAccount(id: number){
+  createAccount(id: number) {
     let cuenta = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
       account_type: 'Savings',
       user_id: id,
       overdraft_limit: 0
-    }
+    };
     this.accountService.createAccount(cuenta).subscribe({
       next: (id) => {
         console.log("Caja de ahorros creada, id = " + id);
       },
       error: (error: Error) => {
-          console.log(error.message);
+        console.log(error.message);
       }
-    })
-
+    });
   }
 
   createAddress(id: number) {
@@ -133,12 +135,11 @@ export class SignupComponent{
         this.sesionService.setUserId(response);
         this.createAccount(response);
         this.createAddress(response);
-        this.route.navigate(['update-profile/', response])
+        this.route.navigate(['update-profile/', response]);
       },
       error: (error: Error) => {
         console.error('Error al crear usuario:', error);
-      },
+      }
     });
   }
 }
-

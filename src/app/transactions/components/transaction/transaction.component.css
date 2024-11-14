@@ -1,101 +1,58 @@
 .transaction-card {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  margin: 10px 0;
-  border: 1px solid #e0e0e0;
+  background-color: #f4f4f9;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 300px;
+  transition: transform 0.2s;
 }
 
 .transaction-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.transaction-card p {
-  margin: 5px 0;
-  color: #333;
-  font-size: 0.9rem;
-}
-
-.transaction-card p a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.transaction-card p a:hover {
-  text-decoration: underline;
-}
-
-.transaction-card p:first-child {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #333;
+.transaction-date {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
 }
 
 .transaction-amount {
-  font-size: 1.1rem;
+  font-size: 20px;
   font-weight: bold;
+  color: #111827;
+  margin-bottom: 16px;
 }
 
-.transaction-amount.transaction-in {
-  color: #28a745 !important; 
+.transaction-in {
+  color: #10b981; /* Verde para ingresos */
 }
 
-.transaction-amount.transaction-out {
-  color: #dc3545 !important; 
+.transaction-out {
+  color: #ef4444; /* Rojo para egresos */
 }
 
-.transaction-account {
-  color: #6c757d;
-  font-size: 0.85rem;
-}
-
-/* Estilo del botón "Ver comprobante" */
 button {
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #007bff;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 14px;
+  padding: 8px 12px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  align-self: flex-start;
+  transition: background-color 0.2s;
 }
 
 button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+  background-color: #2563eb;
 }
 
-button:active {
-  background-color: #004494;
-  transform: scale(0.98);
+button.show {
+  background-color: #f97316; /* Color destacado cuando está activo */
 }
 
-.show {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .transaction-card {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .transaction-card p {
-    margin: 0 10px;
-  }
-  button {
-    align-self: center;
-    margin: 0;
-  }
+app-receipt {
+  margin-top: 12px;
 }

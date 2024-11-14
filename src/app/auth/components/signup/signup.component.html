@@ -67,10 +67,7 @@
       </span>
     }
   </div>
-  
-  @if (formulario.hasError('matchPasswords')) {
-    <span>Las contraseñas no coinciden.</span>
-  }
+
 
   <div class="input-container">
     <input type="password" id="hashed_password" formControlName="hashed_password" placeholder=" "/>
@@ -87,42 +84,28 @@
     }
     @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('passwordStrength')) {
       <span>
-        La contraseña deve contener al menos una mayuscula y un numero
+        La contraseña debe contener al menos una mayuscula y un numero
       </span>
     }
+  
   </div>
   
   <div class="input-container">
     <input type="password" id="confirm_password" formControlName="confirm_password" placeholder=" "/>
     <label for="confirm_password">Repetir contraseña</label>
+    
     @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('required')) {
       <span>
         Campo requerido
       </span>
     }
-    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('minlength')) {
-      <span>
-        Minimo 6 caracteres
-      </span>
-    }
-    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('passwordStrength')) {
-      <span>
-        La contraseña deve contener al menos una mayuscula y un numero
-      </span>
-    }
-    @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('passwordsMismatch')) {
+    @if (formulario.controls['confirm_password'].touched && formulario.hasError('matchPasswords')) {
       <span>
         Las contraseñas no coinciden
       </span>
     }
+    
   </div>
-  <!-- ! aar ojo  en ambas contraseñas-->
-   <!-- ! despues de ingresar por primera vez, pedir que ingrese telefono, direcciom  email y crear Caja de ahorro
-    !comparar contarseñas
-  <div class="input-container">
-    <input type="text" id="telefono" formControlName="phone" />
-    <label [ngClass]="{'filled': formulario.get('phone')?.value}">Teléfono</label>
-  </div>-->
-  <!-- agregar campos requeridos, long contrasela, patrones para contraseña -->
+  
   <button type="submit">Registrarse</button>
 </form>

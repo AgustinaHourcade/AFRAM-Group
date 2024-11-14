@@ -1,6 +1,6 @@
 import { AddressService } from './../../../addresses/service/address.service';
 import { User } from './../../interface/user.interface';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { UserService } from '../../services/user.service';
@@ -22,6 +22,7 @@ userService = inject(UserService);
 sessionService = inject(UserSessionService);
 addressService= inject(AddressService);
 route = inject(Router);
+flag = false;
 id : number = 0;
 user ?: User;
 address ?: Address;
@@ -48,6 +49,37 @@ ngOnInit(): void {
 }
 
 
+passwordValidator(control: AbstractControl) {
+  const value = control.value;
+  const hasUpperCase = /[A-Z]/.test(value);
+  const hasLowerCase = /[a-z]/.test(value);
+  const hasNumber = /[0-9]/.test(value);
+  
+  const valid = hasUpperCase && hasLowerCase && hasNumber
+  
+  return valid ? null : { passwordStrength: true };
+}
+
+matchPasswords(group: FormGroup): ValidationErrors | null {
+  const password = group.get('hashed_password')?.value;
+  const confirmPassword = group.get('confirm_password')?.value;
+
+  return password === confirmPassword ? null : { matchPasswords: true };
+}
+
+
+formulario = this.fb.nonNullable.group({
+  email: ['', [Validators.required, Validators.email]],
+  phone: ['', [Validators.required, Validators.pattern('^[0-9]{8,10}$')]],
+  street: ['', [Validators.required]],
+  address_number: [0, [Validators.required, Validators.pattern('^[0-9]{1,5}$')]],
+  floor: [''],
+  apartment: [''],
+  city: ['', [Validators.required]],
+  postal_code: ['', [Validators.required]],
+  country: ['', [Validators.required]],
+})
+
 setUser(user:  User | undefined , address: Address) {
   this.formulario.controls['email'].setValue(user!.email ?? '');
   this.formulario.controls['phone'].setValue(user!.phone ?? '');
@@ -61,23 +93,12 @@ setUser(user:  User | undefined , address: Address) {
 
 }
 
-formularioContra = this.fb.nonNullable.group({
-  currentPassword: ['', [Validators.required, Validators.minLength(6)]],
-  newPassword: ['', [Validators.required, Validators.minLength(6)]],
-  confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
-})
-
-formulario = this.fb.nonNullable.group({
-  email: ['', [Validators.required, Validators.email]],
-  phone: ['', [Validators.required, Validators.pattern('^[0-9]{8,10}$')]],
-  street: ['', [Validators.required]],
-  address_number: [0, [Validators.required, Validators.pattern('^[0-9]{1,5}$')]],
-  floor: [''],
-  apartment: [''],
-  city: ['', [Validators.required]],
-  postal_code: ['', [Validators.required]],
-  country: ['', [Validators.required]],
-})
+formularioContra = this.fb.group({
+  current_password: ['', [Validators.required, Validators.minLength(6)]],
+  hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]],
+  confirm_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]]
+},{ validators: this.matchPasswords }
+);
 
 
 updateAddress(){
@@ -107,7 +128,7 @@ updateAddress(){
 
 
 updateProfile(){
-  //if(this.formulario.invalid) return;
+  if(this.formulario.invalid) return;
   
   
   const datos = {
@@ -131,13 +152,15 @@ updatePassword(){
 
   if(this.formularioContra.invalid) return;
 
-  if((this.formularioContra.controls['newPassword']?.value  !== this.formularioContra.controls['confirmPassword']?.value)){
-    console.log("Las contraseñas NO coinciden.");
+  if((this.formularioContra.controls['hashed_password']?.value  !== this.formularioContra.controls['confirm_password']?.value)){
+    console.log("NO COINCIDEN")
+    this.flag = true;
     return;
-  }else{
+  }
+  else{
     const datos = {
-      currentPassword: this.formularioContra.controls['currentPassword']?.value,
-      newPassword: this.formularioContra.controls['newPassword']?.value
+      currentPassword: this.formularioContra.controls['current_password'].value,
+      newPassword: this.formularioContra.controls['confirm_password'].value
     }
     this.userService.changePassword(this.id, datos).subscribe({
       next:() =>{

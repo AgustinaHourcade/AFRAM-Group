@@ -32,8 +32,8 @@ export class UserService {
     return this.http.post<Number>(`${this.baseUrl}verify`, user); 
   }
 
-  changePassword(id: number,  datos: {currentPassword: string, newPassword: string}): Observable<any> {
-    return this.http.put<User>(`${this.baseUrl}change-password/${id}`, datos);
+  changePassword(id: number,  datos: {currentPassword: string, newPassword: string}): Observable<boolean> {
+    return this.http.put<boolean>(`${this.baseUrl}change-password/${id}`, datos);
   }
 
 }
