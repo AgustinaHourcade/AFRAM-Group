@@ -1,3 +1,4 @@
+import  Swal  from 'sweetalert2';
 import { AddressService } from './../../../addresses/service/address.service';
 import { User } from './../../interface/user.interface';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
@@ -49,22 +50,6 @@ ngOnInit(): void {
 }
 
 
-passwordValidator(control: AbstractControl): ValidationErrors | null {
-  const value = control.value;
-  const hasUpperCase = /[A-Z]/.test(value);
-  const hasLowerCase = /[a-z]/.test(value);
-  const hasNumber = /[0-9]/.test(value);
-
-  const valid = hasUpperCase && hasLowerCase && hasNumber;
-  return valid ? null : { passwordStrength: true };
-}
-
-matchPasswords(group: FormGroup): ValidationErrors | null {
-  const password = group.get('hashed_password')?.value;
-  const confirmPassword = group.get('confirm_password')?.value;
-
-  return password === confirmPassword ? null : { matchPasswords: true };
-}
 
 
 formulario = this.fb.nonNullable.group({
@@ -92,12 +77,7 @@ setUser(user:  User | undefined , address: Address) {
 
 }
 
-formularioContra = this.fb.group({
-  current_password: ['', [Validators.required, Validators.minLength(6)]],
-  hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]],
-  confirm_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this), this.matchPasswords.bind(this)]]
-},{ validators: this.matchPasswords }
-);
+
 
 updateAddress(){
   if(this.formulario.invalid) return;
@@ -137,7 +117,10 @@ updateProfile(){
   this.userService.updateUser(datos, this.id).subscribe({
     next:() =>{
       this.updateAddress();
-      console.log("Datos actualizados!");
+      Swal.fire({
+        title: "Datos actualizados correctamente!",
+        icon: "success"
+      });
       this.route.navigate(['/profile']);
     },
     error: (err: Error)=>{
@@ -146,29 +129,5 @@ updateProfile(){
   })
 }
 
-updatePassword(){
 
-  if(this.formularioContra.invalid) return;
-
-  if((this.formularioContra.controls['hashed_password']?.value  !== this.formularioContra.controls['confirm_password']?.value)){
-    console.log("NO COINCIDEN")
-    this.flag = true;
-    return;
-  }
-  else{
-    const datos = {
-      currentPassword: this.formularioContra.controls['current_password'].value,
-      newPassword: this.formularioContra.controls['confirm_password'].value
-    }
-    this.userService.changePassword(this.id, datos).subscribe({
-      next:() =>{
-        console.log("Contraseña actualizada!");
-        this.route.navigate(['/profile']);
-      },
-      error: (err: Error)=>{
-        console.log("Error al actualizar las contraseñas.", err.message);
-      }
-    })
-  }
-}
 }

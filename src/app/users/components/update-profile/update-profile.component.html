@@ -1,132 +1,90 @@
-
 <app-navbar></app-navbar>
 <div class="account-page">
-    <h1>Perfil</h1>
+  <h1>Perfil</h1>
 
-    <div class="update-info">
-      <h2>Actualizar información personal</h2>
-      <form [formGroup]="formulario" >
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email" formControlName="email" >
-          @if (formulario.controls['email'].getError('required') && formulario.controls['email'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
+  <div class="update-info">
+    <h2>Actualizar información personal</h2>
+    <form [formGroup]="formulario">
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" />
+        @if (formulario.controls['email'].getError('required') &&
+        formulario.controls['email'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
-        <div>
-          <label for="phone">Telefono</label>
-          <input type="text" id="phone" formControlName="phone">
-          @if (formulario.controls['phone'].getError('required') && formulario.controls['phone'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
-        
-        <div>
-          <label for="country">Pais</label>
-          <input type="text" id="country" formControlName="country">
-          @if (formulario.controls['country'].getError('required') && formulario.controls['country'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
-        
-        <div>
-          <label for="city">Ciudad</label>
-          <input type="text" id="city" formControlName="city">
-          @if (formulario.controls['city'].getError('required') && formulario.controls['city'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
+      <div>
+        <label for="phone">Telefono</label>
+        <input type="text" id="phone" formControlName="phone" />
+        @if (formulario.controls['phone'].getError('required') &&
+        formulario.controls['phone'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
-        <div>
-          <label for="postal_code">Codigo postal</label>
-          <input type="string" id="postal_code" formControlName="postal_code">
-          @if (formulario.controls['postal_code'].getError('required') && formulario.controls['postal_code'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
+      <div>
+        <label for="country">Pais</label>
+        <input type="text" id="country" formControlName="country" />
+        @if (formulario.controls['country'].getError('required') &&
+        formulario.controls['country'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
-        <div>
-          <label for="street">Calle</label>
-          <input type="text" id="street" formControlName="street">
-          @if (formulario.controls['street'].getError('required') && formulario.controls['street'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
-  
-        <div>
-          <label for="address_number">Numero</label>
-          <input type="number" id="address_number" formControlName="address_number">
-          @if (formulario.controls['address_number'].getError('required') && formulario.controls['address_number'].touched) {
-            <span> Campo requerido. </span>
-          }
-        </div>
-  
-        <div>
-          <label for="floor">Piso</label>
-          <input type="string" id="floor" formControlName="floor" >
-        </div>
-  
-        <div>
-          <label for="apartment">Departamento</label>
-          <input type="text" id="apartment" formControlName="apartment">
-        </div>
+      <div>
+        <label for="city">Ciudad</label>
+        <input type="text" id="city" formControlName="city" />
+        @if (formulario.controls['city'].getError('required') &&
+        formulario.controls['city'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
-        <button (click)="updateProfile()" >Actualizar</button>
-      </form>
-    </div>
+      <div>
+        <label for="postal_code">Codigo postal</label>
+        <input type="string" id="postal_code" formControlName="postal_code" />
+        @if (formulario.controls['postal_code'].getError('required') &&
+        formulario.controls['postal_code'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
-    
-    <form [formGroup]="formularioContra"  (ngSubmit)="updatePassword()">
+      <div>
+        <label for="street">Calle</label>
+        <input type="text" id="street" formControlName="street" />
+        @if (formulario.controls['street'].getError('required') &&
+        formulario.controls['street'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
-      
-      <div class="input-container">
-        <label for="current_password">Contraseña actual</label>
-      <input type="password" id="current_password" formControlName="current_password" placeholder=" "/>
-      @if (formularioContra.controls['current_password'].touched && formularioContra.controls['current_password'].getError('required')) {
-        <span>
-          Campo requerido
-        </span>
-      }
+      <div>
+        <label for="address_number">Numero</label>
+        <input
+          type="number"
+          id="address_number"
+          formControlName="address_number"
+        />
+        @if (formulario.controls['address_number'].getError('required') &&
+        formulario.controls['address_number'].touched) {
+        <span> Campo requerido. </span>
+        }
+      </div>
 
+      <div>
+        <label for="floor">Piso</label>
+        <input type="string" id="floor" formControlName="floor" />
+      </div>
 
-    <div class="input-container">
-      <label for="hashed_password">Nueva contraseña</label>
-      <input type="password" id="hashed_password" formControlName="hashed_password" placeholder=" "/>
-      @if (formularioContra.controls['hashed_password'].touched && formularioContra.controls['hashed_password'].getError('required')) {
-        <span>
-          Campo requerido
-        </span>
-      }
-      @if (formularioContra.controls['hashed_password'].touched && formularioContra.controls['hashed_password'].getError('minlength')) {
-        <span>
-          Minimo 6 caracteres
-        </span>
-      }
-      @if (formularioContra.controls['hashed_password'].touched && formularioContra.controls['hashed_password'].getError('passwordStrength')) {
-        <span>
-          La contraseña debe contener al menos una mayuscula y un numero
-        </span>
-      }
-    </div>
-    
-    <div class="input-container">
-      <label for="confirm_password">Repetir contraseña</label>
-      <input type="password" id="confirm_password" formControlName="confirm_password" placeholder=" "/>
-      
-      @if (formularioContra.controls['confirm_password'].touched && formularioContra.controls['confirm_password'].getError('required')) {
-        <span>
-          Campo requerido
-        </span>
-      }
-      @if (formularioContra.controls['confirm_password'].touched && formularioContra.hasError('matchPasswords')) {
-        <span>
-          Las contraseñas no coinciden
-        </span>
-      }
-      
-    </div>
-    
-    <button type="submit"> Actualizar </button>
+      <div>
+        <label for="apartment">Departamento</label>
+        <input type="text" id="apartment" formControlName="apartment" />
+      </div>
+
+      <button (click)="updateProfile()">Actualizar</button>
+    </form>
   </div>
-</form>
+
+
+</div>
