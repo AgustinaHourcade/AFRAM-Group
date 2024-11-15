@@ -1,8 +1,4 @@
-<!-- !sacar el autocompletado 
- ! agregar validaciones contraseña matus, minus, digito
- ! ver si es admin o usuario
- cambiar ngIf por @if
- -->
+
 <form [formGroup]="formulario" (ngSubmit)="admitUser()">
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   <div class="input-container">
@@ -30,7 +26,7 @@
         "
       >
       <i class="bi bi-exclamation-circle"></i> </span
-      >DNI</label
+      > DNI</label
     >
   </div>
 
@@ -53,7 +49,7 @@
       "
     >
     <i class="bi bi-exclamation-circle"></i> </span
-      >Usuario</label
+      > Usuario</label
     >
   </div>
 
@@ -82,7 +78,7 @@
       "
     >
     <i class="bi bi-exclamation-circle"></i> </span
-      >Contraseña</label
+      > Contraseña</label
     >
     <span
       class="toggle-visibility"
@@ -96,5 +92,5 @@
   </div>
 
   <button type="submit">Login</button>
-  <a routerLink="#" class="forgot-password">Olvidaste tu contraseña?</a>
-</form>
+  <!-- <a routerLink="#" class="forgot-password">Olvidaste tu contraseña?</a>  -->
+</form> 

@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NewcardComponent } from '../newcard/newcard.component';
 import { RouterLink } from '@angular/router';
 
 @Component({

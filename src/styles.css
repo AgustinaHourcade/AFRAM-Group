@@ -12,8 +12,7 @@
   --gray-2: #dee2e6; /* Gris muy claro para fondos más sutiles */
   --gray-3: #495057; /* Gris oscuro, adecuado para textos secundarios */
   --gray-4: #212529; /* Gris oscuro para texto destacado */
-  --olive: #6b8e23; /* Color verde oliva para tarjetas o fondos destacados */
-  --green: #28a745; /* Un verde más intenso para interacciones positivas */
+  --cancel-button: #e63946; 
 
   --font-title: "Open Sans", sans-serif; /* Para títulos */ /* Para textos generales */
   --font-body: "Roboto", sans-serif; /* Para cuerpo de texto */

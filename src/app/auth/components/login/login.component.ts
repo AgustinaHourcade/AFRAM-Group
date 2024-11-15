@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, MinLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../users/services/user.service';
 import { UserSessionService } from '../../services/user-session.service';
@@ -9,7 +9,7 @@ import { User } from '../../../users/interface/user.interface';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, /*RouterLink,*/ ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -41,10 +41,7 @@ export class LoginComponent {
       if (this.formulario.invalid) return;
   
       this.user = this.formulario.getRawValue() as User 
-
-      console.log(this.user);
       
-  
       this.admitirCliente(this.user);
     }
   

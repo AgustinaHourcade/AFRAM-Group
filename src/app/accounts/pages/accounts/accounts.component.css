@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; /* Baja todo el contenido */
+  margin-top: 20px; 
 }
 
 .app-card-account-container {
@@ -26,11 +26,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 15px; /* Separa un poco los botones */
+  gap: 15px; 
 }
 
 .view-button {
-  background-color: rgb(44, 44, 255); /* Cambiado a azul */
+  background-color: var(--accent-color); 
   color: white;
   border: none;
   padding: 10px 50px;
@@ -39,7 +39,7 @@
 }
 
 .deactivate-button {
-  background-color: rgb(255, 43, 43);
+  background-color: var(--cancel-button);
   color: white;
   border: none;
   padding: 10px 50px;

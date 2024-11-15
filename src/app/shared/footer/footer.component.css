@@ -9,7 +9,7 @@ p.copyright {
 }
 
 .footer {
-  background-color: #0a2a4d;
+  background-color: var(--primary-color);
   color: #ffffff;
   padding: 20px 10px;
   font-family: Arial, sans-serif;

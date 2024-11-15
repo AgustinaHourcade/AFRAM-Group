@@ -3,6 +3,7 @@
     <p>CBU</p>
     <p>{{ account.cbu }}</p>
   </div>
+  
   <div class="alias">
     <p>Alias</p>
     @if (!isEditing){
@@ -13,14 +14,7 @@
     </form>
     }
   </div>
-  <button
-    class="no-print"
-    (click)="isEditing ? modifyAlias() : toggleEditing()"
-  >
-    {{ isEditing ? "Guardar" : "Modificar" }}
-    <i class="bi bi-pencil-square"></i>
-  </button>
-  
+
   <div class="name">
     <p>Titular</p>
     <p>{{ user.last_name }} {{ user.real_name }}</p>
@@ -28,12 +22,20 @@
   <div class="dni">
     <p>DNI</p>
     <p>{{ user.dni }}</p>
+  </div>
+  <div class="buttons">
     <button (click)="copyToClipboard()" class="no-print">
       Copiar datos <i class="bi bi-copy"></i>
     </button>
     <button (click)="downloadAsPDF()" class="no-print">
       Descargar <i class="bi bi-download"></i>
-  </button>
-</div>
-
+    </button>
+    <button
+      class="no-print"
+      (click)="isEditing ? modifyAlias() : toggleEditing()"
+    >
+      {{ isEditing ? "Guardar" : "Modificar alias" }}
+      <i class="bi bi-pencil-square"></i>
+    </button>
+  </div>
 </div>

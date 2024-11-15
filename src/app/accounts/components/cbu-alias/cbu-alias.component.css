@@ -1,40 +1,77 @@
 .cbuAlias {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 20px auto;
-}
-
-.cbuAlias div {
-  margin-bottom: 15px;
-}
-
-.cbuAlias p {
-  margin: 0;
-  font-family: var(--font-body);
-  color: var(--gray-4);
-}
-
-.cbuAlias button {
   width: 100%;
-  background-color: var(--accent-color);
-  color: var(--white);
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.cbu, .alias, .name, .dni {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.cbu p, .alias p, .name p, .dni p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.cbu p:first-child,
+.alias p:first-child,
+.name p:first-child,
+.dni p:first-child {
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.alias-sub input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.no-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.no-print i {
+  font-size: 16px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  width: 30%;
+  padding: 10px;
   border: none;
   border-radius: 5px;
-  padding: 8px 12px;
+  font-size: 14px;
   cursor: pointer;
-  font-family: var(--font-buttons);
-  transition: background-color 0.3s;
+  color: white;
+  background-color: var(--accent-color);
+  display: flex;
+  justify-content: center;
 }
 
-.cbuAlias button:hover {
+button:hover {
   background-color: var(--button-hover);
-}
-
-.cbuAlias div p:first-child {
-  font-weight: bold;
-  margin-bottom: 5px;
 }
 

@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
-
 export class UserSessionService {
   private userIdKey: number = 0;
-  constructor() { }
+  constructor() {}
 
   setUserId(id: number): void {
-    this.userIdKey =  id;
+    this.userIdKey = id;
     console.log('el id seteado es ' + this.userIdKey);
   }
 
   clearUserId(): void {
-    this.userIdKey =  0; 
+    this.userIdKey = 0;
   }
 
-  getUserId(): number{
+  getUserId(): number {
     console.log('GET USER ID' + this.userIdKey);
     return this.userIdKey;
   }
-  
 }

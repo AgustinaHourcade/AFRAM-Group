@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
@@ -56,8 +56,8 @@ export class NewAccountComponent {
       icon: "warning",
       iconColor: "#0077b6",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#0077b6",
+      cancelButtonColor: "#e63946",
       confirmButtonText: "Si, crear",
       cancelButtonText: "Cancelar"
     }).then((result) => {

@@ -3,7 +3,6 @@ import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { AccountService } from '../../services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { CardAccountComponent } from '../../components/card-account/card-account.component';
-import { CbuAliasComponent } from '../../components/cbu-alias/cbu-alias.component';
 import { Account } from '../../interface/account.interface';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -30,7 +29,6 @@ export class AccountsComponent {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts) => {
         this.accounts = accounts;
-        console.log(this.accounts);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);

@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs';
 import { AccountService } from '../../services/account.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../users/services/user.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-cbu-alias',
@@ -46,7 +46,6 @@ export class CbuAliasComponent implements OnInit {
       )
       .subscribe((account) => {
         this.account = account;
-        console.log(account);
         this.userService.getUser(this.account.user_id).subscribe({
           next: (user)  => {
             this.user = user
@@ -60,16 +59,12 @@ export class CbuAliasComponent implements OnInit {
   
 
   toggleEditing() {
-    console.log('toggleEditing called'); 
     this.isEditing = !this.isEditing;
   }
 
-  // ! agregar verificacion, que sea Validators, que sea unico y que sea distinto al anterior
   modifyAlias() {
-    console.log('modifyAlias called'); 
     const newAlias = this.formulario.get('newAlias')?.value;
     if (newAlias) {
-      console.log("na" + newAlias);
       this.accountService.modifyAlias(this.account.id, newAlias).subscribe({
         next: (value) => {
           if (value) console.log('Modificado correctamente');
@@ -85,15 +80,68 @@ export class CbuAliasComponent implements OnInit {
 
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
 
+  // downloadAsPDF() {
+  //   const element = this.pdfContent.nativeElement;
+  //   const elementsToHide = element.querySelectorAll('.no-print');
+  //   elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
+  //   html2canvas(element, {
+  //     scale: 2,
+  //   }).then((canvas) => {
+  //     const imgData = canvas.toDataURL('image/jpeg', 0.9);
+
+  //     const pdf = new jsPDF({
+  //       orientation: 'portrait',
+  //       unit: 'in',
+  //       format: 'letter',
+  //       putOnlyUsedFonts: true,
+  //       floatPrecision: 16,
+  //     });
+
+  //     const imgWidth = 8.5;
+  //     const pageHeight = 11;
+  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //     let heightLeft = imgHeight;
+
+  //     let position = 0;
+
+  //     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+  //     heightLeft -= pageHeight;
+
+  //     while (heightLeft >= 0) {
+  //       position = heightLeft - imgHeight;
+  //       pdf.addPage();
+  //       pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+  //       heightLeft -= pageHeight;
+  //     }
+
+  //     const logoUrl = '/logo-fff.png';
+  //     const logoImg = new Image();
+  //     logoImg.src = logoUrl;
+
+  //     logoImg.onload = () => {
+  //       const logoWidth = 3.125;
+  //       const logoHeight = 1.5625;
+  //       const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
+  //       const yPos = 0.5;
+
+  //       pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
+
+  //       pdf.save('mi-documento.pdf');
+  //     };
+  //   });
+  //   elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline')); //
+  // }
+
   downloadAsPDF() {
     const element = this.pdfContent.nativeElement;
     const elementsToHide = element.querySelectorAll('.no-print');
     elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
+    element.classList.add('pdf-only');
+
     html2canvas(element, {
       scale: 2,
     }).then((canvas) => {
       const imgData = canvas.toDataURL('image/jpeg', 0.9);
-
       const pdf = new jsPDF({
         orientation: 'portrait',
         unit: 'in',
@@ -101,40 +149,40 @@ export class CbuAliasComponent implements OnInit {
         putOnlyUsedFonts: true,
         floatPrecision: 16,
       });
-
-      const imgWidth = 8.5;
-      const pageHeight = 11;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      let heightLeft = imgHeight;
-
-      let position = 0;
-
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
+  
       const logoUrl = '/logo-fff.png';
       const logoImg = new Image();
       logoImg.src = logoUrl;
-
+  
       logoImg.onload = () => {
         const logoWidth = 3.125;
         const logoHeight = 1.5625;
         const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
         const yPos = 0.5;
-
         pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-
+  
+        const imgWidth = 8.5;
+        const pageHeight = 11;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+  
+        pdf.addImage(imgData, 'JPEG', 0, position + logoHeight + 0.5, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+  
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+  
         pdf.save('mi-documento.pdf');
       };
     });
-    elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline')); //
+  
+    elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
+    element.classList.remove('pdf-only');
   }
 
   copyToClipboard() {

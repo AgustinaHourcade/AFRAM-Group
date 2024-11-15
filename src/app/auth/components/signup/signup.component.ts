@@ -1,6 +1,6 @@
 import { UserSessionService } from './../../services/user-session.service';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';
@@ -75,7 +75,6 @@ export class SignupComponent{
       ...user
     };
 
-    // Llamamos a agregarCliente solo si el formulario es válido y las contraseñas coinciden
     this.agregarCliente(user1 as User);
   }
 
@@ -128,10 +127,8 @@ export class SignupComponent{
   }
 
   agregarCliente(user: User) {
-    console.log(user);
     this.userService.postUser(user).subscribe({
       next: (response) => {
-        console.log('Usuario creado:', response);
         this.sesionService.setUserId(response);
         this.createAccount(response);
         this.createAddress(response);
