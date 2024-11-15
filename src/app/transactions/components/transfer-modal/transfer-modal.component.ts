@@ -1,3 +1,4 @@
+
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { AccountService } from '../../../accounts/services/account.service';
@@ -16,6 +17,7 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 import { TransactionService } from '../../services/transaction.service';
 import { Transaction } from '../../interface/transaction.interface';
 import { EmailService } from '../../../email/service/email.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-transfer-modal',
@@ -31,7 +33,6 @@ export class TransferModalComponent {
   account: any = null;
   flag: boolean = false;
   errorMessage: string = '';
-  errorFlag: boolean = false;
   user!: User;
   accounts!: Array<Account>;
   router = inject(Router);
@@ -72,13 +73,12 @@ export class TransferModalComponent {
           this.accountService.getAccountById(id).subscribe({
             next: (account) => {
               this.account = account;
-              console.log(this.account);
 
               if (this.account && this.account.user_id) {
                 this.userService.getUser(this.account.user_id).subscribe({
                   next: (user) => {
                     this.user = user;
-                    console.log(this.user);
+                    this.flag = true;
                   },
                   error: (error: Error) => {
                     console.log('Error al obtener el usuario:', error);
@@ -102,13 +102,12 @@ export class TransferModalComponent {
           this.accountService.getAccountById(id).subscribe({
             next: (account) => {
               this.account = account;
-              console.log(this.account);
 
               if (this.account && this.account.user_id) {
                 this.userService.getUser(this.account.user_id).subscribe({
                   next: (user) => {
                     this.user = user;
-                    console.log(this.user);
+                    this.flag = true;
                   },
                   error: (error: Error) => {
                     console.log('Error al obtener el usuario:', error);
@@ -122,6 +121,12 @@ export class TransferModalComponent {
           });
         },
         error: () => {
+          Swal.fire({
+            title: 'Error',
+            text: 'Cuenta no encontrada',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
           this.errorMessage = 'Error al buscar la cuenta.';
           this.account = null;
         },
@@ -129,7 +134,6 @@ export class TransferModalComponent {
     }
 
     this.cargarCuentas();
-    this.flag = true;
   }
 
   cargarCuentas() {
@@ -150,7 +154,6 @@ export class TransferModalComponent {
 
     this.userService.getUser(this.sessionService.getUserId()).subscribe({
       next: (user) => {
-          console.log("user o" + user);
           this.userOrigen = user;
       },
       error: (e: Error)=>{
@@ -158,9 +161,8 @@ export class TransferModalComponent {
       }
     })
 
-    const accountDestino = this.account?.id; // Verifica que `this.account` esté definido
+    const accountDestino = this.account?.id; 
     this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
-    console.log("monto 1" + this.montoTransferencia);
   
     const selectedAccountId = this.amount.get('selectedAccountId')?.value;
     const selectedAccount = this.accounts.find(account => account.id === Number(selectedAccountId));
@@ -171,7 +173,12 @@ export class TransferModalComponent {
     }
     
     if (this.montoTransferencia! > selectedAccount.balance) {
-      this.errorFlag = true;
+      Swal.fire({
+        title: 'Error',
+        text: 'Saldo insuficiente',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
       this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
       return;
     }
@@ -184,12 +191,16 @@ export class TransferModalComponent {
   
     this.transactionService.postTransaction(transaction as Transaction).subscribe({
       next: (id) => {
-        console.log('Transacción creada con ID = ' + id);
-        // Enviar el correo notificando la transferencia
+        Swal.fire({
+          title: 'Éxito',
+          text: '¡Transferencia realizada!',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        });
+        
         if (this.userOrigen.email) {
-          console.log(this.user.email);
           this.emailService.sendTransferEmail(
-            this.userOrigen.email,  // El correo del destinatario
+            this.userOrigen.email,  
             this.montoTransferencia!,
             selectedAccount.id,
             accountDestino
@@ -233,7 +244,7 @@ export class TransferModalComponent {
         console.log(e.message);
       }
     });
-    this.router.navigate(['main']);
+    this.router.navigate(['my-transactions']);
   }
   
 }

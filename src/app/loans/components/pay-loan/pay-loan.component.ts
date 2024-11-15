@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -44,7 +44,6 @@ export class PayLoanComponent {
       this.activatedRoute.paramMap.subscribe({
         next: (params) => {
          const id = params.get('id'); 
-          console.log("EL ID DE LOAN "+id);
           
           this.loanService.getLoanById(Number(id)).subscribe({
             next: (loan: Loan) => {

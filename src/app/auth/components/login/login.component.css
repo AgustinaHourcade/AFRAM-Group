@@ -30,6 +30,7 @@ input {
   border: 1px solid var(--gray-1);
   border-radius: 4px;
   outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 input:focus + label,
@@ -67,15 +68,33 @@ a {
   text-decoration: none;
 }
 
-.errorInput{ 
+/* Estilos para el estado de error */
+.errorInput {
   border: 1px solid #ff4d4d;
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.5); /* efecto de sombra sutil para errores */
 }
 
-.errorLabel{ 
+.errorLabel {
   color: #ff4d4d !important;
   top: -10px;
   left: 5px;
   font-size: 12px;
+}
+
+/* Mensaje de error */
+.error {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.error i {
+  font-size: 1rem;
+  color: #ff4d4d; /* Icono de advertencia */
 }
 
 button[type="submit"] {

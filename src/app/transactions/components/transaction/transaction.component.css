@@ -9,7 +9,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 16px;
-  width: 600px;
+  width: 800px;
   transition: transform 0.2s;
   display: flex;
   flex-direction: row;
@@ -43,7 +43,7 @@
 }
 
 button {
-  background-color: #3b82f6;
+  background-color: var(--accent-color);
   color: white;
   font-size: 14px;
   padding: 8px 12px;
@@ -54,10 +54,10 @@ button {
 }
 
 button:hover {
-  background-color: #2563eb;
+  background-color: var(--button-hover);
 }
 
-button.show {
-  background-color: #f97316; 
-}
+/* button.show {
+  background-color: var(--button-hover); 
+} */
 

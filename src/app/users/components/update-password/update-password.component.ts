@@ -10,11 +10,13 @@ import {
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
+import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-password',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.css',
 })
@@ -72,10 +74,7 @@ export class UpdatePasswordComponent {
     if (this.formularioContra.invalid) return;
 
     if (
-      this.formularioContra.controls['hashed_password']?.value !==
-      this.formularioContra.controls['confirm_password']?.value
-    ) {
-      console.log('NO COINCIDEN');
+      this.formularioContra.controls['hashed_password']?.value !== this.formularioContra.controls['confirm_password']?.value) {
       this.flag = true;
       return;
     } else {

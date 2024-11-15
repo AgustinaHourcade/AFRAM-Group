@@ -17,7 +17,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './card.component.css',
 })
 export class CardComponent implements OnInit {
-
   private sesionService = inject(UserSessionService);
   private cardService = inject(CardService);
   private accountService = inject(AccountService);
@@ -27,31 +26,24 @@ export class CardComponent implements OnInit {
   cardsService = inject(CardService);
   userId = this.sesionService.getUserId();
 
-
-
-
   ngOnInit(): void {
-
     this.cardService.getCardsById(this.userId).subscribe({
       next: (cards) => {
-        console.log("Tarjetas" + cards);
         this.cards = cards;
       },
       error: (e: Error) => {
         console.log(e.message);
-      }
-    })
+      },
+    });
 
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = accounts;
-        console.log(this.accounts);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);
       },
-    })
-
+    });
   }
 
   deactivate(card_id: number): boolean {
@@ -61,31 +53,30 @@ export class CardComponent implements OnInit {
       },
       error: (e: Error) => {
         console.log(e.message);
-      }
-    })
+      },
+    });
     return false;
   }
 
   alerta(card_id: number) {
     Swal.fire({
       title: `¿Está seguro que desea dar de baja esta tarjeta?`,
-      icon: "warning",
-      iconColor: "#0077b6",
+      icon: 'warning',
+      iconColor: '#0077b6',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, desactivar tarjeta",
-      cancelButtonText: "Cancelar"
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, desactivar tarjeta',
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.deactivate(card_id)) {
           Swal.fire({
-            title: "Tarjeta desactivada!",
-            icon: "success"
+            title: 'Tarjeta desactivada!',
+            icon: 'success',
           });
         }
       }
     });
   }
-
 }

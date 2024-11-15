@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../accounts/services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { ReceiptComponent } from '../receipt/receipt.component';
-import { UserService } from '../../../users/services/user.service';
 
 @Component({
   selector: 'app-transaction',

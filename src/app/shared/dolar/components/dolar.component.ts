@@ -8,19 +8,17 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './dolar.component.html',
-  styleUrl: './dolar.component.css'
+  styleUrl: './dolar.component.css',
 })
-export class DolarComponent implements OnInit{
-  
+export class DolarComponent implements OnInit {
   dolarService = inject(DolarService);
-  dolar ?: Cotizacion;
-  
+  dolar?: Cotizacion;
+
   ngOnInit(): void {
     this.dolarService.getDolarOficial().subscribe({
       next: (dolar) => {
         this.dolar = dolar;
-      }
-    })
+      },
+    });
   }
- 
 }

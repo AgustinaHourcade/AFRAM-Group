@@ -21,23 +21,23 @@
     </li>
 
     <li><a routerLink="/transactions">Transferencias</a></li>
-    <li><a routerLink="/cards">Mis tarjetas</a></li>
+    <li><a routerLink="/cards">Tarjetas</a></li>
 
-    <li class="loans-dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
+    <!-- <li class="loans-dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
       <a class="loans-link dropdown-link" (click)="toggleMenu('loans')">Prestamos</a>
       <ul class="loans-menu">
-        <li><a routerLink="/list-loan">Ver mis prestamos</a></li>
+        <li><a routerLink="/list-loan">Mis prestamos</a></li>
         <li><a routerLink="/new-loan">Solicitar prestamo</a></li>
       </ul>
-    </li>
+    </li> -->
 
     <li class="profile-dropdown" [ngClass]="{'show-menu': activeMenu === 'profile'}">
       <a class="profile-link dropdown-link" (click)="toggleMenu('profile')">Perfil</a>
       <ul class="profile-menu">
         <li><a routerLink="/profile">Ver perfil</a></li>
-        <li><a routerLink="/update-password">Modificar contraseña</a></li>
+        <!-- <li><a routerLink="/update-password">Modificar contraseña</a></li> -->
       </ul>
     </li>
-    <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+    <button class="logout-button" (click)="logout()">Cerrar sesión</button>
   </ul>
 </nav>

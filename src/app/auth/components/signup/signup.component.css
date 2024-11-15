@@ -14,7 +14,7 @@
 }
 
 .input-container input:focus {
-  border-color: #3498db; 
+  border-color: var(--accent-color); 
 }
 
 .input-container label {

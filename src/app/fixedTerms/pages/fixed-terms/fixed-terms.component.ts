@@ -7,12 +7,13 @@ import { AccountService } from '../../../accounts/services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { catchError, Observable, of } from 'rxjs';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-fixed-terms',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent, CommonModule],
   templateUrl: './fixed-terms.component.html',
   styleUrl: './fixed-terms.component.css',
 })

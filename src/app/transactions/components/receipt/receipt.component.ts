@@ -63,19 +63,19 @@ export class ReceiptComponent implements OnInit{
         heightLeft -= pageHeight;
       }
 
-      const logoUrl = '/logo-fff.png';
-      const logoImg = new Image();
-      logoImg.src = logoUrl;
+      // const logoUrl = '/logo-fff.png';
+      // const logoImg = new Image();
+      // logoImg.src = logoUrl;
 
-      logoImg.onload = () => {
-        const logoWidth = 2;
-        const logoHeight = 1;
-        const xPos = (pdf.internal.pageSize.getWidth() - logoWidth) / 2;
-        const yPos = 0.3;
+      // logoImg.onload = () => {
+      //   const logoWidth = 2;
+      //   const logoHeight = 1;
+      //   const xPos = (pdf.internal.pageSize.getWidth() - logoWidth) / 2;
+      //   const yPos = 0.3;
 
-        pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-        pdf.save('comprobante-transferencia.pdf');
-      };
+      //   pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
+      // };
+      pdf.save('comprobante-transferencia.pdf');
     });
 
     elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));

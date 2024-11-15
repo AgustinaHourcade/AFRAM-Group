@@ -1,16 +1,14 @@
-/* Contenedor principal de la tarjeta */
 .card-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Ocupa toda la pantalla verticalmente */
-  background-color: #e6f7ff; /* Color de fondo */
-  overflow: hidden; /* Evita el scroll */
+  height: 100vh; 
+  background-color: #e6f7ff; 
+  overflow: hidden; 
   margin: 0;
   padding: 0;
 }
 
-/* Contenido de la tarjeta */
 .card-content {
   background-color: #ffffff;
   border-radius: 8px;
@@ -18,19 +16,17 @@
   padding: 30px;
   max-width: 500px;
   width: 100%;
-  margin: 0 auto; /* Centra horizontalmente */
+  margin: 0 auto; 
 }
 
-/* Estilos de encabezado */
 .card-content h3 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #007bff; /* Color de texto principal */
+  color: #007bff; 
   text-align: center;
 }
 
-/* Estilos de etiqueta */
 .card-content label {
   font-weight: bold;
   color: #333;
@@ -38,7 +34,6 @@
   margin-top: 10px;
 }
 
-/* Estilos de campos de entrada */
 .input-field {
   width: 100%;
   padding: 10px;
@@ -48,16 +43,14 @@
   margin-bottom: 15px;
 }
 
-/* Contenedor de botones */
 .button-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
 }
 
-/* Estilos de botones */
 button {
-  background-color: #007bff;
+  background-color: var(--accent-color);
   color: white;
   border: none;
   border-radius: 5px;
@@ -68,5 +61,5 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: var(--button-hover);
 }

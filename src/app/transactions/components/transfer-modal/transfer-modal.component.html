@@ -35,16 +35,13 @@
 
       <label for="cantidad">Ingrese cantidad a transferir: </label>
       <input type="number" id="cantidad" formControlName="amountToTransfer" />
-      <button type="button" (click)="confirmar = true">Confirmar</button>
-      @if (errorFlag){
-        <p>Saldo insuficiente</p>
-      }
+      <button type="button" (click)="confirmar = true">Continuar</button>
     </div>
 
     <div *ngIf="confirmar">
       <p>¿Está seguro que desea transferir ${{ amount.get('amountToTransfer')?.value }} a {{ account.alias }}?</p>
       <button type="submit">Confirmar</button>
-      <button type="button" (click)="onClose()">Cancelar</button>
+      <button type="button" (click)="onClose()" id="cancel">Cancelar</button>
     </div>
   </form>
 </div>

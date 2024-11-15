@@ -15,7 +15,7 @@
         <option value="" disabled selected>Seleccione una cuenta</option>
         @for (item of accounts; track $index) {
           @if (item.account_type === 'Savings') {
-            <option value="{{item.id}}">Cuenta {{ item.id }} - {{ item.balance }}</option>
+            <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
           }
         }
         </select>

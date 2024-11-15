@@ -7,11 +7,12 @@ import { catchError, Observable, of } from 'rxjs';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { Loan } from '../../interface/loan';
 import { LoanService } from '../../service/loan.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-loan',
   standalone: true,
-  imports: [NavbarComponent, RouterLink],
+  imports: [NavbarComponent, RouterLink, CommonModule],
   templateUrl: './list-loan.component.html',
   styleUrl: './list-loan.component.css'
 })

@@ -13,7 +13,9 @@
     {{ formattedAmount }}
   </p>
 
-  <button (click)="toggleFlag()" [ngClass]="{'show': flag}">Ver comprobante</button>
+  @if (!flag) {
+    <button (click)="toggleFlag()" >Ver comprobante</button>
+  }
 
 
   <app-receipt *ngIf="flag" [transaction]="transaction" (cancel)="onCancel()"></app-receipt>

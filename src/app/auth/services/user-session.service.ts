@@ -9,7 +9,6 @@ export class UserSessionService {
 
   setUserId(id: number): void {
     this.userIdKey = id;
-    console.log('el id seteado es ' + this.userIdKey);
   }
 
   clearUserId(): void {
@@ -17,7 +16,6 @@ export class UserSessionService {
   }
 
   getUserId(): number {
-    console.log('GET USER ID' + this.userIdKey);
     return this.userIdKey;
   }
 }

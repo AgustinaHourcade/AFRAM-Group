@@ -1,24 +1,32 @@
 <app-navbar></app-navbar>
-<h2>Mis prestamos</h2>
-<table>
+<h2>Mis préstamos</h2>
+
+<div *ngIf="loans.length === 0">
+  <p>No hay préstamos solicitados por el usuario</p>
+</div>
+
+<div class="tableDiv">
+  <table *ngIf="loans.length > 0">
     <thead>
+      <tr>
         <th>Numero de cuenta</th>
         <th>Cantidad solicitada</th>
         <th>Cantidad a devolver</th>
         <th>Cantidad pagada</th>
         <th>Cantidad a pagar</th>
-        <th>Fecha de expiracion</th>
+        <th>Fecha de expiración</th>
+      </tr>
     </thead>
-    
-    @for (loan of loans; track $index){
-        <tbody>
-            <td>{{loan.account_id}}</td>
-            <td>${{loan.amount}}</td>
-            <td>{{loan.return_amount}} </td>
-            <td>{{loan.paid}}</td>
-            <th>{{loan.amount - loan.paid}}</th>
-            <td>{{formatearFecha(loan.expiration_date)}}</td>
-            <button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button>
-        </tbody>
-    }
-</table>
+    <tbody>
+      <tr *ngFor="let loan of loans; track $index">
+        <td>{{ loan.account_id }}</td>
+        <td>${{ loan.amount }}</td>
+        <td>{{ loan.return_amount }}</td>
+        <td>{{ loan.paid }}</td>
+        <td>{{ loan.amount - loan.paid }}</td>
+        <td>{{ formatearFecha(loan.expiration_date) }}</td>
+        <td><button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

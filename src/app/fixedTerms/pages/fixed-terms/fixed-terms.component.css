@@ -1,76 +1,75 @@
 h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 1em;
+  margin-top: 20px;
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  text-align: center;
+}
+
+div > p {
+  font-family: var(--font-body);
+  color: var(--gray-3);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 30px;
+  padding: 15px;
+  background-color: var(--extra-light-color);
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tableDiv{
+  display: flex;
+  justify-content: center;
 }
 
 table {
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
-  margin-bottom: 1em;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  border: 1px solid #d0eaff;
+  margin-top: 20px;
+  background-color: var(--white);
   border-radius: 8px;
-  overflow: hidden;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-thead {
-  background-color: #d0eaff;
-  color: #333;
-}
-
-thead th {
-  padding: 10px;
+th, td {
+  padding: 12px 15px;
   text-align: left;
-  font-weight: 600;
+  border-bottom: 1px solid var(--gray-2);
 }
 
-tbody td {
-  padding: 10px;
-  border-bottom: 1px solid #f1f1f1;
-  color: #555;
+th {
+  background-color: var(--primary-color);
+  color: var(--white);
+  font-family: var(--font-menu-form);
+  font-weight: bold;
 }
 
-tbody tr:nth-child(even) {
-  background-color: #f5fbff;
+tr:nth-child(even) {
+  background-color: var(--gray-1);
 }
 
-tbody tr:hover {
-  background-color: #eaf6ff;
-}
-
-td {
-  color: #333;
+tr:hover {
+  background-color: var(--light-color);
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
+  table {
+    font-size: 0.9rem;
   }
 
-  thead {
-    display: none;
-  }
-
-  tbody td {
+  th, td {
     padding: 10px;
-    text-align: right;
-    position: relative;
   }
 
-  tbody td:before {
-    content: attr(data-label);
-    position: absolute;
-    left: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #333;
+  div > p {
+    width: 80%;
   }
 }

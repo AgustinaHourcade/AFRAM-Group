@@ -6,7 +6,7 @@ import { AccountService } from '../../accounts/services/account.service';
 import { UserSessionService } from '../../auth/services/user-session.service';
 import { TransactionService } from '../../transactions/services/transaction.service';
 import { Transaction } from '../../transactions/interface/transaction.interface';
-import { CommonModule, NgFor, NgForOf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Account } from '../../accounts/interface/account.interface';
 import { Observable, catchError, of } from 'rxjs';
@@ -41,7 +41,6 @@ export class MainPageComponent implements OnInit {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = accounts;
-        console.log(this.accounts);
         for (let a of accounts) {
           this.loadTransactions(a.id).subscribe({
             next: (transactions: Transaction[]) => {

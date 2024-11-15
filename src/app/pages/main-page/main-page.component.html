@@ -7,75 +7,70 @@
         <!-- ! agregar ojo para mostrar saldos -->
       </h2>
       <div class="accounts-div">
-
-        @for (account of accounts; track $index){
-          @if (!account.closing_date) {
-            <app-card-account
-            [account]="account"
-
-            ></app-card-account>
-          }
-        }
-
+        @for (account of accounts; track $index){ @if (!account.closing_date) {
+        <app-card-account [account]="account"></app-card-account>
+        } }
       </div>
     </div>
 
     <div class="transactions">
       <h2 class="section-title">Movimientos</h2>
-      <!-- <div class="filters">
-        <label for="filter-amount">Monto:</label>
-        <input type="number" id="filter-amount" placeholder="Ej: 5000" />
-
-          <label for="filter-date">Fecha:</label>
-        <input type="date" id="filter-date" />
-
-        <label for="filter-type">Tipo:</label>
-        <select id="filter-type">
-          <option value="">Todos</option>
-          <option value="transfer">Transferencia</option>
-          <option value="deposit">Depósito</option>
-          <option value="withdrawal">Retiro</option>
-        </select>
-
-        <button class="filter-btn">Aplicar Filtros</button>
-      </div> -->
 
       <div
         class="transactions-container"
         *ngFor="let transaction of transactions; let i = index"
       >
-        <app-transaction
-          [transaction]="transaction"
-        ></app-transaction>
+        <app-transaction [transaction]="transaction"></app-transaction>
       </div>
     </div>
   </section>
 
   <section class="sectionB">
     <h2 class="section-title">Tarjetas</h2>
-    @for (item of cards; track $index) {
-      @if (item.is_Active === 'yes') {
-        <div class="cardInfo">
-          <div class="card">
-            <div class="card-header">
-              <div class="master">
-                <div class="circle master-red"></div>
-                <div class="circle master-yellow"></div>
-              </div>
-            </div>
-            <div class="card-details">
-              <span class="card-number">**** **** **** {{ item.card_number.slice(-4) }}</span>
-              <span class="expiry-date">{{ item.expiration_date.slice(5, 7) }}/{{
-                item.expiration_date.slice(2, 4)
-              }}</span>
+    @for (item of cards; track $index) { @if (item.is_Active === 'yes') {
+    <div class="cardInfo">
+      <div class="card">
+        <div class="card-header">
+          <div class="master">
+            <div class="circle master-red"></div>
+            <div class="circle master-yellow"></div>
+          </div>
+        </div>
+        <div class="card-details">
+          <span class="card-number"
+            >**** **** **** {{ item.card_number.slice(-4) }}</span
+          >
+          <span class="expiry-date"
+            >{{ item.expiration_date.slice(5, 7) }}/{{
+              item.expiration_date.slice(2, 4)
+            }}</span
+          >
         </div>
       </div>
     </div>
-  }
-  }
-  </section>
+    } }
+    <div class="dolar">
+      <h2 class="section-title">Cotización</h2>
 
-  <section class="section C"> 
-    <app-dolar></app-dolar>
+      <app-dolar></app-dolar>
+    </div>
   </section>
 </main>
+
+<!-- <div class="filters">
+  <label for="filter-amount">Monto:</label>
+  <input type="number" id="filter-amount" placeholder="Ej: 5000" />
+
+    <label for="filter-date">Fecha:</label>
+  <input type="date" id="filter-date" />
+
+  <label for="filter-type">Tipo:</label>
+  <select id="filter-type">
+    <option value="">Todos</option>
+    <option value="transfer">Transferencia</option>
+    <option value="deposit">Depósito</option>
+    <option value="withdrawal">Retiro</option>
+  </select>
+
+  <button class="filter-btn">Aplicar Filtros</button>
+</div> -->
