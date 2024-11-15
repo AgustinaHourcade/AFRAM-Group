@@ -44,7 +44,7 @@ form label {
 
 form input {
   padding: 12px;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--gray-1);
   border-radius: 6px;
   transition: border-color 0.3s ease;
 }

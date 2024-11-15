@@ -1,5 +1,7 @@
 <div class="modal">
-  <button (click)="onClose()">Cerrar</button>
+  <div class="closeButton">
+    <button (click)="onClose()" id="close"><i class="bi bi-x-lg"></i></button>
+  </div>
   <h2>Transferir</h2>
 
   <form [formGroup]="newRecipientForm" (ngSubmit)="searchAccount()">

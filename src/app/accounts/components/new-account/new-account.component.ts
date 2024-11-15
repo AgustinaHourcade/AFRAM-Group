@@ -4,6 +4,7 @@ import { AccountService } from '../../services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import Swal from 'sweetalert2';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-account',
@@ -19,6 +20,7 @@ export class NewAccountComponent {
   accountService = inject(AccountService);
   userSessionService = inject(UserSessionService);
   user_id = this.userSessionService.getUserId();
+  route = inject(Router)
 
   formulario = this.fb.nonNullable.group({
     account_type: ['', [Validators.required]],
@@ -68,6 +70,7 @@ export class NewAccountComponent {
               title: "Cuenta creada correctamente!",
               icon: "success"
             });
+            this.route.navigate(['/accounts'])
           },
           error: (err: Error) => {
             console.log(err.message);

@@ -45,16 +45,23 @@ body {
 }
 
 .modal button:disabled {
-  background-color: var(--gray);
+  background-color: var(--gray-1);
   cursor: not-allowed;
   transform: none;
 }
 
 .modal button:first-child {
-  background-color: var(--gray);
+  background-color: var(--white);
+  color: black;
   margin-top: -1rem;
   font-size: 0.9rem;
   padding: 0.6rem 1.2rem;
+  width: 10px;
+}
+
+.closeButton{
+  display: flex;
+  justify-content: flex-end ;
 }
 
 .modal label {
@@ -73,14 +80,14 @@ body {
   font-size: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 1.25rem;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--gray-1);
   border-radius: 8px;
   color: var(--primary-color);
   transition: border-color 0.3s ease;
 }
 
 .modal input::placeholder {
-  color: var(--gray);
+  color: var(--gray-1);
 }
 
 .modal input:focus,
@@ -125,6 +132,8 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+
+
 
 @media screen and (max-width: 768px) {
   .modal {

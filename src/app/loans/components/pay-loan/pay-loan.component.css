@@ -48,7 +48,7 @@ form {
   }
   
   button[type="submit"] {
-    background-color: #5cb85c;
+    background-color: var(--accent-color);
     color: white;
     padding: 12px 20px;
     border: none;
@@ -60,17 +60,17 @@ form {
   }
   
   button[type="submit"]:hover {
-    background-color: #4cae4c;
+    background-color: var(--button-hover);
     transform: translateY(-2px);
   }
   
   button[type="submit"]:disabled {
-    background-color: #d6e9c6;
+    background-color: var(--button-hover);
     cursor: not-allowed;
   }
   
   button[type="submit"]:disabled:hover {
-    background-color: #d6e9c6;
+    background-color: var(--button-hover);
     transform: none;
   }
   

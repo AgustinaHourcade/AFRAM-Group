@@ -15,6 +15,7 @@
         <th>Cantidad pagada</th>
         <th>Cantidad a pagar</th>
         <th>Fecha de expiración</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -23,7 +24,7 @@
         <td>${{ loan.amount }}</td>
         <td>{{ loan.return_amount }}</td>
         <td>{{ loan.paid }}</td>
-        <td>{{ loan.amount - loan.paid }}</td>
+        <td>{{ loan.return_amount - loan.paid }}</td>
         <td>{{ formatearFecha(loan.expiration_date) }}</td>
         <td><button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button></td>
       </tr>
