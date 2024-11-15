@@ -1,4 +1,16 @@
+/* main {
+  width: 100vw;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: var(--font-body);
+  background-color: var(--white);
+  display: flex;
+  flex-direction: row;
+  column-gap: 50px;
+} */
+
 main {
+  position: relative;
   width: 100vw;
   margin: 0 auto;
   padding: 20px;
@@ -8,6 +20,7 @@ main {
   flex-direction: row;
   column-gap: 50px;
 }
+
 
 .section-title {
   font-family: var(--font-title);
@@ -177,4 +190,33 @@ main {
 
 .actions-div p:hover {
   color: #ccc;
+}
+
+.sectionC {
+  position: fixed; /* Posiciona fijo en la ventana */
+  bottom: 20px; /* Separación desde la parte inferior */
+  right: 20px; /* Separación desde la derecha */
+  width: 200px;
+  background-color: var(--extra-light-color);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-body);
+  text-align: center;
+  color: var(--primary-color);
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.sectionC h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-family: var(--font-title);
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 5px;
+}
+
+.sectionC .conversion {
+  font-size: 1rem;
+  color: #333;
 }

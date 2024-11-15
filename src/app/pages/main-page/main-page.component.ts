@@ -12,11 +12,12 @@ import { Account } from '../../accounts/interface/account.interface';
 import { Observable, catchError, of } from 'rxjs';
 import { Card } from '../../cards/interface/card';
 import { CardService } from '../../cards/service/card.service';
+import { DolarComponent } from "../../shared/dolar/components/dolar.component";
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule],
+  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule, DolarComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })
