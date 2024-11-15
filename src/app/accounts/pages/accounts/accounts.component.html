@@ -1,17 +1,21 @@
 <app-navbar></app-navbar>
 
 
-@for (account of accounts; track $index) {
-  @if (!account.closing_date) {
-    <div class="app-card-account-container">
-      <app-card-account [account]="account"></app-card-account>
-      <div class="app-card-account-buttons">
-        <button routerLink="/accounts/account/{{account.id}}">Ver datos</button>
-        <button (click)="darBaja(account.id)">Dar de baja</button>
+<h2 class="title">Mis cuentas</h2>
+<div class="accounts-container">
+  @for (account of accounts; track $index) { 
+    @if (!account.closing_date) {
+      <div class="app-card-account-container">
+        <app-card-account [account]="account"></app-card-account>
+        <div class="app-card-account-buttons">
+          <button class="view-button" routerLink="/accounts/account/{{account.id}}">Ver datos</button>
+          <button class="deactivate-button" (click)="darBaja(account.id)">Dar de baja</button>
+        </div>
       </div>
-    </div>
+    }
   }
-}
+</div>
+
 
 
 <!-- <h2>CBU y Alias</h2>

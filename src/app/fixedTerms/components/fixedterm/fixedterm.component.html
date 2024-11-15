@@ -7,9 +7,13 @@
     </div>
     <label for="account_id">Seleccione una cuenta</label>
     <select name="account_id" id="account_id" formControlName="account_id">
-      <option *ngFor="let item of accounts" [value]="item.id">
-        {{ item.id }} - {{ item.balance }}
-      </option>
+    @for (item of accounts; track $index) {
+      @if (!item.closing_date) {
+        <option  [value]="item.id">
+          {{ item.id }} - {{ item.balance }}
+        </option>
+      }
+    }
     </select>
 
     @if(formulario.controls['account_id'].touched &&

@@ -19,6 +19,12 @@ export class NavbarComponent {
   router = inject(Router);
   userSessionService = inject(UserSessionService);
 
+  activeMenu: string | null = null;
+
+  toggleMenu(menu: string) {
+    this.activeMenu = this.activeMenu === menu ? null : menu;
+  }
+
   openAccountMenu() {
     this.isAccountOpen = true;
   }

@@ -33,7 +33,7 @@ export class AccountService {
   }
 
   deactivateAccount(id: number): Observable<boolean> {
-    return this.http.put<boolean>(`${this.baseUrl}/deactivate`, {id});
+    return this.http.put<boolean>(`${this.baseUrl}/deactivate`, {accountId: id});
   }
 
   createAccount(account : {

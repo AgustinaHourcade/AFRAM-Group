@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-accounts',
   standalone: true,
-  imports: [NavbarComponent, CardAccountComponent, CbuAliasComponent, RouterModule, CommonModule],
+  imports: [NavbarComponent, CardAccountComponent, RouterModule, CommonModule],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.css'
 })

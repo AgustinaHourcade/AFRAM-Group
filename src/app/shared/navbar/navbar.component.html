@@ -3,25 +3,37 @@
     <img src="/logo-navbar.png" alt="Logo del Banco" class="logo-image" />
   </a>
   <ul class="nav-links">
-    <li class="account-dropdown" (mouseover)="openAccountMenu()" (mouseout)="closeAccountMenu()">
-      <a class="dropdown-link">Cuentas</a>
-      <ul class="account-menu" [class.show]="isAccountOpen">
+    
+    <li class="account-dropdown" [ngClass]="{'show-menu': activeMenu === 'account'}">
+      <a class="dropdown-link" (click)="toggleMenu('account')">Cuentas</a>
+      <ul class="account-menu">
         <li><a routerLink="/accounts">Mis cuentas</a></li>
         <li><a routerLink="/accounts/new-account">Solicitar cuenta</a></li>
       </ul>
     </li>
-    <li class="fixed-terms-dropdown" (mouseover)="openFixedTermsMenu()" (mouseout)="closeFixedTermsMenu()">
-      <a class="dropdown-link">Plazo fijo</a>
-      <ul class="fixed-terms-menu" [class.show]="isFixedTermsOpen">
+
+    <li class="fixed-terms-dropdown" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
+      <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo</a>
+      <ul class="fixed-terms-menu">
         <li><a routerLink="/fixed-terms">Mis plazos fijos</a></li>
         <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
       </ul>
     </li>
+
     <li><a routerLink="/transactions">Transferencias</a></li>
     <li><a routerLink="/cards">Mis tarjetas</a></li>
-    <li class="profile-dropdown" (mouseover)="openProfileMenu()" (mouseout)="closeProfileMenu()">
-      <a class="profile-link dropdown-link">Perfil</a>
-      <ul class="profile-menu" [class.show]="isProfileMenuOpen">
+
+    <li class="loans-dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
+      <a class="loans-link dropdown-link" (click)="toggleMenu('loans')">Prestamos</a>
+      <ul class="loans-menu">
+        <li><a routerLink="/list-loan">Ver mis prestamos</a></li>
+        <li><a routerLink="/new-loan">Solicitar prestamo</a></li>
+      </ul>
+    </li>
+
+    <li class="profile-dropdown" [ngClass]="{'show-menu': activeMenu === 'profile'}">
+      <a class="profile-link dropdown-link" (click)="toggleMenu('profile')">Perfil</a>
+      <ul class="profile-menu">
         <li><a routerLink="/profile">Ver perfil</a></li>
         <li><a routerLink="/update-password">Modificar contraseña</a></li>
       </ul>

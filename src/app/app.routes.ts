@@ -16,6 +16,9 @@ import { UpdatePasswordComponent } from './users/components/update-password/upda
 import { NgModule } from '@angular/core';
 import { LegalComponent } from './pages/legal/legal.component';
 import { FixedTermsComponent } from './fixedTerms/pages/fixed-terms/fixed-terms.component';
+import { NewLoanComponent } from './loans/components/new-loan/new-loan.component';
+import { ListLoanComponent } from './loans/components/list-loan/list-loan.component';
+import { PayLoanComponent } from './loans/components/pay-loan/pay-loan.component';
 
 
 export const routes: Routes = [
@@ -27,6 +30,9 @@ export const routes: Routes = [
     {path: 'accounts/new-account', component: NewAccountComponent, title: 'Nueva cuenta | AFRAM Group'},
     {path: 'fixed-terms', component: FixedTermsComponent, title: 'Mis plazos fijos | AFRAM Group'},
     {path: 'fixed-terms/new', component: NewFixedtermComponent, title: 'Nuevo plazo fijo | AFRAM Group'  },
+    {path: 'new-loan', component: NewLoanComponent, title:'Nuevo prestamo | AFRAM Group'},
+    {path: 'list-loan', component: ListLoanComponent, title: 'Mis prestamos | AFRAM Group'},
+    {path: 'pay-loan/:id', component: PayLoanComponent, title: 'Pagar prestamo | AFRAM Group'  },
     {path: 'profile', component: ProfileComponent, title: 'Perfil | AFRAM Group'},
     {path: 'update-profile/:id', component: UpdateProfileComponent,title: 'Editar perfil | AFRAM Group'},
     {path: 'update-password', component: UpdatePasswordComponent, title: 'Cambiar contraseña | AFRAM Group'},

@@ -1,0 +1,24 @@
+<app-navbar></app-navbar>
+<h2>Mis prestamos</h2>
+<table>
+    <thead>
+        <th>Numero de cuenta</th>
+        <th>Cantidad solicitada</th>
+        <th>Cantidad a devolver</th>
+        <th>Cantidad pagada</th>
+        <th>Cantidad a pagar</th>
+        <th>Fecha de expiracion</th>
+    </thead>
+    
+    @for (loan of loans; track $index){
+        <tbody>
+            <td>{{loan.account_id}}</td>
+            <td>${{loan.amount}}</td>
+            <td>{{loan.return_amount}} </td>
+            <td>{{loan.paid}}</td>
+            <th>{{loan.amount - loan.paid}}</th>
+            <td>{{formatearFecha(loan.expiration_date)}}</td>
+            <button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button>
+        </tbody>
+    }
+</table>

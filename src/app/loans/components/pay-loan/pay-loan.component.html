@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+
+
+<form [formGroup]="formulario" (ngSubmit)="updatePaid()">
+  <div>
+    <div>
+          <h2>Pagar prestamo</h2>
+          @if (loan) {
+              <h3>Total de deuda: {{loan?.amount - loan?.paid}}</h3>
+              <h3>Fecha de vencimiento: {{formatearFecha(loan.expiration_date)}}</h3>
+            }
+
+    </div>
+    <label for="account_id">Seleccione una cuenta para pagar</label>
+    <select name="account_id" id="account_id" formControlName="account_id">
+      @for (item of accounts; track $index) {
+        @if (!item.closing_date) {
+            <option [value]="item.id">
+              {{ item.id }} - {{ item.balance }}
+            </option>
+        }
+    }
+    </select>
+
+    @if(formulario.controls['account_id'].touched &&
+    formulario.controls['account_id'].getError('required')){
+    <p>El ID de cuenta es obligatorio.</p>
+    }
+  </div>
+
+  <div>
+    <label for="amount">Monto a abonar:</label>
+    <input
+      id="amount"
+      type="number"
+      formControlName="amount"
+    />
+    @if(formulario.controls['amount'].touched &&
+    formulario.controls['amount'].getError('required')){
+    <p>El monto invertido es obligatorio.</p>
+    }
+    <div>
+      @if(formulario.controls['amount'].touched &&
+      formulario.controls['amount'].getError('min')){
+      <p>El monto invertido debe ser mayor a 0.</p>
+      }
+    </div>
+
+  </div>
+
+  <button type="submit" [disabled]="formulario.invalid">Confirmar</button>
+</form>
+
+

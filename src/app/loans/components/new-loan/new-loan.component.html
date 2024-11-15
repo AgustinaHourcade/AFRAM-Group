@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<form [formGroup]="formulario" (ngSubmit)="createLoan()">
+  <div>
+    <div>
+          <h2>Solicitar prestamo</h2>
+          <h3>Tasa de interes: {{rate.loan_interest_rate * 30}}% mensual</h3>
+    </div>
+    <label for="account_id">Seleccione una cuenta</label>
+    <select name="account_id" id="account_id" formControlName="account_id">
+      @for (item of accounts; track $index) {
+        @if (!item.closing_date) {
+          <option [value]="item.id">
+              {{ item.id }} - {{ item.balance }}
+            </option>
+        }
+    }
+    </select>
+
+    @if(formulario.controls['account_id'].touched &&
+    formulario.controls['account_id'].getError('required')){
+    <p>El ID de cuenta es obligatorio.</p>
+    }
+  </div>
+
+  <div>
+    <label for="amount">Monto Invertido:</label>
+    <input
+      id="amount"
+      type="number"
+      formControlName="amount"
+    />
+    @if(formulario.controls['amount'].touched &&
+    formulario.controls['amount'].getError('required')){
+    <p>El monto invertido es obligatorio.</p>
+    }
+    <div>
+      @if(formulario.controls['amount'].touched &&
+      formulario.controls['amount'].getError('min')){
+      <p>El monto invertido debe ser mayor a 0.</p>
+      }
+    </div>
+
+  </div>
+
+
+  <div>
+    <label for="daysToAdd">Seleccione el plazo en meses:</label>
+    <select id="daysToAdd" formControlName="daysToAdd" (change)="updateDate()">
+      <option value="90">3 meses</option>
+      <option value="180">6 meses</option>
+      <option value="365">12 meses</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="formulario.invalid">Confirmar</button>
+</form>
+
+

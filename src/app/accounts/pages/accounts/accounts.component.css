@@ -1,31 +1,48 @@
-.app-card-account-container {
+.title {
+  font-size: 24px;
+  text-align: center;
+  color: black;
+  margin-bottom: 20px;
+  margin-top: 60px; 
+}
+
+.accounts-container {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 10px;
+  margin-top: 20px; /* Baja todo el contenido */
+}
+
+.app-card-account-container {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: 0;
 }
 
 .app-card-account-buttons {
   display: flex;
-  gap: 8px; /* Espacio entre los botones */
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 15px; /* Separa un poco los botones */
 }
 
-button {
-  background-color: #add8e6; /* Azul claro */
-  color: #fff;
-  padding: 8px 12px;
-  font-family: var(--font-menu-form);
-  font-size: 14px;
+.view-button {
+  background-color: rgb(44, 44, 255); /* Cambiado a azul */
+  color: white;
   border: none;
-  border-radius: 4px;
+  padding: 10px 50px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #87ceeb; /* Un poco más oscuro al hacer hover */
-}
-
-button:active {
-  background-color: #6bb4d6; /* Color aún más oscuro cuando se hace clic */
+.deactivate-button {
+  background-color: rgb(255, 43, 43);
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 5px;
+  cursor: pointer;
 }

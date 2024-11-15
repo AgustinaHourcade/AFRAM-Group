@@ -101,7 +101,11 @@ export class NewFixedtermComponent implements OnInit {
             if (result.isConfirmed) {
               this.fixedTermService.createFixedTerm(this.fixedTerm).subscribe({
                 next: (response) => {
-                  console.log('Plazo fijo creado', response);
+                  Swal.fire({
+                    title:'Plazo fijo creado correctamente',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                  });
                   const descontar = -1 * this.fixedTerm.invested_amount;
   
                   this.accountService.updateBalance(descontar, this.fixedTerm.account_id).subscribe({
