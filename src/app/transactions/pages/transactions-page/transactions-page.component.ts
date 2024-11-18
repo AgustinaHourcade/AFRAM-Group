@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-transactions-page',
   standalone: true,
-  imports: [NavbarComponent, RouterLink, TransferModalComponent, CommonModule],
+  imports: [NavbarComponent, TransferModalComponent, CommonModule],
   templateUrl: './transactions-page.component.html',
   styleUrl: './transactions-page.component.css'
 })
@@ -24,6 +24,4 @@ export class TransactionsPageComponent{
     this.isModalOpen = false;
     this.router.navigate(['/transactions/new-transfer'], { state: { account } });
   }
-
- 
 }

@@ -33,7 +33,7 @@
       </select>
 
       <label for="cantidad">Ingrese cantidad a transferir: </label>
-      <input type="number" id="cantidad" formControlName="amountToTransfer" />
+      <input type="number" id="cantidad" formControlName="amountToTransfer" min="1" />
       <button type="button" (click)="realizarTransfer()" >Continuar</button>
     </div>
 
