@@ -51,7 +51,7 @@ export class TransferModalComponent {
   });
 
   amount = this.fb.group({
-    amountToTransfer: [0, [Validators.required, Validators.min(1)]],
+    amountToTransfer: [1, [Validators.required, Validators.min(1)]],
     selectedAccountId: ['', [Validators.required]]
   });
 
@@ -154,7 +154,7 @@ export class TransferModalComponent {
     const selectedAccount = this.accounts.find(
       (account) => account.id === Number(selectedAccountId)
     );
-    this.montoTransferencia = this.amount.controls['amountToTransfer']?.value;
+    this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
   
     if (!selectedAccount) {
       Swal.fire({
@@ -163,6 +163,16 @@ export class TransferModalComponent {
         icon: 'error',
         confirmButtonText: 'Aceptar',
       });
+      return;
+    }
+
+    if(this.montoTransferencia as number < 1 ){
+      Swal.fire({
+        title: 'Error',
+        text: 'El monto minimo para transferir es de $1.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      })
       return;
     }
   

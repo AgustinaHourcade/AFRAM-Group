@@ -27,9 +27,13 @@
 
       <label for="cuentas">Seleccione una cuenta</label>
       <select name="cuentas" id="cuentas" formControlName="selectedAccountId">
-        <option *ngFor="let item of accounts" [value]="item.id">
-          {{ item.id }} - {{ item.balance }}
-        </option>
+        @for (item of accounts; track $index) {
+          @if (!item.closing_date) {
+          <option [value]="item.id">
+              {{ item.id }} - {{ item.balance }}
+          </option>
+          }
+        }
       </select>
 
       <label for="cantidad">Ingrese cantidad a transferir: </label>

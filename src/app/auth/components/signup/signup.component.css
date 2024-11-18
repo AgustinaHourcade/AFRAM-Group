@@ -66,3 +66,44 @@ button[type="submit"]:active {
   transform: scale(0.98);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
+
+.toggle-visibility {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  transition: color 0.3s;
+}
+
+.toggle-visibility:hover {
+  color: var(--accent-color);
+}
+
+i {
+  font-size: 1rem;
+  color: var(--secondary-color) /* Icono de advertencia */
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.password-requirements {
+  list-style: none;
+  margin-top: 10px;
+  padding: 0;
+}
+
+.password-requirements li {
+  color: red;
+  font-size: 14px;
+}
+
+.password-requirements li.valid {
+  color: green;
+  font-weight: bold;
+}

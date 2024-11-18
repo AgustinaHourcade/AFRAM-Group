@@ -1,0 +1,102 @@
+/* Estilos generales para body y html */
+body,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos del header/navbar */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+  z-index: 1000; /* Asegúrate de que el navbar esté por encima de otros elementos */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color); /* Fondo azul */
+}
+
+header.scrolled {
+  background-color: var(--primary-color); /* Fondo azul */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#logo {
+  height: 60px;
+  padding: 0 15px;
+}
+
+#button {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+#button:hover {
+  background-color: var(--button-hover);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+#button:disabled {
+  background-color: var(--gray-2);
+  cursor: not-allowed;
+}
+
+/* Estilos para el contenido principal */
+main {
+  margin-top: 120px; /* Ajusta este valor según el tamaño de tu navbar */
+  z-index: 999; /* Asegúrate de que el contenido esté debajo del navbar */
+  position: relative; /* Para que el contenido se apile correctamente */
+}
+
+/* Secciones */
+.sectionA,
+.sectionB {
+  width: 100%;
+}
+
+.sectionA {
+  height: 100%;
+}
+
+.sectionB {
+  height: 100%;
+  padding: 80px 80px;
+  background: #fcfbf9;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 80px;
+  box-sizing: border-box; /* Para evitar desbordamientos por padding */
+}
+
+/* Estilo de texto */
+.lead {
+  font-size: 20px;
+  font-weight: 400;
+  color: #333333;
+  margin-top: 30px;
+  text-align: justify;
+}
+
+.section-heading {
+  margin-bottom: 10px;
+  color: #333333;
+}
+
+.section-heading-spacer {
+  float: left;
+  width: 100px;
+  border-top: 3px solid var(--secondary-color);
+}

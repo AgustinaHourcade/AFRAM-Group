@@ -1,45 +1,32 @@
-
 <form [formGroup]="formulario" (ngSubmit)="addUsuario()">
   <div class="input-container">
     <input type="text" id="real_name" formControlName="real_name" placeholder=" " />
     <label for="nombre"> Nombre </label>
     @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
-      <span>
-        Campo requerido
-      </span>
+      <span> Campo requerido </span>
     }
     @if (formulario.controls['real_name'].getError('minlength') && formulario.controls['real_name'].touched) {
-      <span>
-        Minimo 2 caracteres
-      </span>
+      <span> Minimo 2 caracteres </span>
     }
   </div>
   <div class="input-container">
     <input type="text" id="last_name" formControlName="last_name" placeholder=" " />
     <label for="last_name">Apellido</label>
     @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
-      <span>
-        Campo requerido
-      </span>
+      <span> Campo requerido </span>
     }
     @if (formulario.controls['last_name'].getError('minlength') && formulario.controls['last_name'].touched) {
-      <span>
-        Minimo 2 caracteres
-      </span>
+      <span> Minimo 2 caracteres </span>
     }
   </div>
   <div class="input-container">
     <input type="text" id="name-user" formControlName="name_user" placeholder=" " />
     <label for="name-user" >Usuario</label>
     @if (formulario.controls['name_user'].getError('required') && formulario.controls['name_user'].touched) {
-      <span>
-        Campo requerido
-      </span>
+      <span> Campo requerido </span>
     }
     @if (formulario.controls['name_user'].getError('minlength') && formulario.controls['name_user'].touched) {
-      <span>
-        Minimo 4 caracteres
-      </span>
+      <span> Minimo 4 caracteres </span>
     }
   </div>
 
@@ -47,64 +34,76 @@
     <input type="text" id="dni" formControlName="dni" placeholder=" "/>
     <label for="dni">DNI</label>
     @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
-      <span>
-        Campo requerido
-      </span>
+      <span> Campo requerido </span>
     }
     @if (formulario.controls['dni'].getError('pattern') && formulario.controls['dni'].touched) {
-      <span>
-        Solo puede ingresar numeros
-      </span>
+      <span> Solo puede ingresar numeros </span>
     }
     @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minlength')) {
-      <span>
-        Minimo 7 numeros
-      </span>
+      <span> Minimo 7 numeros </span>
     }
     @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxlength')) {
-      <span>
-        Maximo 8 numeros
-      </span>
+      <span> Maximo 8 numeros </span>
     }
   </div>
 
-
+  
+  
   <div class="input-container">
-    <input type="password" id="hashed_password" formControlName="hashed_password" placeholder=" "/>
+    <input
+    [type]="showPassword1 ? 'text' : 'password'"
+    id="hashed_password"
+    formControlName="hashed_password"
+    placeholder=" "
+    (input)="validatePassword()"
+    />
     <label for="hashed_password">Contraseña</label>
     @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
-      <span>
-        Campo requerido
-      </span>
+      <span> Campo requerido </span>
     }
     @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
-      <span>
-        Minimo 6 caracteres
-      </span>
+      <span> Minimo 6 caracteres </span>
     }
     @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('passwordStrength')) {
-      <span>
-        La contraseña debe contener al menos una mayuscula y un numero
-      </span>
+      <span> La contraseña debe contener al menos una mayuscula y un numero </span>
     }
-  
-  </div>
-  
+    <span
+    class="toggle-visibility"
+    (click)="togglePasswordVisibility('password')">
+    <i *ngIf="showPassword1; else eyeClosed1" class="bi bi-eye"></i>
+    <ng-template #eyeClosed1>
+      <i class="bi bi-eye-slash"></i>
+    </ng-template>
+  </span>
+</div>
+<ul class="password-requirements">
+  <li [class.valid]="hasLetter">✔ 1 letra mayuscula</li>
+  <li [class.valid]="hasNumber">✔ 1 número</li>
+  <li [class.valid]="isLongEnough">✔ 8 caracteres</li>
+</ul>
+
   <div class="input-container">
-    <input type="password" id="confirm_password" formControlName="confirm_password" placeholder=" "/>
+    <input
+    [type]="showPassword2 ? 'text' : 'password'"
+    id="confirm_password"
+    formControlName="confirm_password"
+    placeholder=" "
+  />
     <label for="confirm_password">Repetir contraseña</label>
-    
     @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('required')) {
-      <span>
-        Campo requerido
-      </span>
+      <span> Campo requerido </span>
     }
     @if (formulario.controls['confirm_password'].touched && formulario.hasError('matchPasswords')) {
-      <span>
-        Las contraseñas no coinciden
-      </span>
+      <span> Las contraseñas no coinciden </span>
     }
-    
+    <span
+      class="toggle-visibility"
+      (click)="togglePasswordVisibility('confirm')">
+      <i *ngIf="showPassword2; else eyeClosed2" class="bi bi-eye"></i>
+      <ng-template #eyeClosed2>
+        <i class="bi bi-eye-slash"></i>
+      </ng-template>
+    </span>
   </div>
   
   <button type="submit">Registrarse</button>

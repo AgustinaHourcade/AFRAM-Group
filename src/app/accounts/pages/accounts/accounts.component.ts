@@ -39,33 +39,48 @@ export class AccountsComponent {
   
 
   darBaja(id: number ){
-    Swal.fire({
-      title: `¿Está seguro que desea dar de baja la cuenta?`,
-      icon: "warning",
-      iconColor: "#0077b6",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, dar de baja",
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.accountService.deactivateAccount(id).subscribe({
-          next: (flag) => {
-            if(flag){
 
-              Swal.fire({
-                title: "Cuenta suspendida correctamente!",
-                icon: "success"
+    this.accountService.getAccountById(id).subscribe({
+      next: (account) =>{
+        if(account.balance != 0){
+          Swal.fire({
+            title: "El saldo de la cuenta a dar de baja debe ser 0",
+            icon: "error"
+          });
+        }else{
+          Swal.fire({
+            title: `¿Está seguro que desea dar de baja la cuenta?`,
+            icon: "warning",
+            iconColor: "#0077b6",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, dar de baja",
+            cancelButtonText: "Cancelar"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.accountService.deactivateAccount(id).subscribe({
+                next: (flag) => {
+                  if(flag){
+      
+                    Swal.fire({
+                      title: "Cuenta suspendida correctamente!",
+                      icon: "success"
+                    });
+                  }
+                },
+                error: (err: Error) => {
+                  console.log(err.message);
+                }
               });
             }
-          },
-          error: (err: Error) => {
-            console.log(err.message);
-          }
-        });
+          });
+        }
+        
+      },
+      error: (error: Error) =>{
+        console.log(error.message);
       }
-    });
+    })
   }
-
 }

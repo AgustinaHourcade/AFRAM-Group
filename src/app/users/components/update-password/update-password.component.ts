@@ -1,33 +1,32 @@
-import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  AbstractControl,
-  ValidationErrors,
-  FormGroup,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import {FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
+import { User } from '../../interface/user.interface';
+import { UserSessionService } from '../../../auth/services/user-session.service';
 
 @Component({
   selector: 'app-update-password',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.css',
 })
-export class UpdatePasswordComponent {
+export class UpdatePasswordComponent implements OnInit  {
   fb = inject(FormBuilder);
   userService = inject(UserService);
+  userSessionService = inject(UserSessionService);
   route = inject(Router);
 
-  flag = false;
   id : number = 0;
+  user !: User;
 
+  ngOnInit(): void {
+    this.id = this.userSessionService.getUserId();
+  }
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const hasUpperCase = /[A-Z]/.test(value);
@@ -45,12 +44,11 @@ export class UpdatePasswordComponent {
     return password === confirmPassword ? null : { matchPasswords: true };
   }
 
-  formularioContra = this.fb.group(
+  formularioContra = this.fb.nonNullable.group(
     {
       current_password: ['', [Validators.required, Validators.minLength(6)]],
       hashed_password: [
-        '',
-        [
+        '',[
           Validators.required,
           Validators.minLength(6),
           this.passwordValidator.bind(this),
@@ -66,22 +64,16 @@ export class UpdatePasswordComponent {
           this.matchPasswords.bind(this),
         ],
       ],
-    },
-    { validators: this.matchPasswords }
+    }
   );
 
   updatePassword() {
-    if (this.formularioContra.invalid) return;
-
-    if (
-      this.formularioContra.controls['hashed_password']?.value !== this.formularioContra.controls['confirm_password']?.value) {
-      this.flag = true;
+    if (this.formularioContra.invalid) 
       return;
-    } else {
+
       const datos = {
-        currentPassword:
-          this.formularioContra.controls['current_password'].value,
-        newPassword: this.formularioContra.controls['confirm_password'].value,
+        currentPassword: this.formularioContra.get('current_password')?.value,
+        newPassword: this.formularioContra.get('confirm_password')?.value,
       };
       this.userService.changePassword(this.id, datos).subscribe({
         next: () => {
@@ -89,12 +81,17 @@ export class UpdatePasswordComponent {
             title: 'Contraseña actualizada correctamente!',
             icon: 'success',
           });
+          console.log('nueva contraseña: ', datos.newPassword);
           this.route.navigate(['/profile']);
         },
         error: (err: Error) => {
+          Swal.fire({
+            title: 'Error al actualizar las contraseñas!',
+            icon: 'error',
+          });
           console.log('Error al actualizar las contraseñas.', err.message);
         },
       });
     }
-  }
+
 }

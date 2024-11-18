@@ -19,6 +19,8 @@ import { FixedTermsComponent } from './fixedTerms/pages/fixed-terms/fixed-terms.
 import { NewLoanComponent } from './loans/components/new-loan/new-loan.component';
 import { ListLoanComponent } from './loans/components/list-loan/list-loan.component';
 import { PayLoanComponent } from './loans/components/pay-loan/pay-loan.component';
+import { RecoverPasswordComponent } from './users/components/recover-password/recover-password.component';
+import { NewPasswordComponent } from './users/components/new-password/new-password.component';
 
 
 export const routes: Routes = [
@@ -41,6 +43,8 @@ export const routes: Routes = [
     {path: 'cards', component: CardComponent, title: 'Mis tarjetas | AFRAM Group'},
     {path: 'newcard', component: NewcardComponent, title: 'Nueva tarjeta | AFRAM Group'},
     {path: 'legal', component: LegalComponent, title: 'Legal | AFRAM Group' },
+    {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
+    {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     {path: '**', redirectTo: ''}
 ];
 

@@ -32,8 +32,19 @@ export class UserService {
     return this.http.post<Number>(`${this.baseUrl}verify`, user); 
   }
 
-  changePassword(id: number,  datos: {currentPassword: string, newPassword: string}): Observable<boolean> {
+  changePassword(id: number,  datos: {currentPassword: string | undefined, newPassword: string | undefined}): Observable<boolean> {
     return this.http.put<boolean>(`${this.baseUrl}change-password/${id}`, datos);
   }
 
+  getIdByEmail(email: string): Observable<number>{
+    return this.http.get<number>(`${this.baseUrl}email/${email}`);
+  }
+
+  changePasswordById(newPassword: string, id: number): Observable<boolean>{
+    return this.http.put<boolean>(`${this.baseUrl}change-password-by-id/${id}`, {newPassword})
+  }
+
+  getUserIdByToken(token: number): Observable<number>{
+      return this.http.get<number>(`${this.baseUrl}reset-token/${token}`)
+  }
 }

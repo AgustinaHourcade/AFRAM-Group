@@ -19,7 +19,11 @@ import { Address } from '../../../addresses/interface/address.interface';
 })
 export class SignupComponent{
   account!: Account;
-  showPassword = false;
+  showPassword1 = false;
+  showPassword2 = false;
+  hasLetter: boolean = false;
+  hasNumber: boolean = false;
+  isLongEnough: boolean = false;
 
   fb = inject(FormBuilder);
   sesionService = inject(UserSessionService);
@@ -40,9 +44,20 @@ export class SignupComponent{
     { validators: this.matchPasswords }
   );
 
-  togglePasswordVisibility(input: HTMLInputElement) {
-    input.type = this.showPassword ? 'password' : 'text';
-    this.showPassword = !this.showPassword;
+  validatePassword() {
+    const password = this.formulario.get('hashed_password')?.value || '';
+
+    this.hasLetter = /[a-zA-Z]/.test(password); // Verifica que tenga al menos una letra
+    this.hasNumber = /\d/.test(password); // Verifica que tenga al menos un número
+    this.isLongEnough = password.length >= 8; // Verifica longitud mínima
+  }
+
+  togglePasswordVisibility(field: 'password' | 'confirm'): void {
+    if (field === 'password') {
+      this.showPassword1 = !this.showPassword1;
+    } else if (field === 'confirm') {
+      this.showPassword2 = !this.showPassword2;
+    }
   }
 
   passwordValidator(control: AbstractControl): ValidationErrors | null {

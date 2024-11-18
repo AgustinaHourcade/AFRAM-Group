@@ -8,6 +8,7 @@ export interface User{
     phone?: string,
     user_type?: string,
     isActive?: string,
-    real_name?: string
+    real_name?: string,
+    reset_token?: number
 }
 
