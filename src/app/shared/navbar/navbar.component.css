@@ -101,3 +101,31 @@
 .logout-button:hover {
   background-color: var(--button-hover);
 }
+
+.transactions-menu {
+  display: none; 
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--primary-color);
+  list-style: none;
+  padding: 10px 0;
+  min-width: 150px;
+  z-index: 100;
+  border-radius: 5px;
+}
+
+.transactions-menu li {
+  width: 100%;
+}
+
+.transactions-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+}
+
+.transactions-menu a:hover {
+  background-color: var(--button-hover);
+}

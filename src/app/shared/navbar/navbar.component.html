@@ -20,8 +20,13 @@
       </ul>
     </li>
 
-    <li><a routerLink="/transactions">Transferencias</a></li>
-    <li><a routerLink="/cards">Tarjetas</a></li>
+    <li class="transactions-dropdown" [ngClass]="{'show-menu': activeMenu === 'transactions'}">
+      <a class="dropdown-link" (click)="toggleMenu('transactions')">Transferencias</a>
+      <ul class="transactions-menu">
+        <li><a routerLink="/transfer">Transferir</a></li>
+        <li><a routerLink="/my-transactions">Mis transferencias</a></li>
+      </ul>
+    </li>
 
     <li class="loans-dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
       <a class="loans-link dropdown-link" (click)="toggleMenu('loans')">Prestamos</a>

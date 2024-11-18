@@ -66,8 +66,6 @@ export class MyTransactionsComponent {
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
         this.transactions = transactions;
-
-        this.transactions = this.transactions.reverse();
   
         this.changeDetector.detectChanges();
       },

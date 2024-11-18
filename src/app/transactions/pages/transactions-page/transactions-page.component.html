@@ -1,15 +1,3 @@
 <app-navbar></app-navbar>
 
-<div class="container">
-  <div class="square-card" (click)="openModal()">Transferir</div>
-  <div class="square-card" routerLink="/my-transactions">Mis transferencias</div>
-</div>
-
-<!-- Modal Component -->
-<app-transfer-modal 
-  *ngIf="isModalOpen" 
-  (close)="isModalOpen = false" 
-  (confirm)="goToNewTransfer($event)">
-</app-transfer-modal>
-
-
+<app-transfer-modal></app-transfer-modal>

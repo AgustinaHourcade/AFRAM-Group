@@ -64,6 +64,8 @@
   
   .transactions-container {
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
   }
   
   .transactions-container app-transaction {

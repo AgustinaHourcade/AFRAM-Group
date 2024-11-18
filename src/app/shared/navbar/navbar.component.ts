@@ -15,7 +15,7 @@ export class NavbarComponent {
   isAccountOpen = false;
   isFixedTermsOpen = false;
   isProfileMenuOpen = false;
-
+  isTransfersMenuOpen = false;
   router = inject(Router);
   userSessionService = inject(UserSessionService);
 
@@ -46,7 +46,13 @@ export class NavbarComponent {
     this.isFixedTermsOpen = false;
   }
 
-  
+  openTransfersMenu(){
+    this.isTransfersMenuOpen = true;
+  }
+
+  closeTrasnfersMenu(){
+    this.isTransfersMenuOpen = false;
+  }
 
   logout(): void {
     this.userSessionService.clearUserId();

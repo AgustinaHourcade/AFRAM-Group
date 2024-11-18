@@ -36,7 +36,7 @@ export const routes: Routes = [
     {path: 'profile', component: ProfileComponent, title: 'Perfil | AFRAM Group'},
     {path: 'update-profile/:id', component: UpdateProfileComponent,title: 'Editar perfil | AFRAM Group'},
     {path: 'update-password', component: UpdatePasswordComponent, title: 'Cambiar contraseña | AFRAM Group'},
-    {path: 'transactions', component: TransactionsPageComponent,title: 'Transferencias | AFRAM Group'},
+    {path: 'transfer', component: TransactionsPageComponent,title: 'Transferir | AFRAM Group'},
     {path: 'my-transactions', component: MyTransactionsComponent, title: 'Mis transacciones | AFRAM Group'  },
     {path: 'cards', component: CardComponent, title: 'Mis tarjetas | AFRAM Group'},
     {path: 'newcard', component: NewcardComponent, title: 'Nueva tarjeta | AFRAM Group'},
