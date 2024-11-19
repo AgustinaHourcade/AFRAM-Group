@@ -21,7 +21,7 @@
 
   <form [formGroup]="amount" (ngSubmit)="realizarTransfer()">
     <div *ngIf="flag">
-      <p>Titular: {{ user.last_name }}, {{ user.real_name }}</p>
+      <p>Titular: {{ userDestino.last_name }}, {{ userDestino.real_name }}</p>
       <p>CBU: {{ account.cbu }}</p>
       <p>Alias: {{ account.alias }}</p>
 

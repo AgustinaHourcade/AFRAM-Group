@@ -1,6 +1,6 @@
 
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, OnInit } from '@angular/core';
 import { AccountService } from '../../../accounts/services/account.service';
 import {
   FormBuilder,
@@ -26,7 +26,7 @@ import Swal from 'sweetalert2';
   templateUrl: './transfer-modal.component.html',
   styleUrl: './transfer-modal.component.css',
 })
-export class TransferModalComponent {
+export class TransferModalComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
   confirmar = false;
@@ -34,13 +34,16 @@ export class TransferModalComponent {
   flag: boolean = false;
   errorMessage: string = '';
   user!: User;
+  userDestino !: User;
   accounts!: Array<Account>;
   router = inject(Router);
+  userSessionService = inject(UserSessionService);
   userService = inject(UserService);
-  sessionService = inject(UserSessionService);
   accountService = inject(AccountService);
   transactionService = inject(TransactionService);
+  emailService = inject(EmailService);
   montoTransferencia: number | null | undefined = 0
+  id !: number;
 
   fb = inject(FormBuilder);
   origen!: Account;
@@ -55,9 +58,24 @@ export class TransferModalComponent {
     selectedAccountId: ['', [Validators.required]]
   });
 
-  emailService=inject(EmailService);
 
-  onClose() {
+
+  
+  ngOnInit(): void {
+    this.id = this.userSessionService.getUserId();
+    this.userService.getUser(this.id).subscribe({
+      next: (user) => {
+           this.user = user;
+      },error: (e : Error) =>{
+        console.log(e.message);
+      }
+    })
+
+
+    this.cargarCuentas();
+  }
+
+    onClose() {
     this.close.emit();
   }
 
@@ -76,7 +94,7 @@ export class TransferModalComponent {
               if (this.account && this.account.user_id) {
                 this.userService.getUser(this.account.user_id).subscribe({
                   next: (user) => {
-                    this.user = user;
+                    this.userDestino = user;
                     this.flag = true;
                   },
                   error: (error: Error) => {
@@ -105,7 +123,7 @@ export class TransferModalComponent {
               if (this.account && this.account.user_id) {
                 this.userService.getUser(this.account.user_id).subscribe({
                   next: (user) => {
-                    this.user = user;
+                    this.userDestino = user;
                     this.flag = true;
                   },
                   error: (error: Error) => {
@@ -132,22 +150,21 @@ export class TransferModalComponent {
       });
     }
 
-    this.cargarCuentas();
   }
 
   cargarCuentas() {
-    const id = this.sessionService.getUserId();
-    this.accountService.getAccountsByIdentifier(id).subscribe({
-      next: (accounts) => {
+    this.accountService.getAccountsByIdentifier(this.id).subscribe({
+      next: (accounts: Account[]) => {
         this.accounts = accounts;
+        console.log(this.accounts);
       },
-      error: (e: Error) => {
-        console.log(e.message);
+      error: (error: Error) => {
+        console.error('Error fetching accounts:', error);
       },
     });
   }
 
-  userOrigen!: User;
+
   
   realizarTransfer() {
     const selectedAccountId = this.amount.get('selectedAccountId')?.value;
@@ -210,11 +227,11 @@ export class TransferModalComponent {
               icon: 'success',
               confirmButtonText: 'Aceptar',
             });
-  
-            if (this.userOrigen.email) {
+            
+            if (this.user.email) {
               this.emailService
                 .sendTransferEmail(
-                  this.userOrigen.email,
+                  this.user.email,
                   this.montoTransferencia!,
                   selectedAccount.id,
                   this.account?.id

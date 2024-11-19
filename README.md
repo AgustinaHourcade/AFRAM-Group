@@ -37,5 +37,4 @@ INSTALATION
 npm i
 npm i html2canvas
 npm i jspdf
-npm i bcryptjs
-npm install --save-dev @types/bcryptjs --> en duda
+

@@ -7,15 +7,19 @@
     <label for="accountSelect"></label>
     <select id="accountSelect" (change)="onAccountSelect($event)">
       <option value="">Seleccione una cuenta</option>
-      <option *ngFor="let account of accounts" [value]="account.id">
-        @if (account.account_type == "Savings") {
-          <h3>CA </h3>
-          <p>{{ account.id }}-{{userId }}/1</p>
-          } @if (account.account_type == "Checking") {
-          <h3>CC </h3>
-          <p>{{ account.id }}-{{ userId }}/2</p>
-          }
-      </option>
+      @for (account of accounts; track $index) {
+        @if(account.closing_date == null) {
+        <option [value]="account.id">
+            @if (account.account_type == "Savings") {
+              <h3>CA </h3>
+              <p>{{ account.id }}-{{userId }}/1--${{account.balance}}</p>
+            } @if (account.account_type == "Checking") {
+              <h3>CC </h3>
+              <p>{{ account.id }}-{{ userId }}/2--${{account.balance}}</p>
+            }
+          </option>
+        }
+      }
     </select>
   </div>
 </div>

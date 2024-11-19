@@ -7,8 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class EmailService {
   private baseUrl = 'http://localhost:3000/email'; 
-
-  http = inject(HttpClient)
+  private http = inject(HttpClient)
 
   sendTransferEmail(to: string, amount: number, sourceAccountId: number, destinationAccountId: number) {
     return this.http.post(`${this.baseUrl}/sendTransfer`, { to, amount, sourceAccountId, destinationAccountId });

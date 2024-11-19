@@ -13,23 +13,19 @@ export class FaqService {
       faqs: [
         {
           question: '¿Cómo cambio mi contraseña?',
-          answer: 'Para cambiar su contraseña, vaya a la sección de Seguridad en su perfil y seleccione la opción "Cambiar contraseña".'
+          answer: 'Para cambiar su contraseña, vaya a la sección "Perfil" y seleccione la opción "Cambiar contraseña".'
         },
         {
           question: '¿Qué hago si olvidé mi usuario o contraseña?',
-          answer: 'En la página de inicio, haga clic en "¿Olvidó su contraseña?" y siga los pasos de recuperación.'
+          answer: 'En la página de LogIn, haga clic en "¿Olvidó su contraseña?" y siga los pasos de recuperación.'
         },
         {
           question: '¿Cómo actualizo mi información personal (email, teléfono, etc.)?',
-          answer: 'Acceda a su perfil y seleccione "Actualizar información personal" para modificar sus datos.'
+          answer: 'Acceda a su perfil, seleccione "Ver perfil" y apriete en  "Modificar perfil" para actualizar sus datos.'
         },
         {
           question: '¿Qué debo hacer si detecto actividad sospechosa en mi cuenta?',
-          answer: 'Contacte inmediatamente a nuestro servicio de atención al cliente y reporte la actividad sospechosa.'
-        },
-        {
-          question: '¿Cómo configuro la autenticación de dos factores (2FA)?',
-          answer: 'En la sección de Seguridad, encontrará la opción para activar la autenticación de dos factores.'
+          answer: 'Contacte inmediatamente a nuestro numero 2235123456 y reporte la actividad sospechosa.'
         }
       ]
     },
@@ -40,23 +36,19 @@ export class FaqService {
       faqs: [
         {
           question: '¿Cómo realizo una transferencia a otra cuenta?',
-          answer: 'Vaya a la sección "Transferencias", seleccione la cuenta destino y el monto a transferir.'
-        },
-        {
-          question: '¿Cuál es el límite diario para transferencias?',
-          answer: 'El límite diario depende de su tipo de cuenta. Puede consultarlo en "Configuración > Límites".'
-        },
-        {
-          question: '¿Cómo programo una transferencia para una fecha futura?',
-          answer: 'Al realizar una transferencia, seleccione "Programar transferencia" y elija la fecha deseada.'
-        },
-        {
-          question: '¿Cómo puedo pagar mis servicios desde el home banking?',
-          answer: 'En la sección "Pagos", seleccione el servicio a pagar e ingrese el código de pago.'
+          answer: 'Vaya a la sección "Transferencias", seleccione la opcion "Transferir", luego ingrese el alias o cbu y el monto a transferir.'
         },
         {
           question: '¿Qué hago si una transferencia no se procesó correctamente?',
           answer: 'Contacte a soporte técnico con el número de operación para resolver el inconveniente.'
+        },
+        {
+          question: '¿Donde puedo ver mis transferencias realizadas?',
+          answer: 'Vaya a la sección "Transferencias", seleccione la opción "Ver mis transferencias"'
+        },
+        {
+          question: '¿Como puedo descargar el comprobante de la transferencia?',
+          answer: 'Vaya a la sección "Mis transferencias", seleccione "Ver comprobante" y luego "Descargar PDF"'
         }
       ]
     },
@@ -67,23 +59,15 @@ export class FaqService {
       faqs: [
         {
           question: '¿Cómo solicito una tarjeta de crédito o débito?',
-          answer: 'Acceda a "Productos > Tarjetas" y seleccione "Solicitar nueva tarjeta".'
+          answer: 'Acceda a "Tarjetas" y seleccione "Solicitar nueva tarjeta".'
         },
         {
           question: '¿Cómo reporto una tarjeta perdida o robada?',
-          answer: 'Llame inmediatamente a nuestra línea de atención 24/7 o use la opción "Bloquear tarjeta".'
-        },
-        {
-          question: '¿Cómo veo el resumen de mi tarjeta de crédito?',
-          answer: 'En la sección "Tarjetas", seleccione su tarjeta y luego "Ver resumen".'
-        },
-        {
-          question: '¿Cuáles son los requisitos para solicitar un préstamo?',
-          answer: 'Los requisitos varían según el tipo de préstamo. Consulte la sección "Préstamos > Requisitos".'
+          answer: 'Llame inmediatamente a nuestra línea de atención 24/7 o use la opción "Dar de baja tarjeta".'
         },
         {
           question: '¿Cómo consulto el estado de mis pagos de préstamo?',
-          answer: 'En "Préstamos", seleccione su préstamo activo para ver el estado de los pagos.'
+          answer: 'En "Préstamos", seleccione "Ver mis prestamos"  para ver el estado de los pagos.'
         }
       ]
     },
@@ -94,38 +78,11 @@ export class FaqService {
       faqs: [
         {
           question: '¿Cómo consulto el saldo de mi cuenta?',
-          answer: 'El saldo se muestra en la página principal o en la sección "Cuentas".'
+          answer: 'El saldo se muestra en la página principal o en la sección "Mis cuentas".'
         },
         {
           question: '¿Cómo veo el historial de mis movimientos bancarios?',
-          answer: 'En "Cuentas", seleccione su cuenta y luego "Ver movimientos".'
-        },
-        {
-          question: '¿Qué significa el concepto que aparece en mi extracto?',
-          answer: 'Los conceptos describen el tipo de operación realizada. Puede ver el detalle seleccionando el movimiento.'
-        },
-        {
-          question: '¿Cómo descargo mi estado de cuenta mensual?',
-          answer: 'En la sección "Cuentas", seleccione "Descargar estado de cuenta" y elija el mes.'
-        }
-      ]
-    },
-    {
-      title: 'Configuración de Notificaciones',
-      icon: '🔔',
-      keywords: ['notificación', 'alerta', 'aviso', 'email', 'sms'],
-      faqs: [
-        {
-          question: '¿Cómo activo o desactivo las notificaciones de movimientos?',
-          answer: 'En "Configuración > Notificaciones" puede gestionar sus preferencias de alertas.'
-        },
-        {
-          question: '¿Puedo recibir alertas sobre transferencias y pagos?',
-          answer: 'Sí, active las alertas de operaciones en "Configuración > Notificaciones".'
-        },
-        {
-          question: '¿Cómo personalizo mis alertas de saldo y transacciones?',
-          answer: 'En "Configuración > Notificaciones" puede personalizar los tipos de alertas y montos.'
+          answer: 'En "Transferencias", seleccione su cuenta y luego "Ver transferencias".'
         }
       ]
     },
@@ -136,7 +93,7 @@ export class FaqService {
       faqs: [
         {
           question: '¿Cómo abro una nueva cuenta?',
-          answer: 'Vaya a "Productos > Cuentas" y seleccione "Abrir nueva cuenta".'
+          answer: 'Vaya a "Cuentas" y seleccione "Solicitar cuenta".'
         },
         {
           question: '¿Dónde encuentro los cajeros automáticos más cercanos?',
@@ -144,7 +101,7 @@ export class FaqService {
         },
         {
           question: '¿Cómo contacto al servicio de atención al cliente?',
-          answer: 'Puede llamar al 0800-XXX-XXXX o usar el chat en línea.'
+          answer: 'Puede llamar al 2235123456 las 24hs.'
         },
         {
           question: '¿Cuáles son los horarios de atención de soporte?',

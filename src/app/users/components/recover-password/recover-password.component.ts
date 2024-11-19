@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import bcrypt from 'bcryptjs';
 import { EmailService } from '../../../email/service/email.service';
 import Swal from 'sweetalert2';
 import { HomeComponent } from "../../../pages/home/home.component";

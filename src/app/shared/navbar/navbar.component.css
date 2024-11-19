@@ -46,7 +46,8 @@
 .account-menu,
 .fixed-terms-menu,
 .profile-menu,
-.loans-menu {
+.loans-menu,
+.cards-menu {
   display: none; 
   position: absolute;
   top: 100%;
@@ -66,14 +67,16 @@
 .account-menu li,
 .fixed-terms-menu li,
 .profile-menu li,
-.loans-menu li {
+.loans-menu li,
+.cards-menu li {
   width: 100%;
 }
 
 .account-menu a,
 .fixed-terms-menu a,
 .profile-menu a,
-.loans-menu a {
+.loans-menu a,
+.cards-menu a {
   color: white;
   text-decoration: none;
   padding: 10px;
@@ -83,7 +86,8 @@
 .account-menu a:hover,
 .fixed-terms-menu a:hover,
 .profile-menu a:hover,
-.loans-menu a:hover {
+.loans-menu a:hover
+.cards-menu a:hover {
   background-color: var(--button-hover);
 }
 

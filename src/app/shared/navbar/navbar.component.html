@@ -28,6 +28,14 @@
       </ul>
     </li>
 
+    <li class="cards-dropdown" [ngClass]="{'show-menu': activeMenu === 'cards'}">
+      <a class="dropdown-link" (click)="toggleMenu('cards')">Tarjetas</a>
+      <ul class="cards-menu">
+        <li><a routerLink="/cards">Mis tarjetas</a></li>
+        <li><a routerLink="/newcard">Nueva tarjeta</a></li>
+      </ul>
+    </li>
+
     <li class="loans-dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
       <a class="loans-link dropdown-link" (click)="toggleMenu('loans')">Prestamos</a>
       <ul class="loans-menu">

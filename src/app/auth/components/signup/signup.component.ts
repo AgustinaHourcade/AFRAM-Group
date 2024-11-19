@@ -21,7 +21,7 @@ export class SignupComponent{
   account!: Account;
   showPassword1 = false;
   showPassword2 = false;
-  hasLetter: boolean = false;
+  hasUpperCase: boolean = false;
   hasNumber: boolean = false;
   isLongEnough: boolean = false;
 
@@ -46,8 +46,8 @@ export class SignupComponent{
 
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
-
-    this.hasLetter = /[a-zA-Z]/.test(password); // Verifica que tenga al menos una letra
+  
+    this.hasUpperCase = /[A-Z]/.test(password); // Verifica que tenga al menos una letra mayúscula
     this.hasNumber = /\d/.test(password); // Verifica que tenga al menos un número
     this.isLongEnough = password.length >= 8; // Verifica longitud mínima
   }
@@ -153,5 +153,32 @@ export class SignupComponent{
         console.error('Error al crear usuario:', error);
       }
     });
+  }
+
+  passwordForm: FormGroup;
+  
+  passwordValidation = {
+    containsNumber: false,
+    containsUppercase: false,
+    validLength: false,
+  };
+
+  constructor(private fb2: FormBuilder) {
+    this.passwordForm = this.fb2.group({
+      password: ['', Validators.required],
+    });
+
+    // Listen to value changes to update validation status
+    this.passwordForm.get('password')?.valueChanges.subscribe(value => {
+      this.updatePasswordValidation(value);
+    });
+  }
+
+  updatePasswordValidation(password: string): void {
+    this.passwordValidation = {
+      containsNumber: /\d/.test(password),
+      containsUppercase: /[A-Z]/.test(password),
+      validLength: password.length >= 8,
+    };
   }
 }
