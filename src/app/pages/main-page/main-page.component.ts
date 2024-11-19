@@ -94,23 +94,26 @@ export class MainPageComponent implements OnInit {
         next: (fixedTerms) =>{
           this.fixedTerms = fixedTerms;
           for(let item of fixedTerms){
-            const cant = item.invested_amount + item.interest_earned;
+            const cant = Number (item.invested_amount) + Number (item.interest_earned);
             if(item.is_paid === 'no'){
               if(this.compareDateWithNow(item.expiration_date)){
+                console.log('CANTIDAD: '+cant);
               this.accountService.updateBalance(cant, item.account_id).subscribe({
-              next:()=>{
-                this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
-                  next:()=>{
-                  Swal.fire({
-                    title: 'Se ha terminado el plazo fijo!',
-                    text: `Se ha agregado ${cant} a tu cuenta`,
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar',
-                  });
-                }, error:(err: Error)=>{
-                  console.log(err.message);
+              next:(flag)=>{
+                if(flag){  
+                  this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
+                    next:()=>{
+                      Swal.fire({
+                        title: 'Se ha terminado el plazo fijo ID:'+item.id +'!',
+                        text: `Se ha agregado ${cant} a tu cuenta`,
+                        icon: 'success',
+                        confirmButtonText: 'Aceptar',
+                      });
+                    }, error:(err: Error)=>{
+                      console.log(err.message);
+                    }
+                  })
                 }
-                })
               }, error: (err:Error)=>{
                 console.log(err.message);
               }

@@ -28,6 +28,6 @@ export class FixedTermService {
   }
 
   setPayFixedTerms(id: number): Observable<boolean>{
-    return this.http.patch<boolean>(`${this.baseUrl}is-paid`,id)
+    return this.http.patch<boolean>(`${this.baseUrl}is-paid`, {id})
   }
 }
