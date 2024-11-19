@@ -1,4 +1,3 @@
-/* Estilos generales para body y html */
 body,
 html {
   width: 100%;
@@ -7,22 +6,21 @@ html {
   padding: 0;
 }
 
-/* Estilos del header/navbar */
 header {
-  position: fixed;
-  top: 0;
+  position: sticky;
+  top: 0px;
   width: 100%;
   padding: 1rem;
   transition: background-color 0.3s ease;
-  z-index: 1000; /* Asegúrate de que el navbar esté por encima de otros elementos */
+  z-index: 1000; 
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary-color); /* Fondo azul */
+  background-color: transparent;
 }
 
 header.scrolled {
-  background-color: var(--primary-color); /* Fondo azul */
+  background-color: var(--primary-color); 
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
@@ -53,14 +51,12 @@ header.scrolled {
   cursor: not-allowed;
 }
 
-/* Estilos para el contenido principal */
 main {
-  margin-top: 120px; /* Ajusta este valor según el tamaño de tu navbar */
-  z-index: 999; /* Asegúrate de que el contenido esté debajo del navbar */
-  position: relative; /* Para que el contenido se apile correctamente */
+  margin-top: 120px;
+  z-index: 999;
+  position: relative;
 }
 
-/* Secciones */
 .sectionA,
 .sectionB {
   width: 100%;
@@ -78,10 +74,9 @@ main {
   flex-direction: row;
   justify-content: space-between;
   column-gap: 80px;
-  box-sizing: border-box; /* Para evitar desbordamientos por padding */
+  box-sizing: border-box; 
 }
 
-/* Estilo de texto */
 .lead {
   font-size: 20px;
   font-weight: 400;
@@ -99,4 +94,4 @@ main {
   float: left;
   width: 100px;
   border-top: 3px solid var(--secondary-color);
-}
+} 
