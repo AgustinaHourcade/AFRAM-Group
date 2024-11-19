@@ -63,7 +63,14 @@ export class NewLoanComponent implements OnInit {
     this.loan.amount = this.formulario.get('amount')?.value as number;
     this.loan.account_id = this.formulario.get('account_id')?.value as number;
     this.loan.interest_rate_id = this.rate.id;
-
+    if(this.loan.amount > 1000000){
+      Swal.fire({
+        title: "Atención",
+        text: 'Para prestamos superiores a $1.000.000 dirijase a alguna de nuestras sucursales',
+        icon: "error",
+        confirmButtonText: 'Aceptar'
+      });
+    }else{
     this.accountService.getAccountById(this.loan.account_id).subscribe({
       next: (account) => {
         this.account = account;
@@ -129,6 +136,7 @@ export class NewLoanComponent implements OnInit {
         console.error('Error al obtener la cuenta', error);
       },
     });
+  }
   }
 
   updateDate(): Date {

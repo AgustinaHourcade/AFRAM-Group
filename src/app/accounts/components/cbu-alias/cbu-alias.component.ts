@@ -11,9 +11,10 @@ import html2canvas from 'html2canvas';
 import { Account } from '../../interface/account.interface';
 import { switchMap } from 'rxjs';
 import { AccountService } from '../../services/account.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../users/services/user.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cbu-alias',
@@ -27,6 +28,7 @@ export class CbuAliasComponent implements OnInit {
   user!: User;
   
   router = inject(ActivatedRoute);
+  route = inject(Router)
   userService = inject(UserService);
   accountService = inject(AccountService);
   fb = inject(FormBuilder);
@@ -69,9 +71,20 @@ export class CbuAliasComponent implements OnInit {
         next: (value) => {
           if (value) console.log('Modificado correctamente');
           this.isEditing = false; 
-          window.location.reload();
+          Swal.fire({
+            title: 'Alias modificado correctamente!',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+          this.route.navigate(['accounts']);
         },
         error: (err) => {
+          Swal.fire({
+            title: 'Error al modificar el alias',
+            text: 'El alias elejido ya esta en uso o es demasiado largo, la longitud maxima es de 15 caracteres',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+          });
           console.error('Error al modificar alias:', err.message); 
         },
       });

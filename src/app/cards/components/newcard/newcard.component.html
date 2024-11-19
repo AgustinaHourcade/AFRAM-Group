@@ -14,8 +14,12 @@
       <select id="account" class="input-field" formControlName="account">
         <option value="" disabled selected>Seleccione una cuenta</option>
         @for (item of accounts; track $index) {
-          @if (item.account_type === 'Savings') {
-            <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
+          @if (item.account_type === 'Savings') 
+          {
+            @if(!item.closing_date){
+              
+              <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
+            }
           }
         }
         </select>

@@ -95,7 +95,6 @@ export class NewPasswordComponent {
           control.setValue(pastedData[index] || '');
         }
       });
-      // Move focus to the last field after paste
       const lastInput = inputs[5];
       lastInput?.focus();
     }
@@ -108,6 +107,7 @@ export class NewPasswordComponent {
       this.showPassword2 = !this.showPassword2;
     }
   }
+
   verifyToken(){
     const token1= this.formularioToken.get('token1')?.value || '';
     const token2= this.formularioToken.get('token2')?.value || '';
@@ -123,6 +123,13 @@ export class NewPasswordComponent {
       },
       error: (err: Error) =>{
         console.log(err.message);
+        Swal.fire({
+          icon: "error",
+          showCloseButton: true,
+          title: "Token incorrecto",
+          // text: "Something went wrong!",
+          footer: '<a href="#">Reenviar mail</a>'
+        });
       }
     })
 

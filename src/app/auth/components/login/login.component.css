@@ -68,10 +68,9 @@ a {
   text-decoration: none;
 }
 
-/* Estilos para el estado de error */
 .errorInput {
   border: 1px solid #ff4d4d;
-  box-shadow: 0 0 5px rgba(255, 77, 77, 0.5); /* efecto de sombra sutil para errores */
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.5); 
 }
 
 .errorLabel {
@@ -81,7 +80,6 @@ a {
   font-size: 12px;
 }
 
-/* Mensaje de error */
 .error {
   color: #ff4d4d;
   font-size: 14px;
@@ -94,7 +92,7 @@ a {
 
 .error i {
   font-size: 1rem;
-  color: #ff4d4d; /* Icono de advertencia */
+  color: #ff4d4d; 
 }
 
 button[type="submit"] {
@@ -119,4 +117,14 @@ button[type="submit"]:hover {
 button[type="submit"]:active {
   transform: scale(0.98);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"]::-ms-clear {
+  display: none;
 }

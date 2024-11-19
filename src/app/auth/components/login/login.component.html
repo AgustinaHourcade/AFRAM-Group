@@ -3,7 +3,7 @@
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   <div class="input-container">
     <input
-      type="text"
+      type="number"
       id="dni"
       formControlName="dni"
       [ngClass]="{
@@ -54,36 +54,13 @@
   </div>
 
   <div class="input-container">
-    <input
-      #passwordInput
-      [type]="showPassword ? 'text' : 'password'"
-      id="password"
-      formControlName="hashed_password"
-      [ngClass]="{
-        errorInput:
-          formulario.controls['hashed_password'].getError('required') &&
-          formulario.controls['hashed_password'].touched
-      }"
-    />
-    <label  [ngClass]="{
-      filled: formulario.get('hashed_password')?.value,
-      errorLabel:
-        formulario.controls['hashed_password'].getError('required') &&
-        formulario.controls['hashed_password'].touched
-    }"
-    ><span
-      *ngIf="
-        formulario.controls['hashed_password'].touched &&
-        !formulario.controls['hashed_password'].value
-      "
-    >
-    <i class="bi bi-exclamation-circle"></i> </span
-      > Contraseña</label
-    >
-    <span
-      class="toggle-visibility"
-      (click)="togglePasswordVisibility(passwordInput)"
-    >
+    <input #passwordInput [type]="showPassword ? 'text' : 'password'" id="password" formControlName="hashed_password"
+      [ngClass]="{ errorInput: formulario.controls['hashed_password'].getError('required') && formulario.controls['hashed_password'].touched }" />
+    <label  [ngClass]="{ filled: formulario.get('hashed_password')?.value, errorLabel: formulario.controls['hashed_password'].getError('required') && formulario.controls['hashed_password'].touched }">
+      <span *ngIf=" formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].value">
+    <i class="bi bi-exclamation-circle"></i> 
+    </span> Contraseña</label>
+    <span class="toggle-visibility" (click)="togglePasswordVisibility(passwordInput)">
       <i *ngIf="showPassword; else eyeClosed" class="bi bi-eye"></i>
       <ng-template #eyeClosed>
         <i class="bi bi-eye-slash"></i>

@@ -52,12 +52,22 @@ export class SignupComponent{
     this.isLongEnough = password.length >= 8; // Verifica longitud mínima
   }
 
-  togglePasswordVisibility(field: 'password' | 'confirm'): void {
-    if (field === 'password') {
-      this.showPassword1 = !this.showPassword1;
-    } else if (field === 'confirm') {
-      this.showPassword2 = !this.showPassword2;
-    }
+  // togglePasswordVisibility(field: 'password' | 'confirm'): void {
+  //   if (field === 'password') {
+  //     this.showPassword1 = !this.showPassword1;
+  //   } else if (field === 'confirm') {
+  //     this.showPassword2 = !this.showPassword2;
+  //   }
+  // }
+
+  togglePasswordVisibility(input: HTMLInputElement) {
+    input.type = this.showPassword1 ? 'password' : 'text';
+    this.showPassword1 = !this.showPassword1;
+  }
+
+  togglePasswordVisibilityRepet(input: HTMLInputElement) {
+    input.type = this.showPassword2 ? 'password' : 'text';
+    this.showPassword2 = !this.showPassword2;
   }
 
   passwordValidator(control: AbstractControl): ValidationErrors | null {

@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class UserSessionService {
   private userIdKey: number = 0;
-  constructor() {}
+  
+  estoyLogeado: boolean = false;
 
   setUserId(id: number): void {
     this.userIdKey = id;
@@ -18,4 +19,18 @@ export class UserSessionService {
   getUserId(): number {
     return this.userIdKey;
   }
+
+  getLogIn(){
+    return this.estoyLogeado
+  }  
+
+  logIn(){
+    this.estoyLogeado = false;
+  }
+
+  logOut(){
+    this.estoyLogeado = true;
+  }
+
+  
 }

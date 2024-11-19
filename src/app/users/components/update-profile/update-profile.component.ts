@@ -62,7 +62,12 @@ export class UpdateProfileComponent implements OnInit {
   });
 
   setUser(user: User | undefined, address: Address) {
-    this.formulario.controls['email'].setValue(user!.email ?? '');
+    if (user!.email?.includes('@example')) {
+      this.formulario.controls['email'].setValue('');
+    } else {
+      this.formulario.controls['email'].setValue(user!.email ?? '');
+    }
+
     this.formulario.controls['phone'].setValue(user!.phone ?? '');
     this.formulario.controls['street'].setValue(address.street);
     this.formulario.controls['address_number'].setValue(address.address_number);

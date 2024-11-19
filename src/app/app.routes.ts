@@ -21,12 +21,15 @@ import { ListLoanComponent } from './loans/components/list-loan/list-loan.compon
 import { PayLoanComponent } from './loans/components/pay-loan/pay-loan.component';
 import { RecoverPasswordComponent } from './users/components/recover-password/recover-password.component';
 import { NewPasswordComponent } from './users/components/new-password/new-password.component';
+import { authGuardFn } from './auth/guard/auth.guard-fn';
+import { AccessDeniedComponent } from './auth/pages/access-denied/access-denied.component';
+import { authGuardFnlogOut } from './auth/guard/auth.guard-fn-logOut';
 
 
 export const routes: Routes = [
     {path: '', component: HomeComponent, title: 'Bienvenido | AFRAM Group'},
     {path: 'auth',component: AuthPageComponent, title: 'Inicio sesión | AFRAM Group'},
-    {path: 'main', component: MainPageComponent, title: 'Inicio | AFRAM Group'},
+    {path: 'main', component: MainPageComponent, title: 'Inicio | AFRAM Group'}, // canActivate: [admitirCliente]
     {path: 'accounts', component: AccountsComponent,title: 'Cuentas | AFRAM Group'},
     {path: 'accounts/account/:id', component: AccountInfoComponent, title: 'Mi cuenta | AFRAM Group'},
     {path: 'accounts/new-account', component: NewAccountComponent, title: 'Nueva cuenta | AFRAM Group'},
@@ -45,6 +48,7 @@ export const routes: Routes = [
     {path: 'legal', component: LegalComponent, title: 'Legal | AFRAM Group' },
     {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
     {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
+    {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group', canActivate: [authGuardFnlogOut]},
     {path: '**', redirectTo: ''}
 ];
 

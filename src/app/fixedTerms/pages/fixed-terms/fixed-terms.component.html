@@ -1,29 +1,57 @@
 <app-navbar></app-navbar>
-<h2 class="section-title">Mis plazos fijos</h2>
 
 <div *ngIf="fixedTerms.length === 0">
   <p>No hay plazos fijos realizados por el usuario</p>
 </div>
 
+@if (fixedTerms.length > 0) {
 <div class="tableDiv">
-<table *ngIf="fixedTerms.length > 0">
-  <thead>
-    <tr>
-      <th>Numero de cuenta</th>
-      <th>Cantidad invertida</th>
-      <th>Intereses ganados</th>
-      <th>Fecha de expiración</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (ft of fixedTerms; track $index) {
+  <h3>Plazos fijos activos</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Numero de cuenta</th>
+        <th>Cantidad invertida</th>
+        <th>Intereses ganados</th>
+        <th>Fecha de expiración</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (ft of fixedTerms; track $index) { @if (ft.is_paid === 'no') {
       <tr>
         <td>{{ ft.account_id }}</td>
         <td>${{ ft.invested_amount }}</td>
-        <td>{{ ft.interest_earned }}</td>
+        <td>${{ ft.interest_earned }}</td>
         <td>{{ formatearFecha(ft.expiration_date) }}</td>
       </tr>
-    }
-  </tbody>
-</table>
+      } }
+    </tbody>
+  </table>
 </div>
+}
+
+@if (fixedTerms.length > 0) {
+<div class="tableDiv">
+  <h3>Plazos fijos vencidos</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Numero de cuenta</th>
+        <th>Cantidad invertida</th>
+        <th>Intereses ganados</th>
+        <th>Fecha de expiración</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (ft of fixedTerms; track $index) { @if (ft.is_paid === 'yes') {
+      <tr>
+        <td>{{ ft.account_id }}</td>
+        <td>${{ ft.invested_amount }}</td>
+        <td>${{ ft.interest_earned }}</td>
+        <td>{{ formatearFecha(ft.expiration_date) }}</td>
+      </tr>
+      } }
+    </tbody>
+  </table>
+</div>
+}

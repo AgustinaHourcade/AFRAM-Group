@@ -11,10 +11,9 @@ import { User } from '../../../users/interface/user.interface';
   standalone: true,
   imports: [CommonModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   showPassword = false;
   id: number = 0;
 
@@ -23,50 +22,48 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
   }
 
-    fb = inject(FormBuilder);
-    userService = inject(UserService);
-    router = inject(Router);
-    userSessionService = inject(UserSessionService);
-    user ?: User;
-  
-    formulario = this.fb.nonNullable.group({
-      name_user: ['', [Validators.required, Validators.minLength(3)]],
-      hashed_password: ['', [Validators.required, Validators.minLength(6)]],
-      dni: ['', Validators.required],
-    });
+  fb = inject(FormBuilder);
+  userService = inject(UserService);
+  router = inject(Router);
+  userSessionService = inject(UserSessionService);
+  user?: User;
 
-    admitUser() {
-        this.formulario.markAllAsTouched(); 
+  formulario = this.fb.nonNullable.group({
+    name_user: ['', [Validators.required, Validators.minLength(3)]],
+    hashed_password: ['', [Validators.required, Validators.minLength(6)]],
+    dni: ['', Validators.required],
+  });
 
-      if (this.formulario.invalid) return;
-  
-      this.user = this.formulario.getRawValue() as User 
-      
-      this.admitirCliente(this.user);
-    }
-  
-    errorMessage = '';
+  admitUser() {
+    this.formulario.markAllAsTouched();
 
-    admitirCliente(user: User | undefined) {
-      const data ={
-        username: user?.name_user as string,
-        password: user?.hashed_password as string,
-        dni: user?.dni as string
-      }
-      this.userService.verifyUser(data).subscribe({
+    if (this.formulario.invalid) return;
+
+    this.user = this.formulario.getRawValue() as User;
+
+    this.admitirCliente(this.user);
+  }
+
+  errorMessage = '';
+
+  admitirCliente(user: User | undefined) {
+    const data = {
+      username: user?.name_user as string,
+      password: user?.hashed_password as string,
+      dni: user?.dni as string,
+    };
+    this.userService.verifyUser(data).subscribe({
       next: (id) => {
-              this.id = id as number;
-              this.userSessionService.setUserId(Number (id));
-              this.router.navigate(['/main'])
-            },
-          error: (error: Error) => {
-          console.error('Error al verificar usuario:', error);
-          this.errorMessage = 'Usuario, DNI o contraseña incorrecta. Por favor, intenta de nuevo.';
-        }
-      });
-    }
-
-
-    
+        this.id = id as number;
+        this.userSessionService.setUserId(Number(id));
+        this.userSessionService.logIn();
+        this.router.navigate(['/main']);
+      },
+      error: (error: Error) => {
+        console.error('Error al verificar usuario:', error);
+        this.errorMessage =
+          'Usuario, DNI o contraseña incorrecta. Por favor, intenta de nuevo.';
+      },
+    });
+  }
 }
-

@@ -27,28 +27,70 @@ export class RecoverPasswordComponent {
   sendEmail() {
     const email = this.formulario.get('email')?.value;
 
+    const startTime = Date.now();
+
+    let timerInterval: number; 
+
+    Swal.fire({
+      title: "Enviando email!",
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup()?.querySelector("b");
+
+        if (timer) {
+          timerInterval = window.setInterval(() => { 
+            timer.textContent = `${Swal.getTimerLeft()}`;
+          }, 100);
+        }
+      },
+      willClose: () => {
+        window.clearInterval(timerInterval); 
+      }
+    });
+
     this.userService.getIdByEmail(email as string).subscribe({
       next: (id) => {
         this.emailService.sendRecoverEmail(email as string).subscribe({
           next: (flag) => {
+            // const responseTime = Date.now() - startTime;
+
+            // const adjustedTime = Math.max(2000, responseTime); 
+
             Swal.fire({
-              title:
-                'Le hemos enviado un mail con los pasos a seguir para cambiar su contraseña',
+              title: 'Hemos enviado un mail con los pasos a seguir para cambiar su contraseña',
               icon: 'success',
+              confirmButtonText: "Ok"
+              // timer: adjustedTime, 
+              // timerProgressBar: true
             });
             this.route.navigate(['/new-password']);
           },
           error: (e: Error) => {
             console.log(e.message);
+            // const responseTime = Date.now() - startTime;
+            // const adjustedTime = Math.max(2000, responseTime); 
+
+            Swal.fire({
+              title: 'Lo sentimos. Hubo un error al enviar el correo',
+              icon: 'error',
+              // timer: adjustedTime, 
+              // timerProgressBar: true
+            });
           },
         });
       },
       error: (e: Error) => {
-        Swal.fire({
-          title: 'El email no coincide con ningun usuario!',
-          icon: 'error',
-        });
         console.log(e.message);
+        const responseTime = Date.now() - startTime;
+        const adjustedTime = Math.max(2000, responseTime); 
+
+        Swal.fire({
+          title: 'El email no coincide con ningun usuario',
+          icon: 'error',
+          timer: adjustedTime, 
+          timerProgressBar: true
+        });
       },
     });
   }

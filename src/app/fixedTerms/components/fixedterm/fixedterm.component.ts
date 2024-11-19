@@ -73,8 +73,7 @@ export class NewFixedtermComponent implements OnInit {
     this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value as number;
     this.fixedTerm.account_id = this.formulario.get('account_id')?.value as number;
     this.fixedTerm.interest_rate_id = this.rate.id;
-    
-  
+
     this.accountService.getAccountById(this.fixedTerm.account_id).subscribe({
       next: (account) => {
         this.account = account;
@@ -130,8 +129,9 @@ export class NewFixedtermComponent implements OnInit {
           });
         } else {
           Swal.fire({
-            title: "Saldo suficiente!",
-            icon: "error"
+            title: "Saldo insuficiente!",
+            icon: "error",
+            confirmButtonText: 'Aceptar'
           });
         }
       },

@@ -64,7 +64,9 @@ export class NavbarComponent {
   }
 
   logout(): void {
+    this.userSessionService.logOut();
     this.userSessionService.clearUserId();
+    localStorage.clear();
     this.router.navigate(['/home']);
   }
 }

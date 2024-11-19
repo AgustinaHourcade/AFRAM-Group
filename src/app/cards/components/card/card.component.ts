@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -20,16 +20,23 @@ export class CardComponent implements OnInit {
   private sesionService = inject(UserSessionService);
   private cardService = inject(CardService);
   private accountService = inject(AccountService);
+  private route = inject (Router);
   borrar = false;
   cards!: Array<Card>;
   accounts!: Array<Account>;
   cardsService = inject(CardService);
   userId = this.sesionService.getUserId();
+  activeCards: Array<Card> = [];
 
   ngOnInit(): void {
     this.cardService.getCardsById(this.userId).subscribe({
       next: (cards) => {
         this.cards = cards;
+        cards.forEach((card) => {
+          if (card.is_Active === 'yes') {
+            this.activeCards.push(card);
+          }
+        });
       },
       error: (e: Error) => {
         console.log(e.message);
@@ -46,16 +53,19 @@ export class CardComponent implements OnInit {
     });
   }
 
-  deactivate(card_id: number): boolean {
+  deactivate(card_id: number) {
     this.cardService.disableCard(card_id).subscribe({
       next: (flag) => {
-        return true;
+        Swal.fire({
+          title: 'Tarjeta desactivada!',
+          icon: 'success',
+        });
+        this.route.navigate(['main']);
       },
       error: (e: Error) => {
         console.log(e.message);
       },
     });
-    return false;
   }
 
   alerta(card_id: number) {
@@ -70,12 +80,7 @@ export class CardComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        if (this.deactivate(card_id)) {
-          Swal.fire({
-            title: 'Tarjeta desactivada!',
-            icon: 'success',
-          });
-        }
+        this.deactivate(card_id);
       }
     });
   }

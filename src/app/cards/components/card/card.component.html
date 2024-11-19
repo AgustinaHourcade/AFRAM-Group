@@ -1,10 +1,13 @@
 <app-navbar></app-navbar>
-<div class="buttonDiv">
-  <button id="solicitar" [routerLink]="['/newcard']">Solicitar tarjeta</button>
-</div>
-<div class="cardsDiv">
-  @for (item of cards; track $index) { @if(item.is_Active === 'yes'){
+@if(activeCards.length === 0){
+  <div class="buttonDiv">
+    <button id="solicitar" [routerLink]="['/newcard']">Solicitar tarjeta</button>
+  </div>
+}
 
+
+<div class="cardsDiv">
+  @for (item of activeCards; track $index) { 
   <div class="cardsDiv-card">
     <div class="background">
       <div class="left"></div>
@@ -99,7 +102,7 @@
 
     <button (click)="alerta(item.card_id)">Dar de baja</button>
   </div>
-  } }
+  } 
 </div>
 
 

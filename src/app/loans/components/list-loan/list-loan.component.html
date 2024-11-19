@@ -1,13 +1,14 @@
 <app-navbar></app-navbar>
-<h2>Mis préstamos</h2>
 
 <div *ngIf="loans.length === 0">
   <p>No hay préstamos solicitados por el usuario</p>
 </div>
 
+@if (loans.length > 0) {
 <div class="tableDiv">
-  <table *ngIf="loans.length > 0">
-    <thead>
+  <h3>Prestamos activos</h3>
+    <table>
+      <thead>
       <tr>
         <th>Numero de cuenta</th>
         <th>Cantidad solicitada</th>
@@ -19,15 +20,51 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let loan of loans; track $index">
-        <td>{{ loan.account_id }}</td>
-        <td>${{ loan.amount }}</td>
-        <td>{{ loan.return_amount }}</td>
-        <td>{{ loan.paid }}</td>
-        <td>{{ loan.return_amount - loan.paid }}</td>
-        <td>{{ formatearFecha(loan.expiration_date) }}</td>
-        <td><button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button></td>
-      </tr>
+      @for (loan of loans; track $index) {
+        @if (loan.paid != loan.return_amount) {  
+          <tr >
+            <td>{{ loan.account_id }}</td>
+            <td>${{ loan.amount }}</td>
+            <td>${{ loan.return_amount }}</td>
+            <td>${{ loan.paid }}</td>
+            <td>${{ loan.return_amount - loan.paid }}</td>
+            <td>{{ formatearFecha(loan.expiration_date) }}</td>
+            <td><button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button></td>
+          </tr>
+        }
+      }
     </tbody>
   </table>
 </div>
+}
+
+@if (loans.length > 0) {
+<div class="tableDiv">
+  <h3>Prestamos finalizado</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Numero de cuenta</th>
+        <th>Cantidad solicitada</th>
+        <th>Cantidad devuelta</th>
+        <th>Fecha de solicitud</th>
+        <th>Fecha de expiración</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (loan of loans; track $index) {
+        @if (loan.paid == loan.return_amount) {  
+          <tr >
+            <td>{{ loan.account_id }}</td>
+            <td>${{ loan.amount }}</td>
+            <td>${{ loan.return_amount }}</td>
+            <td>{{ formatearFecha(loan.request_date) }}</td>
+            <td>{{ formatearFecha(loan.expiration_date) }}</td>
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+}

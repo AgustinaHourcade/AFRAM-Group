@@ -44,27 +44,12 @@ export class UpdatePasswordComponent implements OnInit  {
     return password === confirmPassword ? null : { matchPasswords: true };
   }
 
-  formularioContra = this.fb.nonNullable.group(
+  formularioContra = this.fb.group(
     {
       current_password: ['', [Validators.required, Validators.minLength(6)]],
-      hashed_password: [
-        '',[
-          Validators.required,
-          Validators.minLength(6),
-          this.passwordValidator.bind(this),
-          this.matchPasswords.bind(this),
-        ],
-      ],
-      confirm_password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          this.passwordValidator.bind(this),
-          this.matchPasswords.bind(this),
-        ],
-      ],
-    }
+      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
+      confirm_password: ['', [Validators.required]]
+    }, { validators: this.matchPasswords }
   );
 
   updatePassword() {

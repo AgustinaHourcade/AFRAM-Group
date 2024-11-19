@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-
+<div class="page">
 <form [formGroup]="formulario" (ngSubmit)="createLoan()">
   <div>
     <div>
@@ -55,5 +55,5 @@
 
   <button type="submit" [disabled]="formulario.invalid">Confirmar</button>
 </form>
-
+</div>
 

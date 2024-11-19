@@ -6,7 +6,7 @@
       <span> Campo requerido </span>
     }
     @if (formulario.controls['real_name'].getError('minlength') && formulario.controls['real_name'].touched) {
-      <span> Minimo 2 caracteres </span>
+      <span> Mínimo 2 caracteres </span>
     }
   </div>
   <div class="input-container">
@@ -31,7 +31,7 @@
   </div>
 
   <div class="input-container">
-    <input type="text" id="dni" formControlName="dni" placeholder=" "/>
+    <input type="number" id="dni" formControlName="dni" placeholder=" "/>
     <label for="dni">DNI</label>
     @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
       <span> Campo requerido </span>
@@ -45,11 +45,11 @@
     @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxlength')) {
       <span> Maximo 8 numeros </span>
     }
-  </div>
-  
+  </div>  
   
   <div class="input-container">
     <input
+      #passwordInput1
       [type]="showPassword1 ? 'text' : 'password'"
       id="hashed_password"
       formControlName="hashed_password"
@@ -57,63 +57,28 @@
       (input)="validatePassword()"
     />
     <label for="hashed_password">Contraseña</label>
-  @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
-    <span>Campo requerido</span>
-  }
-  @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
-    <span>Mínimo 6 caracteres</span>
-  }
-  @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('passwordStrength')) {
-    <span>La contraseña debe contener al menos una mayúscula, una minúscula y un número</span>
-  }
+    @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
+      <span>Campo requerido</span>
+    }
+    @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
+      <span>Mínimo 6 caracteres</span>
+    }
+    @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('passwordStrength')) {
+      <span>La contraseña debe contener al menos una mayúscula, una minúscula y un número</span>
+    }
     <!-- Alternar visibilidad de la contraseña -->
-    <span
-      class="toggle-visibility"
-      (click)="togglePasswordVisibility('password')"
-    >
-      <i *ngIf="showPassword1; else eyeClosed1" class="bi bi-eye"></i>
-      <ng-template #eyeClosed1>
+
+    <span class="toggle-visibility" (click)="togglePasswordVisibility(passwordInput1)">
+      <i *ngIf="showPassword1; else eyeClosed" class="bi bi-eye"></i>
+      <ng-template #eyeClosed>
         <i class="bi bi-eye-slash"></i>
       </ng-template>
     </span>
+
   </div>
-    <!-- <div class="validation-popup">
-      <ul>
-
-        <li [class.valid]="formulario.controls['hashed_password'].hasError('passwordStrength') === null && formulario.controls['hashed_password'].touched"
-            [class.invalid]="formulario.controls['hashed_password'].hasError('passwordStrength') !== null && formulario.controls['hashed_password'].touched">
-          <i class="bi" 
-             [class.bi-check-circle-fill]="formulario.controls['hashed_password'].hasError('passwordStrength') === null && formulario.controls['hashed_password'].touched"
-             [class.bi-x-circle-fill]="formulario.controls['hashed_password'].hasError('passwordStrength') !== null && formulario.controls['hashed_password'].touched"></i>
-          1 letra mayúscula
-        </li>
-        
-
-        <li [class.valid]="formulario.controls['hashed_password'].hasError('pattern') === null && formulario.controls['hashed_password'].touched"
-            [class.invalid]="formulario.controls['hashed_password'].hasError('pattern') !== null && formulario.controls['hashed_password'].touched">
-          <i class="bi" 
-             [class.bi-check-circle-fill]="formulario.controls['hashed_password'].hasError('pattern') === null && formulario.controls['hashed_password'].touched"
-             [class.bi-x-circle-fill]="formulario.controls['hashed_password'].hasError('pattern') !== null && formulario.controls['hashed_password'].touched"></i>
-          1 número
-        </li>
-    
-
-        <li [class.valid]="!formulario.controls['hashed_password'].hasError('minlength') && formulario.controls['hashed_password'].touched"
-            [class.invalid]="formulario.controls['hashed_password'].hasError('minlength') && formulario.controls['hashed_password'].touched">
-          <i class="bi" 
-             [class.bi-check-circle-fill]="!formulario.controls['hashed_password'].hasError('minlength') && formulario.controls['hashed_password'].touched"
-             [class.bi-x-circle-fill]="formulario.controls['hashed_password'].hasError('minlength') && formulario.controls['hashed_password'].touched"></i>
-          6 caracteres
-        </li>
-      </ul>
-    </div> -->
-    
-    
-
-
-
   <div class="input-container"> 
     <input
+    #passwordInput2
     [type]="showPassword2 ? 'text' : 'password'"
     id="confirm_password"
     formControlName="confirm_password"
@@ -128,7 +93,7 @@
     }
     <span
       class="toggle-visibility"
-      (click)="togglePasswordVisibility('confirm')">
+      (click)="togglePasswordVisibilityRepet(passwordInput2)">
       <i *ngIf="showPassword2; else eyeClosed2" class="bi bi-eye"></i>
       <ng-template #eyeClosed2>
         <i class="bi bi-eye-slash"></i>
