@@ -42,7 +42,7 @@ export class AccountsComponent {
 
     this.accountService.getAccountById(id).subscribe({
       next: (account) =>{
-        if(account.balance != 0){
+        if(account.balance > 1){
           Swal.fire({
             title: "El saldo de la cuenta a dar de baja debe ser 0",
             icon: "error"
@@ -62,12 +62,12 @@ export class AccountsComponent {
               this.accountService.deactivateAccount(id).subscribe({
                 next: (flag) => {
                   if(flag){
-      
                     Swal.fire({
                       title: "Cuenta suspendida correctamente!",
                       icon: "success"
                     });
                   }
+                  this.router.navigate(['/main']);
                 },
                 error: (err: Error) => {
                   console.log(err.message);

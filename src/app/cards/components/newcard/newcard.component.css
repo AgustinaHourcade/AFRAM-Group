@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  height: 70vh; 
   background-color: #e6f7ff; 
-  overflow: hidden; 
+  /* overflow: hidden;  */
   margin: 0;
   padding: 0;
 }

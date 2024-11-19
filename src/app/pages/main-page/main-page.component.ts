@@ -13,6 +13,9 @@ import { Observable, catchError, of } from 'rxjs';
 import { Card } from '../../cards/interface/card';
 import { CardService } from '../../cards/service/card.service';
 import { DolarComponent } from "../../shared/dolar/components/dolar.component";
+import { FixedTermService } from '../../fixedTerms/service/fixed-term.service';
+import { FixedTerm } from '../../fixedTerms/interface/fixed-term';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-main-page',
@@ -26,6 +29,7 @@ export class MainPageComponent implements OnInit {
   accounts: Account[] = [];
   transactions: Array<Transaction> = [];
   cards: Array<Card> = [];
+  fixedTerms: Array<FixedTerm> = [];
   userId: number = 0;
   showActions = false;
 
@@ -34,6 +38,28 @@ export class MainPageComponent implements OnInit {
   accountService = inject(AccountService);
   transactionService = inject(TransactionService);
   cardService = inject(CardService);
+  fixedTermService = inject(FixedTermService);
+  pageSize = 4 ;
+  currentPage = 1;
+
+
+  get totalPages(): number {
+    return Math.ceil(this.transactions.length / this.pageSize);
+  }
+
+  get paginatedTransactions() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.transactions.slice(startIndex, endIndex);
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
@@ -62,7 +88,43 @@ export class MainPageComponent implements OnInit {
         this.cards = cards
       },error: (error: Error) => {
         console.log(error.message)
-      }})
+      }});
+
+      this.fixedTermService.getFixedTerms().subscribe({
+        next: (fixedTerms) =>{
+          this.fixedTerms = fixedTerms;
+          for(let item of fixedTerms){
+            const stringDate = item.expiration_date;
+            const dateFromString = new Date(stringDate as string);
+            const now = Date.now();
+            const cant = item.invested_amount + item.interest_earned;
+            if(item.is_paid === 'no'){
+              if(dateFromString.getTime() === now){
+              this.accountService.updateBalance(cant, item.account_id).subscribe({
+              next:()=>{
+                this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
+                  next:()=>{
+                  Swal.fire({
+                    title: 'Se ha terminado el plazo fijo!',
+                    text: `Se ha agregado ${cant} a tu cuenta`,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                  });
+                }, error:(err: Error)=>{
+                  console.log(err.message);
+                }
+                })
+              }, error: (err:Error)=>{
+                console.log(err.message);
+              }
+              })
+            }
+          }
+        }
+        }, error: (err:Error)=>{
+          console.log(err.message);
+        }
+      })
   }
 
   private loadTransactions(accountId: number): Observable<Transaction[]> {

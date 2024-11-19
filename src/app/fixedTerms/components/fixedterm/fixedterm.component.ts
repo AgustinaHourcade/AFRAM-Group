@@ -54,7 +54,8 @@ export class NewFixedtermComponent implements OnInit {
     start_date: this.formatDate(new Date()),
     expiration_date: this.formatDate(new Date()),
     interest_rate_id: 0,
-    interest_earned: 0
+    interest_earned: 0,
+    is_paid: ''
   };
 
   formulario = this.fb.nonNullable.group({
@@ -154,7 +155,7 @@ export class NewFixedtermComponent implements OnInit {
 
 
 formatearFecha(){
-  const formattedDate = new Date(this.fixedTerm.expiration_date).toLocaleDateString('es-ES', {
+  const formattedDate = new Date(this.fixedTerm.expiration_date as string).toLocaleDateString('es-ES', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric'

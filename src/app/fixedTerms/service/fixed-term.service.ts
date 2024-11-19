@@ -27,4 +27,7 @@ export class FixedTermService {
     return this.http.get<FixedTerm[]>(`${this.baseUrl}account/${id}`);
   }
 
+  setPayFixedTerms(id: number): Observable<boolean>{
+    return this.http.patch<boolean>(`${this.baseUrl}is-paid`,id)
+  }
 }

@@ -8,6 +8,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
+  margin-top: 5%;
 }
 
 .cbu, .alias, .name, .dni {
@@ -75,3 +76,8 @@ button:hover {
   background-color: var(--button-hover);
 }
 
+h1{
+  display: grid;
+  place-items: center;
+  margin-top: 3%;
+}

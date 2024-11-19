@@ -193,7 +193,7 @@ main {
   font-family: var(--font-body);
   text-align: center;
   color: var(--primary-color);
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  z-index: 1000; 
 }
 
 .sectionC h2 {
@@ -208,4 +208,61 @@ main {
 .sectionC .conversion {
   font-size: 1rem;
   color: #333;
+}
+
+.transactions-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh; 
+}
+
+.transactions-container {
+  flex-grow: 1; 
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0;
+  margin-top: -70px; 
+  margin-bottom:38%;
+}
+
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.page-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.pagination-button {
+  padding: 8px 12px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-button:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination-button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  font-weight: bold;
 }

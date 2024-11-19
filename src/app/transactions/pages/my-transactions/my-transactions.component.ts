@@ -29,6 +29,25 @@ export class MyTransactionsComponent {
   accountService = inject(AccountService);
   transactionService = inject(TransactionService);
   selectedAccountId!: number;
+  pageSize = 4 ;
+  currentPage = 1;
+
+
+  get totalPages(): number {
+    return Math.ceil(this.transactions.length / this.pageSize);
+  }
+
+  get paginatedTransactions() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.transactions.slice(startIndex, endIndex);
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
