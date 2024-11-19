@@ -16,12 +16,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let ft of fixedTerms; track $index">
-      <td>{{ ft.account_id }}</td>
-      <td>${{ ft.invested_amount }}</td>
-      <td>{{ ft.interest_earned }}</td>
-      <td>{{ formatearFecha(ft.expiration_date) }}</td>
-    </tr>
+    @for (ft of fixedTerms; track $index) {
+      <tr>
+        <td>{{ ft.account_id }}</td>
+        <td>${{ ft.invested_amount }}</td>
+        <td>{{ ft.interest_earned }}</td>
+        <td>{{ formatearFecha(ft.expiration_date) }}</td>
+      </tr>
+    }
   </tbody>
 </table>
 </div>

@@ -94,12 +94,9 @@ export class MainPageComponent implements OnInit {
         next: (fixedTerms) =>{
           this.fixedTerms = fixedTerms;
           for(let item of fixedTerms){
-            const stringDate = item.expiration_date;
-            const dateFromString = new Date(stringDate as string);
-            const now = Date.now();
             const cant = item.invested_amount + item.interest_earned;
             if(item.is_paid === 'no'){
-              if(dateFromString.getTime() === now){
+              if(this.compareDateWithNow(item.expiration_date)){
               this.accountService.updateBalance(cant, item.account_id).subscribe({
               next:()=>{
                 this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
@@ -140,4 +137,20 @@ export class MainPageComponent implements OnInit {
     div.style.display = this.showActions ? 'flex' : 'none';
     this.showActions = !this.showActions;
   }
+
+  compareDateWithNow(dateString: string) {
+
+    const dateFromDatabase = new Date(dateString);
+  
+    const currentDate = new Date();
+
+  
+    const isSameDate =
+      dateFromDatabase.getFullYear() === currentDate.getFullYear() &&
+      dateFromDatabase.getMonth() === currentDate.getMonth() &&
+      dateFromDatabase.getDate() === currentDate.getDate();
+  
+    return isSameDate;
+  }
+
 }

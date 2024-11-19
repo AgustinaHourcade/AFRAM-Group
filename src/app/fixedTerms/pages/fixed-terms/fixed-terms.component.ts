@@ -37,14 +37,17 @@ export class FixedTermsComponent implements OnInit {
       next: (accounts) => {
         this.accounts = accounts;
         for (let account of this.accounts) {
-          this.loadFixedTerms(account.id).subscribe({
-            next: (fixedTerms: FixedTerm[]) => {
-              this.fixedTerms.push(...fixedTerms);
-            },
-            error: (error: Error) => {
-              console.error(`Error loading transactions for account ${account.id}:`,error);
-            },
-          });
+          if(!account.closing_date){
+
+            this.loadFixedTerms(account.id).subscribe({
+              next: (fixedTerms: FixedTerm[]) => {
+                this.fixedTerms.push(...fixedTerms);
+              },
+              error: (error: Error) => {
+                console.error(`Error loading transactions for account ${account.id}:`,error);
+              },
+            });
+          }
         }
         this.router.navigate(['/fixed-terms']);
       },
