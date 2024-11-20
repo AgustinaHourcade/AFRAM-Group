@@ -1,6 +1,6 @@
 .receipt {
-  width: 100%;
-  max-width: 500px;
+  width: 350px;
+    /* max-width: 500px; */
   margin: auto;
   border: 1px solid #ccc;
   padding: 20px;

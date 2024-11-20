@@ -17,11 +17,18 @@ import { FixedTermService } from '../../fixedTerms/service/fixed-term.service';
 import { FixedTerm } from '../../fixedTerms/interface/fixed-term';
 import Swal from 'sweetalert2';
 import { MyFixedTermComponent } from '../../fixedTerms/components/my-fixed-term/my-fixed-term.component';
+import { MyLoanComponent } from '../../loans/components/my-loan/my-loan.component';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule, DolarComponent, MyFixedTermComponent],
+  imports: [NavbarComponent,
+            CardAccountComponent,
+            TransactionComponent,
+            CommonModule, 
+            DolarComponent,
+            MyFixedTermComponent,
+            MyLoanComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })
@@ -66,16 +73,16 @@ export class MainPageComponent implements OnInit {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = accounts;
-        for (let a of accounts) {
-          this.loadTransactions(a.id).subscribe({
-            next: (transactions: Transaction[]) => {
-              this.transactions.push(...transactions);
-            },
-            error: (error: Error) => {
-              console.error(`Error loading transactions for account ${a.id}:`, error);
-            },
-          });
-        }
+        // for (let a of accounts) {
+        //   this.loadTransactions(a.id).subscribe({
+        //     next: (transactions: Transaction[]) => {
+        //       this.transactions.push(...transactions);
+        //     },
+        //     error: (error: Error) => {
+        //       console.error(`Error loading transactions for account ${a.id}:`, error);
+        //     },
+        //   });
+        // }
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);
@@ -102,27 +109,20 @@ export class MainPageComponent implements OnInit {
                 next: (flag) => {
                   if (flag) {
                     this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
-                      next: (flag) => {
+                      next: () => {
                         const transaction = {
                           amount: cant,
                           source_account_id: 1,
                           destination_account_id: item.account_id,
+                          transaction_type: 'fixed term'
                         }
                         this.transactionService.postTransaction(transaction as Transaction).subscribe({
-                          next: (transaction) => {
+                          next: () => {
                             Swal.fire({
                               title: 'Se le han acreditado plazos fijos pendientes!',
                               text: `Puede ver el detalle en "mis plazos fijos"`,
                               icon: 'success',
                               confirmButtonText: 'Aceptar',
-                            });
-                            this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-                              next: (accounts: Account[]) => {
-                                this.accounts = accounts;
-                              },
-                              error: (error: Error) => {
-                                console.error(error.message);
-                              },
                             });
                           },
                           error: (error: Error) => {
@@ -146,6 +146,25 @@ export class MainPageComponent implements OnInit {
       },
       error: (err: Error) => {
         console.log(err.message);
+      },
+    });
+
+    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
+      next: (accounts: Account[]) => {
+        this.accounts = accounts;
+        for (const account of this.accounts) {
+        this.loadTransactions(account.id).subscribe({
+          next: (transactions) => {
+            this.transactions.push(...transactions);
+          },
+          error: (err:Error) =>{
+            console.log(err.message);
+          }
+        })
+      }
+      },
+      error: (error: Error) => {
+        console.error(error.message);
       },
     });
   }

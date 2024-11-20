@@ -2,12 +2,12 @@
   <div class="header">
     <img src="/logo-fff.png" alt="Bank Logo" class="logo" />
     <h2>Comprobante de Transferencia</h2>
-    <p class="transaction-id">ID de Transacción: {{ transaction.id }}</p>
+    <p class="transaction-id">ID de Transacción {{ transaction.id }}</p>
   </div>
 
   <div class="content">
     <div class="row">
-      <label>Fecha de Transacción:</label>
+      <label>Fecha de Transacción</label>
       <span>{{ formatearFecha(transaction.transaction_date) }}</span>
     </div>
     <div class="row">
@@ -15,13 +15,13 @@
       <span>${{ transaction.amount  }}</span>
     </div>
     <div class="row">
-      <label>Cuenta de Origen:</label>
-      <span>{{ transaction.source_account_id }}</span>
-    </div>
+      <label>Cuenta de Origen</label>
+      <p>{{typeS}} {{ transaction.source_account_id}}-{{ id }}/1</p>
+      <p> {{nameS}} {{lastNameS}} </p>    </div>
     <div class="row">
-      <label>Cuenta de Destino:</label>
-      <p> CA {{ transaction.destination_account_id}}-{{ id }}/1</p>
-      <p> {{name}} {{lastName}} </p>
+      <label>Cuenta de Destino</label>
+      <p>{{typeD}} {{ transaction.destination_account_id}}-{{ id }}/1</p>
+      <p> {{nameD}} {{lastNameD}} </p>
     </div>
   </div>
 
