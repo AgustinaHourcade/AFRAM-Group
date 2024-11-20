@@ -17,12 +17,12 @@
       <h2 class="section-title">Movimientos</h2>
 
       <div class="transactions-page">
-        <!-- Contenedor de las transacciones -->
         <div class="transactions-container">
           <div *ngFor="let transaction of paginatedTransactions">
             <app-transaction [transaction]="transaction"></app-transaction>
           </div>
         </div>
+
       
         <!-- Controles de paginación -->
         <div class="pagination-wrapper">
@@ -56,7 +56,6 @@
           </div>
         </div>
       </div>
-      
     </div>
   </section>
 

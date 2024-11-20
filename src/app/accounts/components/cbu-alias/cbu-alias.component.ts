@@ -70,13 +70,13 @@ export class CbuAliasComponent implements OnInit {
       this.accountService.modifyAlias(this.account.id, newAlias).subscribe({
         next: (value) => {
           if (value) console.log('Modificado correctamente');
+          this.account.alias = this.formulario.get('newAlias')?.value as string;
           this.isEditing = false; 
           Swal.fire({
             title: 'Alias modificado correctamente!',
             icon: 'success',
             confirmButtonText: 'Aceptar',
           });
-          this.route.navigate(['accounts']);
         },
         error: (err) => {
           Swal.fire({

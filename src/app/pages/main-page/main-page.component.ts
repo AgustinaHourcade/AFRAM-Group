@@ -59,11 +59,9 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-
-
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-
+  
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = accounts;
@@ -73,7 +71,7 @@ export class MainPageComponent implements OnInit {
               this.transactions.push(...transactions);
             },
             error: (error: Error) => {
-              console.error(`Error loading transactions for account ${a.id}:`,error);
+              console.error(`Error loading transactions for account ${a.id}:`, error);
             },
           });
         }
@@ -82,49 +80,64 @@ export class MainPageComponent implements OnInit {
         console.error('Error fetching accounts:', error);
       },
     });
-
+  
     this.cardService.getCardsById(this.userId).subscribe({
-      next: (cards) =>{
-        this.cards = cards
-      },error: (error: Error) => {
-        console.log(error.message)
-      }});
-
-      this.fixedTermService.getFixedTerms().subscribe({
-        next: (fixedTerms) =>{
-          this.fixedTerms = fixedTerms;
-          for(let item of fixedTerms){
-            const cant = Number (item.invested_amount) + Number (item.interest_earned);
-            if(item.is_paid === 'no'){
-              if(this.compareDateWithNow(item.expiration_date)){
+      next: (cards) => {
+        this.cards = cards;
+      },
+      error: (error: Error) => {
+        console.log(error.message);
+      },
+    });
+  
+    this.fixedTermService.getFixedTerms().subscribe({
+      next: (fixedTerms) => {
+        this.fixedTerms = fixedTerms;
+        for (let item of fixedTerms) {
+          const cant = Number(item.invested_amount) + Number(item.interest_earned);
+          if (item.is_paid === 'no') {
+            if (this.compareDateWithNow(item.expiration_date)) {
               this.accountService.updateBalance(cant, item.account_id).subscribe({
-              next:(flag)=>{
-                if(flag){  
-                  this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
-                    next: (flag) => {
-                      Swal.fire({
-                        title: 'Se ha terminado el plazo fijo ID:'+item.id +'!',
-                        text: `Se ha agregado ${cant} a tu cuenta`,
-                        icon: 'success',
-                        confirmButtonText: 'Aceptar',
-                      });
-                    }, error:(err: Error)=>{
-                      console.log(err.message);
-                    }
-                  })
-                }
-              }, error: (err:Error)=>{
-                console.log(err.message);
-              }
-              })
+                next: (flag) => {
+                  if (flag) {
+                    this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
+                      next: (flag) => {
+                        Swal.fire({
+                          title: 'Se le han acreditado plazos fijos pendientes!',
+                          text: `Puede ver el detalle en "mis plazos fijos"`,
+                          icon: 'success',
+                          confirmButtonText: 'Aceptar',
+                        });
+                        this.accountService.getAccountsByIdentifier(this.userId).subscribe({
+                          next: (accounts: Account[]) => {
+                            this.accounts = accounts;
+                          },
+                          error: (error: Error) => {
+                            console.error(error.message);
+                          },
+                        });
+                      },
+                      error: (error: Error) => {
+                        console.error('Error fetching accounts:', error);
+                      },
+                    });
+                  }
+                },
+                error: (err: Error) => {
+                  console.log(err.message);
+                },
+              });
             }
           }
         }
-        }, error: (err:Error)=>{
-          console.log(err.message);
-        }
-      })
+      },
+      error: (err: Error) => {
+        console.log(err.message);
+      },
+    });
   }
+  
+
 
   private loadTransactions(accountId: number): Observable<Transaction[]> {
     return this.transactionService.getTransactionsByAccountId(accountId).pipe(
