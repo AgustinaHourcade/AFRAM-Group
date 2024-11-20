@@ -1,4 +1,9 @@
-<app-navbar-home></app-navbar-home>
+<header [class.scrolled]="isScrolled">
+  <a class="navbar-brand" routerLink="/">
+    <img id="logo" src="/logo-navbar-png.png" alt="Logo de la aplicación de Banca Online" />
+  </a>
+  <button routerLink="/auth" id="button" aria-label="Ir a la página de Banca Online">Banca Online</button>
+</header>
 
 <main>
   <section class="sectionA">
