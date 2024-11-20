@@ -6,8 +6,9 @@
 }
 
 
-<div class="cardsDiv">
-  @for (item of activeCards; track $index) { 
+
+@for (item of activeCards; track $index) { 
+  <div class="cardsDiv" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
   <div class="cardsDiv-card">
     <div class="background">
       <div class="left"></div>
@@ -102,7 +103,7 @@
 
     <button (click)="alerta(item.card_id)">Dar de baja</button>
   </div>
-  } 
 </div>
+  } 
 
 

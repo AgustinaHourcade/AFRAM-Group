@@ -1,0 +1,34 @@
+<div #pdfContent class="receipt">
+    <div class="header">
+      <img src="/logo-fff.png" alt="Bank Logo" class="logo" />
+      <h2>Acreditacion de plazo fijo</h2>
+      <p class="transaction-id">ID de Transacción: {{ transaction.id }}</p>
+    </div>
+  
+    <div class="content">
+      <div class="row">
+        <label>Fecha de Transacción:</label>
+        <span>{{ formatearFecha(transaction.transaction_date) }}</span>
+      </div>
+      <div class="row">
+        <label>Monto:</label>
+        <span>${{ transaction.amount  }}</span>
+      </div>
+      <div class="row">
+        <label>Origen:</label>
+        <span>AFRAM GROUP</span>
+      </div>
+      <div class="row">
+        <label>Cuenta de Destino:</label>
+        <p> CA {{ transaction.destination_account_id}}-{{ id }}/1</p>
+        <p> {{name}} {{lastName}} </p>
+      </div>
+    </div>
+  
+    <div class="footer">
+      <p>Gracias por confiar en nuestros servicios.</p>
+    </div>
+  </div>
+  <button (click)="onCancel()">Cancelar</button>
+  <button (click)="downloadAsPDF()">Descargar PDF</button>
+  

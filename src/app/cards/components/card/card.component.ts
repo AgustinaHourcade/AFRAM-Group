@@ -8,11 +8,12 @@ import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule, RouterLink],
+  imports: [NavbarComponent, ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })

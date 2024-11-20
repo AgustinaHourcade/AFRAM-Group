@@ -19,8 +19,13 @@
       <div class="transactions-page">
         <div class="transactions-container">
           <div *ngFor="let transaction of paginatedTransactions">
-            <app-transaction [transaction]="transaction"></app-transaction>
-          </div>
+            @if (transaction.source_account_id != 1) {
+              <app-transaction [transaction]="transaction"></app-transaction>
+            }
+            @if (transaction.source_account_id == 1){
+              <app-my-fixed-term [transaction]="transaction"></app-my-fixed-term>
+            }
+            </div>
         </div>
 
       
