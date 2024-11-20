@@ -25,8 +25,12 @@ export class ReceiptComponent implements OnInit{
   accountService = inject(AccountService);
 
   id: number = this.userSessionService.getUserId();
-  name: string | undefined ;
-  lastName!: string| undefined ;
+  nameS: string | undefined ;
+  lastNameS!: string| undefined ;
+  nameD: string | undefined ;
+  lastNameD!: string| undefined ;
+  typeS!: string | undefined;
+  typeD!: string | undefined;
 
   ngOnInit(): void {
     this.getUserById(this.id)
@@ -63,18 +67,6 @@ export class ReceiptComponent implements OnInit{
         heightLeft -= pageHeight;
       }
 
-      // const logoUrl = '/logo-fff.png';
-      // const logoImg = new Image();
-      // logoImg.src = logoUrl;
-
-      // logoImg.onload = () => {
-      //   const logoWidth = 2;
-      //   const logoHeight = 1;
-      //   const xPos = (pdf.internal.pageSize.getWidth() - logoWidth) / 2;
-      //   const yPos = 0.3;
-
-      //   pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-      // };
       pdf.save('comprobante-transferencia.pdf');
     });
 
@@ -89,8 +81,13 @@ export class ReceiptComponent implements OnInit{
       this.account = account;
       this.userService.getUser(this.account.user_id).subscribe({
         next: (user) => {
-          this.name = user?.real_name;
-          this.lastName = user?.last_name 
+          this.nameD = user?.real_name;
+          this.lastNameD = user?.last_name 
+          if (account.account_type == "Savings"){
+            this.typeD = "CA";
+          }else{
+            this.typeD = "CC";
+          }
         },
         error: (error) => {
           console.error('Error el usuario', error);
@@ -99,9 +96,32 @@ export class ReceiptComponent implements OnInit{
     },
     error: (error) => {
       console.error('Error al obtener la cuenta', error);
-    }
-  });
-  }
+    } })
+
+    this.accountService.getAccountById(this.transaction.source_account_id).subscribe({
+      next: (account: Account) => {
+        this.account = account;
+        this.userService.getUser(this.account.user_id).subscribe({
+          next: (user) => {
+            this.nameS = user?.real_name;
+            this.lastNameS = user?.last_name 
+            if (account.account_type == "Savings"){
+              this.typeS = "CA";
+            }else{
+              this.typeS = "CC";
+            }
+          },
+          error: (error) => {
+            console.error('Error el usuario', error);
+          }
+        });
+      },
+      error: (error: Error) => {
+        console.error('Error al obtener la cuenta', error);
+      }
+  })
+
+}
   @Output() cancel = new EventEmitter<void>();
 
   onCancel(): void {

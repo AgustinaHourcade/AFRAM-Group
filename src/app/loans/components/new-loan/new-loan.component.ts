@@ -10,6 +10,8 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
 import { InterestRatesService } from '../../../interestRates/service/interest-rates.service';
 import { Loan } from '../../interface/loan';
+import { TransactionService } from '../../../transactions/services/transaction.service';
+import { Transaction } from '../../../transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-new-loan',
@@ -26,6 +28,7 @@ export class NewLoanComponent implements OnInit {
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
   interestService = inject(InterestRatesService);
+  transactionService = inject(TransactionService);
   rate!: InterestRates;
   calculatedDate: Date | undefined;
   accounts?: Array<Account>;
@@ -108,9 +111,21 @@ export class NewLoanComponent implements OnInit {
                   .subscribe({
                     next: (flag: any) => {
                       if (flag) {
-                        console.log(
-                          'Saldo actualizado en la cuenta de destino'
-                        );
+                        console.log('Saldo actualizado en la cuenta de destino');
+                        const transaction = {
+                          amount: this.loan.amount,
+                          source_account_id: 1,
+                          destination_account_id: this.loan.account_id,
+                          transaction_type: 'loan'
+                        }
+                        this.transactionService.postTransaction(transaction as Transaction).subscribe({
+                          next: () => {
+                            console.log('Transacción de préstamo realizada');
+                          },
+                          error: (e: Error) => {
+                            console.log(e.message);
+                          },
+                        })
                       }
                     },
                     error: (e: Error) => {

@@ -9,13 +9,13 @@ import { Account } from '../../../accounts/interface/account.interface';
 import { User } from '../../../users/interface/user.interface';
 
 @Component({
-  selector: 'app-receipt-ft',
+  selector: 'app-receipt-loan',
   standalone: true,
   imports: [],
-  templateUrl: './receipt-ft.component.html',
-  styleUrl: './receipt-ft.component.css'
+  templateUrl: './receipt-loan.component.html',
+  styleUrl: './receipt-loan.component.css'
 })
-export class ReceiptFtComponent implements OnInit{
+export class ReceiptLoanComponent implements OnInit{
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
 
   @Input()

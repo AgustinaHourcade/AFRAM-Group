@@ -30,7 +30,7 @@
       <!-- Contenedor de las transacciones -->
       <div class="transactions-container">
         <div *ngFor="let transaction of paginatedTransactions">
-          @if (transaction.source_account_id != 1 ) {
+          @if (transaction.transaction_type === 'transfer') {
             <app-transaction [transaction]="transaction"></app-transaction>
           }
         </div>

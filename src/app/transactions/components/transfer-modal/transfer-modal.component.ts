@@ -217,6 +217,7 @@ export class TransferModalComponent implements OnInit {
           amount: this.montoTransferencia,
           source_account_id: selectedAccount.id,
           destination_account_id: this.account?.id,
+          transaction_type: 'transfer'
         };
   
         this.transactionService.postTransaction(transaction as Transaction).subscribe({

@@ -7,4 +7,5 @@ export interface FixedTerm {
   interest_rate_id: number;
   interest_earned: number;
   is_paid: string
+  
 }

@@ -16,6 +16,8 @@ import { Account } from '../../../accounts/interface/account.interface';
 import { InterestRatesService } from '../../../interestRates/service/interest-rates.service';
 import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
 import Swal from 'sweetalert2';
+import { TransactionService } from '../../../transactions/services/transaction.service';
+import { Transaction } from '../../../transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-fixedterm',
@@ -31,6 +33,7 @@ export class NewFixedtermComponent implements OnInit {
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
   interestService = inject(InterestRatesService);
+  transactionService = inject(TransactionService);
   rate!: InterestRates;
   calculatedDate: Date | undefined;
   accounts?: Array<Account>;
@@ -112,13 +115,27 @@ export class NewFixedtermComponent implements OnInit {
                     next: (flag: any) => {
                       if (flag) {
                         console.log('Saldo actualizado en la cuenta de destino');
+                        const transaction = {
+                          amount: this.fixedTerm.invested_amount,
+                          source_account_id: this.fixedTerm.account_id,
+                          destination_account_id: 1,
+                          transaction_type: 'fixed term'
+                        }
+                        this.transactionService.postTransaction(transaction as Transaction).subscribe({
+                          next: (id: number) => {
+                            console.log('Transacción creada correctamente con id:', id);
+                          },
+                          error: (error: Error) => {
+                            console.log(error.message);
+                          },
+                        })
                       }
                     },
                     error: (e: Error) => {
                       console.log(e.message);
                     },
                   });
-  
+
                   this.router.navigate(['/fixed-terms']);
                 },
                 error: (error: Error) => {

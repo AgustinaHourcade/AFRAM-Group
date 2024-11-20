@@ -8,6 +8,8 @@ import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { Loan } from '../../interface/loan';
+import { TransactionService } from '../../../transactions/services/transaction.service';
+import { Transaction } from '../../../transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-pay-loan',
@@ -23,6 +25,7 @@ export class PayLoanComponent {
   loanService = inject(LoanService);
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
+  transactionService = inject(TransactionService);
   accounts?: Array<Account>;
   account?: Account;
   loan: any = {};
@@ -98,6 +101,20 @@ export class PayLoanComponent {
                               icon: 'success',
                               confirmButtonText: 'Aceptar',
                             });
+                            const transaction = {
+                              amount: amount,
+                              source_account_id: this.loan.account_id,
+                              destination_account_id: 1,
+                              transaction_type: 'loan'
+                            }
+                            this.transactionService.postTransaction(transaction as Transaction).subscribe({
+                              next: (transactionId) => {
+                                console.log(transactionId);
+                              },
+                              error: (error: Error) => {
+                                console.log(error.message);
+                              },
+                            })
                             this.route.navigate(['/list-loan']);
                           },
                           error: (error: Error) => {

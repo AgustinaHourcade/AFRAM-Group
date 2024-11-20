@@ -69,17 +69,7 @@
     align-items: center;  
   }
   
-  .transactions-container app-transaction {
-    padding: 10px;
-    border: 1px solid #d1d9e6;
-    border-radius: 5px;
-    background-color: #fff;
-    transition: box-shadow 0.3s;
-  }
-  
-  .transactions-container app-transaction:hover {
-    box-shadow: 0px 4px 12px rgba(74, 144, 226, 0.2);
-  }
+
   
   .transactions-page {
     display: flex;
