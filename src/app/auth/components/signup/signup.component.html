@@ -47,13 +47,10 @@
       @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
         <span class="error-message">Campo requerido</span>
       }
-      @if (formulario.controls['dni'].getError('pattern') && formulario.controls['dni'].touched) {
-        <span class="error-message">Solo puede ingresar números</span>
-      }
-      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minlength')) {
+      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minLength')) {
         <span class="error-message">Mínimo 7 números</span>
       }
-      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxlength')) {
+      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxLength')) {
         <span class="error-message">Máximo 8 números</span>
       }
     </div>

@@ -6,10 +6,11 @@ import Swal from 'sweetalert2';
   providedIn: 'root',
 })
 export class UserSessionService {
+
   private readonly USER_ID_KEY = 'userId';
   estoyLogeado: boolean = false;
-  private inactivityTimeout: any; 
-  private readonly INACTIVITY_LIMIT = 60000; 
+  private inactivityTimeout: any;
+  private readonly INACTIVITY_LIMIT = 60000; // un minuto de inactividad
   route = inject(Router);
 
   constructor() {
@@ -53,9 +54,11 @@ export class UserSessionService {
   }
 
   private resetInactivityTimer(): void {
-    this.clearInactivityTimer(); 
+    this.clearInactivityTimer();
     if (this.estoyLogeado) {
       this.inactivityTimeout = setTimeout(() => {
+        this.logOut();
+        localStorage.clear();
         this.handleSessionExpiration();
       }, this.INACTIVITY_LIMIT);
     }
@@ -68,9 +71,7 @@ export class UserSessionService {
   }
 
 
-
   private handleSessionExpiration(): void {
-    this.logOut(); 
     Swal.fire({
       title: "Sesión expirada por inactividad",
       confirmButtonColor: '#00b4d8',

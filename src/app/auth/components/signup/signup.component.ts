@@ -1,7 +1,7 @@
 import { UserSessionService } from './../../services/user-session.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';
 import { Router } from '@angular/router';
@@ -38,13 +38,36 @@ export class SignupComponent{
       name_user: ['', [Validators.required, Validators.minLength(4)]],
       last_name: ['', [Validators.required, Validators.minLength(2)]],
       real_name: ['', [Validators.required, Validators.minLength(4)]],
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(1), Validators.maxLength(8)]],
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]*$'), this.minLengthValidator(7), this.maxLengthValidator(8)]],
       hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
       confirm_password: ['', [Validators.required]]
     },
     { validators: this.matchPasswords }
   );
 
+  minLengthValidator(minLength: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const valueAsString = value ? value.toString() : '';
+
+      if (valueAsString.length < minLength) {
+        return { minLength: { value: control.value } };
+      }
+      return null;
+    };
+  }
+
+  maxLengthValidator(maxLength: number): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      const valueAsString = value ? value.toString() : '';
+
+      if (valueAsString.length > maxLength) {
+        return { maxLength: { value: control.value } };
+      }
+      return null;
+    };
+  }
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 
@@ -52,14 +75,6 @@ export class SignupComponent{
     this.hasNumber = /\d/.test(password); // Verifica que tenga al menos un número
     this.isLongEnough = password.length >= 8; // Verifica longitud mínima
   }
-
-  // togglePasswordVisibility(field: 'password' | 'confirm'): void {
-  //   if (field === 'password') {
-  //     this.showPassword1 = !this.showPassword1;
-  //   } else if (field === 'confirm') {
-  //     this.showPassword2 = !this.showPassword2;
-  //   }
-  // }
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword1 ? 'password' : 'text';
@@ -163,6 +178,7 @@ export class SignupComponent{
         this.sesionService.setUserId(response);
         this.createAccount(response);
         this.createAddress(response);
+        this.sesionService.logIn();
         this.route.navigate(['update-profile/', response]);
       },
       error: (error: Error) => {

@@ -48,7 +48,7 @@ export class UpdateProfileComponent implements OnInit {
 
   formulario = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.pattern('^[0-9]{8,10}$')]],
+    phone: ['', [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
     street: ['', [Validators.required]],
     address_number: [
       0,

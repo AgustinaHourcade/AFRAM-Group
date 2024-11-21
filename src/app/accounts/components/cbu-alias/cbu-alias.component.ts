@@ -26,24 +26,24 @@ import Swal from 'sweetalert2';
 export class CbuAliasComponent implements OnInit {
   account!: Account;
   user!: User;
-  
+
   router = inject(ActivatedRoute);
   route = inject(Router)
   userService = inject(UserService);
   accountService = inject(AccountService);
   fb = inject(FormBuilder);
-  
+
   formulario = this.fb.nonNullable.group({
     newAlias: ['', [Validators.required, Validators.maxLength(15)]]
   })
-  
+
   isEditing = false;
 
   ngOnInit(): void {
     this.router.paramMap
       .pipe(
         switchMap((params) => {
-          return this.accountService.getAccountById( Number (params.get('id'))); 
+          return this.accountService.getAccountById( Number (params.get('id')));
         })
       )
       .subscribe((account) => {
@@ -58,7 +58,7 @@ export class CbuAliasComponent implements OnInit {
         })
       });
   }
-  
+
 
   toggleEditing() {
     this.isEditing = !this.isEditing;
@@ -83,7 +83,7 @@ export class CbuAliasComponent implements OnInit {
         next: (value) => {
           if (value) console.log('Modificado correctamente');
           this.account.alias = this.formulario.get('newAlias')?.value as string;
-          this.isEditing = false; 
+          this.isEditing = false;
           Swal.fire({
             title: 'Alias modificado correctamente!',
             icon: 'success',
@@ -97,7 +97,7 @@ export class CbuAliasComponent implements OnInit {
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
-          console.error('Error al modificar alias:', err.message); 
+          console.error('Error al modificar alias:', err.message);
         },
       });
     }
@@ -122,38 +122,38 @@ export class CbuAliasComponent implements OnInit {
         putOnlyUsedFonts: true,
         floatPrecision: 16,
       });
-  
+
       const logoUrl = '/logo-fff.png';
       const logoImg = new Image();
       logoImg.src = logoUrl;
-  
+
       logoImg.onload = () => {
         const logoWidth = 3.125;
         const logoHeight = 1.5625;
         const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
         const yPos = 0.5;
         pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-  
+
         const imgWidth = 8.5;
         const pageHeight = 11;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         let heightLeft = imgHeight;
         let position = 0;
-  
+
         pdf.addImage(imgData, 'JPEG', 0, position + logoHeight + 0.5, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-  
+
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           pdf.addPage();
           pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-  
+
         pdf.save('mi-documento.pdf');
       };
     });
-  
+
     elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
     element.classList.remove('pdf-only');
   }
@@ -168,7 +168,11 @@ export class CbuAliasComponent implements OnInit {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        alert('Datos copiados al portapapeles');
+        Swal.fire({
+          title: 'Se han copiado los datos de la cuenta',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+        })
       })
       .catch((err) => {
         console.error('Error al copiar al portapapeles', err);
