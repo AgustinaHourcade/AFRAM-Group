@@ -32,18 +32,18 @@ Ejecuta ng serve para un servidor de desarrollo. Navega a http://localhost:4200/
 
  El backend de este proyecto está disponible en este [repositorio](https://github.com/franpedrosa10/API-DB-Afram.git)  
 ## Desarrolladores
- - Agustin Meikle [<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="Go to Agustin Meikle´s Github" width="20px">](https://github.com/AgusMeikle)&nbsp;&nbsp;&nbsp;
+ - Agustin Meikle [<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRecDUoMqM8h5Pa3AcIsCKTjx0vMP0X2fQIg&s" alt="Go to Agustin Meikle´s Github" width="20px">](https://github.com/AgusMeikle)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Go to Agustin Meikle´s LinkedIn" width="20px">](https://www.linkedin.com/in/agustin-meikle/)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="Send email to Agustin Meikle" width="20px">](mailto:agustin042004@gmail.com)
 
- - Agustina Hourcade [<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="Go to Agustina Hourcade´s Github" width="20px">](https://github.com/AgustinaHourcade)&nbsp;&nbsp;&nbsp;
+ - Agustina Hourcade [<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRecDUoMqM8h5Pa3AcIsCKTjx0vMP0X2fQIg&s" alt="Go to Agustina Hourcade´s Github" width="20px">](https://github.com/AgustinaHourcade)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Go to Agustina Hourcade´s LinkedIn" width="20px">](https://www.linkedin.com/in/agustinahourcade/)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="Send email to Agustina Hourcade" width="20px">](mailto:agustinahourcadedev@gmail.com)
 
- - Francisco Pedrosa [<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="Go to Francisco Pedrosa´s Github" width="20px">](https://github.com/franpedrosa10)&nbsp;&nbsp;&nbsp;
+ - Francisco Pedrosa [<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRecDUoMqM8h5Pa3AcIsCKTjx0vMP0X2fQIg&s" alt="Go to Francisco Pedrosa´s Github" width="20px">](https://github.com/franpedrosa10)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Go to Francisco Pedrosa´s LinkedIn" width="20px">](https://www.linkedin.com/in/francisco-pedrosa-3569042bb/)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="Send email to Francisco Pedrosa" width="20px">](mailto:franpedrosa04@gmail.com)
 
- - Mateo Vaccaro [<img src="https://cdn-icons-png.flaticon.com/256/25/25231.png" alt="Go to Mateo Vaccaro´s Github" width="20px">](https://github.com/tute-vaccaro)&nbsp;&nbsp;&nbsp;
+ - Mateo Vaccaro [<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRecDUoMqM8h5Pa3AcIsCKTjx0vMP0X2fQIg&s" alt="Go to Mateo Vaccaro´s Github" width="20px">](https://github.com/tute-vaccaro)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Go to Mateo Vaccaro´s LinkedIn" width="20px">](https://www.linkedin.com/in/mateo-vaccaro-20b4862a3/)&nbsp;&nbsp;&nbsp;
 [<img src="https://cdn-icons-png.flaticon.com/512/5968/5968534.png" alt="Send email to Mateo Vaccaro" width="20px">](mailto:tutevaccaro@gmail.com)
