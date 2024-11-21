@@ -21,6 +21,13 @@
               <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
             }
           }
+          @if (item.account_type === 'Checking') 
+          {
+            @if(!item.closing_date){
+              
+              <option value="{{item.id}}">CC {{ item.id }}-{{ userId }}/2 </option>
+            }
+          }
         }
         </select>
 

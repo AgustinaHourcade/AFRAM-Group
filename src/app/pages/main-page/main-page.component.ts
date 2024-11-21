@@ -40,6 +40,9 @@ export class MainPageComponent implements OnInit {
   fixedTerms: Array<FixedTerm> = [];
   userId: number = 0;
   showActions = false;
+  activeCards: Array<Card> = [];
+  activeAccounts: Array<Account> = [];
+
 
   router = inject(Router);
   userSessionService = inject(UserSessionService);
@@ -69,107 +72,10 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-  
-    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts;
-        // for (let a of accounts) {
-        //   this.loadTransactions(a.id).subscribe({
-        //     next: (transactions: Transaction[]) => {
-        //       this.transactions.push(...transactions);
-        //     },
-        //     error: (error: Error) => {
-        //       console.error(`Error loading transactions for account ${a.id}:`, error);
-        //     },
-        //   });
-        // }
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
-    });
-  
-    this.cardService.getCardsById(this.userId).subscribe({
-      next: (cards) => {
-        this.cards = cards;
-      },
-      error: (error: Error) => {
-        console.log(error.message);
-      },
-    });
-  
-    this.fixedTermService.getFixedTerms().subscribe({
-      next: (fixedTerms) => {
-        this.fixedTerms = fixedTerms;
-        for (let item of fixedTerms) {
-          const cant = Number(item.invested_amount) + Number(item.interest_earned);
-          if (item.is_paid === 'no') {
-            if (this.compareDateWithNow(item.expiration_date)) {
-              this.accountService.updateBalance(cant, item.account_id).subscribe({
-                next: (flag) => {
-                  if (flag) {
-                    this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
-                      next: () => {
-                        const transaction = {
-                          amount: cant,
-                          source_account_id: 1,
-                          destination_account_id: item.account_id,
-                          transaction_type: 'fixed term'
-                        }
-                        this.transactionService.postTransaction(transaction as Transaction).subscribe({
-                          next: () => {
-                            Swal.fire({
-                              title: 'Se le han acreditado plazos fijos pendientes!',
-                              text: `Puede ver el detalle en "mis plazos fijos"`,
-                              icon: 'success',
-                              confirmButtonText: 'Aceptar',
-                            });
-                          },
-                          error: (error: Error) => {
-                                console.log(error.message);
-                          }
-                          })
-                      },
-                      error: (error: Error) => {
-                        console.error('Error fetching accounts:', error);
-                      },
-                    });
-                  }
-                },
-                error: (err: Error) => {
-                  console.log(err.message);
-                },
-              });
-            }
-          }
-        }
-      },
-      error: (err: Error) => {
-        console.log(err.message);
-      },
-    });
-
-    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts;
-        for (const account of this.accounts) {
-        this.loadTransactions(account.id).subscribe({
-          next: (transactions) => {
-            this.transactions.push(...transactions);
-          },
-          error: (err:Error) =>{
-            console.log(err.message);
-          }
-        })
-      }
-      },
-      error: (error: Error) => {
-        console.error(error.message);
-      },
-    });
+    this.getAccounts();
+    this.verifyFixedTerms();
+    this.getCards();
   }
-  
-  
   
   private loadTransactions(accountId: number): Observable<Transaction[]> {
     return this.transactionService.getTransactionsByAccountId(accountId).pipe(
@@ -178,6 +84,128 @@ export class MainPageComponent implements OnInit {
         return of([]);
       })
     );
+  }
+
+  private getAccounts() {
+    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
+      next: (accounts: Account[]) => {
+        this.accounts = [];
+        this.transactions = [];
+        this.accounts = accounts;
+        accounts.forEach((account) => {
+          if (!account.closing_date) {
+            this.activeAccounts.push(account);
+          }
+        });
+        for (const account of this.accounts) {
+          this.loadTransactions(account.id).subscribe({
+            next: (transactions) => {
+              this.transactions.push(...transactions);
+              this.transactions.sort((a, b) => b.id - a.id);
+            },
+            error: (err: Error) => {
+              console.log(err.message);
+            },
+          });
+        }
+      },
+      error: (error: Error) => {
+        console.error(error.message);
+      },
+    });
+  }
+  
+
+  private verifyFixedTerms() {
+    this.fixedTermService.getFixedTerms().subscribe({
+      next: (fixedTerms) => {
+        this.fixedTerms = fixedTerms;
+        let accountsUpdated = false;
+        this.fixedTerms.forEach((item) => {
+          if (item.is_paid === 'no' && this.compareDateWithNow(item.expiration_date)) {
+            accountsUpdated = true;
+            this.processFixedTerm(item);
+          }
+        });
+        if (accountsUpdated) {
+          this.getAccounts();
+        }
+      },
+      error: (err: Error) => {
+        console.log(err.message);
+      },
+    });
+  }
+  
+  
+  private processFixedTerm(item: FixedTerm) {
+    const amount = Number(item.invested_amount) + Number(item.interest_earned);
+    this.accountService.updateBalance(amount, item.account_id).subscribe({
+      next: (flag) => {
+        if (flag) {
+          this.markFixedTermAsPaid(item, amount);
+        }
+      },
+      error: (err: Error) => {
+        console.log(err.message);
+      },
+    });
+  }
+  
+  private markFixedTermAsPaid(item: FixedTerm, amount: number) {
+    this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
+      next: () => {
+        this.createFixedTermTransaction(item, amount);
+      },
+      error: (error: Error) => {
+        console.error('Error marking fixed term as paid:', error);
+      },
+    });
+  }
+  
+  private createFixedTermTransaction(item: FixedTerm, amount: number) {
+    const transaction = {
+      amount: amount,
+      source_account_id: 1, // Verifica si este ID es correcto
+      destination_account_id: item.account_id,
+      transaction_type: 'fixed term',
+    };
+  
+    console.log('Posting transaction:', transaction);
+  
+    this.transactionService.postTransaction(transaction as Transaction).subscribe({
+      next: () => {
+        this.showFixedTermSuccessAlert();
+      },
+      error: (error: Error) => {
+        console.log('Error posting transaction:', error.message);
+      },
+    });
+  }
+  private showFixedTermSuccessAlert() {
+    Swal.fire({
+      title: 'Se le han acreditado plazos fijos pendientes!',
+      text: `Puede ver el detalle en "mis plazos fijos"`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+    });
+  }
+  
+  
+  private getCards(){
+    this.cardService.getCardsById(this.userId).subscribe({
+      next: (cards) => {
+        this.cards = cards;
+        cards.forEach((card) => {
+          if (card.is_Active === 'yes') {
+            this.activeCards.push(card);
+          }
+        });
+      },
+      error: (error: Error) => {
+        console.log(error.message);
+      },
+    });
   }
 
   toggleActions(div: HTMLDivElement) {
@@ -189,7 +217,6 @@ export class MainPageComponent implements OnInit {
     const dateFromDatabase = new Date(dateString);
     const currentDate = new Date();
   
-    // Ignorar la hora y comparar solo fechas
     const isBeforeOrEqual = 
       dateFromDatabase.getFullYear() < currentDate.getFullYear() ||
       (dateFromDatabase.getFullYear() === currentDate.getFullYear() &&

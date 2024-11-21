@@ -72,6 +72,9 @@ button:hover {
   background-color: #2980b9;
 }
 
+.required{
+  color: red;
+}
 @media (max-width: 600px) {
   .account-page {
     padding: 15px;

@@ -16,7 +16,10 @@
     <p>{{ account.alias }}</p>
     } @if (isEditing){
     <form [formGroup]="formulario">
-      <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" />
+      <div class="form-group">
+      <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field"/>
+     
+    </div>
     </form>
     }
   </div>

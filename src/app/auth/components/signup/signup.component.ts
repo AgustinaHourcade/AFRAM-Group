@@ -9,6 +9,7 @@ import { AccountService } from '../../../accounts/services/account.service';
 import { Account } from '../../../accounts/interface/account.interface';
 import { AddressService } from '../../../addresses/service/address.service';
 import { Address } from '../../../addresses/interface/address.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -90,6 +91,11 @@ export class SignupComponent{
 
   addUsuario() {
     if (this.formulario.invalid) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Por favor, complete todos los campos',
+        icon: 'error',
+      })
       return;
     }
 

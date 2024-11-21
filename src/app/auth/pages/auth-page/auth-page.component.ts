@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SignupComponent } from '../../components/signup/signup.component';
 import { LoginComponent } from '../../components/login/login.component';
+import { UserSessionService } from '../../services/user-session.service';
 
 @Component({
   selector: 'app-auth-page',
@@ -12,8 +13,14 @@ import { LoginComponent } from '../../components/login/login.component';
 })
 export class AuthPageComponent {
   isLoginActive = true;
+  private userSessionService = inject(UserSessionService);
+
 
   toggleForm(formType: string) {
     this.isLoginActive = (formType === 'login');
+  }
+
+  ngOnInit(){
+    this.userSessionService.clearUserId();
   }
 }

@@ -6,69 +6,74 @@
         Cuentas
         <!-- ! agregar ojo para mostrar saldos -->
       </h2>
+      @if(activeAccounts.length == 0){
+        <p class="aviso">No posee cuentas activas</p>
+      }
       <div class="accounts-div">
         @for (account of accounts; track $index){ @if (!account.closing_date) {
         <app-card-account [account]="account"></app-card-account>
         } }
+        
       </div>
     </div>
 
     <div class="transactions">
       <h2 class="section-title">Movimientos</h2>
-
-      <div class="transactions-page">
-        <div class="transactions-container">
-          <div *ngFor="let transaction of paginatedTransactions">
-            @if (transaction.transaction_type === 'transfer') {
-              <app-transaction [transaction]="transaction"></app-transaction>
-            }
-            @if (transaction.transaction_type === 'fixed term'){
-              <app-my-fixed-term [transaction]="transaction"></app-my-fixed-term>
-            }
-            @if (transaction.transaction_type === 'loan') {
-              <app-my-loan [transaction]="transaction"></app-my-loan>
-            }
-            </div>
-        </div>
-
-      
-        <!-- Controles de paginación -->
-        <div class="pagination-wrapper">
-          <div class="pagination-controls">
-            <!-- Botón "Anterior" -->
-            <button 
-              class="pagination-button" 
-              *ngIf="currentPage > 1" 
-              (click)="changePage(currentPage - 1)">
-              ⬅ Anterior
-            </button>
-      
-            <!-- Botones numerados -->
-            <div class="page-buttons">
+      @if (paginatedTransactions.length == 0) {
+        <p class="aviso">No hay movimientos para mostrar</p>
+      }@else {
+        <div class="transactions-page">
+          <div class="transactions-container">
+            <div *ngFor="let transaction of paginatedTransactions">
+              @if (transaction.transaction_type === 'transfer') {
+                <app-transaction [transaction]="transaction"></app-transaction>
+              }
+              @if (transaction.transaction_type === 'fixed term'){
+                <app-my-fixed-term [transaction]="transaction"></app-my-fixed-term>
+              }
+              @if (transaction.transaction_type === 'loan') {
+                <app-my-loan [transaction]="transaction"></app-my-loan>
+              }
+              </div>
+          </div>
+  
+          <div class="pagination-wrapper">
+            <div class="pagination-controls">
               <button 
                 class="pagination-button" 
-                *ngFor="let page of [].constructor(totalPages); let i = index" 
-                [class.active]="i + 1 === currentPage"
-                (click)="changePage(i + 1)">
-                {{ i + 1 }}
+                *ngIf="currentPage > 1" 
+                (click)="changePage(currentPage - 1)">
+                ⬅ Anterior
+              </button>
+              <div class="page-buttons">
+                <button 
+                  class="pagination-button" 
+                  *ngFor="let page of [].constructor(totalPages); let i = index" 
+                  [class.active]="i + 1 === currentPage"
+                  (click)="changePage(i + 1)">
+                  {{ i + 1 }}
+                </button>
+              </div>
+        
+              <button 
+                class="pagination-button" 
+                *ngIf="currentPage < totalPages" 
+                (click)="changePage(currentPage + 1)">
+                Siguiente ➡
               </button>
             </div>
-      
-            <!-- Botón "Siguiente" -->
-            <button 
-              class="pagination-button" 
-              *ngIf="currentPage < totalPages" 
-              (click)="changePage(currentPage + 1)">
-              Siguiente ➡
-            </button>
           </div>
         </div>
-      </div>
+      }
+
     </div>
   </section>
 
   <section class="sectionB">
     <h2 class="section-title">Tarjetas</h2>
+    @if(activeCards.length == 0){
+      <p class="aviso">No posee tarjetas activas</p>
+    }
     @for (item of cards; track $index) { @if (item.is_Active === 'yes') {
     <div class="cardInfo">
       <div class="card">
@@ -93,7 +98,7 @@
     } }
     <div class="dolar">
       <h2 class="section-title">Cotización</h2>
-
+      
       <app-dolar></app-dolar>
     </div>
   </section>

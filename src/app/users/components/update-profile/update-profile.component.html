@@ -5,7 +5,7 @@
   <div class="update-info">
     <form [formGroup]="formulario">
       <div>
-        <label for="email">Email</label>
+        <label for="email">Email <span class="required">*</span></label>
         <input type="email" id="email" formControlName="email" />
         @if (formulario.controls['email'].getError('required') &&
         formulario.controls['email'].touched) {
@@ -14,7 +14,7 @@
       </div>
 
       <div>
-        <label for="phone">Telefono</label>
+        <label for="phone">Teléfono <span class="required">*</span></label>
         <input type="text" id="phone" formControlName="phone" />
         @if (formulario.controls['phone'].getError('required') &&
         formulario.controls['phone'].touched) {
@@ -23,7 +23,7 @@
       </div>
 
       <div>
-        <label for="country">Pais</label>
+        <label for="country">País <span class="required">*</span></label>
         <input type="text" id="country" formControlName="country" />
         @if (formulario.controls['country'].getError('required') &&
         formulario.controls['country'].touched) {
@@ -32,7 +32,7 @@
       </div>
 
       <div>
-        <label for="city">Ciudad</label>
+        <label for="city">Ciudad <span class="required">*</span></label>
         <input type="text" id="city" formControlName="city" />
         @if (formulario.controls['city'].getError('required') &&
         formulario.controls['city'].touched) {
@@ -41,7 +41,7 @@
       </div>
 
       <div>
-        <label for="postal_code">Codigo postal</label>
+        <label for="postal_code">Código postal <span class="required">*</span></label>
         <input type="string" id="postal_code" formControlName="postal_code" />
         @if (formulario.controls['postal_code'].getError('required') &&
         formulario.controls['postal_code'].touched) {
@@ -50,7 +50,7 @@
       </div>
 
       <div>
-        <label for="street">Calle</label>
+        <label for="street">Calle <span class="required">*</span></label>
         <input type="text" id="street" formControlName="street" />
         @if (formulario.controls['street'].getError('required') &&
         formulario.controls['street'].touched) {
@@ -59,7 +59,7 @@
       </div>
 
       <div>
-        <label for="address_number">Altura</label>
+        <label for="address_number">Altura <span class="required">*</span></label>
         <input
           type="number"
           id="address_number"
@@ -73,12 +73,12 @@
 
       <div>
         <label for="floor">Piso</label>
-        <input type="string" id="floor" formControlName="floor" />
+        <input type="string" id="floor" formControlName="floor" placeholder="Opcional" />
       </div>
 
       <div>
         <label for="apartment">Departamento</label>
-        <input type="text" id="apartment" formControlName="apartment" />
+        <input type="text" id="apartment" formControlName="apartment" placeholder="Opcional" />
       </div>
 
       <button (click)="updateProfile()">Actualizar</button>

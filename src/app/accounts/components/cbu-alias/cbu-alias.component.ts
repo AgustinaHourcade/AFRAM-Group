@@ -34,7 +34,7 @@ export class CbuAliasComponent implements OnInit {
   fb = inject(FormBuilder);
   
   formulario = this.fb.nonNullable.group({
-    newAlias: ['', Validators.required]
+    newAlias: ['', [Validators.required, Validators.maxLength(15)]]
   })
   
   isEditing = false;
@@ -66,6 +66,18 @@ export class CbuAliasComponent implements OnInit {
 
   modifyAlias() {
     const newAlias = this.formulario.get('newAlias')?.value;
+
+    if(newAlias && newAlias.length > 15) {
+      Swal.fire({
+        title: 'La longitud máxima es de 15 caracteres',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+    }
+
+
+    if(this.formulario.invalid) return;
+
     if (newAlias) {
       this.accountService.modifyAlias(this.account.id, newAlias).subscribe({
         next: (value) => {
@@ -81,7 +93,7 @@ export class CbuAliasComponent implements OnInit {
         error: (err) => {
           Swal.fire({
             title: 'Error al modificar el alias',
-            text: 'El alias elejido ya esta en uso o es demasiado largo, la longitud maxima es de 15 caracteres',
+            text: 'El alias elegido ya está en uso',
             icon: 'error',
             confirmButtonText: 'Aceptar',
           });
@@ -92,58 +104,6 @@ export class CbuAliasComponent implements OnInit {
   }
 
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
-
-  // downloadAsPDF() {
-  //   const element = this.pdfContent.nativeElement;
-  //   const elementsToHide = element.querySelectorAll('.no-print');
-  //   elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
-  //   html2canvas(element, {
-  //     scale: 2,
-  //   }).then((canvas) => {
-  //     const imgData = canvas.toDataURL('image/jpeg', 0.9);
-
-  //     const pdf = new jsPDF({
-  //       orientation: 'portrait',
-  //       unit: 'in',
-  //       format: 'letter',
-  //       putOnlyUsedFonts: true,
-  //       floatPrecision: 16,
-  //     });
-
-  //     const imgWidth = 8.5;
-  //     const pageHeight = 11;
-  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  //     let heightLeft = imgHeight;
-
-  //     let position = 0;
-
-  //     pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-  //     heightLeft -= pageHeight;
-
-  //     while (heightLeft >= 0) {
-  //       position = heightLeft - imgHeight;
-  //       pdf.addPage();
-  //       pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-  //       heightLeft -= pageHeight;
-  //     }
-
-  //     const logoUrl = '/logo-fff.png';
-  //     const logoImg = new Image();
-  //     logoImg.src = logoUrl;
-
-  //     logoImg.onload = () => {
-  //       const logoWidth = 3.125;
-  //       const logoHeight = 1.5625;
-  //       const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
-  //       const yPos = 0.5;
-
-  //       pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-
-  //       pdf.save('mi-documento.pdf');
-  //     };
-  //   });
-  //   elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline')); //
-  // }
 
   downloadAsPDF() {
     const element = this.pdfContent.nativeElement;

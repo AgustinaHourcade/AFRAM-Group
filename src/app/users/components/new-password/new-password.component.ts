@@ -52,27 +52,13 @@ export class NewPasswordComponent {
     token6: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
   }) as FormGroup;
   
-  formularioContra = this.fb.nonNullable.group(
+  formularioContra = this.fb.group(
     {
-      hashed_password: [
-        '',[
-          Validators.required,
-          Validators.minLength(6),
-          this.passwordValidator.bind(this),
-          this.matchPasswords.bind(this),
-        ],
-      ],
-      confirm_password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          this.passwordValidator.bind(this),
-          this.matchPasswords.bind(this),
-        ],
-      ],
-    }
+      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
+      confirm_password: ['', [Validators.required]]
+    }, { validators: this.matchPasswords }
   );
+
 
   moveFocus(event: any, nextInputId: string) {
     if (event.target.value.length === 1) {
@@ -127,7 +113,6 @@ export class NewPasswordComponent {
           icon: "error",
           showCloseButton: true,
           title: "Token incorrecto",
-          // text: "Something went wrong!",
           footer: '<a href="#">Reenviar mail</a>'
         });
       }

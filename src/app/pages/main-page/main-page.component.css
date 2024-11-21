@@ -1,4 +1,3 @@
-/* General */
 main {
   position: relative;
   width: 100vw;
@@ -20,7 +19,6 @@ main {
   padding-bottom: 5px;
 }
 
-/* Section A */
 .sectionA {
   width: 70%;
 }
@@ -44,12 +42,11 @@ main {
   flex-grow: 1;
 }
 
-/* Section B */
 .sectionB {
   width: 30%;
   display: flex;
   flex-direction: column;
-  row-gap: 10px; /* Tarjetas verticalmente separadas */
+  row-gap: 10px;
 }
 
 .cardInfo {
@@ -110,7 +107,6 @@ main {
   margin-left: 5px;
 }
 
-/* Dollar Section */
 .dolar {
   background-color: var(--extra-light-color);
   padding: 15px;
@@ -127,14 +123,12 @@ main {
   padding-bottom: 5px;
 }
 
-/* Fixed Terms */
 .fixedTerms-container {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
 
-/* Pagination */
 .pagination-wrapper {
   display: flex;
   justify-content: center;
@@ -177,4 +171,20 @@ main {
   color: #fff;
   border-color: #007bff;
   font-weight: bold;
+}
+
+
+.aviso {
+  font-family: var(--font-body);
+  color: var(--gray-3);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--extra-light-color);
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }

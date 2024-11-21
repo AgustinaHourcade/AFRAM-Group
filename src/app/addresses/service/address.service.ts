@@ -25,7 +25,7 @@ export class AddressService {
     return this.http.post<number>(this.urlBase, address);
   }
 
-  createAddress(user_id: number, address: Address | undefined): Observable<number> {
+  createAddress(user_id: number, address: Address): Observable<number> {
     return this.http.post<number>(`${this.urlBase}create/${user_id}`, address)
   }
 }

@@ -56,13 +56,19 @@ export class CardComponent implements OnInit {
 
   deactivate(card_id: number) {
     this.cardService.disableCard(card_id).subscribe({
-      next: (flag) => {
+      next: () => {
         Swal.fire({
-          title: 'Tarjeta desactivada!',
+          title: `Tarjeta eliminada`,
           icon: 'success',
+          iconColor: '#0077b6',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Aceptar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
         });
-        this.route.navigate(['main']);
-      },
+        },
       error: (e: Error) => {
         console.log(e.message);
       },

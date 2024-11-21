@@ -23,10 +23,49 @@ export class UpdatePasswordComponent implements OnInit  {
 
   id : number = 0;
   user !: User;
+  showPassword1 = false;
+  showPassword2 = false;
+  showPassword3 = false;
+  hasUpperCase: boolean = false;
+  hasNumber: boolean = false;
+  isLongEnough: boolean = false;
 
   ngOnInit(): void {
     this.id = this.userSessionService.getUserId();
   }
+
+  formularioContra = this.fb.group(
+    {
+      current_password: ['', [Validators.required, Validators.minLength(6)]],
+      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
+      confirm_password: ['', [Validators.required]]
+    }, { validators: this.matchPasswords }
+  );
+
+  
+  validatePassword() {
+    const password = this.formularioContra.get('hashed_password')?.value || '';
+  
+    this.hasUpperCase = /[A-Z]/.test(password); 
+    this.hasNumber = /\d/.test(password); 
+    this.isLongEnough = password.length >= 8; 
+  }
+
+  togglePasswordVisibility1(input: HTMLInputElement) {
+    input.type = this.showPassword1 ? 'password' : 'text';
+    this.showPassword1 = !this.showPassword1;
+  }
+
+  togglePasswordVisibility2(input: HTMLInputElement) {
+    input.type = this.showPassword2 ? 'password' : 'text';
+    this.showPassword2 = !this.showPassword2;
+  }
+
+  togglePasswordVisibility3(input: HTMLInputElement) {
+    input.type = this.showPassword3 ? 'password' : 'text';
+    this.showPassword3 = !this.showPassword3;
+  }
+
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const hasUpperCase = /[A-Z]/.test(value);
@@ -44,14 +83,6 @@ export class UpdatePasswordComponent implements OnInit  {
     return password === confirmPassword ? null : { matchPasswords: true };
   }
 
-  formularioContra = this.fb.group(
-    {
-      current_password: ['', [Validators.required, Validators.minLength(6)]],
-      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
-      confirm_password: ['', [Validators.required]]
-    }, { validators: this.matchPasswords }
-  );
-
   updatePassword() {
     if (this.formularioContra.invalid) 
       return;
@@ -66,12 +97,11 @@ export class UpdatePasswordComponent implements OnInit  {
             title: 'Contraseña actualizada correctamente!',
             icon: 'success',
           });
-          console.log('nueva contraseña: ', datos.newPassword);
           this.route.navigate(['/profile']);
         },
         error: (err: Error) => {
           Swal.fire({
-            title: 'Error al actualizar las contraseñas!',
+            title: 'Contraseña actual incorrecta.',
             icon: 'error',
           });
           console.log('Error al actualizar las contraseñas.', err.message);

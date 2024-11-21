@@ -58,8 +58,8 @@
       [ngClass]="{ errorInput: formulario.controls['hashed_password'].getError('required') && formulario.controls['hashed_password'].touched }" />
     <label  [ngClass]="{ filled: formulario.get('hashed_password')?.value, errorLabel: formulario.controls['hashed_password'].getError('required') && formulario.controls['hashed_password'].touched }">
       <span *ngIf=" formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].value">
-    <i class="bi bi-exclamation-circle"></i> 
-    </span> Contraseña</label>
+      <i class="bi bi-exclamation-circle"></i> 
+      </span> Contraseña</label>
     <span class="toggle-visibility" (click)="togglePasswordVisibility(passwordInput)">
       <i *ngIf="showPassword; else eyeClosed" class="bi bi-eye"></i>
       <ng-template #eyeClosed>
