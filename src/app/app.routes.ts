@@ -46,8 +46,8 @@ export const routes: Routes = [
     {path: 'cards', component: CardComponent, title: 'Mis tarjetas | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'newcard', component: NewcardComponent, title: 'Nueva tarjeta | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'legal', component: LegalComponent, title: 'Legal | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
+    {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group', canActivate: [authGuardFnlogOut]},
     {path: '**', redirectTo: ''}
 ];
