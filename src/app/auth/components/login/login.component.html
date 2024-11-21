@@ -2,33 +2,70 @@
 <form [formGroup]="formulario" (ngSubmit)="admitUser()">
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   <div class="input-container">
-    <input
+    <!-- <input
       type="number"
       id="dni"
       formControlName="dni"
       [ngClass]="{
         errorInput:
-          formulario.controls['dni'].getError('required') &&
-          formulario.controls['dni'].touched
+          (formulario.controls['dni'].getError('required') &&
+          formulario.controls['dni'].touched)
       }"
     />
     <label
       [ngClass]="{
         filled: formulario.get('dni')?.value,
         errorLabel:
-          formulario.controls['dni'].getError('required') &&
-          formulario.controls['dni'].touched
+          (formulario.controls['dni'].getError('required') &&
+          formulario.controls['dni'].touched)
       }"
       ><span
         *ngIf="
           formulario.controls['dni'].touched &&
-          !formulario.controls['dni'].value
-        "
-      >
+          formulario.controls['dni'].value
+        ">
       <i class="bi bi-exclamation-circle"></i> </span
       > DNI</label
     >
+  </div> -->
+
+    <input
+      type="number"
+      id="dni"
+      formControlName="dni"
+      [ngClass]="{
+        errorInput:
+          (formulario.controls['dni'].getError('required') && formulario.controls['dni'].touched) ||
+          (formulario.controls['dni'].getError('max') && formulario.controls['dni'].touched)
+      }"
+    />
+    <label
+      [ngClass]="{
+        filled: formulario.get('dni')?.value,
+        errorLabel:
+          (formulario.controls['dni'].getError('required') && formulario.controls['dni'].touched) ||
+          (formulario.controls['dni'].getError('max') && formulario.controls['dni'].touched)
+      }"
+    >
+      DNI
+      <span
+        *ngIf="
+          formulario.controls['dni'].touched &&
+          (formulario.controls['dni'].getError('required') ||
+            formulario.controls['dni'].getError('max'))
+        "
+      >
+        <i class="bi bi-exclamation-circle"></i>
+        <ng-container *ngIf="formulario.controls['dni'].getError('required')">
+          Campo obligatorio.
+        </ng-container>
+        <ng-container *ngIf="formulario.controls['dni'].getError('max')">
+          El valor no puede ser mayor a 8.
+        </ng-container>
+      </span>
+    </label>
   </div>
+
 
   <div class="input-container">
     <input type="text" id="usuario" formControlName="name_user" [ngClass]="{
@@ -58,7 +95,7 @@
       [ngClass]="{ errorInput: formulario.controls['hashed_password'].getError('required') && formulario.controls['hashed_password'].touched }" />
     <label  [ngClass]="{ filled: formulario.get('hashed_password')?.value, errorLabel: formulario.controls['hashed_password'].getError('required') && formulario.controls['hashed_password'].touched }">
       <span *ngIf=" formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].value">
-      <i class="bi bi-exclamation-circle"></i> 
+      <i class="bi bi-exclamation-circle"></i>
       </span> Contraseña</label>
     <span class="toggle-visibility" (click)="togglePasswordVisibility(passwordInput)">
       <i *ngIf="showPassword; else eyeClosed" class="bi bi-eye"></i>
@@ -70,4 +107,4 @@
 
   <button type="submit">Login</button>
   <a routerLink="/recover-password" class="forgot-password">¿Olvidaste tu contraseña?</a>
-</form> 
+</form>

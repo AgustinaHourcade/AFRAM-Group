@@ -38,7 +38,7 @@ export class SignupComponent{
       name_user: ['', [Validators.required, Validators.minLength(4)]],
       last_name: ['', [Validators.required, Validators.minLength(2)]],
       real_name: ['', [Validators.required, Validators.minLength(4)]],
-      dni: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(7), Validators.maxLength(8)]],
+      dni: ['', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(1), Validators.maxLength(8)]],
       hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
       confirm_password: ['', [Validators.required]]
     },
@@ -47,7 +47,7 @@ export class SignupComponent{
 
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
-  
+
     this.hasUpperCase = /[A-Z]/.test(password); // Verifica que tenga al menos una letra mayúscula
     this.hasNumber = /\d/.test(password); // Verifica que tenga al menos un número
     this.isLongEnough = password.length >= 8; // Verifica longitud mínima
@@ -172,7 +172,7 @@ export class SignupComponent{
   }
 
   passwordForm: FormGroup;
-  
+
   passwordValidation = {
     containsNumber: false,
     containsUppercase: false,

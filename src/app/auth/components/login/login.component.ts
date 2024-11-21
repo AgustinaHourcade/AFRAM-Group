@@ -31,7 +31,7 @@ export class LoginComponent {
   formulario = this.fb.nonNullable.group({
     name_user: ['', [Validators.required, Validators.minLength(3)]],
     hashed_password: ['', [Validators.required, Validators.minLength(6)]],
-    dni: ['', Validators.required],
+    dni: ['', [Validators.required, Validators.min(1), Validators.max(9)]],
   });
 
   admitUser() {
