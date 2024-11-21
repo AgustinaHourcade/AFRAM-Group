@@ -15,7 +15,7 @@
 
       <div>
         <label for="phone">Teléfono <span class="required">*</span></label>
-        <input type="text" id="phone" formControlName="phone" />
+        <input type="number" id="phone" formControlName="phone" />
         @if (formulario.controls['phone'].getError('required') &&
           formulario.controls['phone'].touched) {
           <span> Campo requerido. </span>
@@ -46,7 +46,7 @@
 
       <div>
         <label for="postal_code">Código postal <span class="required">*</span></label>
-        <input type="string" id="postal_code" formControlName="postal_code" />
+        <input type="number" id="postal_code" formControlName="postal_code" />
         @if (formulario.controls['postal_code'].getError('required') &&
         formulario.controls['postal_code'].touched) {
         <span> Campo requerido. </span>

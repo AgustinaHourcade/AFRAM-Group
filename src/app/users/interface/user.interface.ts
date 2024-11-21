@@ -5,7 +5,7 @@ export interface User{
     hashed_password: string,
     email?: string,
     dni: string,
-    phone?: string,
+    phone?: number,
     user_type?: string,
     isActive?: string,
     real_name?: string,
