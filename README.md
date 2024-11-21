@@ -2,7 +2,7 @@
 
 
 
-Este repositorio contiene el Proyecto Final de las asignaturas Laboratorio IV y Metodología de Sistemas de la carrera de Programación en la Universidad Tecnológica Nacional, Facultad Regional Mar del Plata.
+Este repositorio contiene el Proyecto Final de las asignaturas Laboratorio IV y Metodología de Sistemas de la Tecnicatura Universitaria en Programación en la Universidad Tecnológica Nacional, Facultad Regional Mar del Plata.
 
 El sistema implementado es un sitio web integral que combina los conocimientos adquiridos en ambas materias. Proporciona funcionalidades para la gestión de usuarios, transacciones financieras, y consultas frecuentes mediante un chatbot.
 
