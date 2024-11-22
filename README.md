@@ -9,7 +9,7 @@ El sistema implementado es un sitio web integral que combina los conocimientos a
 El proyecto busca demostrar la aplicación práctica de metodologías ágiles, diseño de sistemas y desarrollo completo de software en un entorno colaborativo.
 
 ## Demo
-<a href="https://www.youtube.com" target="_blank">
+<a href="https://youtu.be/mHsU3KzYY9I" target="_blank">
   <img src="https://github.com/AgustinaHourcade/AFRAM-Group/blob/main/public/AFRAM-Group-home.png" alt="Mira el video" width="600px">
 </a>
 
