@@ -24,6 +24,9 @@ import { NewPasswordComponent } from './users/components/new-password/new-passwo
 import { authGuardFn } from './auth/guard/auth.guard-fn';
 import { AccessDeniedComponent } from './auth/pages/access-denied/access-denied.component';
 import { authGuardFnlogOut } from './auth/guard/auth.guard-fn-logOut';
+import { AdminMainPageComponent } from './admin/pages/admin-main-page/admin-main-page.component';
+import { ListAdminsComponent } from './admin/components/list-admins/list-admins.component';
+import { DetailAdminComponent } from './admin/components/detail-admin/detail-admin.component';
 
 
 export const routes: Routes = [
@@ -49,6 +52,9 @@ export const routes: Routes = [
     {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
     {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group', canActivate: [authGuardFnlogOut]},
+    {path: 'admin-main', component: AdminMainPageComponent, title: 'Home'},
+    {path: 'list-admins', component: ListAdminsComponent},
+    {path: 'detail-admin/:id', component: DetailAdminComponent},
     {path: '**', redirectTo: ''}
 ];
 

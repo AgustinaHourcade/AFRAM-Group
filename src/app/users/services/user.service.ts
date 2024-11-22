@@ -11,6 +11,10 @@ export class UserService {
 
   private baseUrl = 'http://localhost:3000/users/';
 
+  getUsers():Observable<User[]>{
+    return this.http.get<User[]>(this.baseUrl);
+  }
+
   getIdByDni(dni: string | undefined): Observable<number> {
     return this.http.get<number>(`${this.baseUrl}id/${dni}`);
   }
