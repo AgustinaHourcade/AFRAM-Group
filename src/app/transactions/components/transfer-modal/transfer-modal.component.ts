@@ -196,7 +196,7 @@ export class TransferModalComponent implements OnInit {
     if(this.montoTransferencia as number < 1 ){
       Swal.fire({
         title: 'Error',
-        text: 'El monto minimo para transferir es de $1.',
+        text: 'El monto mínimo para transferir es de $1.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
       })

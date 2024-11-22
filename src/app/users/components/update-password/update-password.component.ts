@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
@@ -15,13 +15,13 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.css',
 })
-export class UpdatePasswordComponent implements OnInit  {
+export class UpdatePasswordComponent implements OnInit {
   fb = inject(FormBuilder);
   userService = inject(UserService);
   userSessionService = inject(UserSessionService);
   route = inject(Router);
 
-  id : number = 0;
+  id: number = 0;
   user !: User;
   showPassword1 = false;
   showPassword2 = false;
@@ -42,13 +42,13 @@ export class UpdatePasswordComponent implements OnInit  {
     }, { validators: this.matchPasswords }
   );
 
-  
+
   validatePassword() {
     const password = this.formularioContra.get('hashed_password')?.value || '';
-  
-    this.hasUpperCase = /[A-Z]/.test(password); 
-    this.hasNumber = /\d/.test(password); 
-    this.isLongEnough = password.length >= 8; 
+
+    this.hasUpperCase = /[A-Z]/.test(password);
+    this.hasNumber = /\d/.test(password);
+    this.isLongEnough = password.length >= 8;
   }
 
   togglePasswordVisibility1(input: HTMLInputElement) {
@@ -84,29 +84,29 @@ export class UpdatePasswordComponent implements OnInit  {
   }
 
   updatePassword() {
-    if (this.formularioContra.invalid) 
+    if (this.formularioContra.invalid)
       return;
 
-      const datos = {
-        currentPassword: this.formularioContra.get('current_password')?.value,
-        newPassword: this.formularioContra.get('confirm_password')?.value,
-      };
-      this.userService.changePassword(this.id, datos).subscribe({
-        next: () => {
-          Swal.fire({
-            title: 'Contraseña actualizada correctamente!',
-            icon: 'success',
-          });
-          this.route.navigate(['/profile']);
-        },
-        error: (err: Error) => {
-          Swal.fire({
-            title: 'Contraseña actual incorrecta.',
-            icon: 'error',
-          });
-          console.log('Error al actualizar las contraseñas.', err.message);
-        },
-      });
-    }
+    const datos = {
+      currentPassword: this.formularioContra.get('current_password')?.value,
+      newPassword: this.formularioContra.get('confirm_password')?.value,
+    };
+
+    this.userService.changePassword(this.id, datos).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Contraseña actualizada correctamente!',
+          icon: 'success',
+        });
+        this.route.navigate(['/profile']);
+      },
+      error: (err: Error) => {
+        Swal.fire({
+          title: 'Contraseña actual incorrecta',
+          icon: 'error',
+        });
+      },
+    });
+  }
 
 }
