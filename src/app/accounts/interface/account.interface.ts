@@ -1,7 +1,7 @@
 export interface Account {
     id: number;
     balance: number;
-    opening_date: string;
+    opening_date: Date;
     cbu: string;
     closing_date: string;
     alias: string;

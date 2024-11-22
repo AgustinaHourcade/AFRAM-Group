@@ -1,30 +1,28 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../../users/services/user.service';
-import { User } from '../../../users/interface/user.interface';
 import { RouterLink } from '@angular/router';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
-import { NavbarHomeComponent } from "../../../shared/navbar-home/navbar-home.component";
+import { User } from '../../../users/interface/user.interface';
 import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
 
 @Component({
-  selector: 'app-list-admins',
+  selector: 'app-list-users',
   standalone: true,
   imports: [RouterLink, NavbarAdminComponent],
-  templateUrl: './list-admins.component.html',
-  styleUrl: './list-admins.component.css'
+  templateUrl: './list-users.component.html',
+  styleUrl: './list-users.component.css'
 })
-export class ListAdminsComponent implements OnInit{
+export class ListUsersComponent implements OnInit{
 
   private userService = inject(UserService)
-  admins: Array<User> = [];
+  clients: Array<User> = [];
 
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next: (users) =>{
         users.forEach(user => {
-          if (user.user_type === 'admin') {
-            this.admins.push(user);
+          if (user.user_type === 'user') {
+            this.clients.push(user);
           }
         });
       },
@@ -36,3 +34,4 @@ export class ListAdminsComponent implements OnInit{
 
 
 }
+

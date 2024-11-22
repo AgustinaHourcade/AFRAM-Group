@@ -1,0 +1,82 @@
+<app-navbar-admin></app-navbar-admin>
+<div class="profile-container">
+    <h2>Información Personal</h2>
+    <div class="profile-card">
+      <div class="profile-field">
+        <span class="field-label">Nombre:</span>
+        <span class="field-value">{{ user?.real_name }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Apellido:</span>
+        <span class="field-value">{{ user?.last_name }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Usuario</span>
+        <span class="field-value">{{ user?.name_user }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">DNI:</span>
+        <span class="field-value">{{ user?.dni }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Telefono:</span>
+        <span class="field-value">{{ user?.phone }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Email:</span>
+        <span class="field-value">{{ user?.email }}</span>
+      </div>
+      <div class="action-buttons">
+        <div>
+            <button class="action-button cuentas" (click)="loadAccounts()">Ver Cuentas</button>
+        </div>
+
+        <div>
+          @if(user?.is_Active === 'yes'){
+            <div class="botones-admin">
+              <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
+              <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
+            </div>
+          }@else {
+            <div>
+              <button class="action-button alta" (click)="changeStatus()">Dar de alta</button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if(flag){
+    <h2>Cuentas de {{user?.real_name}}</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Numero</th>
+      <th>Tipo</th>
+      <th>Fecha de apertura</th>
+      <th>Fondos</th>
+      <th>Activa</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of accounts; track $index) {
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.account_type}}</td>
+          <td>{{ formatearFecha(item.opening_date) }}</td>
+          <td>${{item.balance}}</td>
+          @if (!item.closing_date) {
+            <td>Si</td>
+            <div class="action-buttons">
+            <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
+            </div>
+          }@else {
+            <td>No</td>
+          }
+        </tr>
+    }
+  </tbody>
+</table>
+  }

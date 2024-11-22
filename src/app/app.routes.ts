@@ -4,9 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { AuthPageComponent } from './auth/pages/auth-page/auth-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { AccountsComponent } from './accounts/pages/accounts/accounts.component';
-import { ProfileComponent } from './users/pages/profile/profile.component';
 import { AccountInfoComponent } from './accounts/pages/account-info/account-info.component';
-import { UpdateProfileComponent } from './users/components/update-profile/update-profile.component';
 import { MyTransactionsComponent } from './transactions/pages/my-transactions/my-transactions.component';
 import { NewFixedtermComponent } from './fixedTerms/components/fixedterm/fixedterm.component';
 import { CardComponent } from './cards/components/card/card.component';
@@ -27,6 +25,13 @@ import { authGuardFnlogOut } from './auth/guard/auth.guard-fn-logOut';
 import { AdminMainPageComponent } from './admin/pages/admin-main-page/admin-main-page.component';
 import { ListAdminsComponent } from './admin/components/list-admins/list-admins.component';
 import { DetailAdminComponent } from './admin/components/detail-admin/detail-admin.component';
+import { ListUsersComponent } from './admin/components/list-users/list-users.component';
+import { DetailUsersComponent } from './admin/components/detail-users/detail-users.component';
+import { UpdateProfilePageComponent } from './users/pages/update-profile-page/update-profile-page.component';
+import { UpdateProfileAdminComponent } from './admin/pages/update-profile-admin/update-profile-admin.component';
+import { ProfilePageComponent } from './users/pages/profile-page/profile-page.component';
+import { ProfileAdminComponent } from './admin/pages/profile-admin/profile-admin.component';
+import { NewAdminComponent } from './admin/components/new-admin/new-admin.component';
 
 
 export const routes: Routes = [
@@ -36,13 +41,13 @@ export const routes: Routes = [
     {path: 'accounts', component: AccountsComponent,title: 'Cuentas | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts/account/:id', component: AccountInfoComponent, title: 'Mi cuenta | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts/new-account', component: NewAccountComponent, title: 'Nueva cuenta | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'fixed-terms', component: FixedTermsComponent, title: 'Mis plazos fijos | AFRAM Group'},
+    {path: 'fixed-terms', component: FixedTermsComponent, title: 'Mis plazos fijos | AFRAM Group',canActivate: [authGuardFn]},
     {path: 'fixed-terms/new', component: NewFixedtermComponent, title: 'Nuevo plazo fijo | AFRAM Group',canActivate: [authGuardFn]  },
     {path: 'new-loan', component: NewLoanComponent, title:'Nuevo préstamo | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-loan', component: ListLoanComponent, title: 'Mis préstamos | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'pay-loan/:id', component: PayLoanComponent, title: 'Pagar préstamo | AFRAM Group', canActivate: [authGuardFn]  },
-    {path: 'profile', component: ProfileComponent, title: 'Perfil | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'update-profile/:id', component: UpdateProfileComponent,title: 'Editar perfil | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'pay-loan/:id', component: PayLoanComponent, title: 'Pagar préstamo | AFRAM Group', canActivate: [authGuardFn] },
+    {path: 'profile', component: ProfilePageComponent, title: 'Perfil | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'update-profile', component: UpdateProfilePageComponent ,title: 'Editar perfil | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'update-password', component: UpdatePasswordComponent, title: 'Cambiar contraseña | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'transfer', component: TransactionsPageComponent,title: 'Transferir | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'my-transactions', component: MyTransactionsComponent, title: 'Mis transacciones | AFRAM Group'  , canActivate: [authGuardFn]},
@@ -52,9 +57,14 @@ export const routes: Routes = [
     {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
     {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group', canActivate: [authGuardFnlogOut]},
-    {path: 'admin-main', component: AdminMainPageComponent, title: 'Home'},
-    {path: 'list-admins', component: ListAdminsComponent},
-    {path: 'detail-admin/:id', component: DetailAdminComponent},
+    {path: 'admin-main', component: AdminMainPageComponent, title: 'Home | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'list-admins', component: ListAdminsComponent, title: 'Lista Administradores | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'detail-admin/:id', component: DetailAdminComponent, title: 'Detalles del Admin | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'list-users', component: ListUsersComponent, title: 'Lista Clientes | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'detail-user/:id', component: DetailUsersComponent, title: 'Detalles del Cliente | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'update-admin', component: UpdateProfileAdminComponent, title: 'Editar Administrador | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'profile-admin', component: ProfileAdminComponent, title: 'Mi Perfil | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'new-admin', component: NewAdminComponent, title: 'Nuevo usuario | AFRAM Group', canActivate: [authGuardFn]},
     {path: '**', redirectTo: ''}
 ];
 

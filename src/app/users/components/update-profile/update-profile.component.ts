@@ -3,16 +3,15 @@ import { AddressService } from './../../../addresses/service/address.service';
 import { User } from './../../interface/user.interface';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { UserService } from '../../services/user.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { Router } from '@angular/router';
 import { Address } from '../../../addresses/interface/address.interface';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-update-profile',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule],
+  imports: [ ReactiveFormsModule],
   templateUrl: './update-profile.component.html',
   styleUrl: './update-profile.component.css',
 })

@@ -1,3 +1,4 @@
+<app-navbar-admin></app-navbar-admin>
 <div class="profile-container">
     <h2>Información Personal</h2>
     <div class="profile-card">
@@ -25,13 +26,22 @@
         <span class="field-label">Email:</span>
         <span class="field-value">{{ admin?.email }}</span>
       </div>
-      @if(admin?.isActive === 'yes'){
-          <div class="profile-actions">
-              <button class="action-button delete">Dar de baja</button>
-            </div>
+      <div class="profile-field">
+        <span class="field-label">Activo:</span>
+        @if (admin?.is_Active === 'yes') {
+          <span class="field-value">Si</span>
+        }@else {
+          <span class="field-value">No</span>
+        }
+      </div>
+      @if(admin?.is_Active === 'yes'){
+          <div class="botones-admin">
+              <button class="action-button quitar" (click)="changeAdminStatus()">Quitar admin</button>
+              <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
+          </div>
         }@else {
             <div>
-                <button class="action-button delete">Dar de alta</button>
+                <button class="action-button alta" (click)="changeStatus()">Dar de alta</button>
             </div>
         }
     </div>

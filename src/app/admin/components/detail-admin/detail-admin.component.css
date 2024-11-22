@@ -9,17 +9,18 @@ body {
     align-items: center;
     height: 100vh;
   }
-  
+
   .profile-container {
     text-align: center;
     width: 100%;
     max-width: 500px;
     margin: auto;
   }
-  
+
   h2 {
     color: #2c3e50;
     margin-bottom: 20px;
+    padding-top: 40px;
   }
 
   .profile-card {
@@ -28,7 +29,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
-  
+
   .profile-field {
     display: flex;
     justify-content: space-between;
@@ -36,23 +37,16 @@ body {
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
   }
-  
+
   .field-label {
     font-weight: bold;
     color: #2c3e50;
   }
-  
+
   .field-value {
     color: #555;
   }
-  
 
-  .profile-actions {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
   .action-button {
     padding: 10px 20px;
     border: none;
@@ -62,13 +56,33 @@ body {
     color: #fff;
     font-weight: bold;
   }
-  
-  
-  .action-button.delete {
-    background-color: #8b0000; /* Rojo oscuro */
+
+  .botones-admin{
+    display: flex;
+    justify-content: space-around;
   }
-  
-  .action-button.delete:hover {
+
+  .action-button.quitar {
+    background-color: #358600;
+  }
+
+  .action-button.quitar:hover {
+    background-color: #47b300;
+  }
+
+  .action-button.baja {
+    background-color: #8b0000;
+  }
+
+  .action-button.baja:hover {
     background-color: #600000;
   }
-  
+
+
+  .action-button.alta {
+    background-color: #2c3e50;
+  }
+
+  .action-button.alta:hover {
+    background-color: #1b2a41;
+  }

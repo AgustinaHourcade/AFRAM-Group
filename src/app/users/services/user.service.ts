@@ -27,12 +27,16 @@ export class UserService {
     return this.http.post<number>(`${this.baseUrl}register`, usuario);
   }
 
+  postCompleteUser(usuario: User): Observable<number> {
+    return this.http.post<number>(`${this.baseUrl}register-complete`, usuario);
+  }
+
   updateUser(datos: {phone: number, email: string}, id: number): Observable<User> {
     return this.http.put<User>(`${this.baseUrl}update/${id}`, datos);
   }
 
   verifyUser(user: { username: string; dni: string; password: string }): Observable<Number> {
-    return this.http.post<Number>(`${this.baseUrl}verify`, user); 
+    return this.http.post<Number>(`${this.baseUrl}verify`, user);
   }
 
   changePassword(id: number,  datos: {currentPassword: string | undefined, newPassword: string | undefined}): Observable<boolean> {
@@ -49,5 +53,13 @@ export class UserService {
 
   getUserIdByToken(token: number): Observable<number>{
       return this.http.get<number>(`${this.baseUrl}reset-token/${token}`)
+  }
+
+  changeStatus(id: number, isActive: string): Observable<boolean>{
+    return this.http.post<boolean>(`${this.baseUrl}toggle-user-status/${id}`, {isActive});
+  }
+
+  changeAdminStatus(id: number, userType: string): Observable<boolean>{
+    return this.http.post<boolean>(`${this.baseUrl}toggle-admin-status/${id}`, {userType});
   }
 }

@@ -1,0 +1,152 @@
+<app-navbar-admin></app-navbar-admin>
+<h2 class="title">Registrar nuevo usuario</h2>
+<div class="page">
+  <form [formGroup]="formulario" (ngSubmit)="addUsuario()">
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="text" id="real_name" formControlName="real_name" placeholder=" " />
+        <label for="real_name">Nombre <span class="required">*</span></label>
+      </div>
+      @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
+        <span class="error-message">Campo requerido</span>
+      }
+      @if (formulario.controls['real_name'].getError('minlength') && formulario.controls['real_name'].touched) {
+        <span class="error-message">Mínimo 2 caracteres</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="text" id="last_name" formControlName="last_name" placeholder=" " />
+        <label for="last_name">Apellido <span class="required">*</span></label>
+      </div>
+      @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
+        <span class="error-message">Campo requerido</span>
+      }
+      @if (formulario.controls['last_name'].getError('minlength') && formulario.controls['last_name'].touched) {
+        <span class="error-message">Mínimo 2 caracteres</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="text" id="name-user" formControlName="name_user" placeholder=" " />
+        <label for="name-user">Usuario <span class="required">*</span></label>
+      </div>
+      @if (formulario.controls['name_user'].getError('required') && formulario.controls['name_user'].touched) {
+        <span class="error-message">Campo requerido</span>
+      }
+      @if (formulario.controls['name_user'].getError('minlength') && formulario.controls['name_user'].touched) {
+        <span class="error-message">Mínimo 4 caracteres</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="number" id="dni" formControlName="dni" placeholder=" " />
+        <label for="dni">DNI <span class="required">*</span></label>
+      </div>
+      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
+        <span class="error-message">Campo requerido</span>
+      }
+      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minLength')) {
+        <span class="error-message">Mínimo 7 números</span>
+      }
+      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxLength')) {
+        <span class="error-message">Máximo 8 números</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="email" id="email" formControlName="email" placeholder=" "/>
+        <label for="email">Email <span class="required">*</span></label>
+      </div>
+      @if (formulario.controls['email'].getError('required') &&
+      formulario.controls['email'].touched) {
+      <span class="error-message"> Campo requerido </span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input type="number" id="phone" formControlName="phone" placeholder=" "/>
+      <label for="phone">Teléfono <span class="required">*</span></label>
+      </div>
+      @if (formulario.controls['phone'].getError('required') &&
+        formulario.controls['phone'].touched) {
+        <span class="error-message"> Campo requerido. </span>
+      }
+      @if (formulario.controls['phone'].getError('pattern') &&
+        formulario.controls['phone'].touched) {
+        <span class="error-message"> El número de teléfono debe tener entre 8 y 15 dígitos. </span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input
+          #passwordInput1
+          [type]="showPassword1 ? 'text' : 'password'"
+          id="hashed_password"
+          formControlName="hashed_password"
+          placeholder=" "
+          (input)="validatePassword()"
+        />
+        <label for="hashed_password">Contraseña <span class="required">*</span></label>
+        <button type="button" class="toggle-btn" (click)="togglePasswordVisibility(passwordInput1)">
+          <i [class]="showPassword1 ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+        </button>
+      </div>
+      @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
+        <span class="error-message">Campo requerido</span>
+      }
+      @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
+        <span class="error-message">Mínimo 6 caracteres</span>
+      }
+      @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('passwordStrength')) {
+        <span class="error-message">La contraseña debe contener al menos una mayúscula, una minúscula y un número</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <div class="input-wrapper">
+        <input
+          #passwordInput2
+          [type]="showPassword2 ? 'text' : 'password'"
+          id="confirm_password"
+          formControlName="confirm_password"
+          placeholder=" "
+        />
+        <label for="confirm_password">Repetir contraseña <span class="required">*</span></label>
+        <button type="button" class="toggle-btn" (click)="togglePasswordVisibilityRepet(passwordInput2)">
+          <i [class]="showPassword2 ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+        </button>
+      </div>
+      @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('required')) {
+        <span class="error-message">Campo requerido</span>
+      }
+      @if (formulario.controls['confirm_password'].touched && formulario.hasError('matchPasswords')) {
+        <span class="error-message">Las contraseñas no coinciden</span>
+      }
+    </div>
+
+
+    <div class="form-group">
+      <div class="input-wrapper select-wrapper">
+        <select id="user_type" formControlName="user_type">
+          <option value="" disabled selected hidden></option>
+          <option value="user">Usuario</option>
+          <option value="admin">Administrador</option>
+        </select>
+        <label for="user_type">Tipo usuario <span class="required">*</span></label>
+        <span class="select-arrow"></span>
+      </div>
+      @if (formulario.controls['user_type'].touched && formulario.controls['user_type'].getError('required')) {
+        <span class="error-message">Campo requerido</span>
+      }
+    </div>
+
+    <button type="submit" class="submit-button">Registrarse</button>
+  </form>
+</div>

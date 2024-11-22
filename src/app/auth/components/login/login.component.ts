@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../../../users/services/user.service';
 import { UserSessionService } from '../../services/user-session.service';
 import { User } from '../../../users/interface/user.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -60,12 +61,27 @@ export class LoginComponent {
 
         this.userService.getUser(Number(id)).subscribe({
           next: (user) => {
-            if(user.user_type === 'admin'){
-              this.router.navigate(['/admin-main']);
-            }else{
+            if (user.user_type === 'admin') {
+              Swal.fire({
+                title: `¿Como desea iniciar sesion?`,
+                text: 'Puede entrar como Administrator o como Cliente',
+                icon: 'question',
+                iconColor: '#6c757d',
+                showCancelButton: true,
+                confirmButtonColor: '#023E8A',
+                cancelButtonColor: '#f48c06',
+                confirmButtonText: 'Cliente',
+                cancelButtonText: 'Administrador',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigate(['/main']);
+                } else {
+                  this.router.navigate(['/admin-main']);
+                }
+              });
+            } else {
               this.router.navigate(['/main']);
             }
-
           },
           error: (e: Error) => {
             console.log(e.message);

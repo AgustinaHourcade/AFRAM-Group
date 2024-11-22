@@ -1,5 +1,5 @@
 <app-navbar-admin></app-navbar-admin>
-<h2>Lista de Administradores</h2>
+<h2>Lista de Clientes</h2>
 <table>
   <thead>
     <tr>
@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (item of admins; track $index) {
+    @for (item of clients; track $index) {
         <tr>
           <td>{{item.real_name}}</td>
           <td>{{item.last_name}}</td>
@@ -24,7 +24,7 @@
             <td>No</td>
           }
           <td>
-            <button class="details" [routerLink]="['/detail-admin', item.id]">Ver detalles</button>
+            <button class="details" [routerLink]="['/detail-user', item.id]">Ver detalles</button>
           </td>
         </tr>
     }

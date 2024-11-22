@@ -7,7 +7,7 @@ export interface User{
     dni: string,
     phone?: number,
     user_type?: string,
-    isActive?: string,
+    is_Active?: string,
     real_name?: string,
     reset_token?: number
 }

@@ -1,0 +1,38 @@
+<nav class="navbar">
+  <a class="logo" routerLink="/admin-main">
+    <img src="/logo-navbar.png" alt="Logo del Banco" class="logo-image" />
+  </a>
+  <ul class="nav-links">
+
+    <li class="admin-dropdown" [ngClass]="{'show-menu': activeMenu === 'isAdminMenu'}">
+      <a class="dropdown-link" (click)="toggleMenu('profile')">Administrador</a>
+      <ul class="admin-menu">
+        <li><a [routerLink]="['/list-admins']">Ver administradores</a></li>
+        <li><a [routerLink]="['/new-admin']">Crear administrador</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a [routerLink]="['/list-users']">Clientes</a>
+    </li>
+
+    <li>
+      <a [routerLink]="['/tarifas']">Tarifas</a>
+    </li>
+
+    <li>
+      <a [routerLink]="['/promociones']">Promociones</a>
+    </li>
+
+    <li class="profile-dropdown" [ngClass]="{'show-menu': activeMenu === 'profile'}">
+      <a class="profile-link dropdown-link" (click)="toggleMenu('profile')">Perfil</a>
+      <ul class="profile-menu">
+        <li><a [routerLink]="['/profile-admin']">Ver perfil</a></li>
+        <li><a [routerLink]="['/update-admin']">Modificar contraseña</a></li>
+      </ul>
+    </li>
+
+
+    <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+  </ul>
+</nav>

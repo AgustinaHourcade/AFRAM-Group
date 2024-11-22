@@ -115,13 +115,8 @@ export class SignupComponent{
     }
 
     const { confirm_password, ...user } = this.formulario.getRawValue();
-    const user1 = {
-      isActive: 'yes',
-      user_type: 'user',
-      ...user
-    };
 
-    this.agregarCliente(user1 as User);
+    this.agregarCliente(user as User);
   }
 
 
@@ -179,7 +174,7 @@ export class SignupComponent{
         this.createAccount(response);
         this.createAddress(response);
         this.sesionService.logIn();
-        this.route.navigate(['update-profile/', response]);
+        this.route.navigate(['update-profile/']);
       },
       error: (error: Error) => {
         console.error('Error al crear usuario:', error);
@@ -200,7 +195,6 @@ export class SignupComponent{
       password: ['', Validators.required],
     });
 
-    // Listen to value changes to update validation status
     this.passwordForm.get('password')?.valueChanges.subscribe(value => {
       this.updatePasswordValidation(value);
     });

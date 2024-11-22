@@ -11,12 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-  isMenuOpen = false;
-  isAccountOpen = false;
-  isFixedTermsOpen = false;
-  isProfileMenuOpen = false;
-  isTransfersMenuOpen = false;
-  isCardsMenuOpen = false;
+
   router = inject(Router);
   userSessionService = inject(UserSessionService);
 
@@ -24,43 +19,6 @@ export class NavbarComponent {
 
   toggleMenu(menu: string) {
     this.activeMenu = this.activeMenu === menu ? null : menu;
-  }
-
-  openAccountMenu() {
-    this.isAccountOpen = true;
-  }
-  closeAccountMenu() {
-    this.isAccountOpen = false;
-  }
-
-  openProfileMenu() {
-    this.isProfileMenuOpen = true;
-  }
-  closeProfileMenu() {
-    this.isProfileMenuOpen = false;
-  }
-
-  openFixedTermsMenu() {
-    this.isFixedTermsOpen = true;
-  }
-  closeFixedTermsMenu() {
-    this.isFixedTermsOpen = false;
-  }
-
-  openTransfersMenu(){
-    this.isTransfersMenuOpen = true;
-  }
-
-  closeTrasnfersMenu(){
-    this.isTransfersMenuOpen = false;
-  }
-
-  openCardsMenu(){
-    this.isCardsMenuOpen = true;
-  }
-
-  closeCardsMenu(){
-    this.isCardsMenuOpen = false;
   }
 
   logout(): void {
