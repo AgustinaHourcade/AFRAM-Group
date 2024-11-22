@@ -29,7 +29,7 @@ import { authGuardFnlogOut } from './auth/guard/auth.guard-fn-logOut';
 export const routes: Routes = [
     {path: '', component: HomeComponent, title: 'Bienvenido | AFRAM Group'},
     {path: 'auth',component: AuthPageComponent, title: 'Inicio sesión | AFRAM Group'},
-    {path: 'main', component: MainPageComponent, title: 'Inicio | AFRAM Group', canActivate: [authGuardFn]}, //
+    {path: 'main', component: MainPageComponent, title: 'Inicio | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts', component: AccountsComponent,title: 'Cuentas | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts/account/:id', component: AccountInfoComponent, title: 'Mi cuenta | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts/new-account', component: NewAccountComponent, title: 'Nueva cuenta | AFRAM Group', canActivate: [authGuardFn]},
@@ -45,7 +45,7 @@ export const routes: Routes = [
     {path: 'my-transactions', component: MyTransactionsComponent, title: 'Mis transacciones | AFRAM Group'  , canActivate: [authGuardFn]},
     {path: 'cards', component: CardComponent, title: 'Mis tarjetas | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'newcard', component: NewcardComponent, title: 'Nueva tarjeta | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'legal', component: LegalComponent, title: 'Legal | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'legal', component: LegalComponent, title: 'Legal | AFRAM Group'},
     {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
     {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group', canActivate: [authGuardFnlogOut]},
