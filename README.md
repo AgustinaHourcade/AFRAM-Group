@@ -13,6 +13,9 @@ El proyecto busca demostrar la aplicación práctica de metodologías ágiles, d
     <source src="https://github.com/AgustinaHourcade/AFRAM-Group/blob/main/public/AFRAM%20Group%20-%20Demo%20(1).mp4" type="video/mp4">
 </video>
 
+[Ver el video](https://github.com/AgustinaHourcade/AFRAM-Group/blob/main/public/AFRAM%20Group%20-%20Demo%20(1).mp4)
+
+
 ## Instalación
 
 Sigue estos pasos para configurar el proyecto en tu máquina:
