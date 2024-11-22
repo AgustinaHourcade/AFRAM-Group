@@ -1,0 +1,38 @@
+<div class="profile-container">
+    <h2>Información Personal</h2>
+    <div class="profile-card">
+      <div class="profile-field">
+        <span class="field-label">Nombre:</span>
+        <span class="field-value">{{ admin?.real_name }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Apellido:</span>
+        <span class="field-value">{{ admin?.last_name }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Usuario</span>
+        <span class="field-value">{{ admin?.name_user }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">DNI:</span>
+        <span class="field-value">{{ admin?.dni }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Telefono:</span>
+        <span class="field-value">{{ admin?.phone }}</span>
+      </div>
+      <div class="profile-field">
+        <span class="field-label">Email:</span>
+        <span class="field-value">{{ admin?.email }}</span>
+      </div>
+      @if(admin?.isActive === 'yes'){
+          <div class="profile-actions">
+              <button class="action-button delete">Dar de baja</button>
+            </div>
+        }@else {
+            <div>
+                <button class="action-button delete">Dar de alta</button>
+            </div>
+        }
+    </div>
+  </div>

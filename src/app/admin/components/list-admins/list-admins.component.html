@@ -1,0 +1,31 @@
+<h2>Lista de Administradores</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>DNI</th>
+      <th>Email</th>
+      <th>Activo</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of admins; track $index) {
+        <tr>
+          <td>{{item.real_name}}</td>
+          <td>{{item.last_name}}</td>
+          <td>{{item.dni}}</td>
+          <td>{{item.email}}</td>
+          @if (item.isActive === 'yes') {
+            <td>Si</td>
+          }@else {
+            <td>No</td>
+          }
+          <td>
+            <button class="details" [routerLink]="['/detail-admin', item.id]">Ver detalles</button>
+          </td>
+        </tr>
+    }
+  </tbody>
+</table>

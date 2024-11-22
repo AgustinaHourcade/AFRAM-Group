@@ -172,6 +172,16 @@ export class TransferModalComponent implements OnInit {
       (account) => account.id === Number(selectedAccountId)
     );
     this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
+
+    if(selectedAccount?.id == this.account?.id){
+      Swal.fire({
+        title: 'Error',
+        text: 'No puede hacer una transferencia a la cuenta de origen.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
+      return;
+    }
   
     if (!selectedAccount) {
       Swal.fire({
@@ -186,7 +196,7 @@ export class TransferModalComponent implements OnInit {
     if(this.montoTransferencia as number < 1 ){
       Swal.fire({
         title: 'Error',
-        text: 'El monto minimo para transferir es de $1.',
+        text: 'El monto mínimo para transferir es de $1.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
       })

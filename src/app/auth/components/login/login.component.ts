@@ -57,7 +57,21 @@ export class LoginComponent {
         this.id = id as number;
         this.userSessionService.setUserId(Number(id));
         this.userSessionService.logIn();
-        this.router.navigate(['/main']);
+
+        this.userService.getUser(Number(id)).subscribe({
+          next: (user) => {
+            if(user.user_type === 'admin'){
+              this.router.navigate(['/admin-main']);
+            }else{
+              this.router.navigate(['/main']);
+            }
+
+          },
+          error: (e: Error) => {
+            console.log(e.message);
+          }
+        })
+
       },
       error: (error: Error) => {
         console.error('Error al verificar usuario:', error);

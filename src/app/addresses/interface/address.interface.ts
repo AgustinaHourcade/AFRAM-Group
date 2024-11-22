@@ -4,7 +4,7 @@ export interface Address {
   floor?: string;
   apartment?: string;
   city: string;
-  postal_code: string;
+  postal_code: number;
   country: string;
   user_id: number;
 

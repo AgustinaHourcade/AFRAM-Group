@@ -48,7 +48,7 @@ export class UpdateProfileComponent implements OnInit {
 
   formulario = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
+    phone: [0, [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
     street: ['', [Validators.required]],
     address_number: [
       0,
@@ -57,7 +57,7 @@ export class UpdateProfileComponent implements OnInit {
     floor: [''],
     apartment: [''],
     city: ['', [Validators.required]],
-    postal_code: ['', [Validators.required]],
+    postal_code: [0, [Validators.required]],
     country: ['', [Validators.required]],
   });
 
@@ -68,7 +68,7 @@ export class UpdateProfileComponent implements OnInit {
       this.formulario.controls['email'].setValue(user!.email ?? '');
     }
 
-    this.formulario.controls['phone'].setValue(user!.phone ?? '');
+    this.formulario.controls['phone'].setValue(user!.phone ?? 0);
     this.formulario.controls['street'].setValue(address.street);
     this.formulario.controls['address_number'].setValue(address.address_number);
     this.formulario.controls['floor'].setValue(address.floor ?? '');

@@ -9,20 +9,20 @@
         <input type="email" id="email" formControlName="email" />
         @if (formulario.controls['email'].getError('required') &&
         formulario.controls['email'].touched) {
-        <span> Campo requerido. </span>
+        <span> Campo requerido </span>
         }
       </div>
 
       <div>
         <label for="phone">Teléfono <span class="required">*</span></label>
-        <input type="text" id="phone" formControlName="phone" />
+        <input type="number" id="phone" formControlName="phone" />
         @if (formulario.controls['phone'].getError('required') &&
           formulario.controls['phone'].touched) {
           <span> Campo requerido. </span>
         }
         @if (formulario.controls['phone'].getError('pattern') &&
           formulario.controls['phone'].touched) {
-          <span> El numero de telefono debe tener entre 8 y 15 digitos. </span>
+          <span> El número de teléfono debe tener entre 8 y 15 dígitos. </span>
         }
       </div>
 
@@ -31,7 +31,7 @@
         <input type="text" id="country" formControlName="country" />
         @if (formulario.controls['country'].getError('required') &&
         formulario.controls['country'].touched) {
-        <span> Campo requerido. </span>
+        <span> Campo requerido </span>
         }
       </div>
 
@@ -40,16 +40,16 @@
         <input type="text" id="city" formControlName="city" />
         @if (formulario.controls['city'].getError('required') &&
         formulario.controls['city'].touched) {
-        <span> Campo requerido. </span>
+        <span> Campo requerido </span>
         }
       </div>
 
       <div>
         <label for="postal_code">Código postal <span class="required">*</span></label>
-        <input type="string" id="postal_code" formControlName="postal_code" />
+        <input type="number" id="postal_code" formControlName="postal_code" />
         @if (formulario.controls['postal_code'].getError('required') &&
         formulario.controls['postal_code'].touched) {
-        <span> Campo requerido. </span>
+        <span> Campo requerido </span>
         }
       </div>
 
@@ -58,7 +58,7 @@
         <input type="text" id="street" formControlName="street" />
         @if (formulario.controls['street'].getError('required') &&
         formulario.controls['street'].touched) {
-        <span> Campo requerido. </span>
+        <span> Campo requerido </span>
         }
       </div>
 
@@ -71,7 +71,7 @@
         />
         @if (formulario.controls['address_number'].getError('required') &&
         formulario.controls['address_number'].touched) {
-        <span> Campo requerido. </span>
+        <span> Campo requerido </span>
         }
       </div>
 

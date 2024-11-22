@@ -10,7 +10,7 @@ export class UserSessionService {
   private readonly USER_ID_KEY = 'userId';
   estoyLogeado: boolean = false;
   private inactivityTimeout: any;
-  private readonly INACTIVITY_LIMIT = 60000; // un minuto de inactividad
+  private readonly INACTIVITY_LIMIT = 600000; // un minuto de inactividad
   route = inject(Router);
 
   constructor() {
