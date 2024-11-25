@@ -1,18 +1,26 @@
 <div #pdfContent class="receipt">
   <div class="header">
     <img src="/logo-fff.png" alt="Bank Logo" class="logo" />
+    
+  @if(transaction.transaction_type == 'transfer'){
     <h2>Comprobante de Transferencia</h2>
+  }@else if(transaction.transaction_type == 'loan'){
+    <h2>Comprobante de Préstamo</h2>
+  }@else{
+    <h2>Comprobante de Plazo Fijo</h2>
+  }
+
     <p class="transaction-id">ID de Transacción {{ transaction.id }}</p>
   </div>
 
   <div class="content">
     <div class="row">
       <label>Fecha de Transacción</label>
-      <span>{{ formatearFecha(transaction.transaction_date) }}</span>
+      <span>{{ transaction.transaction_date | date }}</span>
     </div>
     <div class="row">
       <label>Monto</label>
-      <span>${{ transaction.amount  }}</span>
+      <span>{{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}</span>
     </div>
     <div class="row">
       <label>Cuenta de Origen</label>

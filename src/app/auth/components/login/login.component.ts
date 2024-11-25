@@ -15,19 +15,20 @@ import Swal from 'sweetalert2';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+
   showPassword = false;
   id: number = 0;
+  user?: User;
+  errorMessage = '';
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
     this.showPassword = !this.showPassword;
   }
-
-  fb = inject(FormBuilder);
-  userService = inject(UserService);
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  user?: User;
 
   formulario = this.fb.nonNullable.group({
     name_user: ['', [Validators.required, Validators.minLength(3)]],
@@ -44,8 +45,6 @@ export class LoginComponent {
 
     this.admitirCliente(this.user);
   }
-
-  errorMessage = '';
 
   admitirCliente(user: User | undefined) {
     const data = {

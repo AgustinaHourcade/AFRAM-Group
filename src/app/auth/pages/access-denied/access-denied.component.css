@@ -1,46 +1,44 @@
-/* Sección de acceso denegado */
 .access-denied {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f8d7da;
-    color: #721c24;
-    text-align: center;
-  }
-  
-  .access-denied .content {
-    max-width: 600px;
-  }
-  
-  .access-denied h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-  }
-  
-  .access-denied p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-  }
-  
-  .access-denied .info {
-    font-size: 1em;
-    color: #5a5a5a;
-    margin-bottom: 20px;
-  }
-  
-  /* Botón */
-  .access-denied button {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .access-denied button:hover {
-    background-color: #d32f2f;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8d7da;
+  color: #721c24;
+  text-align: center;
+}
+
+.access-denied .content {
+  max-width: 600px;
+}
+
+.access-denied h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.access-denied p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.access-denied .info {
+  font-size: 1em;
+  color: #5a5a5a;
+  margin-bottom: 20px;
+}
+
+.access-denied button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.access-denied button:hover {
+  background-color: #d32f2f;
+}

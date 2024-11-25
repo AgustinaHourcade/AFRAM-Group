@@ -8,10 +8,11 @@ import Swal from 'sweetalert2';
 export class UserSessionService {
 
   private readonly USER_ID_KEY = 'userId';
-  estoyLogeado: boolean = false;
   private inactivityTimeout: any;
-  private readonly INACTIVITY_LIMIT = 600000; // un minuto de inactividad
-  route = inject(Router);
+  private readonly INACTIVITY_LIMIT = 600000; 
+  private route = inject(Router);
+  
+  estoyLogeado: boolean = false;
 
   constructor() {
     this.initializeInactivityListener();

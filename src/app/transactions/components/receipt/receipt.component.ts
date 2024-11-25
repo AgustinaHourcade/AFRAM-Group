@@ -6,11 +6,13 @@ import { Transaction } from '../../interface/transaction.interface';
 import { UserService } from '../../../users/services/user.service';
 import { AccountService } from '../../../accounts/services/account.service';
 import { Account } from '../../../accounts/interface/account.interface';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-receipt',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './receipt.component.html',
   styleUrl: './receipt.component.css'
 })
@@ -128,12 +130,12 @@ export class ReceiptComponent implements OnInit{
     this.cancel.emit(); 
   }
 
-  formatearFecha(date : Date){
-    const formattedDate = new Date(date).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-    return formattedDate;
-  }
+  // formatearFecha(date : Date){
+  //   const formattedDate = new Date(date).toLocaleDateString('es-ES', {
+  //     day: '2-digit',
+  //     month: '2-digit',
+  //     year: 'numeric'
+  //   });
+  //   return formattedDate;
+  // }
 }

@@ -14,8 +14,8 @@ body {
   }
 
   table {
-    width: 80%; /* Ajuste para no ocupar todo el ancho */
-    margin: 20px auto; /* Centra la tabla */
+    width: 80%; 
+    margin: 20px auto; 
     border-collapse: collapse;
     background-color: #fff;
     border-radius: 8px;
@@ -58,7 +58,7 @@ body {
   }
 
   button.details {
-    background-color: #2c3e50; /* Azul oscuro serio */
+    background-color: #2c3e50; 
   }
 
   button.details:hover {

@@ -22,10 +22,11 @@ export class CardComponent implements OnInit {
   private cardService = inject(CardService);
   private accountService = inject(AccountService);
   private route = inject (Router);
+  private cardsService = inject(CardService);
+
   borrar = false;
   cards!: Array<Card>;
   accounts!: Array<Account>;
-  cardsService = inject(CardService);
   userId = this.sesionService.getUserId();
   activeCards: Array<Card> = [];
 
@@ -38,6 +39,7 @@ export class CardComponent implements OnInit {
             this.activeCards.push(card);
           }
         });
+        this.expiredCard();
       },
       error: (e: Error) => {
         console.log(e.message);
@@ -52,6 +54,7 @@ export class CardComponent implements OnInit {
         console.error('Error fetching accounts:', error);
       },
     });
+
   }
 
   deactivate(card_id: number) {
@@ -90,5 +93,63 @@ export class CardComponent implements OnInit {
         this.deactivate(card_id);
       }
     });
+  }
+
+  expiredCard(){
+    let now = Date.now();
+    for(let card of this.cards){
+      const expirationDate = new Date(card.expiration_date)
+      if(Number(expirationDate) < now && card.is_Active=='yes'){
+        Swal.fire({
+          title: `La tarjeta ${card.card_number} venció el ${expirationDate.toLocaleDateString()}.
+          ¿Desea extenderla por 5 años?`,
+          icon: 'warning',
+          iconColor: '#0077b6',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Aceptar',
+          cancelButtonText: 'Cancelar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const newCard = {
+              card_number: card.card_number,
+              expiration_date: this.generarFechaExpiracion(),
+              cvv: card.cvv,
+              card_type: card.card_type,
+              user_id: card.user_id,
+              account_id: card.account_id
+            };
+            this.cardService.createCard(newCard).subscribe({
+            next:()=>{
+              this.cardService.disableCard(card.card_id).subscribe({
+              next: ()=>{
+              Swal.fire({
+              title: 'Tarjeta extendida!',
+              text: `La nueva fecha de expiracion es el ${newCard.expiration_date}`,
+              confirmButtonText: 'Aceptar'
+            });
+              }, error: (err:Error)=>{
+                console.log(err.message);
+              }
+              })
+            }, 
+            error:(err :Error) =>{
+              console.log(err.message);
+            }
+            })
+          } else {
+            console.log("El usuario no desea extender la tarjeta.");
+          }
+        });
+      }
+    }
+
+  }
+
+  generarFechaExpiracion(): string {
+    const fechaOriginal = new Date(); 
+    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5); 
+    return fechaOriginal.toISOString().split('T')[0]; 
   }
 }

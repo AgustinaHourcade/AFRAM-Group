@@ -25,13 +25,20 @@ export class SignupComponent{
   hasUpperCase: boolean = false;
   hasNumber: boolean = false;
   isLongEnough: boolean = false;
+  passwordForm: FormGroup;
 
-  fb = inject(FormBuilder);
-  sesionService = inject(UserSessionService);
-  userService = inject(UserService);
-  accountService = inject(AccountService);
-  addressService = inject(AddressService);
-  route = inject(Router);
+  passwordValidation = {
+    containsNumber: false,
+    containsUppercase: false,
+    validLength: false,
+  };
+
+  private fb = inject(FormBuilder);
+  private sesionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
+  private addressService = inject(AddressService);
+  private route = inject(Router);
 
   formulario = this.fb.group(
     {
@@ -71,9 +78,9 @@ export class SignupComponent{
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 
-    this.hasUpperCase = /[A-Z]/.test(password); // Verifica que tenga al menos una letra mayúscula
-    this.hasNumber = /\d/.test(password); // Verifica que tenga al menos un número
-    this.isLongEnough = password.length >= 8; // Verifica longitud mínima
+    this.hasUpperCase = /[A-Z]/.test(password); 
+    this.hasNumber = /\d/.test(password); 
+    this.isLongEnough = password.length >= 8; 
   }
 
   togglePasswordVisibility(input: HTMLInputElement) {
@@ -118,7 +125,6 @@ export class SignupComponent{
 
     this.agregarCliente(user as User);
   }
-
 
   generateRandomCBU() {
     let cbu = '';
@@ -181,14 +187,6 @@ export class SignupComponent{
       }
     });
   }
-
-  passwordForm: FormGroup;
-
-  passwordValidation = {
-    containsNumber: false,
-    containsUppercase: false,
-    validLength: false,
-  };
 
   constructor(private fb2: FormBuilder) {
     this.passwordForm = this.fb2.group({

@@ -51,6 +51,9 @@
         <li><a routerLink="/update-password">Modificar contraseña</a></li>  
       </ul>
     </li>
-    <button class="logout-button" (click)="logout()">Cerrar sesión</button>
+    @if (type === 'admin') {
+      <button (click)="changeType()">Cambiar tipo</button>
+    }
+    <button (click)="logout()">Cerrar sesión</button>
   </ul>
 </nav>
