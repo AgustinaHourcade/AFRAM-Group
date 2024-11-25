@@ -1,3 +1,4 @@
+import { ListRatesComponent } from './admin/components/list-rates/list-rates.component';
 import { TransactionsPageComponent } from './transactions/pages/transactions-page/transactions-page.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
@@ -61,6 +62,7 @@ export const routes: Routes = [
     {path: 'list-users', component: ListUsersComponent, title: 'Lista Clientes | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'detail-user/:id', component: DetailUsersComponent, title: 'Detalles del Cliente | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'new-admin', component: NewAdminComponent, title: 'Nuevo usuario | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'list-rates', component: ListRatesComponent, title: 'Lista de Tasas | AFRAM Group', canActivate: [authGuardFn]},
     {path: '**', redirectTo: ''}
 ];
 

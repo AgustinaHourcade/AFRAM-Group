@@ -20,4 +20,8 @@ export class InterestRatesService {
   getRateById(id: number): Observable<InterestRates>{
     return this.http.get<InterestRates>(`${this.urlBase}/id/${id}`);
   }  
+
+  getRates():Observable<InterestRates[]>{
+    return this.http.get<InterestRates[]>(`${this.urlBase}`);
+  }
 }
