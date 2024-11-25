@@ -48,7 +48,7 @@
 .profile-menu,
 .loans-menu,
 .cards-menu {
-  display: none; 
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -61,7 +61,7 @@
 }
 
 .nav-links li:hover ul {
-  display: block; 
+  display: block;
 }
 
 .account-menu li,
@@ -107,7 +107,7 @@
 }
 
 .transactions-menu {
-  display: none; 
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;

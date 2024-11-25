@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
+export class NavbarComponent{
 
   router = inject(Router);
   userSessionService = inject(UserSessionService);
