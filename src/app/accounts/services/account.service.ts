@@ -1,16 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Account } from '../interface/account.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-  http = inject(HttpClient);
-
+  private http = inject(HttpClient);
   private baseUrl = 'http://localhost:3000/accounts';
-
 
   getAccountsByIdentifier(id: number): Observable<Account[]> {
     return this.http.get<Account[]>(`${this.baseUrl}/dni-or-id/${id}`);

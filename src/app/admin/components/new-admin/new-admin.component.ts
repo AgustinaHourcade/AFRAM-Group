@@ -20,7 +20,6 @@ import Swal from 'sweetalert2';
   styleUrl: './new-admin.component.css'
 })
 export class NewAdminComponent {
-
   account!: Account;
   showPassword1 = false;
   showPassword2 = false;
@@ -28,12 +27,12 @@ export class NewAdminComponent {
   hasNumber: boolean = false;
   isLongEnough: boolean = false;
 
-  fb = inject(FormBuilder);
-  sesionService = inject(UserSessionService);
-  userService = inject(UserService);
-  accountService = inject(AccountService);
-  addressService = inject(AddressService);
-  route = inject(Router);
+  private fb = inject(FormBuilder);
+  private sesionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
+  private addressService = inject(AddressService);
+  private route = inject(Router);
 
   formulario = this.fb.group(
     {
@@ -76,9 +75,9 @@ export class NewAdminComponent {
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 
-    this.hasUpperCase = /[A-Z]/.test(password); // Verifica que tenga al menos una letra mayúscula
-    this.hasNumber = /\d/.test(password); // Verifica que tenga al menos un número
-    this.isLongEnough = password.length >= 8; // Verifica longitud mínima
+    this.hasUpperCase = /[A-Z]/.test(password); 
+    this.hasNumber = /\d/.test(password); 
+    this.isLongEnough = password.length >= 8; 
   }
 
   togglePasswordVisibility(input: HTMLInputElement) {

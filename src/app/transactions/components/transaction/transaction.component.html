@@ -3,9 +3,14 @@
     {{ transaction.transaction_date | date : "dd/MM/yyyy" }}
   </p>
 
-<p>
-  Transferencia
-</p>
+  @if(transaction.transaction_type == 'transfer'){
+    <p>Transferencia</p>
+  }@else if(transaction.transaction_type == 'loan'){
+    <p>Préstamo</p>
+  }@else{
+    <p>Plazo fijo</p>
+
+  }
 
   <p
     [ngClass]="{
@@ -14,8 +19,8 @@
       'transaction-out': !isIncoming()
     }"
   >
-    {{ formattedAmount }}
-  </p>
+  {{ sign}} {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}
+</p>
 
   @if (!flag) {
     <button (click)="toggleFlag()" >Ver comprobante</button>

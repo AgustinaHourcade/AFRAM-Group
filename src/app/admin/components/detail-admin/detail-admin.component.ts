@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../users/services/user.service';
 import { User } from '../../../users/interface/user.interface';
 import Swal from 'sweetalert2';
@@ -8,7 +8,7 @@ import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.com
 @Component({
   selector: 'app-detail-admin',
   standalone: true,
-  imports: [NavbarAdminComponent],
+  imports: [NavbarAdminComponent, RouterModule],
   templateUrl: './detail-admin.component.html',
   styleUrl: './detail-admin.component.css'
 })

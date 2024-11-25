@@ -36,7 +36,6 @@ export class AccountsComponent {
     });
 
   }
-  
 
   darBaja(id: number ){
 

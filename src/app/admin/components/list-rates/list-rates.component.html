@@ -1,0 +1,26 @@
+<app-navbar-admin></app-navbar-admin>
+<h2>Historial de tasas de interes</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Codigo</th>
+      <th>Interes de plazo fijo</th>
+      <th>Interes de prestamo</th>
+      <th>Fecha de actualizacion</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of rates; track $index) {
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.fixed_term_interest_rate}}</td>
+          <td>{{item.loan_interest_rate}}</td>
+          <td>{{item.last_updated}}</td>
+          <td>
+            <button class="details" [routerLink]="['']">Ver detalles</button>
+          </td>
+        </tr>
+    }
+  </tbody>
+</table>

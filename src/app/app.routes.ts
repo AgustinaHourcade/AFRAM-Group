@@ -1,3 +1,4 @@
+import { ListRatesComponent } from './admin/components/list-rates/list-rates.component';
 import { TransactionsPageComponent } from './transactions/pages/transactions-page/transactions-page.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
@@ -28,9 +29,7 @@ import { DetailAdminComponent } from './admin/components/detail-admin/detail-adm
 import { ListUsersComponent } from './admin/components/list-users/list-users.component';
 import { DetailUsersComponent } from './admin/components/detail-users/detail-users.component';
 import { UpdateProfilePageComponent } from './users/pages/update-profile-page/update-profile-page.component';
-import { UpdateProfileAdminComponent } from './admin/pages/update-profile-admin/update-profile-admin.component';
 import { ProfilePageComponent } from './users/pages/profile-page/profile-page.component';
-import { ProfileAdminComponent } from './admin/pages/profile-admin/profile-admin.component';
 import { NewAdminComponent } from './admin/components/new-admin/new-admin.component';
 
 
@@ -62,9 +61,8 @@ export const routes: Routes = [
     {path: 'detail-admin/:id', component: DetailAdminComponent, title: 'Detalles del Admin | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-users', component: ListUsersComponent, title: 'Lista Clientes | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'detail-user/:id', component: DetailUsersComponent, title: 'Detalles del Cliente | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'update-admin', component: UpdateProfileAdminComponent, title: 'Editar Administrador | AFRAM Group', canActivate: [authGuardFn]},
-    {path: 'profile-admin', component: ProfileAdminComponent, title: 'Mi Perfil | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'new-admin', component: NewAdminComponent, title: 'Nuevo usuario | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'list-rates', component: ListRatesComponent, title: 'Lista de Tasas | AFRAM Group', canActivate: [authGuardFn]},
     {path: '**', redirectTo: ''}
 ];
 

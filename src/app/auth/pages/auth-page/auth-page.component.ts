@@ -15,7 +15,6 @@ export class AuthPageComponent {
   isLoginActive = true;
   private userSessionService = inject(UserSessionService);
 
-
   toggleForm(formType: string) {
     this.isLoginActive = (formType === 'login');
   }

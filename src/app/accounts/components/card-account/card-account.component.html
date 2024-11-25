@@ -1,5 +1,4 @@
 <div class="card" routerLink="/accounts/account/{{ account.id }}">
-  <div class="info">
     @if (account.account_type == "Savings") {
     <h3>Caja de ahorro</h3>
     <p>{{ account.id }}-{{ userId }}/1</p>
@@ -7,8 +6,5 @@
     <h3>Cuenta corriente</h3>
     <p>{{ account.id }}-{{ userId }}/2</p>
     }
-  </div>
-  <div class="balance">
-    <p class="balance-number">${{ account.balance }}</p>
-  </div>
+    <p class="balance-number">{{ account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
 </div>

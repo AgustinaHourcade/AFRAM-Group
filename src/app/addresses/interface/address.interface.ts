@@ -7,5 +7,4 @@ export interface Address {
   postal_code: number;
   country: string;
   user_id: number;
-
 }

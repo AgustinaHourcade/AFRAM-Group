@@ -25,15 +25,8 @@
         <div class="transactions-page">
           <div class="transactions-container">
             <div *ngFor="let transaction of paginatedTransactions">
-              @if (transaction.transaction_type === 'transfer') {
                 <app-transaction [transaction]="transaction"></app-transaction>
-              }
-              @if (transaction.transaction_type === 'fixed term'){
-                <app-my-fixed-term [transaction]="transaction"></app-my-fixed-term>
-              }
-              @if (transaction.transaction_type === 'loan') {
-                <app-my-loan [transaction]="transaction"></app-my-loan>
-              }
+
               </div>
           </div>
   

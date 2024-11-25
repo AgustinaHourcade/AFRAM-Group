@@ -16,8 +16,7 @@ import { DolarComponent } from "../../shared/dolar/components/dolar.component";
 import { FixedTermService } from '../../fixedTerms/service/fixed-term.service';
 import { FixedTerm } from '../../fixedTerms/interface/fixed-term';
 import Swal from 'sweetalert2';
-import { MyFixedTermComponent } from '../../fixedTerms/components/my-fixed-term/my-fixed-term.component';
-import { MyLoanComponent } from '../../loans/components/my-loan/my-loan.component';
+
 
 @Component({
   selector: 'app-main-page',
@@ -26,9 +25,7 @@ import { MyLoanComponent } from '../../loans/components/my-loan/my-loan.componen
             CardAccountComponent,
             TransactionComponent,
             CommonModule, 
-            DolarComponent,
-            MyFixedTermComponent,
-            MyLoanComponent],
+            DolarComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })

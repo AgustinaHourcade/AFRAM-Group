@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';
@@ -10,7 +10,7 @@ import { Account } from '../../../accounts/interface/account.interface';
 @Component({
   selector: 'app-detail-users',
   standalone: true,
-  imports: [NavbarAdminComponent],
+  imports: [NavbarAdminComponent, RouterModule],
   templateUrl: './detail-users.component.html',
   styleUrl: './detail-users.component.css'
 })
@@ -20,6 +20,7 @@ export class DetailUsersComponent implements OnInit{
   private userService = inject(UserService);
   private accountService = inject(AccountService);
   private router = inject(Router)
+
   user ?: User;
   accounts: Array<Account> = [];
   flag = false;
@@ -73,7 +74,6 @@ export class DetailUsersComponent implements OnInit{
   }
 
   loadAccounts(){
-
     this.accountService.getAccountsByIdentifier(Number (this.user?.id)).subscribe({
       next: (accounts) =>{
         this.accounts = accounts;

@@ -91,7 +91,7 @@
   background-color: var(--button-hover);
 }
 
-.logout-button {
+button {
   background-color: var(--secondary-color);
   border: none;
   color: white;
@@ -102,7 +102,7 @@
   transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
+button:hover {
   background-color: var(--button-hover);
 }
 

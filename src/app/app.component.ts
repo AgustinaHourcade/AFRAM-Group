@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Detecta cambios de ruta y actualiza el título
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       map(() => {

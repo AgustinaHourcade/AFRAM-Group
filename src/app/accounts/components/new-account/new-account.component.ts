@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
   styleUrl: './new-account.component.css'
 })
 export class NewAccountComponent {
-
-
   fb = inject(FormBuilder);
   accountService = inject(AccountService);
   userSessionService = inject(UserSessionService);
@@ -44,7 +42,6 @@ export class NewAccountComponent {
   }
 
   createAccount() {
-
     let cuenta = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),

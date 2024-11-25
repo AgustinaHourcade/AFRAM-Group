@@ -49,9 +49,9 @@ export class TransactionComponent  implements OnInit{
     return this.ownAccountsId.includes(this.transaction.destination_account_id); 
   }
 
-  get formattedAmount(): string {
+  get sign(): string {
     const sign = this.isIncoming() ? '+ ' : '- ';
-    return `${sign}$${this.transaction.amount}`;
+    return sign;
   }
 
 }

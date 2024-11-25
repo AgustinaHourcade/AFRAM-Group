@@ -9,9 +9,7 @@ import { Observable } from 'rxjs';
 export class AddressService {
 
   private urlBase = 'http://localhost:3000/addresses/';
-  http = inject(HttpClient);
-
-  constructor() {}
+  private http = inject(HttpClient);
 
   getAddressByUserId(user_id: number): Observable<Address> {
     return this.http.get<Address>(`${this.urlBase}user/${user_id}`);

@@ -150,7 +150,7 @@ export class CbuAliasComponent implements OnInit {
           heightLeft -= pageHeight;
         }
 
-        pdf.save('mi-documento.pdf');
+        pdf.save('cbu-alias.pdf');
       };
     });
 
