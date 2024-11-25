@@ -19,9 +19,13 @@ export class InterestRatesService {
 
   getRateById(id: number): Observable<InterestRates>{
     return this.http.get<InterestRates>(`${this.urlBase}/id/${id}`);
-  }  
+  }
 
   getRates():Observable<InterestRates[]>{
     return this.http.get<InterestRates[]>(`${this.urlBase}`);
+  }
+
+  postRates(loan_interest_rate : number, fixed_term_interest_rate: number): Observable<boolean>{
+    return this.http.post<boolean>(`${this.urlBase}`,{loan_interest_rate, fixed_term_interest_rate });
   }
 }

@@ -20,7 +20,7 @@
 
 .cbu p, .alias p, .name p, .dni p {
   margin: 0;
-  font-size: 14px;
+  font-size: 17px;
   color: #333;
 }
 
@@ -82,4 +82,11 @@ h1{
   margin-top: 3%;
 }
 
-
+.input-field{
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid var(--extra-light-color);
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}

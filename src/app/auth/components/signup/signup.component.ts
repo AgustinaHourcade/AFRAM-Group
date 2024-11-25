@@ -78,9 +78,9 @@ export class SignupComponent{
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 
-    this.hasUpperCase = /[A-Z]/.test(password); 
-    this.hasNumber = /\d/.test(password); 
-    this.isLongEnough = password.length >= 8; 
+    this.hasUpperCase = /[A-Z]/.test(password);
+    this.hasNumber = /\d/.test(password);
+    this.isLongEnough = password.length >= 8;
   }
 
   togglePasswordVisibility(input: HTMLInputElement) {
@@ -143,7 +143,7 @@ export class SignupComponent{
     return alias;
   }
 
-  createAccount(id: number) {
+  createAccount(id: number): Account {
     let cuenta = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
@@ -159,6 +159,7 @@ export class SignupComponent{
         console.log(error.message);
       }
     });
+    return cuenta as Account;
   }
 
   createAddress(id: number) {
@@ -174,12 +175,15 @@ export class SignupComponent{
   }
 
   agregarCliente(user: User) {
+    let account;
+    let accounts : Array<Account>
     this.userService.postUser(user).subscribe({
       next: (response) => {
         this.sesionService.setUserId(response);
-        this.createAccount(response);
+        account = this.createAccount(response);
+        accounts[0] = account;
         this.createAddress(response);
-        this.sesionService.logIn();
+        this.sesionService.logIn(response, 'cliente', accounts);
         this.route.navigate(['update-profile/']);
       },
       error: (error: Error) => {

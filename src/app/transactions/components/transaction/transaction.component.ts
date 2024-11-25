@@ -13,13 +13,16 @@ import { ReceiptComponent } from '../receipt/receipt.component';
   styleUrl: './transaction.component.css'
 })
 export class TransactionComponent  implements OnInit{
-  @Input() transaction!: Transaction; 
-  ownAccountsId: number[] = []; 
+  @Input() transaction!: Transaction;
+  @Input() selectedAccountId!: number;
+
+  ownAccountsId: number[] = [];
   destinatario: string = '';
   flag: boolean = false;
+  id ?:number;
 
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
 
   ngOnInit(): void {
     this.getUserAccounts();
@@ -30,14 +33,14 @@ export class TransactionComponent  implements OnInit{
   }
 
   onCancel(): void {
-    this.flag = false; 
+    this.flag = false;
   }
   getUserAccounts(): void {
-    const userId = Number(this.userSessionService.getUserId());
+    this.id = Number(this.userSessionService.getUserId());
 
-    this.accountService.getAccountsByIdentifier(userId).subscribe({
+    this.accountService.getAccountsByIdentifier(this.id).subscribe({
       next: (accounts) => {
-        this.ownAccountsId = accounts.map(account => account.id); 
+        this.ownAccountsId = accounts.map(account => account.id);
       },
       error: (error) => {
         console.error('Error al obtener las cuentas', error);
@@ -45,13 +48,12 @@ export class TransactionComponent  implements OnInit{
     });
   }
 
-  isIncoming(): boolean {
-    return this.ownAccountsId.includes(this.transaction.destination_account_id); 
+  isIncoming(sourceId: number): boolean {
+    if(sourceId === this.selectedAccountId){
+      return false;
+    }
+    return true;
   }
 
-  get sign(): string {
-    const sign = this.isIncoming() ? '+ ' : '- ';
-    return sign;
-  }
 
 }

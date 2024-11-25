@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="accounts">
   <h2 class="section-title">
-     Cuenta
+    Cuenta
   </h2>
   <div class="accounts-div">
     <label for="accountSelect"></label>
@@ -24,44 +24,45 @@
   </div>
 </div>
 
-<div class="transactions">
+@if (transfers.length > 0) {
+    <div class="transactions">
     <h2 class="section-title">Movimientos</h2>
     <div class="transactions-page">
       <!-- Contenedor de las transacciones -->
       <div class="transactions-container">
         <div *ngFor="let transaction of paginatedTransactions">
           @if (transaction.transaction_type === 'transfer') {
-            <app-transaction [transaction]="transaction"></app-transaction>
+            <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId" ></app-transaction>
           }
         </div>
       </div>
-    
+
       <!-- Controles de paginación -->
       <div class="pagination-wrapper">
         <div class="pagination-controls">
           <!-- Botón "Anterior" -->
-          <button 
-            class="pagination-button" 
-            *ngIf="currentPage > 1" 
+          <button
+            class="pagination-button"
+            *ngIf="currentPage > 1"
             (click)="changePage(currentPage - 1)">
             ⬅ Anterior
           </button>
-    
+
           <!-- Botones numerados -->
           <div class="page-buttons">
-            <button 
-              class="pagination-button" 
-              *ngFor="let page of [].constructor(totalPages); let i = index" 
+            <button
+              class="pagination-button"
+              *ngFor="let page of [].constructor(totalPages); let i = index"
               [class.active]="i + 1 === currentPage"
               (click)="changePage(i + 1)">
               {{ i + 1 }}
             </button>
           </div>
-    
+
           <!-- Botón "Siguiente" -->
-          <button 
-            class="pagination-button" 
-            *ngIf="currentPage < totalPages" 
+          <button
+            class="pagination-button"
+            *ngIf="currentPage < totalPages"
             (click)="changePage(currentPage + 1)">
             Siguiente ➡
           </button>
@@ -69,3 +70,4 @@
       </div>
     </div>
   </div>
+}

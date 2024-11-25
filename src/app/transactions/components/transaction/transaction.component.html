@@ -4,29 +4,31 @@
   </p>
 
   @if(transaction.transaction_type == 'transfer'){
-    <p>Transferencia</p>
+  <p>Transferencia</p>
   }@else if(transaction.transaction_type == 'loan'){
-    <p>Préstamo</p>
+  <p>Préstamo</p>
   }@else{
-    <p>Plazo fijo</p>
+  <p>Plazo fijo</p>
 
   }
 
-  <p
-    [ngClass]="{
+  <p [ngClass]="{
       'transaction-amount': true,
-      'transaction-in': isIncoming(),
-      'transaction-out': !isIncoming()
-    }"
-  >
-  {{ sign}} {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}
-</p>
+      'transaction-in': isIncoming(transaction.source_account_id),
+      'transaction-out': !isIncoming(transaction.source_account_id)
+    }">
+    @if(isIncoming(transaction.source_account_id)){
+      +
+    }@else{
+      -
+    } {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}
+  </p>
 
   @if (!flag) {
-    <button (click)="toggleFlag()" >Ver comprobante</button>
+  <button (click)="toggleFlag()">Ver comprobante</button>
   }
 
 
   <app-receipt *ngIf="flag" [transaction]="transaction" (cancel)="onCancel()"></app-receipt>
-  
+
 </div>

@@ -11,15 +11,15 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 @Component({
   selector: 'app-update-password',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.css',
 })
 export class UpdatePasswordComponent implements OnInit {
-  fb = inject(FormBuilder);
-  userService = inject(UserService);
-  userSessionService = inject(UserSessionService);
-  route = inject(Router);
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+  private userSessionService = inject(UserSessionService);
+  private route = inject(Router);
 
   id: number = 0;
   user !: User;
@@ -29,9 +29,11 @@ export class UpdatePasswordComponent implements OnInit {
   hasUpperCase: boolean = false;
   hasNumber: boolean = false;
   isLongEnough: boolean = false;
+  type ?: string;
 
   ngOnInit(): void {
     this.id = this.userSessionService.getUserId();
+    this.type = this.userSessionService.getUserType() as string;
   }
 
   formularioContra = this.fb.group(
@@ -98,7 +100,11 @@ export class UpdatePasswordComponent implements OnInit {
           title: 'Contraseña actualizada correctamente!',
           icon: 'success',
         });
-        this.route.navigate(['/profile']);
+
+        if(this.type === 'user'){
+          this.route.navigate(['/profile']);
+        }
+          this.route.navigate(['/admin-profile']);
       },
       error: (err: Error) => {
         Swal.fire({

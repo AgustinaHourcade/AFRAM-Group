@@ -21,9 +21,10 @@ import { ChangeDetectorRef } from '@angular/core';
 export class MyTransactionsComponent {
   accounts: Array<Account> = [];
   transactions: Array<Transaction> = [];
+  transfers: Array<Transaction> = [];
   userId: number = 0;
   router = inject(Router);
-  
+
   changeDetector = inject(ChangeDetectorRef);
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
@@ -34,7 +35,7 @@ export class MyTransactionsComponent {
 
 
   get totalPages(): number {
-    return Math.ceil(this.transactions.length / this.pageSize);
+    return Math.ceil(this.transfers.length / this.pageSize);
   }
 
   get paginatedTransactions() {
@@ -51,7 +52,7 @@ export class MyTransactionsComponent {
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-  
+
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = accounts;
@@ -77,7 +78,7 @@ export class MyTransactionsComponent {
   onAccountSelect(event: Event): void {
     const target = event.target as HTMLSelectElement;
     if (target) {
-      const selectedAccountId = Number(target.value); 
+      const selectedAccountId = Number(target.value);
       this.selectedAccountId = selectedAccountId;
       console.log('ID de la cuenta seleccionada:', selectedAccountId);
     }
@@ -85,7 +86,7 @@ export class MyTransactionsComponent {
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
         this.transactions = transactions;
-  
+        this.transfers = transactions.filter(transaction => transaction.transaction_type === 'transfer');
         this.changeDetector.detectChanges();
       },
       error: (error: Error) => {

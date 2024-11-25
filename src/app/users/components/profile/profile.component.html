@@ -33,7 +33,7 @@
                     <td>{{address?.country}}</td>
                 </tr>
                 <tr>
-                    <td><strong>Ciudad:</strong></td>
+                    <td><strong>Localidad:</strong></td>
                     <td>{{address?.city}}</td>
                 </tr>
                 <tr>
@@ -60,7 +60,11 @@
         </table>
         }
         <div class="button-container">
-            <button [routerLink]="['/update-profile']">Modificar perfil</button>
+            @if(type === 'user'){
+                <button [routerLink]="['/update-profile']">Modificar perfil</button>
+            }@else {
+                <button [routerLink]="['/update-profile-admin']">Modificar perfil</button>
+            }
         </div>
     </div>
 </div>

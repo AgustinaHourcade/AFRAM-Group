@@ -20,12 +20,15 @@ export class ProfileComponent implements OnInit {
   userId: number = 0;
   user ?: User;
   address ?: Address;
-  sesionService = inject(UserSessionService);
-  userService = inject(UserService);
-  addressService = inject(AddressService);
+  type ?:string;
+  private sesionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private addressService = inject(AddressService);
+
 
   ngOnInit(): void {
     this.userId = this.sesionService.getUserId();
+    this.type = this.sesionService.getUserType() as string;
 
     // Verifica si userId no es undefined
     if (this.userId !== undefined) {

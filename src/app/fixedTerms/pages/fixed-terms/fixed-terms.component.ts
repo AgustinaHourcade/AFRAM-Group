@@ -26,12 +26,12 @@ export class FixedTermsComponent implements OnInit {
   router = inject(Router);
   userSessionService = inject(UserSessionService);
   accountService = inject(AccountService);
-  
+
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
     this.loadAccounts();
   }
-  
+
   loadAccounts(){
     this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
       next: (accounts) => {

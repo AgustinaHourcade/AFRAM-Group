@@ -71,6 +71,7 @@
           @if (!item.closing_date) {
             <td>Si</td>
             <div class="action-buttons">
+              <button class="action-button movimientos" [routerLink]="['/list-transaction', item.id]">Ver movimientos</button>
             <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
             </div>
           }@else {

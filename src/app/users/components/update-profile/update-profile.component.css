@@ -75,6 +75,13 @@ button:hover {
 .required{
   color: red;
 }
+
+/* input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+
 @media (max-width: 600px) {
   .account-page {
     padding: 15px;

@@ -12,15 +12,11 @@ import Swal from 'sweetalert2';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-<<<<<<< HEAD
-export class NavbarComponent{
-=======
 export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     this.getUserById();
   }
->>>>>>> e9b85079b55ebc5844fab9124a0356b09be61b0d
 
   router = inject(Router);
   userSessionService = inject(UserSessionService);
@@ -70,6 +66,7 @@ export class NavbarComponent implements OnInit{
       }
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.timer) {
+        this.userSessionService.setUserType('admin');
         this.router.navigate(['/admin-main']);
       }
     });

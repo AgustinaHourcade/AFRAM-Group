@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 export class NavbarAdminComponent implements OnInit {
   activeMenu: string | null = null;
   type !: string;
-  
+
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
@@ -23,7 +23,7 @@ export class NavbarAdminComponent implements OnInit {
   ngOnInit(): void {
     this.getUserById();
   }
-  
+
   toggleMenu(menu: string) {
     this.activeMenu = this.activeMenu === menu ? null : menu;
   }
@@ -34,7 +34,7 @@ export class NavbarAdminComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/home']);
   }
-  
+
   getUserById(){
     this.userService.getUser(this.userSessionService.getUserId()).subscribe({
       next: (user) => {
@@ -46,7 +46,7 @@ export class NavbarAdminComponent implements OnInit {
     });
   }
 
-  
+
 
   changeType(){
     let timerInterval: any;
@@ -67,6 +67,7 @@ export class NavbarAdminComponent implements OnInit {
       }
     }).then((result) => {
       if (result.dismiss === Swal.DismissReason.timer) {
+        this.userSessionService.setUserType('user');
         this.router.navigate(['/main']);
       }
     });

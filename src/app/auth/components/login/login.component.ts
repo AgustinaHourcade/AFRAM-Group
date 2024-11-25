@@ -6,6 +6,8 @@ import { UserService } from '../../../users/services/user.service';
 import { UserSessionService } from '../../services/user-session.service';
 import { User } from '../../../users/interface/user.interface';
 import Swal from 'sweetalert2';
+import { Account } from '../../../accounts/interface/account.interface';
+import { AccountService } from '../../../accounts/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +21,13 @@ export class LoginComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
 
   showPassword = false;
   id: number = 0;
   user?: User;
   errorMessage = '';
+  accounts!: Array<Account>;
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
@@ -52,14 +56,23 @@ export class LoginComponent {
       password: user?.hashed_password as string,
       dni: user?.dni as string,
     };
+
+    this.accountService.getAccountsByIdentifier(Number(data?.dni)).subscribe({
+      next: (accounts) => {
+        this.accounts = accounts;
+      },
+      error: (error) => {
+        console.error('Error al obtener las cuentas', error);
+      }
+    });
     this.userService.verifyUser(data).subscribe({
       next: (id) => {
         this.id = id as number;
         this.userSessionService.setUserId(Number(id));
-        this.userSessionService.logIn();
 
         this.userService.getUser(Number(id)).subscribe({
           next: (user) => {
+            this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
             if (user.user_type === 'admin') {
               Swal.fire({
                 title: `¿Como desea iniciar sesion?`,

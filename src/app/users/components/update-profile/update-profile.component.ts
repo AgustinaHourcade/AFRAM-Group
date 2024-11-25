@@ -21,6 +21,7 @@ export class UpdateProfileComponent implements OnInit {
   sessionService = inject(UserSessionService);
   addressService = inject(AddressService);
   route = inject(Router);
+  type !:string;
   flag = false;
   id: number = 0;
   user?: User;
@@ -28,6 +29,7 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.sessionService.getUserId();
+    this.type = this.sessionService.getUserType() as string;
 
     this.userService.getUser(this.id).subscribe({
       next: (data) => {
@@ -94,7 +96,6 @@ export class UpdateProfileComponent implements OnInit {
     this.addressService.updateAddress(data, this.id).subscribe({
       next: (data) => {
         this.address = data;
-        this.route.navigate(['/profile']);
       },
       error: (err: Error) => {
         console.log(err.message);
@@ -117,7 +118,10 @@ export class UpdateProfileComponent implements OnInit {
           title: 'Datos actualizados correctamente!',
           icon: 'success',
         });
-        this.route.navigate(['/profile']);
+        if(this.type === 'user'){
+          this.route.navigate(['/profile']);
+        }
+        this.route.navigate(['/admin-profile']);
       },
       error: (err: Error) => {
         console.log('Error al actualizar los datos.', err.message);

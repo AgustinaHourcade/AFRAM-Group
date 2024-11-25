@@ -44,3 +44,10 @@ button {
 nav, input, label {
   font-family: var(--font-menu-form);
 }
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

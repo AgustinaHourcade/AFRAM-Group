@@ -4,16 +4,12 @@
   </a>
   <ul class="nav-links">
 
-    <li class="admin-dropdown" [ngClass]="{'show-menu': activeMenu === 'isAdminMenu'}">
-      <a class="dropdown-link" (click)="toggleMenu('profile')">Administrador</a>
-      <ul class="admin-menu">
-        <li><a [routerLink]="['/list-admins']">Ver administradores</a></li>
-        <li><a [routerLink]="['/new-admin']">Crear administrador</a></li>
-      </ul>
+    <li>
+      <a [routerLink]="['/list-admins']">Ver administradores</a>
     </li>
 
     <li>
-      <a [routerLink]="['/list-users']">Clientes</a>
+      <a [routerLink]="['/list-users']">Ver clientes</a>
     </li>
 
     <li>
@@ -21,14 +17,14 @@
     </li>
 
     <li>
-      <a [routerLink]="['/promociones']">Promociones</a>
+      <a [routerLink]="['/new-admin']">Nuevo usuario</a>
     </li>
 
     <li class="profile-dropdown" [ngClass]="{'show-menu': activeMenu === 'profile'}">
       <a class="profile-link dropdown-link" (click)="toggleMenu('profile')">Perfil</a>
       <ul class="profile-menu">
-        <li><a [routerLink]="['/profile']">Ver perfil</a></li>
-        <li><a [routerLink]="['/update-password']">Modificar contraseña</a></li>
+        <li><a [routerLink]="['/admin-profile']">Ver perfil</a></li>
+        <li><a [routerLink]="['/update-password-admin']">Modificar contraseña</a></li>
       </ul>
     </li>
 
