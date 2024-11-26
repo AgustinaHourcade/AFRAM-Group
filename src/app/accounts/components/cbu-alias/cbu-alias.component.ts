@@ -67,6 +67,16 @@ export class CbuAliasComponent implements OnInit {
   modifyAlias() {
     const newAlias = this.formulario.get('newAlias')?.value;
 
+    if(this.account.alias === newAlias){
+      Swal.fire({
+        title: 'El alias ingresado es idéntico al actual.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
+      });
+      return;
+    }
+
     if(newAlias && newAlias.length > 15) {
       Swal.fire({
         title: 'La longitud máxima es de 15 caracteres.',

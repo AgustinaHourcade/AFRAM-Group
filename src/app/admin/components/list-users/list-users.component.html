@@ -1,32 +1,56 @@
 <app-navbar-admin></app-navbar-admin>
 <h2>Lista de Clientes</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Apellido</th>
-      <th>DNI</th>
-      <th>Email</th>
-      <th>Activo</th>
+
+<!-- Barra de filtración -->
+<form [formGroup]="filterForm" class="filter-bar">
+  <input
+    type="text"
+    formControlName="dni"
+    placeholder="Buscar por DNI"
+    class="filter-input"
+  />
+  <input
+    type="text"
+    formControlName="lastName"
+    placeholder="Buscar por Apellido"
+    class="filter-input"
+  />
+  <button type="button" (click)="onClearFilter()" class="clear-button">
+    Limpiar
+  </button>
+</form>
+
+@if (clientsFilter.length === 0) {
+  <h2>No hay resultados que coincidan con la busqueda.</h2>
+}@else {
+  <table >
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>DNI</th>
+        <th>Email</th>
+        <th>Activo</th>
         <th></th>
-    </tr>
-  </thead>
+      </tr>
+    </thead>
   <tbody>
-    @for (item of clients; track $index) {
-        <tr>
-          <td>{{item.real_name}}</td>
-          <td>{{item.last_name}}</td>
-          <td>{{item.dni}}</td>
-          <td>{{item.email}}</td>
-          @if (item.is_Active === 'yes') {
-            <td>Si</td>
-          }@else {
-            <td>No</td>
-          }
-          <td>
-            <button class="details" [routerLink]="['/detail-user', item.id]">Ver detalles</button>
-          </td>
-        </tr>
+    @for (client of clientsFilter; track $index) {
+
+      <tr>
+        <td>{{ client.real_name }}</td>
+        <td>{{ client.last_name }}</td>
+        <td>{{ client.dni }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.is_Active === 'yes' ? 'Sí' : 'No' }}</td>
+        <td>
+          <button class="details" [routerLink]="['/detail-user', client.id]">
+            Ver detalles
+          </button>
+        </td>
+      </tr>
     }
   </tbody>
 </table>
+}
+

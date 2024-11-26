@@ -83,19 +83,26 @@ export class TransferModalComponent implements OnInit {
           this.accountService.getAccountById(id).subscribe({
             next: (account) => {
               this.account = account;
-              if (this.account && this.account.user_id) {
-                this.userService.getUser(this.account.user_id).subscribe({
-                  next: (user) => {
-                    this.userDestino = user;
-                    this.flag = true;
-                  },
-                  error: (error: Error) => {
-                    console.log('Error al obtener el usuario:', error);
-                  },
-                });
+              if(this.account.closing_date){
+                this.account = null;
+                Swal.fire({
+                  title: 'Cuenta no encontrada',
+                  icon: 'error'
+                })
               }
-            },
-            error: (error: Error) => {
+                if (this.account && this.account.user_id) {
+                  this.userService.getUser(this.account.user_id).subscribe({
+                    next: (user) => {
+                      this.userDestino = user;
+                      this.flag = true;
+                    },
+                    error: (error: Error) => {
+                      console.log('Error al obtener el usuario:', error);
+                    },
+                  });
+                }
+              },
+              error: (error: Error) => {
               console.log('Error al obtener la cuenta por ID:', error);
             },
           });
@@ -111,18 +118,24 @@ export class TransferModalComponent implements OnInit {
           this.accountService.getAccountById(id).subscribe({
             next: (account) => {
               this.account = account;
-
-              if (this.account && this.account.user_id) {
-                this.userService.getUser(this.account.user_id).subscribe({
-                  next: (user) => {
-                    this.userDestino = user;
-                    this.flag = true;
-                  },
-                  error: (error: Error) => {
-                    console.log('Error al obtener el usuario:', error);
-                  },
-                });
+              if(this.account.closing_date){
+                this.account = null;
+                Swal.fire({
+                  title: 'Cuenta no encontrada',
+                  icon: 'error'
+                })
               }
+                if (this.account && this.account.user_id) {
+                  this.userService.getUser(this.account.user_id).subscribe({
+                    next: (user) => {
+                      this.userDestino = user;
+                      this.flag = true;
+                    },
+                    error: (error: Error) => {
+                      console.log('Error al obtener el usuario:', error);
+                    },
+                  });
+                }
             },
             error: (error: Error) => {
               console.log('Error al obtener la cuenta por ID:', error);

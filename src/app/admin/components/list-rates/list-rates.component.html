@@ -2,33 +2,35 @@
 @if(!flag){
   @if(rates.length === 0){
   <h2>No hay tasas de interes disponibles</h2>
-  <button class="new" (click)="flag = false"><i class="bi bi-plus-square-fill"></i></button>
+  <button class="new" (click)="flag = false"><i class="bi bi-plus-circle"></i></button>
   }@else{
-<div class="tableDiv">
-  <h2>Historial de tasas de interes</h2>
-  <button class="new" (click)="flag = true"><i class="bi bi-plus-square-fill"></i></button>
-  <table>
-    <thead>
-      <tr>
-        <th>Codigo</th>
-        <th>Interes de plazo fijo</th>
-        <th>Interes de prestamo</th>
-        <th>Fecha de actualizacion</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @for (item of rates; track $index) {
-      <tr>
-        <td>{{item.id}}</td>
-        <td>{{item.fixed_term_interest_rate}}</td>
-        <td>{{item.loan_interest_rate}}</td>
-        <td>{{item.last_updated | date:'dd/MM/yyyy':'es-AR'}}</td>
-      </tr>
-      }
-    </tbody>
-  </table>
-</div>
+    <div class="tableDiv">
+      <h2>Historial de tasas de interes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Codigo</th>
+            <th>Interes de plazo fijo</th>
+            <th>Interes de prestamo</th>
+            <th>Fecha de actualizacion</th>
+            <th style="text-align: right;">
+              <button class="new" (click)="flag = true"><i class="bi bi-plus-circle"></i></button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of rates; track $index) {
+          <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.fixed_term_interest_rate}}</td>
+            <td>{{item.loan_interest_rate}}</td>
+            <td>{{item.last_updated | date:'dd/MM/yyyy':'es-AR'}}</td>
+            <td></td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   }
 }@else if(flag){
 <h2>Nueva tasa de interes</h2>
