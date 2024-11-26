@@ -7,6 +7,7 @@
 form {
   background-color: var(--white);
   padding: 20px;
+  margin-top: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   width: 100%;
@@ -41,12 +42,6 @@ select:focus, input:focus {
   border-color: var(--accent-color);
   outline: none;
 }
-
-/* input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-} */
 
 p {
   color: var(--cancel-button);

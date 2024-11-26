@@ -120,8 +120,9 @@ export class UpdateProfileComponent implements OnInit {
         });
         if(this.type === 'user'){
           this.route.navigate(['/profile']);
+        }else{
+          this.route.navigate(['/admin-profile']);
         }
-        this.route.navigate(['/admin-profile']);
       },
       error: (err: Error) => {
         console.log('Error al actualizar los datos.', err.message);

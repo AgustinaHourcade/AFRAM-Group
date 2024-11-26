@@ -75,8 +75,7 @@ export class TransferModalComponent implements OnInit {
 
   searchAccount() {
     const searchType = this.newRecipientForm.get('searchType')?.value;
-    const accountSearchValue =
-      this.newRecipientForm.get('accountSearch')?.value;
+    const accountSearchValue = this.newRecipientForm.get('accountSearch')?.value;
 
     if (searchType === 'cbu') {
       this.accountService.getAccountByCbu(accountSearchValue).subscribe({

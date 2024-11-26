@@ -48,7 +48,10 @@
 
   </div>
 
-  <button type="submit" [disabled]="formulario.invalid">Confirmar</button>
+  <div class="buttons">
+    <button class="cancel-button" >Cancelar</button>
+    <button type="submit" class="submit-button" [disabled]="formulario.invalid">Confirmar</button>
+  </div>
 </form>
 
 
