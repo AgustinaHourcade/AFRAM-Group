@@ -37,7 +37,7 @@ export class PayLoanComponent {
   }
 
   formulario = this.fb.nonNullable.group({
-    amount: [0, [Validators.required, Validators.min(1)]],
+    amount: [null, [Validators.required, Validators.min(1)]],
     account_id: [0, [Validators.required, Validators.min(1)]],
   });
 
@@ -59,7 +59,7 @@ export class PayLoanComponent {
   }
 
   updatePaid() {
-    const amount = this.formulario.get('amount')?.value as number;
+    const amount = this.formulario.get('amount')?.value || 0;
     const account_id = this.formulario.get('account_id')?.value as number;
 
     const descontar = -1 * amount;

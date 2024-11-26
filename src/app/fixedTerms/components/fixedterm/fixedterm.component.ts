@@ -63,7 +63,7 @@ export class NewFixedtermComponent implements OnInit {
 
   formulario = this.fb.nonNullable.group({
     account_id: [0, [Validators.required, Validators.min(1)]],
-    invested_amount: [0, [Validators.required, Validators.min(1)]],
+    invested_amount: [null, [Validators.required, Validators.min(1)]],
     daysToAdd: [30],
   });
 
@@ -73,7 +73,7 @@ export class NewFixedtermComponent implements OnInit {
     }
   
 
-    this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value as number;
+    this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value || 0;
     this.fixedTerm.account_id = this.formulario.get('account_id')?.value as number;
     this.fixedTerm.interest_rate_id = this.rate.id;
 

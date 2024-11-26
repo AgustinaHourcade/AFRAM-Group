@@ -57,13 +57,13 @@ export class NewLoanComponent implements OnInit {
   };
 
   formulario = this.fb.nonNullable.group({
-    amount: [0, [Validators.required, Validators.min(1)]],
+    amount: [null, [Validators.required, Validators.min(1)]],
     account_id: [0, [Validators.required, Validators.min(1)]],
     daysToAdd: [30],
   });
 
   createLoan() {
-    this.loan.amount = this.formulario.get('amount')?.value as number;
+    this.loan.amount = this.formulario.get('amount')?.value || 0;
     this.loan.account_id = this.formulario.get('account_id')?.value as number;
     this.loan.interest_rate_id = this.rate.id;
     if(this.loan.amount > 1000000){

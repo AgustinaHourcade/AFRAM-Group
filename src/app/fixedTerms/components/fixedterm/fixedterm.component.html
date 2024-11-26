@@ -9,7 +9,7 @@
           <h2>Crear plazo fijo</h2>
           <h3>Tasa de interes: {{rate.fixed_term_interest_rate * 30}}% mensual</h3>
     </div>
-    <label for="account_id">Seleccione una cuenta</label>
+    <label for="account_id">Seleccione una cuenta: </label>
     <select name="account_id" id="account_id" formControlName="account_id">
     @for (item of accounts; track $index) {
       @if (!item.closing_date) {
@@ -27,11 +27,12 @@
   </div>
 
   <div>
-    <label for="invested_amount">Monto Invertido:</label>
+    <label for="invested_amount">Monto a invertir:</label>
     <input
       id="invested_amount"
       type="number"
       formControlName="invested_amount"
+      placeholder="Ingrese el monto.."
     />
     @if(formulario.controls['invested_amount'].touched &&
     formulario.controls['invested_amount'].getError('required')){

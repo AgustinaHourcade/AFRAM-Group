@@ -61,16 +61,20 @@
                 <span class="end-date">{{ item.expiration_date.slice(5, 7) }}/{{
                   item.expiration_date.slice(2, 4)
                   }}</span>
+                 
               </div>
 
               <div class="card-holder">AFRAM Group</div>
-
+              
+              <div class="tipo"> 
+                <span>
+                  {{item.card_type}}
+                </span></div>
               <div class="type">
                 <div class="master">
                   <div class="circle master-red"></div>
                   <div class="circle master-yellow"></div>
                 </div>
-                <div class="tipo">{{item.card_type}}</div>
               </div>
             </div>
 

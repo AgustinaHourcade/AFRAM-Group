@@ -9,7 +9,7 @@
           <h2>Solicitar préstamo</h2>
           <h3>Tasa de interés: {{rate.loan_interest_rate  * 30}}% mensual</h3>
     </div>
-    <label for="account_id">Seleccione una cuenta</label>
+    <label for="account_id">Seleccione una cuenta:</label>
     <select name="account_id" id="account_id" formControlName="account_id">
       @for (item of accounts; track $index) {
         @if (!item.closing_date) {
@@ -32,6 +32,7 @@
       id="amount"
       type="number"
       formControlName="amount"
+      placeholder="ingrese un monto..."
     />
     @if(formulario.controls['amount'].touched &&
     formulario.controls['amount'].getError('required')){

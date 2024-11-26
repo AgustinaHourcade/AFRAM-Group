@@ -19,13 +19,34 @@
 
     <div class="transactions">
       <h2 class="section-title">Movimientos</h2>
+      <div class="accounts">
+        <div class="accounts-div">
+          <label for="accountSelect"></label>
+          <select id="accountSelect" (change)="onAccountSelect($event)">
+            <option value="">Seleccione una cuenta</option>
+            @for (account of accounts; track $index) {
+              @if(account.closing_date == null) {
+              <option [value]="account.id">
+                  @if (account.account_type == "Savings") {
+                    <h3>CA </h3>
+                    <p>{{ account.id }}-{{userId }}/1--${{account.balance}}</p>
+                  } @if (account.account_type == "Checking") {
+                    <h3>CC </h3>
+                    <p>{{ account.id }}-{{ userId }}/2--${{account.balance}}</p>
+                  }
+                </option>
+              }
+            }
+          </select>
+        </div>
+      </div>
       @if (paginatedTransactions.length == 0) {
         <p class="aviso">No hay movimientos para mostrar</p>
       }@else {
         <div class="transactions-page">
           <div class="transactions-container">
             <div *ngFor="let transaction of paginatedTransactions">
-                <app-transaction [transaction]="transaction"></app-transaction>
+                <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
 
               </div>
           </div>
@@ -68,7 +89,7 @@
       <p class="aviso">No posee tarjetas activas</p>
     }
     @for (item of cards; track $index) { @if (item.is_Active === 'yes') {
-    <div class="cardInfo">
+    <div class="cardInfo" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
       <div class="card">
         <div class="card-header">
           <div class="master">
@@ -76,6 +97,12 @@
             <div class="circle master-yellow"></div>
           </div>
         </div>
+
+        <div class="tipo"> 
+          <span>
+            {{item.card_type}}
+          </span></div>
+          
         <div class="card-details">
           <span class="card-number"
             >**** **** **** {{ item.card_number.slice(-4) }}</span

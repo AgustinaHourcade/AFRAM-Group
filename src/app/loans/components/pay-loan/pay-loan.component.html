@@ -11,7 +11,7 @@
             }
 
     </div>
-    <label for="account_id">Seleccione una cuenta para pagar</label>
+    <label for="account_id">Seleccione una cuenta para pagar: </label>
     <select name="account_id" id="account_id" formControlName="account_id">
       @for (item of accounts; track $index) {
         @if (!item.closing_date) {
@@ -34,6 +34,7 @@
       id="amount"
       type="number"
       formControlName="amount"
+      placeholder="Ingrese un monto..."
     />
     @if(formulario.controls['amount'].touched &&
     formulario.controls['amount'].getError('required')){

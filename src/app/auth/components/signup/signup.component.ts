@@ -175,15 +175,15 @@ export class SignupComponent{
   }
 
   agregarCliente(user: User) {
-    let account;
-    let accounts : Array<Account>
+    let account : Account;
+    let accounts : Array<Account> = [];
     this.userService.postUser(user).subscribe({
       next: (response) => {
         this.sesionService.setUserId(response);
         account = this.createAccount(response);
-        accounts[0] = account;
+        accounts.push(account);
         this.createAddress(response);
-        this.sesionService.logIn(response, 'cliente', accounts);
+        this.sesionService.logIn(response, 'user', accounts);
         this.route.navigate(['update-profile/']);
       },
       error: (error: Error) => {

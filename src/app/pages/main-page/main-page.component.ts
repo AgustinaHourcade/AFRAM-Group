@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { CardAccountComponent } from '../../accounts/components/card-account/card-account.component';
 import { TransactionComponent } from '../../transactions/components/transaction/transaction.component';
@@ -41,8 +41,10 @@ export class MainPageComponent implements OnInit {
   activeAccounts: Array<Account> = [];
   pageSize = 4 ;
   currentPage = 1;
+  selectedAccountId !: number; 
 
   // private router = inject(Router);
+  private changeDetector = inject(ChangeDetectorRef);
   private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
@@ -72,14 +74,6 @@ export class MainPageComponent implements OnInit {
     this.getCards();
   }
   
-  private loadTransactions(accountId: number): Observable<Transaction[]> {
-    return this.transactionService.getTransactionsByAccountId(accountId).pipe(
-      catchError((error: Error) => {
-        console.error (`Error loading transactions for account ${accountId}:`, error );
-        return of([]);
-      })
-    );
-  }
 
   private getAccounts() {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
@@ -92,17 +86,17 @@ export class MainPageComponent implements OnInit {
             this.activeAccounts.push(account);
           }
         });
-        for (const account of this.accounts) {
-          this.loadTransactions(account.id).subscribe({
-            next: (transactions) => {
-              this.transactions.push(...transactions);
-              this.transactions.sort((a, b) => b.id - a.id);
-            },
-            error: (err: Error) => {
-              console.log(err.message);
-            },
-          });
-        }
+        // for (const account of this.accounts) {
+        //   this.loadTransactions(account.id).subscribe({
+        //     next: (transactions) => {
+        //       this.transactions.push(...transactions);
+        //       this.transactions.sort((a, b) => b.id - a.id);
+        //     },
+        //     error: (err: Error) => {
+        //       console.log(err.message);
+        //     },
+        //   });
+        // }
       },
       error: (error: Error) => {
         console.error(error.message);
@@ -223,4 +217,45 @@ export class MainPageComponent implements OnInit {
     return isBeforeOrEqual;
   }
 
+  private loadTransactions(accountId: number): Observable<Transaction[]> {
+    return this.transactionService.getTransactionsByAccountId(accountId).pipe(
+      catchError((error: Error) => {
+        console.error(
+          `Error loading transactions for account ${accountId}:`,
+          error
+        );
+        return of([]);
+      })
+    );
+  }
+
+  onAccountSelect(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    if (target) {
+      const selectedAccountId = Number(target.value);
+      this.selectedAccountId = selectedAccountId;
+      console.log('ID de la cuenta seleccionada:', selectedAccountId);
+    }
+
+    this.loadTransactions(this.selectedAccountId).subscribe({
+      next: (transactions: Transaction[]) => {
+        this.transactions = transactions;
+        this.changeDetector.detectChanges();
+  
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 50);
+      },
+      error: (error: Error) => {
+        console.error(`Error loading transactions for account ${this.selectedAccountId}:`, error);
+      },
+    });
+  }
+
+  scrollToBottom() {
+    const lastElement = document.querySelector('.transactions-page:last-child');
+    if (lastElement) {
+      lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }
 }

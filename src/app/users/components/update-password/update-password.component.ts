@@ -92,6 +92,14 @@ export class UpdatePasswordComponent implements OnInit {
       currentPassword: this.formularioContra.get('current_password')?.value,
       newPassword: this.formularioContra.get('confirm_password')?.value,
     };
+    
+    if(datos.currentPassword === datos.newPassword){
+      Swal.fire({
+        title: 'La nueva contraseña no puede ser idéntica a la actual!',
+        icon: 'error',
+      });
+      return;
+    }
 
     this.userService.changePassword(this.id, datos).subscribe({
       next: () => {
@@ -100,10 +108,10 @@ export class UpdatePasswordComponent implements OnInit {
           icon: 'success',
         });
 
-        if(this.type === 'user'){
-          this.route.navigate(['/profile']);
-        }
+        if(this.type === 'admin'){
           this.route.navigate(['/admin-profile']);
+        }
+        this.route.navigate(['/profile']);
       },
       error: (err: Error) => {
         Swal.fire({

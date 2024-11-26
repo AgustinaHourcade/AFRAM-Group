@@ -56,13 +56,23 @@ body {
   position: absolute;
   right: 0;
   height: inherit;
-  background-image: linear-gradient(to bottom, var(--light-color), var(--extra-light-color));
+  background-image: linear-gradient(to bottom, var(--accent-color), var(--secondary-color));
   box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.credit-card .strip-bottom,
+.credit-card .strip-top {
+  background-image: linear-gradient(to bottom, var(--cancel-button), var(--gray-4));
+}
+
+.debit-card .strip-bottom,
+.debit-card .strip-top {
+  background-image: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
 }
 
 .strip-bottom {
   width: 200px;
-  transform: skewX(-15deg) translateX(50px);
+  transform: skewX(-15deg) translateX(50px); 
 }
 
 .strip-top {
@@ -267,11 +277,11 @@ button:hover {
 }
 
 .tipo{
-  color: #000;
+  position: absolute;
+  color: #fff;
   margin-right: 10px;
   text-transform: uppercase;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
+  margin-left: 60%;
 }
 
 .buttonDiv{
