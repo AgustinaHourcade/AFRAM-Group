@@ -1,6 +1,4 @@
-import { Message } from './../../../shared/chat-bot/interface/chat.interface';
 import { Component, inject, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { User } from '../../interface/user.interface';
@@ -21,22 +19,20 @@ export class ProfileComponent implements OnInit {
   user ?: User;
   address ?: Address;
   type ?:string;
+
   private sesionService = inject(UserSessionService);
   private userService = inject(UserService);
   private addressService = inject(AddressService);
-
 
   ngOnInit(): void {
     this.userId = this.sesionService.getUserId();
     this.type = this.sesionService.getUserType() as string;
 
-    // Verifica si userId no es undefined
     if (this.userId !== undefined) {
       this.userService.getUser(this.userId).subscribe({
         next: (user) => {
           this.user = user;
 
-          // Verifica que user.id no sea undefined antes de llamar a addressService
           if (this.user.id !== undefined) {
             this.addressService.getAddressByUserId(this.user.id).subscribe({
               next: (address) => {

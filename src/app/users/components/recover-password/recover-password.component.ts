@@ -53,16 +53,17 @@ export class RecoverPasswordComponent {
         this.emailService.sendRecoverEmail(email as string).subscribe({
           next: (flag) => {
             Swal.fire({
-              title: 'Hemos enviado un email con los pasos a seguir para cambiar su contraseña',
+              title: 'Hemos enviado un email con los pasos a seguir para cambiar su contraseña.',
               icon: 'success',
-              confirmButtonText: "Ok"
+              confirmButtonText: "Ok",
+              confirmButtonColor: '#00b4d8'
             });
             this.route.navigate(['/new-password']);
           },
           error: (e: Error) => {
             console.log(e.message);
             Swal.fire({
-              title: 'Lo sentimos. Hubo un error al enviar el correo, intente nuevamente',
+              title: 'Lo sentimos. Hubo un error al enviar el correo, intente nuevamente.',
               icon: 'error',
             });
           },
@@ -74,7 +75,7 @@ export class RecoverPasswordComponent {
         const adjustedTime = Math.max(2000, responseTime);
 
         Swal.fire({
-          title: 'El email no coincide con ningun usuario',
+          title: 'El email no coincide con ningun usuario.',
           icon: 'error',
           timer: adjustedTime,
           timerProgressBar: true

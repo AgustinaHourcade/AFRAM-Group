@@ -2,8 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../../users/services/user.service';
 import { User } from '../../../users/interface/user.interface';
 import { RouterLink } from '@angular/router';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
-import { NavbarHomeComponent } from "../../../shared/navbar-home/navbar-home.component";
 import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
 
 @Component({

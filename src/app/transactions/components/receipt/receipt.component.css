@@ -66,22 +66,13 @@ button {
   width: 48%;
   padding: 10px;
   margin: 10px 1%;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.9;
-}
 
 button:first-of-type {
   background-color: var(--cancel-button);
-  color: white;
 }
 
 button:last-of-type {
   background-color: var(--accent-color);
-  color: white;
 }

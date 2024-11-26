@@ -22,9 +22,9 @@ export class ReceiptComponent implements OnInit{
   @Input()
   transaction!: Transaction;
 
-  userSessionService = inject(UserSessionService);
-  userService = inject(UserService);
-  accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
 
   id: number = this.userSessionService.getUserId();
   nameS: string | undefined ;

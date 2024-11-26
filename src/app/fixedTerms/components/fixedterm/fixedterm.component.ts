@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import {
-  FormGroup,
   FormBuilder,
   Validators,
   ReactiveFormsModule,
@@ -27,17 +26,18 @@ import { Transaction } from '../../../transactions/interface/transaction.interfa
   styleUrl: './fixedterm.component.css',
 })
 export class NewFixedtermComponent implements OnInit {
-  fb = inject(FormBuilder);
-  fixedTermService = inject(FixedTermService);
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
-  interestService = inject(InterestRatesService);
-  transactionService = inject(TransactionService);
   rate!: InterestRates;
   calculatedDate: Date | undefined;
   accounts?: Array<Account>;
   account?: Account;
+  
+  private fb = inject(FormBuilder);
+  private fixedTermService = inject(FixedTermService);
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private interestService = inject(InterestRatesService);
+  private transactionService = inject(TransactionService);
 
   ngOnInit() {
     this.cargarCuentas();
@@ -92,12 +92,11 @@ export class NewFixedtermComponent implements OnInit {
   
           Swal.fire({
             title: `¿Está seguro que desea crear el plazo fijo?`,
-            text: 'El monto a recibir el ' + this.formatearFecha() + ' es de $' + total,
+            text: 'El monto a recibir el ' + this.formatearFecha() + ' es de $' + total + '.' ,
             icon: "warning",
-            iconColor: "#0077b6",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: '#00b4d8',
+            cancelButtonColor: "#e63946",
             confirmButtonText: "Si, crear plazo fijo",
             cancelButtonText: "Cancelar"
           }).then((result) => {
@@ -105,16 +104,16 @@ export class NewFixedtermComponent implements OnInit {
               this.fixedTermService.createFixedTerm(this.fixedTerm).subscribe({
                 next: (response) => {
                   Swal.fire({
-                    title:'Plazo fijo creado correctamente',
+                    title:'Plazo fijo creado correctamente!',
                     icon: 'success',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#00b4d8'
                   });
                   const descontar = -1 * this.fixedTerm.invested_amount;
   
                   this.accountService.updateBalance(descontar, this.fixedTerm.account_id).subscribe({
                     next: (flag: any) => {
                       if (flag) {
-                        console.log('Saldo actualizado en la cuenta de destino');
                         const transaction = {
                           amount: this.fixedTerm.invested_amount,
                           source_account_id: this.fixedTerm.account_id,
@@ -148,7 +147,8 @@ export class NewFixedtermComponent implements OnInit {
           Swal.fire({
             title: "Saldo insuficiente!",
             icon: "error",
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
         }
       },
@@ -184,7 +184,7 @@ formatearFecha(){
     const id = this.userSessionService.getUserId();
     this.accountService.getAccountsByIdentifier(id).subscribe({
       next: (accounts) => {
-        this.accounts = accounts;
+        this.accounts = accounts.filter(account => account.closing_date === null);    
       },
       error: (e: Error) => {
         console.log(e.message);

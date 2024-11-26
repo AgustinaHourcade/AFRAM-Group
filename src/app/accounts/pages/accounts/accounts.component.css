@@ -30,19 +30,15 @@
 }
 
 .view-button {
-  background-color: var(--accent-color); 
-  color: white;
-  border: none;
   padding: 10px 50px;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .deactivate-button {
   background-color: var(--cancel-button);
-  color: white;
-  border: none;
   padding: 10px 50px;
-  border-radius: 5px;
-  cursor: pointer;
 }
+
+.deactivate-button:hover {
+  background-color: var(--cancel-button-hover);
+}
+

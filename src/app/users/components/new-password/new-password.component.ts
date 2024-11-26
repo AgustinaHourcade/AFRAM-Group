@@ -2,11 +2,8 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { User } from '../../interface/user.interface';
 import { UserService } from '../../services/user.service';
 import { NavbarHomeComponent } from "../../../shared/navbar-home/navbar-home.component";
-import { concatAll } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -17,15 +14,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './new-password.component.css'
 })
 export class NewPasswordComponent {
-
-  private fb = inject(FormBuilder);
-  private userService = inject(UserService);
-  private route = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
+  
   flag = false;
   showPassword1 = false;
   showPassword2 = false;
  
+  private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+  private route = inject(Router);
+  //private activatedRoute = inject(ActivatedRoute);
+
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const hasUpperCase = /[A-Z]/.test(value);
@@ -154,7 +152,7 @@ export class NewPasswordComponent {
       },
       error: (e: Error) =>{
         Swal.fire({
-          title: 'El token ingresado no es valido.',
+          title: 'El token ingresado no es válido.',
           icon: 'error',
         });
         console.log(e.message);

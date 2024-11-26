@@ -115,7 +115,7 @@ export class SignupComponent{
     if (this.formulario.invalid) {
       Swal.fire({
         title: 'Error',
-        text: 'Por favor, complete todos los campos',
+        text: 'Por favor, complete todos los campos.',
         icon: 'error',
       })
       return;

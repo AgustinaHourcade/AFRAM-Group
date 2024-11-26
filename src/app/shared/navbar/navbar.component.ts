@@ -18,9 +18,9 @@ export class NavbarComponent implements OnInit{
     this.getUserById();
   }
 
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  userService = inject(UserService);
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private userService = inject(UserService);
 
   activeMenu: string | null = null;
   type !: string;

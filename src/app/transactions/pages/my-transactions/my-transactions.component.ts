@@ -23,17 +23,16 @@ export class MyTransactionsComponent {
   transactions: Array<Transaction> = [];
   transfers: Array<Transaction> = [];
   userId: number = 0;
-  router = inject(Router);
-
-  changeDetector = inject(ChangeDetectorRef);
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
-  transactionService = inject(TransactionService);
-  selectedAccountId!: number;
   pageSize = 4 ;
   currentPage = 1;
 
-
+  //private router = inject(Router);
+  private changeDetector = inject(ChangeDetectorRef);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private  transactionService = inject(TransactionService);
+  selectedAccountId!: number;
+  
   get totalPages(): number {
     return Math.ceil(this.transfers.length / this.pageSize);
   }

@@ -3,7 +3,6 @@ import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, 
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '../../services/user.service';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { User } from '../../interface/user.interface';
 import { UserSessionService } from '../../../auth/services/user-session.service';
@@ -108,7 +107,7 @@ export class UpdatePasswordComponent implements OnInit {
       },
       error: (err: Error) => {
         Swal.fire({
-          title: 'Contraseña actual incorrecta',
+          title: 'Contraseña actual incorrecta.',
           icon: 'error',
         });
       },

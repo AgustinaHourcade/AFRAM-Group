@@ -1,6 +1,6 @@
 .cbuAlias {
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   margin: auto;
   border: 1px solid #ccc;
   padding: 20px;
@@ -14,6 +14,7 @@
 .cbu, .alias, .name, .dni {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 8px 0;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -56,25 +57,18 @@
 .buttons {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   margin-top: 20px;
 }
 
 button {
-  width: 30%;
+  width: 25%;
   padding: 10px;
-  border: none;
-  border-radius: 5px;
   font-size: 14px;
-  cursor: pointer;
-  color: white;
-  background-color: var(--accent-color);
   display: flex;
   justify-content: center;
 }
 
-button:hover {
-  background-color: var(--button-hover);
-}
 
 h1{
   display: grid;
@@ -82,11 +76,33 @@ h1{
   margin-top: 3%;
 }
 
-.input-field{
+.input-field {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
+  padding: 12px 5px; 
   border: 1px solid var(--extra-light-color);
-  border-radius: 5px;
-  transition: border-color 0.3s ease;
+  border-radius: 8px; 
+  background-color: #f9f9f9; 
+  font-size: 16px; 
+  color: #333;
+  box-sizing: border-box; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  text-align: center;
+}
+
+.input-field:focus {
+  border-color: var(--accent-color); 
+  background-color: #fff; 
+  outline: none; 
+}
+
+.input-field::placeholder {
+  color: var(--gray-4);
+}
+
+.cancel-button{
+  background-color: var(--cancel-button);
+}
+
+.cancel-button:hover{
+  background-color: var(--cancel-button-hover);
 }

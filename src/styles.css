@@ -13,6 +13,7 @@
   --gray-3: #495057; /* Gris oscuro, adecuado para textos secundarios */
   --gray-4: #212529; /* Gris oscuro para texto destacado */
   --cancel-button: #e63946;
+  --cancel-button-hover: #d62828;
 
   --font-title: "Open Sans", sans-serif; /* Para títulos */ /* Para textos generales */
   --font-body: "Roboto", sans-serif; /* Para cuerpo de texto */
@@ -39,6 +40,22 @@ body, p {
 
 button {
   font-family: var(--font-buttons);
+  background-color: var(--secondary-color);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: var(--white);
+  font-size: 14px;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+button:disabled {
+  background-color: var(--gray-2);
+  cursor: not-allowed;
 }
 
 nav, input, label {

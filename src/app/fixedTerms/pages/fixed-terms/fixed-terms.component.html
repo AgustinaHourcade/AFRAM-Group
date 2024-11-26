@@ -22,7 +22,7 @@
         <td>{{ ft.account_id }}</td>
         <td>${{ ft.invested_amount }}</td>
         <td>${{ ft.interest_earned }}</td>
-        <td>{{ formatearFecha(ft.expiration_date) }}</td>
+        <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
       </tr>
       } }
     </tbody>
@@ -30,7 +30,7 @@
 </div>
 }
 
-@if (fixedTerms.length > 0) {
+@if (expiredFixedTerms.length > 0) {
 <div class="tableDiv2">
   <h3>Plazos fijos vencidos</h3>
   <table>
@@ -43,12 +43,12 @@
       </tr>
     </thead>
     <tbody>
-      @for (ft of fixedTerms; track $index) { @if (ft.is_paid === 'yes') {
+      @for (ft of expiredFixedTerms; track $index) { @if (ft.is_paid === 'yes') {
       <tr>
         <td>{{ ft.account_id }}</td>
         <td>${{ ft.invested_amount }}</td>
         <td>${{ ft.interest_earned }}</td>
-        <td>{{ formatearFecha(ft.expiration_date) }}</td>
+        <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
       </tr>
       } }
     </tbody>

@@ -46,17 +46,19 @@ export class DetailAdminComponent implements OnInit{
       next: (flag) => {
         if(isActive == 'yes'){
           Swal.fire({
-            title: "Administrador dado de alta",
+            title: "Administrador dado de alta correctamente!",
             text: 'EL administrador '+this.admin?.real_name+', '+this.admin?.last_name +' fue dado de alta en el sistema.',
             icon: "success",
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
         }else{
           Swal.fire({
-            title: "Administrador dado de baja",
+            title: "Administrador dado de baja correctamente!",
             text: 'El Administrador ' + this.admin?.real_name + ', ' + this.admin?.last_name + ' fue dado de baja en el sistema.',
             icon: "success",
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
         }
         this.router.navigate(['list-admins'])
@@ -71,21 +73,21 @@ export class DetailAdminComponent implements OnInit{
     Swal.fire({
       title: '¿Está seguro que desea quitar el rol de administrador a ' + this.admin?.real_name + ' ' + this.admin?.last_name + '?',
       icon: 'warning',
-      iconColor: '#0077b6',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, quitar',
       cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#00b4d8',
+      cancelButtonColor: "#e63946"
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.changeAdminStatus(Number(this.admin?.id), 'user').subscribe({
           next: (data) => {
             Swal.fire({
-              title: 'Rol quitado correctamente',
-              text: 'Ahora ' + this.admin?.real_name + ' ' + this.admin?.last_name + ' no tiene rol de administrador',
+              title: 'Rol quitado correctamente!',
+              text: 'Ahora ' + this.admin?.real_name + ' ' + this.admin?.last_name + ' no tiene rol de administrador.',
               icon: "success",
               confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8',
             }).then((result) => {
               if (result.isConfirmed) {
                 this.router.navigateByUrl('list-admins');

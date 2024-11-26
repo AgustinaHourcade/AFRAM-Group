@@ -29,17 +29,17 @@ export class TransferModalComponent implements OnInit {
   user!: User;
   userDestino !: User;
   accounts!: Array<Account>;
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  userService = inject(UserService);
-  accountService = inject(AccountService);
-  transactionService = inject(TransactionService);
-  emailService = inject(EmailService);
-  montoTransferencia: number | null | undefined = 0
   id !: number;
-
-  fb = inject(FormBuilder);
   origen!: Account;
+
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
+  private emailService = inject(EmailService);
+  private montoTransferencia: number | null | undefined = 0
+  private fb = inject(FormBuilder);
 
   newRecipientForm = this.fb.group({
     searchType: ['alias', Validators.required],
@@ -132,10 +132,10 @@ export class TransferModalComponent implements OnInit {
         },
         error: () => {
           Swal.fire({
-            title: 'Error',
-            text: 'Cuenta no encontrada',
+            text: 'Cuenta no encontrada.',
             icon: 'error',
             confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
           this.errorMessage = 'Error al buscar la cuenta.';
           this.account = null;
@@ -168,52 +168,53 @@ export class TransferModalComponent implements OnInit {
 
     if(selectedAccount?.id == this.account?.id){
       Swal.fire({
-        title: 'Error',
         text: 'No puede hacer una transferencia a la cuenta de origen.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       });
       return;
     }
 
     if (!selectedAccount) {
       Swal.fire({
-        title: 'Error',
         text: 'Seleccione una cuenta de origen.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8',
       });
       return;
     }
 
     if(this.montoTransferencia as number < 1 ){
       Swal.fire({
-        title: 'Error',
         text: 'El monto mínimo para transferir es de $1.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       })
       return;
     }
 
     if (this.montoTransferencia! > selectedAccount.balance) {
       Swal.fire({
-        title: 'Error',
         text: 'Saldo insuficiente',
         icon: 'error',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       });
       this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
       return;
     }
 
     Swal.fire({
-      title: 'Confirmar transferencia',
       text: `¿Está seguro de transferir $${this.montoTransferencia} desde la cuenta ${selectedAccount.id}?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, transferir',
       cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#00b4d8',
+      cancelButtonColor: "#e63946"
     }).then((result) => {
       if (result.isConfirmed) {
         const transaction = {
@@ -226,10 +227,10 @@ export class TransferModalComponent implements OnInit {
         this.transactionService.postTransaction(transaction as Transaction).subscribe({
           next: () => {
             Swal.fire({
-              title: 'Éxito',
               text: '¡Transferencia realizada!',
               icon: 'success',
               confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
             });
 
             if (this.user.email) {

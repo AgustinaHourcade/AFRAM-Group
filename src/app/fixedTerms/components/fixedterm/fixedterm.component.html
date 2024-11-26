@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <div class="page">
+  @if(accounts?.length == 0){
+    <h1>Lo sentimos, no tiene cuentas disponibles para realizar un plazo fijo</h1>
+  }@else{ 
 <form [formGroup]="formulario" (ngSubmit)="createFixedTerm()">
   <div>
     <div>
@@ -57,6 +60,7 @@
     Confirmar
   </button>
 </form>
+  }
 </div>
 
 

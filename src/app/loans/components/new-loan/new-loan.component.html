@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <div class="page">
+  @if(accounts?.length == 0){
+    <h1>Lo sentimos, no tiene cuentas disponibles para solicitar un préstamo</h1>
+  }@else{ 
 <form [formGroup]="formulario" (ngSubmit)="createLoan()">
   <div>
     <div>
@@ -54,6 +57,6 @@
   </div>
 
   <button type="submit" [disabled]="formulario.invalid">Confirmar</button>
-</form>
+</form>}
 </div>
 

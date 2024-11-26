@@ -52,17 +52,19 @@ export class DetailUsersComponent implements OnInit{
       next: (flag) => {
         if(isActive == 'yes'){
           Swal.fire({
-            title: "Usuario dado de alta",
+            title: "Usuario dado de alta correctamente!",
             text: 'EL usuario '+this.user?.real_name+', '+this.user?.last_name +' fue dado de alta en el sistema.',
             icon: "success",
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8',
           });
         }else{
           Swal.fire({
-            title: "Usuario dado de baja",
+            title: "Usuario dado de baja correctamente!",
             text: 'El usuario ' + this.user?.real_name + ', ' + this.user?.last_name + ' fue dado de baja en el sistema.',
             icon: "success",
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
         }
         this.router.navigate(['list-users']);
@@ -100,21 +102,21 @@ export class DetailUsersComponent implements OnInit{
         next: (data) => {
           Swal.fire({
             title: '¿Está seguro que desea dar de baja la cuenta numero '+id+', perteneciente a '+this.user?.real_name+' '+this.user?.last_name+'?',
-            text:'Esta accion es irreversible',
+            text:'Esta accion es irreversible.',
             icon: 'warning',
-            iconColor: '#0077b6',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#00b4d8',
+            cancelButtonColor: "#e63946",
             confirmButtonText: 'Si, dar de baja',
             cancelButtonText: 'Cancelar',
           }).then((result) => {
             if(result.isConfirmed){
               Swal.fire({
-                title: "Cuenta dada de baja",
-                text: 'La cuenta numero '+id+ ' fue dada de baja correctamente',
+                title: "Cuenta dada de baja correctamente!",
+                text: 'La cuenta numero '+id+ ' fue dada de baja correctamente.',
                 icon: "success",
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#00b4d8'
               }).then((result) => {
                 if (result.isConfirmed) {
                   window.location.reload();
@@ -135,8 +137,8 @@ export class DetailUsersComponent implements OnInit{
       icon: 'warning',
       iconColor: '#0077b6',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#00b4d8',
+      cancelButtonColor: "#e63946",
       confirmButtonText: 'Sí, hacer admin',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
@@ -144,10 +146,11 @@ export class DetailUsersComponent implements OnInit{
         this.userService.changeAdminStatus(Number(this.user?.id), 'admin').subscribe({
           next: (data) => {
             Swal.fire({
-              title: 'Rol concedido correctamente',
-              text: 'Ahora ' + this.user?.real_name + ' ' + this.user?.last_name + ' es administrador',
+              title: 'Rol concedido correctamente!',
+              text: 'Ahora ' + this.user?.real_name + ' ' + this.user?.last_name + ' es administrador.',
               icon: "success",
               confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
             }).then((result) => {
               if (result.isConfirmed) {
                 this.router.navigateByUrl('list-users');

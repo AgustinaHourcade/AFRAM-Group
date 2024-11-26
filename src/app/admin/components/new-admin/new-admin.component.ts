@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Account } from '../../../accounts/interface/account.interface';
 import { AccountService } from '../../../accounts/services/account.service';
 import { Address } from '../../../addresses/interface/address.interface';
@@ -30,7 +30,7 @@ export class NewAdminComponent {
   private fb = inject(FormBuilder);
   private sesionService = inject(UserSessionService);
   private userService = inject(UserService);
-  private accountService = inject(AccountService);
+ // private accountService = inject(AccountService);
   private addressService = inject(AddressService);
   private route = inject(Router);
 
@@ -112,12 +112,11 @@ export class NewAdminComponent {
     if (this.formulario.invalid) {
       Swal.fire({
         title: 'Error',
-        text: 'Por favor, complete todos los campos',
+        text: 'Por favor, complete todos los campos.',
         icon: 'error',
       })
       return;
     }
-
 
     const { confirm_password, ...user } = this.formulario.getRawValue();
 
@@ -152,7 +151,7 @@ export class NewAdminComponent {
         }
 
           Swal.fire({
-            title: 'Nuevo ' + tipo +  ' creado correctamente.',
+            title: 'Nuevo ' + tipo +  ' creado correctamente!',
             icon: 'success',
           }).then((result) => {
           if (result.isConfirmed) {

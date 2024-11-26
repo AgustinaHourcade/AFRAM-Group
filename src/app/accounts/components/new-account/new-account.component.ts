@@ -53,9 +53,8 @@ export class NewAccountComponent {
     Swal.fire({
       title: `¿Está seguro que desea crear una nueva cuenta?`,
       icon: "warning",
-      iconColor: "#0077b6",
       showCancelButton: true,
-      confirmButtonColor: "#0077b6",
+      confirmButtonColor: '#00b4d8',
       cancelButtonColor: "#e63946",
       confirmButtonText: "Si, crear",
       cancelButtonText: "Cancelar"
@@ -65,7 +64,8 @@ export class NewAccountComponent {
           next: (account) => {
             Swal.fire({
               title: "Cuenta creada correctamente!",
-              icon: "success"
+              icon: "success",
+              confirmButtonColor: '#00b4d8'
             });
             this.route.navigate(['/accounts'])
           },

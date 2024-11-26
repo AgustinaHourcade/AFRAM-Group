@@ -44,21 +44,7 @@
 }
 
 button {
-  background-color: var(--accent-color);
-  color: white;
-  font-size: 14px;
   padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-button:hover {
-  background-color: var(--button-hover);
-}
-
-/* button.show {
-  background-color: var(--button-hover); 
-} */
 

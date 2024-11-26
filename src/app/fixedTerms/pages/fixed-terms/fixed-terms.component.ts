@@ -19,13 +19,14 @@ import { CommonModule } from '@angular/common';
 })
 export class FixedTermsComponent implements OnInit {
   fixedTerms: Array<FixedTerm> = [];
+  expiredFixedTerms: Array<FixedTerm> = [];
   accounts: Array<Account> = [];
   userId: number = 0;
 
-  fixedTermService = inject(FixedTermService);
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
+  private fixedTermService = inject(FixedTermService);
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
@@ -41,7 +42,11 @@ export class FixedTermsComponent implements OnInit {
 
             this.loadFixedTerms(account.id).subscribe({
               next: (fixedTerms: FixedTerm[]) => {
-                this.fixedTerms.push(...fixedTerms);
+                const unpaid = fixedTerms.filter(term => term.is_paid === 'no');
+                const paid = fixedTerms.filter(term => term.is_paid === 'yes');
+
+                this.fixedTerms.push(...unpaid);
+                this.expiredFixedTerms.push(...paid);
               },
               error: (error: Error) => {
                 console.error(`Error loading transactions for account ${account.id}:`,error);
@@ -57,9 +62,6 @@ export class FixedTermsComponent implements OnInit {
     });
   }
 
-
-
-
   private loadFixedTerms(accountId: number): Observable<FixedTerm[]> {
     return this.fixedTermService.getFixedTermsByAccountId(accountId).pipe(
       catchError((error: Error) => {
@@ -68,14 +70,4 @@ export class FixedTermsComponent implements OnInit {
       })
     );
   }
-
-  formatearFecha(date : string){
-    const formattedDate = new Date(date).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-    return formattedDate;
-  }
-
 }

@@ -28,7 +28,7 @@
             <td>${{ loan.return_amount }}</td>
             <td>${{ loan.paid }}</td>
             <td>${{ loan.return_amount - loan.paid }}</td>
-            <td>{{ formatearFecha(loan.expiration_date) }}</td>
+            <td>{{ loan.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
             <td><button [routerLink]="['/pay-loan', loan.id]">Pagar préstamo</button></td>
           </tr>
         }
@@ -38,7 +38,7 @@
 </div>
 }
 
-@if (loans.length > 0) {
+@if (expiredLoans.length > 0) {
 <div class="tableDiv">
   <h3>Prestamos finalizado</h3>
     <table>
@@ -49,20 +49,17 @@
         <th>Cantidad devuelta</th>
         <th>Fecha de solicitud</th>
         <th>Fecha de expiración</th>
-        <th></th>
       </tr>
     </thead>
     <tbody>
-      @for (loan of loans; track $index) {
-        @if (loan.paid == loan.return_amount) {  
+      @for (loan of expiredLoans; track $index) {
           <tr >
             <td>{{ loan.account_id }}</td>
             <td>${{ loan.amount }}</td>
             <td>${{ loan.return_amount }}</td>
-            <td>{{ formatearFecha(loan.request_date) }}</td>
-            <td>{{ formatearFecha(loan.expiration_date) }}</td>
+            <td>{{ loan.request_date | date:'dd/MM/yyyy':'es-AR' }}</td>
+            <td>{{ loan.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
           </tr>
-        }
       }
     </tbody>
   </table>

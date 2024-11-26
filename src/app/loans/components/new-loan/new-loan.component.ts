@@ -21,18 +21,18 @@ import { Transaction } from '../../../transactions/interface/transaction.interfa
   styleUrl: './new-loan.component.css',
 })
 export class NewLoanComponent implements OnInit {
-  fb = inject(FormBuilder);
-  router = inject(Router);
-  loanService = inject(LoanService);
-
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
-  interestService = inject(InterestRatesService);
-  transactionService = inject(TransactionService);
   rate!: InterestRates;
   calculatedDate: Date | undefined;
   accounts?: Array<Account>;
   account?: Account;
+
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private loanService = inject(LoanService);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private interestService = inject(InterestRatesService);
+  private transactionService = inject(TransactionService);
 
   ngOnInit() {
     this.cargarCuentas();
@@ -68,11 +68,12 @@ export class NewLoanComponent implements OnInit {
     this.loan.interest_rate_id = this.rate.id;
     if(this.loan.amount > 1000000){
       Swal.fire({
-        title: "Atención",
-        text: 'Para prestamos superiores a $1.000.000 dirijase a alguna de nuestras sucursales',
-        icon: "error",
-        confirmButtonText: 'Aceptar'
+        text: 'Para préstamos superiores a $1.000.000 dirijase a alguna de nuestras sucursales.',
+        icon: "warning",
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       });
+      // ! podemos agregar el link al mapa
     }else{
     this.accountService.getAccountById(this.loan.account_id).subscribe({
       next: (account) => {
@@ -87,20 +88,19 @@ export class NewLoanComponent implements OnInit {
         this.loan.request_date = this.formatDate(new Date());
 
         Swal.fire({
-          title: `¿Está seguro que desea solicitar el prestamo?`,
+          title: `¿Está seguro que desea solicitar el préstamo?`,
           text:
             'El monto que va a recibir es $' +
             this.loan.amount +
             ', debe devolver $' +
             total +
             ' el dia ' +
-            this.formatearFecha(),
+            this.formatearFecha() + '.',
           icon: 'warning',
-          iconColor: '#0077b6',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Si, solicitar prestamo',
+          confirmButtonColor: '#00b4d8',
+          cancelButtonColor: "#e63946",
+          confirmButtonText: 'Si, solicitar préstamo',
           cancelButtonText: 'Cancelar',
         }).then((result) => {
           if (result.isConfirmed) {
@@ -111,7 +111,6 @@ export class NewLoanComponent implements OnInit {
                   .subscribe({
                     next: (flag: any) => {
                       if (flag) {
-                        console.log('Saldo actualizado en la cuenta de destino');
                         const transaction = {
                           amount: this.loan.amount,
                           source_account_id: 1,
@@ -134,9 +133,10 @@ export class NewLoanComponent implements OnInit {
                   });
 
                 Swal.fire({
-                  title: 'Prestamo solicitado correctamente',
+                  title: 'Préstamo solicitado correctamente!',
                   icon: 'success',
                   confirmButtonText: 'Aceptar',
+                  confirmButtonColor: '#00b4d8'
                 });
                 this.router.navigate(['/list-loan']);
               },
@@ -184,8 +184,7 @@ export class NewLoanComponent implements OnInit {
     const id = this.userSessionService.getUserId();
     this.accountService.getAccountsByIdentifier(id).subscribe({
       next: (accounts) => {
-        this.accounts = accounts;
-      },
+        this.accounts = accounts.filter(account => account.closing_date === null);      },
       error: (e: Error) => {
         console.log(e.message);
       },

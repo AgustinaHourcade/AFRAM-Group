@@ -69,9 +69,10 @@ export class CbuAliasComponent implements OnInit {
 
     if(newAlias && newAlias.length > 15) {
       Swal.fire({
-        title: 'La longitud máxima es de 15 caracteres',
+        title: 'La longitud máxima es de 15 caracteres.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       });
     }
 
@@ -88,14 +89,16 @@ export class CbuAliasComponent implements OnInit {
             title: 'Alias modificado correctamente!',
             icon: 'success',
             confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
         },
         error: (err) => {
           Swal.fire({
             title: 'Error al modificar el alias',
-            text: 'El alias elegido ya está en uso',
+            text: 'El alias elegido ya está en uso.',
             icon: 'error',
             confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
           console.error('Error al modificar alias:', err.message);
         },
@@ -169,9 +172,10 @@ export class CbuAliasComponent implements OnInit {
       .writeText(text)
       .then(() => {
         Swal.fire({
-          title: 'Se han copiado los datos de la cuenta',
+          title: 'Se han copiado los datos de la cuenta.',
           icon: 'success',
           confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#00b4d8'
         })
       })
       .catch((err) => {

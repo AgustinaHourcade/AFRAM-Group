@@ -53,20 +53,11 @@ body {
 
   .new {
     position: absolute;
-    color: #f5f5f5;
-    background-color: var(--l);
     font-size: 1.75rem;
     margin-left: 57%;
     margin-top: -146px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
 
-  .new:hover {
-    background-color: var(--l);
-  }
 
   th:nth-child(1),
 td:nth-child(1) {
@@ -162,7 +153,7 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
   color: #aaa;
 }
 
-.toggle-btn {
+/* .toggle-btn {
   position: absolute;
   right: 8px;
   top: 50%;
@@ -185,7 +176,7 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
 
 .toggle-btn:focus {
   outline: none;
-}
+} */
 
 .error-message {
   color: #ff4d4d;
@@ -204,21 +195,12 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
 .submit-button {
   width: 40%;
   padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(135deg, #4e9af1, #1c75bc);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 8px;
   height: 36px;
 }
 
 .submit-button:hover {
-  background: linear-gradient(135deg, #1c75bc, #4e9af1);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
@@ -228,11 +210,10 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
 }
 
 .submit-button:disabled {
-  transform: scale(0.98); /* Reduce un poco el tamaño del botón */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Añade una sombra tenue */
-  background-color: gray; /* Cambia el color de fondo a gris */
-  color: white; /* Color del texto */
-  cursor: not-allowed; /* Cambia el cursor al ícono de "no permitido" */
+  transform: scale(0.98); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+  background-color: var(--gray-2); 
+  cursor: not-allowed; 
 }
 
 
@@ -245,21 +226,14 @@ select.ng-invalid.ng-touched {
 .cancel-button {
   width: 40%;
   padding: 8px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #fff;
-  background: linear-gradient(135deg, #990606, #8d0f0f);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
+  background: var(--cancel-button);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 8px;
   height: 36px;
 }
 
 .cancel-button:hover {
-  background: linear-gradient(135deg, #bc1c1c, #f14e4e);
+  background: var(--cancel-button-hover);
   box-shadow: 0 3px 6px rgba(214, 2, 2, 0.3);
 }
 

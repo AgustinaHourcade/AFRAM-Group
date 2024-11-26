@@ -4,10 +4,10 @@
 <form [formGroup]="formulario" (ngSubmit)="updatePaid()">
   <div>
     <div>
-          <h2>Pagar prestamo</h2>
+          <h2>Pagar préstamo</h2>
           @if (loan) {
-              <h3>Total de deuda: {{loan?.return_amount - loan?.paid}}</h3>
-              <h3>Fecha de vencimiento: {{formatearFecha(loan.expiration_date)}}</h3>
+              <h3>Total de deuda: {{loan?.return_amount - loan?.paid | currency:'ARS':'symbol-narrow':'1.2-2'}}</h3>
+              <h3>Fecha de vencimiento: {{loan.expiration_date | date:'dd/MM/yyyy':'es-AR'}}</h3>
             }
 
     </div>

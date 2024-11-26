@@ -61,10 +61,9 @@ export class CardComponent implements OnInit {
     this.cardService.disableCard(card_id).subscribe({
       next: () => {
         Swal.fire({
-          title: `Tarjeta eliminada`,
+          title: `Tarjeta eliminada correctamente!`,
           icon: 'success',
-          iconColor: '#0077b6',
-          confirmButtonColor: '#3085d6',
+          confirmButtonColor: '#00b4d8',
           confirmButtonText: 'Aceptar',
         }).then((result) => {
           if (result.isConfirmed) {
@@ -82,10 +81,9 @@ export class CardComponent implements OnInit {
     Swal.fire({
       title: `¿Está seguro que desea dar de baja esta tarjeta?`,
       icon: 'warning',
-      iconColor: '#0077b6',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#00b4d8',
+      cancelButtonColor: "#e63946",
       confirmButtonText: 'Si, desactivar tarjeta',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
@@ -104,10 +102,9 @@ export class CardComponent implements OnInit {
           title: `La tarjeta ${card.card_number} venció el ${expirationDate.toLocaleDateString()}.
           ¿Desea extenderla por 5 años?`,
           icon: 'warning',
-          iconColor: '#0077b6',
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
+          confirmButtonColor: '#00b4d8',
+          cancelButtonColor: "#e63946",
           confirmButtonText: 'Aceptar',
           cancelButtonText: 'Cancelar',
         }).then((result) => {
@@ -126,8 +123,9 @@ export class CardComponent implements OnInit {
               next: ()=>{
               Swal.fire({
               title: 'Tarjeta extendida!',
-              text: `La nueva fecha de expiracion es el ${newCard.expiration_date}`,
-              confirmButtonText: 'Aceptar'
+              text: `La nueva fecha de expiracion es el ${newCard.expiration_date}.`,
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
             });
               }, error: (err:Error)=>{
                 console.log(err.message);

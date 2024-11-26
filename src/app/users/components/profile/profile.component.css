@@ -1,19 +1,3 @@
-:root {
-  --primary-color: #003559;
-  --secondary-color: #0077b6;
-  --accent-color: #00b4d8;
-  --light-color: #90e0ef;
-  --extra-light-color: #caf0f8;
-  --white: #ffffff;
-  --button-hover: #00b4d8;
-  --gray: #adb5bd;
-
-  --font-title: "Open Sans", sans-serif;
-  --font-body: "Roboto", sans-serif;
-  --font-buttons: "Poppins", sans-serif;
-  --font-menu-form: "Lato", sans-serif;
-}
-
 .profile-container {
   padding: 20px;
   background-color: var(--extra-light-color);
@@ -77,16 +61,5 @@ td:last-child {
 
 button {
   padding: 12px 24px;
-  background-color: var(--secondary-color);
-  color: var(--white);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: var(--font-buttons);
-  font-size: 1em;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: var(--button-hover);
-}

@@ -19,16 +19,15 @@ import { CardService } from '../../service/card.service';
   styleUrl: './newcard.component.css',
 })
 export class NewcardComponent implements OnInit {
-  userSessionService = inject(UserSessionService);
-  userService = inject(UserService);
-  accountService = inject(AccountService);
-  cardService = inject(CardService);
-  route = inject(Router);
-
   userId !: number;
   user !: User;
   accounts?: Array<Account>;
 
+  private userSessionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
+  private cardService = inject(CardService);
+  private route = inject(Router);
   private fb = inject(FormBuilder);
 
   formulario = this.fb.nonNullable.group({
@@ -66,16 +65,17 @@ export class NewcardComponent implements OnInit {
 
   newCard(): void {
     Swal.fire({
-      title: 'Selecciona Tipo de Tarjeta y Cuenta',
+      title: 'Selecciona Tipo de Tarjeta y Cuenta.',
       showCancelButton: true,
       confirmButtonText: 'Confirmar',
+      confirmButtonColor: '#00b4d8',
       preConfirm: () => {
         const cardType = this.formulario.get('cardType')?.value;
         const account = this.formulario.get('account')?.value;
 
         if (!cardType || !account) {
           Swal.showValidationMessage(
-            'Por favor, selecciona el tipo de tarjeta y la cuenta'
+            'Por favor, selecciona el tipo de tarjeta y la cuenta.'
           );
           return false;
         }
@@ -104,10 +104,10 @@ export class NewcardComponent implements OnInit {
       next: (creada) => {
         if (creada) {
           Swal.fire({
-            title: 'Éxito',
-            text: 'Tarjeta solicitada correctamente',
+            title: 'Tarjeta solicitada correctamente!',
             icon: 'success',
             confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
           });
           this.route.navigate(['/cards']);
         }
@@ -137,10 +137,10 @@ export class NewcardComponent implements OnInit {
   onSubmit(): void {
     if (this.formulario.invalid) {
       Swal.fire({
-        title: 'Error',
         text: 'Por favor, complete todos los campos requeridos.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       });
       return;
     }

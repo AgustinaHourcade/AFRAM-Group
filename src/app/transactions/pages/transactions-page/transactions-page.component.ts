@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TransferModalComponent } from "../../components/transfer-modal/transfer-modal.component";
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 export class TransactionsPageComponent{
   isModalOpen = false;
 
-  router = inject(Router)
+  private router = inject(Router)
 
   openModal() {
     this.isModalOpen = true;

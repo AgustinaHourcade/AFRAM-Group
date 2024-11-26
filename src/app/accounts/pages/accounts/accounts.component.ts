@@ -43,17 +43,16 @@ export class AccountsComponent {
       next: (account) =>{
         if(account.balance > 1){
           Swal.fire({
-            title: "El saldo de la cuenta a dar de baja debe ser 0",
+            title: "El saldo de la cuenta a dar de baja debe ser 0.",
             icon: "error"
           });
         }else{
           Swal.fire({
             title: `¿Está seguro que desea dar de baja la cuenta?`,
             icon: "warning",
-            iconColor: "#0077b6",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: '#00b4d8',
+            cancelButtonColor: "#e63946",
             confirmButtonText: "Si, dar de baja",
             cancelButtonText: "Cancelar"
           }).then((result) => {

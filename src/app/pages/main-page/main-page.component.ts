@@ -39,18 +39,16 @@ export class MainPageComponent implements OnInit {
   showActions = false;
   activeCards: Array<Card> = [];
   activeAccounts: Array<Account> = [];
-
-
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
-  transactionService = inject(TransactionService);
-  cardService = inject(CardService);
-  fixedTermService = inject(FixedTermService);
   pageSize = 4 ;
   currentPage = 1;
 
-
+  // private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
+  private cardService = inject(CardService);
+  private fixedTermService = inject(FixedTermService);
+  
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);
   }
@@ -182,9 +180,10 @@ export class MainPageComponent implements OnInit {
   private showFixedTermSuccessAlert() {
     Swal.fire({
       title: 'Se le han acreditado plazos fijos pendientes!',
-      text: `Puede ver el detalle en "mis plazos fijos"`,
+      text: `Puede ver el detalle en "mis plazos fijos.`,
       icon: 'success',
       confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#00b4d8'
     });
   }
   

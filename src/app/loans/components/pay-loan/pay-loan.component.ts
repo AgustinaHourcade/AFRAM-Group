@@ -10,22 +10,23 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 import { Loan } from '../../interface/loan';
 import { TransactionService } from '../../../transactions/services/transaction.service';
 import { Transaction } from '../../../transactions/interface/transaction.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pay-loan',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './pay-loan.component.html',
   styleUrl: './pay-loan.component.css',
 })
 export class PayLoanComponent {
-  fb = inject(FormBuilder);
-  route = inject(Router);
-  activatedRoute = inject(ActivatedRoute);
-  loanService = inject(LoanService);
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
-  transactionService = inject(TransactionService);
+  private fb = inject(FormBuilder);
+  private route = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private loanService = inject(LoanService);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
   accounts?: Array<Account>;
   account?: Account;
   loan: any = {};
@@ -65,9 +66,10 @@ export class PayLoanComponent {
 
     if (amount > this.loan.return_amount - this.loan.paid) {
       Swal.fire({
-        title: 'No puede pagar más de lo que adeuda',
+        text: 'No puede pagar más de lo que adeuda.',
         icon: 'error',
-        confirmButtonText: 'Aceptar'
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
       });
     } else {
       this.accountService.getAccountById(Number(account_id)).subscribe({
@@ -78,12 +80,11 @@ export class PayLoanComponent {
           if (account.balance > amount) {
             Swal.fire({
               title: `¿Está seguro que desea pagar el préstamo?`,
-              text: 'El monto que va a pagar es de $' + amount,
+              text: 'El monto que va a pagar es de $' + amount + '.',
               icon: 'warning',
-              iconColor: '#0077b6',
               showCancelButton: true,
-              confirmButtonColor: '#3085d6',
-              cancelButtonColor: '#d33',
+              confirmButtonColor: '#00b4d8',
+              cancelButtonColor: "#e63946",
               confirmButtonText: 'Sí, pagar préstamo',
               cancelButtonText: 'Cancelar',
             }).then((result) => {
@@ -97,9 +98,10 @@ export class PayLoanComponent {
                         .subscribe({
                           next: (response) => {
                             Swal.fire({
-                              title: 'Préstamo pagado correctamente',
+                              title: 'Préstamo pagado correctamente!',
                               icon: 'success',
                               confirmButtonText: 'Aceptar',
+                              confirmButtonColor: '#00b4d8'
                             });
                             const transaction = {
                               amount: amount,
@@ -128,9 +130,10 @@ export class PayLoanComponent {
           }else{
             console.log(account.balance);
               Swal.fire({
-                title: 'No tiene suficiente dinero en la cuenta',
+                text: 'No tiene suficiente dinero en la cuenta.',
                 icon: 'error',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#00b4d8'
               });
           }
         },
@@ -153,16 +156,4 @@ export class PayLoanComponent {
     });
   }
 
-  formatDate(date: Date): string {
-    return date.toISOString().split('T')[0].replace(/-/g, '/');
-  }
-
-  formatearFecha(date: string) {
-    const formattedDate = new Date(date).toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-    return formattedDate;
-  }
 }

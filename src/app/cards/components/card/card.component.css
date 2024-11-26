@@ -253,19 +253,12 @@ body {
 }
 
 button {
-  background-color: var(--secondary-color);
-  color: var(--white);
   padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: var(--button-hover);
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
 }
 

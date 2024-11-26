@@ -45,5 +45,10 @@
       {{ isEditing ? "Guardar" : "Modificar alias" }}
       <i class="bi bi-pencil-square"></i>
     </button>
+    @if (isEditing) {
+      <button class="no-print cancel-button" (click)="toggleEditing()">
+        Cancelar
+      </button>
+    }
   </div>
 </div>

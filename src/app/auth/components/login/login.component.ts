@@ -75,13 +75,12 @@ export class LoginComponent {
             this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
             if (user.user_type === 'admin') {
               Swal.fire({
-                title: `¿Como desea iniciar sesion?`,
-                text: 'Puede entrar como Administrator o como Cliente',
+                title: `¿Como desea iniciar sesión?`,
+                text: 'Puede ingresar como Administrator o como Cliente.',
                 icon: 'question',
-                iconColor: '#6c757d',
                 showCancelButton: true,
-                confirmButtonColor: '#023E8A',
-                cancelButtonColor: '#f48c06',
+                confirmButtonColor: '#00b4d8',
+                cancelButtonColor: "#003559",
                 confirmButtonText: 'Cliente',
                 cancelButtonText: 'Administrador',
               }).then((result) => {

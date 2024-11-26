@@ -6,7 +6,6 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TransactionService } from '../../../transactions/services/transaction.service';
 import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
 import { TransactionComponent } from '../../../transactions/components/transaction/transaction.component';
-import { Account } from '../../../accounts/interface/account.interface';
 
 @Component({
   selector: 'app-list-transaction',
@@ -26,7 +25,7 @@ export class ListTransactionComponent implements OnInit{
   currentPage = 1;
 
   private activatedRoute = inject(ActivatedRoute);
-  private userSessionService = inject(UserSessionService);
+  // private userSessionService = inject(UserSessionService);
   private trasnsactionService = inject(TransactionService);
 
   ngOnInit(): void {
@@ -63,8 +62,6 @@ export class ListTransactionComponent implements OnInit{
     return true;
   }
 
-
-
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);
   }
@@ -80,7 +77,4 @@ export class ListTransactionComponent implements OnInit{
       this.currentPage = page;
     }
   }
-
-
-
 }

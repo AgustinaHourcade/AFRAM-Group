@@ -58,14 +58,8 @@ body {
 
   .action-button {
     padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     min-width: 120px;
     text-align: center;
-    color: #fff;
-    font-weight: bold;
   }
 
   .botones-admin {
@@ -82,38 +76,13 @@ body {
     background-color: #F48C06;
   }
 
-  .action-button.cuentas {
-    background-color: #003559;
-  }
-
-  .action-button.cuentas:hover {
-    background-color: #0061a5;
-  }
-
   .action-button.baja {
-    background-color: #8b0000;
+    background-color: var(--cancel-button);
   }
 
   .action-button.baja:hover {
-    background-color: #600000;
+    background-color: var(--cancel-button-hover);
   }
-
-  .action-button.alta {
-    background-color: #2c3e50;
-  }
-
-  .action-button.alta:hover {
-    background-color: #1b2a41;
-  }
-
-  .action-button.movimientos {
-    background-color: #003559;
-  }
-
-  .action-button.movimientos:hover {
-    background-color: #0061a5;
-  }
-
 
   table {
     width: 90%;
@@ -179,17 +148,8 @@ body {
   }
 
   .go-back {
-    background-color: var(--secondary-color);
-    border: none;
-    color: white;
-    cursor: pointer;
     padding: 10px 15px;
     margin: 20px;
-    border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
   }
 
-  .go-back:hover {
-    background-color: var(--button-hover);
-  }

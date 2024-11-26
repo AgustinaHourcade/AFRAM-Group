@@ -18,7 +18,7 @@ export class ListRatesComponent implements OnInit{
 
   private rateService = inject(InterestRatesService);
   private fb = inject(FormBuilder);
-  private route = inject(Router);
+  // private route = inject(Router);
   rates: Array<InterestRates> = [];
   flag = false;
 
@@ -44,12 +44,11 @@ export class ListRatesComponent implements OnInit{
 
     Swal.fire({
       title: `¿Está seguro que desea crear una nueva tasa de interes?`,
-      text: 'Esta tasa sera utilizada para los futuros prestamos y plazos fijos',
+      text: 'Esta tasa será utilizada para los futuros préstamos y plazos fijos.',
       icon: 'question',
-      iconColor: '#0077b6',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#00b4d8',
+      cancelButtonColor: "#e63946",
       confirmButtonText: 'Sí, confirmar',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
@@ -59,7 +58,8 @@ export class ListRatesComponent implements OnInit{
             Swal.fire({
               title: 'Nueva tasa creada correctamente!',
               icon: 'success',
-              confirmButtonText: 'Aceptar'
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
             })
           },
           error: (e: Error) =>{
