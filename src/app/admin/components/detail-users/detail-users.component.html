@@ -29,7 +29,7 @@
       </div>
       <div class="action-buttons">
         <div>
-            <button class="action-button cuentas" (click)="loadAccounts()">Ver Cuentas</button>
+            <button class="action-button cuentas" (click)="loadAccounts()" >Ver Cuentas</button>
         </div>
 
         <div>
@@ -52,7 +52,7 @@
     <h2>Cuentas de {{user?.real_name}}</h2>
 <table>
   <thead>
-    <tr>
+    <tr  id="accounts">
       <th>Numero</th>
       <th>Tipo</th>
       <th>Fecha de apertura</th>

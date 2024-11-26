@@ -8,7 +8,7 @@
         <label for="real_name">Nombre <span class="required">*</span></label>
       </div>
       @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
       @if (formulario.controls['real_name'].getError('minlength') && formulario.controls['real_name'].touched) {
         <span class="error-message">Mínimo 2 caracteres</span>
@@ -21,7 +21,7 @@
         <label for="last_name">Apellido <span class="required">*</span></label>
       </div>
       @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
       @if (formulario.controls['last_name'].getError('minlength') && formulario.controls['last_name'].touched) {
         <span class="error-message">Mínimo 2 caracteres</span>
@@ -34,7 +34,7 @@
         <label for="name-user">Usuario <span class="required">*</span></label>
       </div>
       @if (formulario.controls['name_user'].getError('required') && formulario.controls['name_user'].touched) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
       @if (formulario.controls['name_user'].getError('minlength') && formulario.controls['name_user'].touched) {
         <span class="error-message">Mínimo 4 caracteres</span>
@@ -47,7 +47,7 @@
         <label for="dni">DNI <span class="required">*</span></label>
       </div>
       @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
       @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minLength')) {
         <span class="error-message">Mínimo 7 números</span>
@@ -64,7 +64,7 @@
       </div>
       @if (formulario.controls['email'].getError('required') &&
       formulario.controls['email'].touched) {
-      <span class="error-message"> Campo requerido </span>
+      <!-- <span class="error-message"> Campo requerido </span> -->
       }
     </div>
 
@@ -75,7 +75,7 @@
       </div>
       @if (formulario.controls['phone'].getError('required') &&
         formulario.controls['phone'].touched) {
-        <span class="error-message"> Campo requerido. </span>
+        <!-- <span class="error-message"> Campo requerido. </span> -->
       }
       @if (formulario.controls['phone'].getError('pattern') &&
         formulario.controls['phone'].touched) {
@@ -99,7 +99,7 @@
         </button>
       </div>
       @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
       @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
         <span class="error-message">Mínimo 6 caracteres</span>
@@ -124,7 +124,7 @@
         </button>
       </div>
       @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
       @if (formulario.controls['confirm_password'].touched && formulario.hasError('matchPasswords')) {
         <span class="error-message">Las contraseñas no coinciden</span>
@@ -135,7 +135,7 @@
     <div class="form-group">
       <div class="input-wrapper select-wrapper">
         <select id="user_type" formControlName="user_type">
-          <option value="" disabled selected hidden></option>
+          <option value="" disabled selected hidden >Seleccione una opcion</option>
           <option value="user">Usuario</option>
           <option value="admin">Administrador</option>
         </select>
@@ -143,7 +143,7 @@
         <span class="select-arrow"></span>
       </div>
       @if (formulario.controls['user_type'].touched && formulario.controls['user_type'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
+        <!-- <span class="error-message">Campo requerido</span> -->
       }
     </div>
 

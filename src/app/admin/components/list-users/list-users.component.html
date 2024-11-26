@@ -4,7 +4,7 @@
 <!-- Barra de filtración -->
 <form [formGroup]="filterForm" class="filter-bar">
   <input
-    type="text"
+    type="number"
     formControlName="dni"
     placeholder="Buscar por DNI"
     class="filter-input"
@@ -21,7 +21,7 @@
 </form>
 
 @if (clientsFilter.length === 0) {
-  <h2>No hay resultados que coincidan con la busqueda.</h2>
+  <h2>No hay resultados que coincidan con la búsqueda.</h2>
 }@else {
   <table >
     <thead>

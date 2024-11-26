@@ -28,7 +28,7 @@ export class ListAdminsComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (users) => {
         this.admins = users.filter(user => user.user_type === 'admin');
-        this.adminsFilter = [...this.admins]; // Inicializa el filtro con todos los administradores
+        this.adminsFilter = [...this.admins];
       },
       error: (e: Error) => {
         console.error(e.message);
@@ -39,7 +39,7 @@ export class ListAdminsComponent implements OnInit {
   }
 
   applyFilter() {
-    const dni = this.filterForm.get('dni')?.value.trim();
+    const dni = this.filterForm.get('dni')?.value.toString().trim();
     const lastName = this.filterForm.get('lastName')?.value.trim();
 
     this.adminsFilter = this.admins.filter((admin) => {
@@ -53,6 +53,6 @@ export class ListAdminsComponent implements OnInit {
 
   onClearFilter() {
     this.filterForm.reset();
-    this.adminsFilter = [...this.admins]; // Resetea los resultados del filtro
+    this.adminsFilter = [...this.admins];
   }
 }

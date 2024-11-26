@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { Transaction } from '../../../transactions/interface/transaction.interface';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TransactionService } from '../../../transactions/services/transaction.service';
 import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
 import { TransactionComponent } from '../../../transactions/components/transaction/transaction.component';
+import { AccountService } from '../../../accounts/services/account.service';
 
 @Component({
   selector: 'app-list-transaction',
@@ -24,15 +25,17 @@ export class ListTransactionComponent implements OnInit{
   pageSize = 4 ;
   currentPage = 1;
 
+  private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   // private userSessionService = inject(UserSessionService);
-  private trasnsactionService = inject(TransactionService);
+  private transactionService = inject(TransactionService);
+  private accountService = inject(AccountService);
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         this.id = Number (params.get('id'));
-            this.trasnsactionService.getTransactionsByAccountId(this.id).subscribe({
+            this.transactionService.getTransactionsByAccountId(this.id).subscribe({
               next: (transactions) =>{
                 this.transactions = transactions;
               }
@@ -76,5 +79,15 @@ export class ListTransactionComponent implements OnInit{
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
     }
+  }
+
+  goBack(){
+    this.accountService.getAccountById(Number(this.id)).subscribe({
+      next: (account) => {
+        this.router.navigate(['/detail-user/' + account.id])
+      },error: (err:Error)=>{
+        console.log(err.message);
+      }
+    })
   }
 }

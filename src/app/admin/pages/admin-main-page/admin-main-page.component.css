@@ -36,7 +36,6 @@
   }
 
   .dashboard-card {
-    background: white;
     border-radius: 12px;
     padding: 3.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -44,14 +43,14 @@
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    border: none;
+    border: solid 1px rgb(177, 177, 177);
     display: block;
   }
 
   .dashboard-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    background-color: #f8f9ff;
+    background-color: var(--extra-light-color);
   }
 
   .card-icon {

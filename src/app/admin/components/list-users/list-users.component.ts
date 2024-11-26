@@ -39,7 +39,7 @@ export class ListUsersComponent implements OnInit {
   }
 
   applyFilter() {
-    const dni = this.filterForm.get('dni')?.value.trim();
+    const dni = this.filterForm.get('dni')?.value.toString().trim();
     const lastName = this.filterForm.get('lastName')?.value.trim();
 
     this.clientsFilter = this.clients.filter((client) => {

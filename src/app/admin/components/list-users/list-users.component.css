@@ -10,7 +10,7 @@ body {
     text-align: center;
     color: #2c3e50;
     font-weight: bold;
-    padding-top: 40px;
+    margin-top: 40px;
   }
 
   table {
@@ -87,7 +87,7 @@ body {
   }
   
   .clear-button {
-    background-color: #f44336;
+    background-color: var(--cancel-button);
     color: #fff;
     border: none;
   }
@@ -95,3 +95,4 @@ body {
   .filter-button:hover {
     background-color: #0056
   }  
+

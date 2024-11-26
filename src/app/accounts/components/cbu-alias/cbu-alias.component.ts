@@ -34,7 +34,7 @@ export class CbuAliasComponent implements OnInit {
   fb = inject(FormBuilder);
 
   formulario = this.fb.nonNullable.group({
-    newAlias: ['', [Validators.required, Validators.maxLength(15)]]
+    newAlias: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5)]]
   })
 
   isEditing = false;
@@ -80,6 +80,15 @@ export class CbuAliasComponent implements OnInit {
     if(newAlias && newAlias.length > 15) {
       Swal.fire({
         title: 'La longitud máxima es de 15 caracteres.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
+      });
+    }
+
+    if(newAlias && newAlias.length < 5) {
+      Swal.fire({
+        title: 'La longitud mínima es de 5 caracteres.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#00b4d8'

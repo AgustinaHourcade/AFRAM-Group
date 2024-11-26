@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '../../../users/interface/user.interface';
@@ -79,13 +79,13 @@ export class DetailUsersComponent implements OnInit{
     this.accountService.getAccountsByIdentifier(Number (this.user?.id)).subscribe({
       next: (accounts) =>{
         this.accounts = accounts;
+        this.flag = true;
+        setTimeout(() => this.scrollToSection(), 100);
       },
       error: (e: Error) =>{
         console.log(e.message);
       }
     })
-
-    this.flag = true;
   }
 
   formatearFecha(date : Date){
@@ -163,6 +163,13 @@ export class DetailUsersComponent implements OnInit{
         });
       }
     });
+  }
+
+  scrollToSection() {
+    const section = document.getElementById('accounts');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 
 }

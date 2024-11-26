@@ -79,21 +79,24 @@ export class LoginComponent {
                 text: 'Puede ingresar como Administrator o como Cliente.',
                 icon: 'question',
                 showCancelButton: true,
+                showDenyButton: true,
                 confirmButtonColor: '#00b4d8',
-                cancelButtonColor: "#003559",
+                denyButtonColor: "#003559",
+                cancelButtonColor: "#e63946",
                 confirmButtonText: 'Cliente',
-                cancelButtonText: 'Administrador',
+                cancelButtonText: 'Cancelar',
+                denyButtonText: `Administrador`,
               }).then((result) => {
                 if (result.isConfirmed) {
                   this.userSessionService.setUserType('user');
                   this.router.navigate(['/main']);
-                } else {
+                } else if(result.isDenied) {
                   this.router.navigate(['/admin-main']);
                 }
-              });
-            } else {
-              this.router.navigate(['/main']);
-            }
+              });}
+            //  } else {
+            //   this.router.navigate(['/main']);
+            // }
           },
           error: (e: Error) => {
             console.log(e.message);
