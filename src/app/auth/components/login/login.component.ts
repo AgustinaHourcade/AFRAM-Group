@@ -85,6 +85,7 @@ export class LoginComponent {
                 cancelButtonText: 'Administrador',
               }).then((result) => {
                 if (result.isConfirmed) {
+                  this.userSessionService.setUserType('user');
                   this.router.navigate(['/main']);
                 } else {
                   this.router.navigate(['/admin-main']);

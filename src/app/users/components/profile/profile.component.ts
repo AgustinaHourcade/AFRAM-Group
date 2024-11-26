@@ -27,6 +27,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.sesionService.getUserId();
     this.type = this.sesionService.getUserType() as string;
+    console.log(this.type);
 
     if (this.userId !== undefined) {
       this.userService.getUser(this.userId).subscribe({

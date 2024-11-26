@@ -49,7 +49,7 @@
   </div>
 
   <div class="buttons">
-    <button class="cancel-button" >Cancelar</button>
+    <button  id="cancel" class="cancel-button" [routerLink]="['/list-loan']" >Cancelar</button>
     <button type="submit" class="submit-button" [disabled]="formulario.invalid">Confirmar</button>
   </div>
 </form>

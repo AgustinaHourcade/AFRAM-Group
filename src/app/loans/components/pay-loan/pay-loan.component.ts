@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LoanService } from '../../service/loan.service';
 import Swal from 'sweetalert2';
 import { Account } from '../../../accounts/interface/account.interface';
@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-pay-loan',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './pay-loan.component.html',
   styleUrl: './pay-loan.component.css',
 })
