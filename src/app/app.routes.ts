@@ -36,6 +36,7 @@ import { ProfileAdminPageComponent } from './admin/pages/profile-admin-page/prof
 import { UpdateProfileAdminPageComponent } from './admin/pages/update-profile-page/update-profile-admin-page.component';
 import { UpdatePasswordPageComponent } from './users/pages/update-password-page/update-password-page.component';
 import { UpdatePasswordAdminPageComponent } from './admin/pages/update-password-admin-page/update-password-admin-page.component';
+import { MySupportsComponent } from './support/components/my-supports/my-supports.component';
 
 
 export const routes: Routes = [
@@ -65,6 +66,7 @@ export const routes: Routes = [
     {path: 'cards', component: CardComponent, title: 'Mis tarjetas | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'newcard', component: NewcardComponent, title: 'Nueva tarjeta | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-users', component: ListUsersComponent, title: 'Lista Clientes | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'support', component: MySupportsComponent, title: 'Mis consultas | AFRAM Group', canActivate: [authGuardFn]},
     //Admin Routes
     {path: 'admin-main', component: AdminMainPageComponent, title: 'Home | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-admins', component: ListAdminsComponent, title: 'Lista Administradores | AFRAM Group', canActivate: [authGuardFn]},

@@ -1,0 +1,63 @@
+<app-navbar></app-navbar>
+
+@if(!new){
+  <div class="support-container">
+    <h2>Consultas activas:</h2>
+    @if (activesThreads.length === 0) {
+      <h3>No hay consultas activas</h3>
+    }
+
+    <div class="thread-list active">
+      @for (item of threads; track $index) {
+        @if(item.support_status === 'open'){
+          <div class="thread-item active">
+            <h3>{{ item.support_subject }}</h3>
+            <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+          </div>
+        }
+      }
+    </div>
+
+
+    <h2>Consultas finalizadas:</h2>
+
+    @if (finishedThreads.length === 0) {
+      <h3>No hay consultas finalizadas</h3>
+    }
+
+    <div class="thread-list closed">
+      @for (item of threads; track $index) {
+        @if(item.support_status === 'closed'){
+          <div class="thread-item closed">
+            <h3>{{ item.support_subject }}</h3>
+            <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+          </div>
+        }
+      }
+    </div>
+
+    <div class="new-thread-button">
+      <button (click)="new = true">Nueva Consulta</button>
+    </div>
+  </div>
+}@else {
+    <h2>Nueva consulta</h2>
+    <form [formGroup]="formulario" (ngSubmit)="postThread()">
+        <label for="support_subject">Seleccione el tema de su consulta:</label>
+        <select id="support_subject" name="support_subject" formControlName="support_subject">
+            <option value="Información sobre cuentas">Información sobre cuentas</option>
+            <option value="Tarjetas">Tarjetas</option>
+            <option value="Préstamos">Préstamos</option>
+            <option value="Seguridad y privacidad">Seguridad y privacidad</option>
+            <option value="Pagos y transferencias">Pagos y transferencias</option>
+            <option value="Servicios adicionales">Servicios adicionales</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <label for="message">Mensaje</label>
+        <input type="text" id="message" formControlName="message" placeholder="Explique brevemente su consulta">
+
+        <button type="submit">Enviar</button>
+
+    </form>
+}
