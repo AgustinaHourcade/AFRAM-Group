@@ -18,7 +18,8 @@ export class CardAccountComponent {
   @Output()
   navigateEvent = new EventEmitter<string>();
 
-  userSessionService = inject(UserSessionService);
+  private userSessionService = inject(UserSessionService);
+  
   userId: number = this.userSessionService.getUserId();
 
   onNavigate(){

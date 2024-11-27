@@ -44,7 +44,7 @@ export class SignupComponent{
     {
       name_user: ['', [Validators.required, Validators.minLength(4)]],
       last_name: ['', [Validators.required, Validators.minLength(2)]],
-      real_name: ['', [Validators.required, Validators.minLength(4)]],
+      real_name: ['', [Validators.required, Validators.minLength(3)]],
       dni: ['', [Validators.required, Validators.pattern('^[0-9]*$'), this.minLengthValidator(7), this.maxLengthValidator(8)]],
       hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
       confirm_password: ['', [Validators.required]]

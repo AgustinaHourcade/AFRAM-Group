@@ -27,11 +27,11 @@ export class CbuAliasComponent implements OnInit {
   account!: Account;
   user!: User;
 
-  router = inject(ActivatedRoute);
-  route = inject(Router)
-  userService = inject(UserService);
-  accountService = inject(AccountService);
-  fb = inject(FormBuilder);
+  private router = inject(ActivatedRoute);
+  // private route = inject(Router)
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
+  private fb = inject(FormBuilder);
 
   formulario = this.fb.nonNullable.group({
     newAlias: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5)]]

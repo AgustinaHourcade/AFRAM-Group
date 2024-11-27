@@ -24,7 +24,7 @@
     } {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}
   </p>
 
-  @if (!flag) {
+  @if (!flag && !isDownloading) {
   <button (click)="toggleFlag()">Ver comprobante</button>
   }
 

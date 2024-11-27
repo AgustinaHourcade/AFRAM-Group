@@ -15,6 +15,7 @@ import { ReceiptComponent } from '../receipt/receipt.component';
 export class TransactionComponent  implements OnInit{
   @Input() transaction!: Transaction;
   @Input() selectedAccountId!: number;
+  @Input() isDownloading: boolean = false; 
 
   ownAccountsId: number[] = [];
   destinatario: string = '';

@@ -73,14 +73,14 @@ export class ListRatesComponent implements OnInit{
     });
 
   }
-  showingBubble: string | null = null; // Controla cuál burbuja está visible
+  showingBubble: string | null = null; 
 
   showBubble(type: string) {
-    this.showingBubble = type; // Muestra la burbuja correspondiente
+    this.showingBubble = type; 
   }
 
   hideBubble() {
-    this.showingBubble = null; // Oculta la burbuja
+    this.showingBubble = null; 
   }
 
 }

@@ -14,12 +14,13 @@ import { Router } from '@angular/router';
   styleUrl: './new-account.component.css'
 })
 export class NewAccountComponent {
-  fb = inject(FormBuilder);
-  accountService = inject(AccountService);
-  userSessionService = inject(UserSessionService);
+  private fb = inject(FormBuilder);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+  private route = inject(Router)
+  
   user_id = this.userSessionService.getUserId();
-  route = inject(Router)
-
+  
   formulario = this.fb.nonNullable.group({
     account_type: ['', [Validators.required]],
   })

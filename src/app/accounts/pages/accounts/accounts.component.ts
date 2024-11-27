@@ -19,9 +19,9 @@ export class AccountsComponent {
   accounts: Array<Account> = [];
   userId: number = 0;
 
-  router = inject(Router);
-  userSessionService = inject(UserSessionService);
-  accountService = inject(AccountService);
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
