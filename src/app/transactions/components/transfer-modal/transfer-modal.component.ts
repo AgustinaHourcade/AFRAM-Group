@@ -1,6 +1,6 @@
-import { Component, EventEmitter, inject, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, Output, OnInit, Input } from '@angular/core';
 import { AccountService } from '../../../accounts/services/account.service';
-import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Account } from '../../../accounts/interface/account.interface';
 import { Router} from '@angular/router';
@@ -22,6 +22,7 @@ import Swal from 'sweetalert2';
 export class TransferModalComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
+  @Input() data: any;
   confirmar = false;
   account: any = null;
   flag: boolean = false;

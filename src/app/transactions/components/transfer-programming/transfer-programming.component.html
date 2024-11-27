@@ -1,0 +1,19 @@
+<div class="programming-container">
+    <h2>Programar Transferencia</h2>
+    <form [formGroup]="programmingForm" (ngSubmit)="onSubmit()">
+      <label for="transferDate">Fecha de transferencia:</label>
+      <input id="transferDate" type="date" formControlName="transferDate" />
+
+      <button type="submit" [disabled]="programmingForm.invalid">
+        Programar transferencia
+      </button>
+    </form>
+  
+    <app-transfer-modal
+      *ngIf="showModal"
+      [data]="modalData"
+      (close)="onCloseModal()"
+      (confirm)="onConfirmModal($event)"
+    ></app-transfer-modal>
+  </div>
+  

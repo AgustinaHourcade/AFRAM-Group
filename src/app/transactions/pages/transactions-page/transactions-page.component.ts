@@ -3,12 +3,13 @@ import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { Router } from '@angular/router';
 import { TransferModalComponent } from "../../components/transfer-modal/transfer-modal.component";
 import { CommonModule } from '@angular/common';
+import { TransferProgrammingComponent } from "../../components/transfer-programming/transfer-programming.component";
 
 
 @Component({
   selector: 'app-transactions-page',
   standalone: true,
-  imports: [NavbarComponent, TransferModalComponent, CommonModule],
+  imports: [NavbarComponent, TransferModalComponent, CommonModule, TransferProgrammingComponent],
   templateUrl: './transactions-page.component.html',
   styleUrl: './transactions-page.component.css'
 })
