@@ -19,6 +19,7 @@
     margin-bottom: 30px;
   }
 
+
   .thread-item {
     background-color: #fff;
     padding: 15px;
@@ -49,8 +50,9 @@
   }
 
   .new-thread-button {
-    text-align: center;
+    text-align: end;
     margin-top: 20px;
+    margin-right: 5%;
   }
 
   .new-thread-button button {
@@ -69,13 +71,19 @@
     background-color: #0056b3;
   }
 
+
+
   form {
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
-  }
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
   label {
     font-size: 16px;
@@ -113,3 +121,38 @@
     background-color: #fff;
     font-size: 16px;
   }
+
+  .submit-button button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .submit-button button:hover {
+    background-color: #0056b3;
+  }
+  
+  .volver-button {
+    text-align: end;
+    margin-top: 20px;
+    margin-left: 5%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.volver-button:hover {
+    background-color: #0056b3;
+}

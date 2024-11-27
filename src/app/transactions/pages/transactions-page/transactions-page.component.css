@@ -41,3 +41,45 @@
   transform: translateX(-100%);
   opacity: 0;
 }
+
+
+.dashboard-card {
+  border-radius: 12px;
+  padding: 3.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  border: solid 1px rgb(177, 177, 177);
+  display: block;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 300px));
+  gap: 5rem;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #1a237e;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.4;
+}
+

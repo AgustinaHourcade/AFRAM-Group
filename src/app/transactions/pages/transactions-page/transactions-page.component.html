@@ -1,4 +1,26 @@
 <app-navbar></app-navbar>
 
-<app-transfer-modal></app-transfer-modal>
-<app-transfer-programming></app-transfer-programming>
+@if(!appTransferModal && !appTransferProgramming){
+<div class="dashboard">
+    <div class="dashboard-grid">
+    <a (click)="openAppTransferModal()" class="dashboard-card">
+      <div class="card-icon">👥</div>
+      <h2 class="card-title">Transferir</h2>
+      <p class="card-description">Transfiere a quien quieras ahora.</p>
+    </a>
+
+    <a (click)="openAppTransferProgramming()" class="dashboard-card">
+      <div class="card-icon">🏦</div>
+      <h2 class="card-title">Programar transferencia</h2>
+      <p class="card-description">Programa tus transferencias para realizarlas mas adelante.</p>
+    </a>
+</div>
+</div>
+}
+    @if(appTransferModal){
+        <button (click)="closeAppTransferModal()"> Volver </button>
+        <app-transfer-modal></app-transfer-modal>
+    }@else if (appTransferProgramming){
+        <button (click)="closeAppTransferProgramming()"> Volver </button>
+        <app-transfer-programming></app-transfer-programming>
+    }

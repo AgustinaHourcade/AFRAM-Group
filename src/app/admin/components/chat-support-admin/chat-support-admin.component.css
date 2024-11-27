@@ -1,0 +1,151 @@
+/* Estilos generales del contenedor de chat */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f7fb;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Necesario para posicionar elementos dentro del contenedor */
+}
+
+/* Nombre del usuario arriba a la derecha */
+.user {
+    position: absolute;
+    top: 20%;
+    left: 21%;
+    font-size: 16px;
+    color: black;
+}
+
+/* Contenedor de mensajes */
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+/* Estilos generales de mensajes */
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.message-content {
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-width: 40%; 
+}
+
+/* Mensajes del usuario */
+.message.user-message .message-content {
+    background-color: #5d7a7a;
+    color: white;
+    align-self: flex-start;
+    margin-left: 10px;
+}
+
+/* Mensajes del administrador */
+.message.admin-message .message-content {
+    background-color: #a6dd7c;
+    color: white;
+    align-self: flex-end;
+    margin-right: 10px; 
+}
+
+/* Fecha/hora del mensaje */
+.message-time {
+    font-size: 10px;
+    color: #888;
+    position: absolute;
+    bottom: -20px;  
+    right: 10px;
+}
+
+/* Formulario de entrada de mensajes */
+.message-input-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+}
+
+.message-input:focus {
+    border-color: #007bff;
+}
+
+.send-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.send-button:hover {
+    background-color: #0056b3;
+}
+
+/* Botón Volver */
+.volver-button {
+    text-align: end;
+    margin-top: 20px;
+    margin-left: 5%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.volver-button:hover {
+    background-color: #0056b3;
+}
+
+/* Botón Finalizar */
+.finalizar-button {
+    margin-top: 20px;
+    margin-right: 5%;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px; /* Botón más compacto */
+    font-size: 14px;   /* Texto más pequeño */
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.finalizar-button:hover {
+    background-color: #a71d2a;
+}
+
+/* Contenedor de botones */
+.botones-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin-top: 20px;
+}

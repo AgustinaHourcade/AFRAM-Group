@@ -1,16 +1,19 @@
 <app-navbar></app-navbar>
 
 @if(!new){
+  <div class="new-thread-button">
+    <button (click)="new = true">Nueva Consulta</button>
+  </div>
   <div class="support-container">
     <h2>Consultas activas:</h2>
     @if (activesThreads.length === 0) {
       <h3>No hay consultas activas</h3>
     }
 
-    <div class="thread-list active">
+    <div class="thread-list active" >
       @for (item of threads; track $index) {
         @if(item.support_status === 'open'){
-          <div class="thread-item active">
+          <div class="thread-item active" [routerLink]="['/support-chat', item.id]">
             <h3>{{ item.support_subject }}</h3>
             <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
           </div>
@@ -28,7 +31,7 @@
     <div class="thread-list closed">
       @for (item of threads; track $index) {
         @if(item.support_status === 'closed'){
-          <div class="thread-item closed">
+          <div class="thread-item closed" [routerLink]="['/support-chat', item.id]">
             <h3>{{ item.support_subject }}</h3>
             <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
           </div>
@@ -36,11 +39,11 @@
       }
     </div>
 
-    <div class="new-thread-button">
-      <button (click)="new = true">Nueva Consulta</button>
-    </div>
   </div>
 }@else {
+
+    <button (click)="new = false" class="volver-button">Volver</button>
+
     <h2>Nueva consulta</h2>
     <form [formGroup]="formulario" (ngSubmit)="postThread()">
         <label for="support_subject">Seleccione el tema de su consulta:</label>
@@ -56,8 +59,9 @@
 
         <label for="message">Mensaje</label>
         <input type="text" id="message" formControlName="message" placeholder="Explique brevemente su consulta">
-
-        <button type="submit">Enviar</button>
+        <div class="submit-button">
+          <button type="submit">Enviar</button>
+        </div>
 
     </form>
 }

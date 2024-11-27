@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SupportService } from '../../service/support.service';
 import { MessageService } from '../../service/messages.service';
 import { Thread } from '../../interface/thread';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { UserSessionService } from '../../../auth/services/user-session.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-my-supports',
   standalone: true,
-  imports: [NavbarComponent, ReactiveFormsModule, CommonModule],
+  imports: [NavbarComponent, ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './my-supports.component.html',
   styleUrl: './my-supports.component.css'
 })
@@ -33,7 +33,7 @@ export class MySupportsComponent implements OnInit{
   ngOnInit(): void {
       this.id = this.sessionService.getUserId();
 
-      this.supportService.getThreadByUserId(this.id).subscribe({
+      this.supportService.getThreadsByUserId(this.id).subscribe({
         next: (threads) =>{
           this.threads = threads;
           this.loadThreads();
@@ -62,7 +62,7 @@ export class MySupportsComponent implements OnInit{
   postThread() {
     const support_subject = this.formulario.get('support_subject')?.value;
     const message = this.formulario.get('message')?.value;
-    console.log('EL ID:' + this.id);
+ 
     this.supportService.createThread(Number(this.id), support_subject as string).subscribe({
       next: (threadId) => {
         this.messageService.postMessage(threadId, 'user', message as string).subscribe({

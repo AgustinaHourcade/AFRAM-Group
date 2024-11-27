@@ -19,5 +19,8 @@ export class TransactionService {
     return this.http.post<number>(this.baseUrl, transaction);
   }
 
+  postFutureTransaction(transaction: Transaction): Observable<number> {
+    return this.http.post<number>(`${this.baseUrl}/future-transaction`, transaction);
+  }
   
 }

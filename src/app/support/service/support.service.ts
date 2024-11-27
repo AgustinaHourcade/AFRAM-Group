@@ -13,10 +13,13 @@ export class SupportService {
   private baseUrl = 'http://localhost:3000/support';
   private http = inject(HttpClient)
 
-  getThreadByUserId(user_id : Number) : Observable<Thread[]>{
+  getThreadsByUserId(user_id : Number) : Observable<Thread[]>{
     return this.http.get<Thread[]>(`${this.baseUrl}/user/${user_id}`);
   }
 
+  getThreadById(id: number): Observable<Thread> {
+    return this.http.get<Thread>(`${this.baseUrl}/${id}`);
+  }
 
   getAllThreads() : Observable<Thread[]>{
     return this.http.get<Thread[]>(`${this.baseUrl}`);
@@ -27,7 +30,7 @@ export class SupportService {
   }
 
   updateStatus(threadId:number, newStatus:string) : Observable<boolean>{
-    return this.http.put<boolean>(`${this.baseUrl}/status/${threadId}`, {newStatus});
+    return this.http.patch<boolean>(`${this.baseUrl}/status/${threadId}`, {newStatus});
   }
 
 }

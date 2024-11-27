@@ -1,19 +1,51 @@
 <div class="programming-container">
     <h2>Programar Transferencia</h2>
-    <form [formGroup]="programmingForm" (ngSubmit)="onSubmit()">
-      <label for="transferDate">Fecha de transferencia:</label>
-      <input id="transferDate" type="date" formControlName="transferDate" />
-
-      <button type="submit" [disabled]="programmingForm.invalid">
-        Programar transferencia
-      </button>
+    <form [formGroup]="amount">
+      <label for="transaction_date">Fecha de transferencia:</label>
+      <input id="transaction_date" type="date" formControlName="transaction_date" [min]="minDate" [max]="maxDate" />
     </form>
-  
-    <app-transfer-modal
-      *ngIf="showModal"
-      [data]="modalData"
-      (close)="onCloseModal()"
-      (confirm)="onConfirmModal($event)"
-    ></app-transfer-modal>
+    <div class="modal">    
+      <form [formGroup]="newRecipientForm" (ngSubmit)="searchAccount()">
+        <label for="searchType">Buscar por:</label>
+        <select formControlName="searchType" id="searchType">
+          <option value="cbu">CBU</option>
+          <option value="alias">Alias</option>
+        </select>
+    
+        <div *ngIf="newRecipientForm.get('searchType')?.value === 'cbu'">
+          <input formControlName="accountSearch" placeholder="Ingrese CBU" />
+          <button type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
+        </div>
+    
+        <div *ngIf="newRecipientForm.get('searchType')?.value === 'alias'">
+          <input formControlName="accountSearch" placeholder="Ingrese Alias" />
+          <button type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
+        </div>
+      </form>
+    
+      <form [formGroup]="amount" (ngSubmit)="realizarTransfer()">
+        <div *ngIf="flag">
+          <p>Titular: {{ userDestino.last_name }}, {{ userDestino.real_name }}</p>
+          <p>CBU: {{ account.cbu }}</p>
+          <p>Alias: {{ account.alias }}</p>
+    
+          <label for="cuentas">Seleccione una cuenta</label>
+          <select name="cuentas" id="cuentas" formControlName="selectedAccountId">
+            @for (item of accounts; track $index) {
+              @if (!item.closing_date) {
+              <option [value]="item.id">
+                  {{ item.id }} - {{ item.balance }}
+              </option>
+              }
+            }
+          </select>
+    
+          <label for="cantidad">Ingrese cantidad a transferir: </label>
+          <input type="number" id="cantidad" formControlName="amountToTransfer" min="1" />
+          <button type="button" (click)="realizarTransfer()" >Continuar</button>
+        </div>
+    
+      </form>
+    </div>
   </div>
   

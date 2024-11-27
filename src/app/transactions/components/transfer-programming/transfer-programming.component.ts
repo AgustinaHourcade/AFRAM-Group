@@ -1,36 +1,216 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TransferModalComponent } from '../transfer-modal/transfer-modal.component';
+import { TransactionService } from '../../services/transaction.service';
+import { Transaction } from '../../interface/transaction.interface';
+import { Account } from '../../../accounts/interface/account.interface';
+import { Router} from '@angular/router';
+import { User } from '../../../users/interface/user.interface';
+import { UserService } from '../../../users/services/user.service';
+import { UserSessionService } from '../../../auth/services/user-session.service';
+import { EmailService } from '../../../email/service/email.service';
+import { AccountService } from '../../../accounts/services/account.service';
+
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-transfer-programming',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TransferModalComponent],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './transfer-programming.component.html',
   styleUrls: ['./transfer-programming.component.css'],
 })
-export class TransferProgrammingComponent {
+export class TransferProgrammingComponent implements OnInit {
+
+  @Output() close = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
+  @Input() data: any;
+  @Output() transactionConfirmed = new EventEmitter<Transaction>();
+  confirmar = false;
+  account: any = null;
+  flag: boolean = false;
+  errorMessage: string = '';
+  user!: User;
+  userDestino !: User;
+  accounts!: Array<Account>;
+  id !: number;
+  origen!: Account;
+  fechaValida: boolean = false;
+
+  private router = inject(Router);
+  private userSessionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
+  private emailService = inject(EmailService);
+  private montoTransferencia: number | null | undefined = 0
   private fb = inject(FormBuilder);
 
   showModal: boolean = false;
+  minDate: string = '';
+  maxDate: string = '';
+  currentDate = Date.now();
+  dateFromTimestamp: Date = new Date(this.currentDate);
+  transferDate !: Date;
 
-  programmingForm = this.fb.group({
-    transferDate: ['', Validators.required],
+  ngOnInit(): void {
+    this.id = this.userSessionService.getUserId();
+    this.userService.getUser(this.id).subscribe({
+      next: (user) => {
+          this.user = user;
+      },error: (e : Error) =>{
+        console.log(e.message);
+      }
+    })
+    this.cargarCuentas();
+    this.setDateRange();
+  }
+  newRecipientForm = this.fb.group({
+    searchType: ['alias', Validators.required],
+    accountSearch: ['', Validators.required],
   });
 
-  modalData: any = null;
+  amount = this.fb.group({
+    amountToTransfer: [1, [Validators.required, Validators.min(1)]],
+    selectedAccountId: ['', [Validators.required]],
+    transaction_date: ['', [Validators.required]]
+  });
 
-  onSubmit() {
-    if (this.programmingForm.invalid) {
-      return;
+  modalData: Transaction | null = null;
+
+    realizarTransfer() {
+      const selectedAccountId = this.amount.get('selectedAccountId')?.value;
+      const selectedAccount = this.accounts.find(
+        (account) => account.id === Number(selectedAccountId)
+      );
+      this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
+  
+      if(selectedAccount?.id == this.account?.id){
+        Swal.fire({
+          text: 'No puede hacer una transferencia a la cuenta de origen.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#00b4d8'
+        });
+        return;
+      }
+  
+      if (!selectedAccount) {
+        Swal.fire({
+          text: 'Seleccione una cuenta de origen.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#00b4d8',
+        });
+        return;
+      }
+  
+      if(this.montoTransferencia as number < 1 ){
+        Swal.fire({
+          text: 'El monto mínimo para transferir es de $1.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#00b4d8'
+        })
+        return;
+      }
+  
+      if (this.montoTransferencia! > selectedAccount.balance) {
+        Swal.fire({
+          text: 'Saldo insuficiente',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#00b4d8'
+        });
+        this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
+        return;
+      }
+  
+      Swal.fire({
+        text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, transferir',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#00b4d8',
+        cancelButtonColor: "#e63946"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const transferDateValue = this.amount.get('transferDate')?.value;
+          this.transferDate = transferDateValue ? new Date(transferDateValue) : new Date();
+
+          const transactionData = {
+            amount: this.montoTransferencia as number,
+            source_account_id: selectedAccount.id ,
+            destination_account_id: this.account?.id,
+            transaction_type: 'transfer',
+            transaction_date: transferDateValue,
+            is_paid: 'no'
+          };
+        
+          // Emite la transacción cargada al padre
+          // this.transactionConfirmed.emit(transactionData as Transaction);
+  
+          // this.transactionService.postFutureTransaction(transactionData as Transaction).subscribe({
+          //   next: () => {
+          //     Swal.fire({
+          //       text: '¡Transferencia programada!',
+          //       icon: 'success',
+          //       confirmButtonText: 'Aceptar',
+          //       confirmButtonColor: '#00b4d8'
+          //     });
+  
+            //   if (this.user.email) {
+            //     this.emailService
+            //       .sendTransferEmail(
+            //         this.user.email,
+            //         this.montoTransferencia!,
+            //         selectedAccount.user_id,
+            //         this.account?.id
+            //       )
+            //       .subscribe({
+            //         next: () => console.log('Correo de notificación enviado'),
+            //         error: (error: Error) => console.log('Error al enviar el correo:', error),
+            //       });
+            //   }
+          //    },
+          //   error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
+          // });
+
+          
+          if( this.dateFromTimestamp === transactionData.transaction_date){
+
+            Swal.fire({
+              title: 'Se realizo la transferencia programada!',
+              text: `Se te descontaron $${transactionData.amount}.`,
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
+            });
+            const newAmount = -1 * (this.montoTransferencia as number);
+            this.accountService.updateBalance(newAmount, selectedAccount.id).subscribe({
+              next: (flag) => {
+                if (flag) console.log('Saldo actualizado en la cuenta de origen');
+              },
+              error: (e: Error) => console.log(e.message),
+            });
+            
+            this.accountService.updateBalance(this.montoTransferencia as number, this.account?.id).subscribe({
+              next: (flag) => {
+                if (flag) console.log('Saldo actualizado en la cuenta de destino');
+              },
+              error: (e: Error) => console.log(e.message),
+            });
+            
+            this.router.navigate(['my-transactions']);
+
+          
+          }
+        }
+      });
     }
-
-    this.modalData = this.programmingForm.getRawValue();
-
-    this.showModal = true;
-  }
-
+  
   onCloseModal() {
     this.showModal = false;
   }
@@ -38,5 +218,110 @@ export class TransferProgrammingComponent {
   onConfirmModal(event: any) {
     console.log('Transferencia confirmada:', event);
     this.showModal = false;
+  }
+
+  setDateRange() {
+    const today = new Date();
+    const nextMonth = new Date(today);
+    nextMonth.setMonth(today.getMonth() + 1);
+
+    this.minDate = today.toISOString().split('T')[0];
+    this.maxDate = nextMonth.toISOString().split('T')[0];
+  }
+
+  searchAccount() {
+    const searchType = this.newRecipientForm.get('searchType')?.value;
+    const accountSearchValue = this.newRecipientForm.get('accountSearch')?.value;
+
+    if (searchType === 'cbu') {
+      this.accountService.getAccountByCbu(accountSearchValue).subscribe({
+        next: (id) => {
+          this.accountService.getAccountById(id).subscribe({
+            next: (account) => {
+              this.account = account;
+              if(this.account.closing_date){
+                this.account = null;
+                Swal.fire({
+                  title: 'Cuenta no encontrada',
+                  icon: 'error'
+                })
+              }
+                if (this.account && this.account.user_id) {
+                  this.userService.getUser(this.account.user_id).subscribe({
+                    next: (user) => {
+                      this.userDestino = user;
+                      this.flag = true;
+                    },
+                    error: (error: Error) => {
+                      console.log('Error al obtener el usuario:', error);
+                    },
+                  });
+                }
+              },
+              error: (error: Error) => {
+              console.log('Error al obtener la cuenta por ID:', error);
+            },
+          });
+        },
+        error: () => {
+          this.errorMessage = 'Cuenta no encontrada.';
+          this.account = null;
+        },
+      });
+    } else if (searchType === 'alias') {
+      this.accountService.getAccountByAlias(accountSearchValue).subscribe({
+        next: (id) => {
+          this.accountService.getAccountById(id).subscribe({
+            next: (account) => {
+              this.account = account;
+              if(this.account.closing_date){
+                this.account = null;
+                Swal.fire({
+                  title: 'Cuenta no encontrada',
+                  icon: 'error'
+                })
+              }
+                if (this.account && this.account.user_id) {
+                  this.userService.getUser(this.account.user_id).subscribe({
+                    next: (user) => {
+                      this.userDestino = user;
+                      this.flag = true;
+                    },
+                    error: (error: Error) => {
+                      console.log('Error al obtener el usuario:', error);
+                    },
+                  });
+                }
+            },
+            error: (error: Error) => {
+              console.log('Error al obtener la cuenta por ID:', error);
+            },
+          });
+        },
+        error: () => {
+          Swal.fire({
+            text: 'Cuenta no encontrada.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
+          });
+          this.errorMessage = 'Error al buscar la cuenta.';
+          this.account = null;
+        },
+      });
+    }
+
+  }
+
+  cargarCuentas() {
+    this.accountService.getAccountsByIdentifier(this.id).subscribe({
+      next: (accounts: Account[]) => {
+        this.accounts = accounts;
+        console.log(this.accounts);
+      },
+      error: (error: Error) => {
+        console.error('Error fetching accounts:', error);
+      },
+    });
   }
 }

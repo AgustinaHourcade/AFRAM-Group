@@ -37,6 +37,9 @@ import { UpdateProfileAdminPageComponent } from './admin/pages/update-profile-pa
 import { UpdatePasswordPageComponent } from './users/pages/update-password-page/update-password-page.component';
 import { UpdatePasswordAdminPageComponent } from './admin/pages/update-password-admin-page/update-password-admin-page.component';
 import { MySupportsComponent } from './support/components/my-supports/my-supports.component';
+import { ChatSupportComponent } from './support/components/chat-support/chat-support.component';
+import { SupportThreadsComponent } from './admin/components/support-threads/support-threads.component';
+import { ChatSupportAdminComponent } from './admin/components/chat-support-admin/chat-support-admin.component';
 
 
 export const routes: Routes = [
@@ -67,6 +70,7 @@ export const routes: Routes = [
     {path: 'newcard', component: NewcardComponent, title: 'Nueva tarjeta | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-users', component: ListUsersComponent, title: 'Lista Clientes | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'support', component: MySupportsComponent, title: 'Mis consultas | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'support-chat/:thread_id', component: ChatSupportComponent, title: 'Consulta | AFRAM Group', canActivate: [authGuardFn]},
     //Admin Routes
     {path: 'admin-main', component: AdminMainPageComponent, title: 'Home | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-admins', component: ListAdminsComponent, title: 'Lista Administradores | AFRAM Group', canActivate: [authGuardFn]},
@@ -78,6 +82,8 @@ export const routes: Routes = [
     {path: 'update-profile-admin', component: UpdateProfileAdminPageComponent, title: 'Actualizar perfil | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'admin-profile', component: ProfileAdminPageComponent, title: 'Ver perfil | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'update-password-admin', component: UpdatePasswordAdminPageComponent, title: 'Cambiar contraseña | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'admin-support', component: SupportThreadsComponent, title: 'Soporte | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'admin-support-chat/:thread_id', component: ChatSupportAdminComponent, title: 'Consulta | AFRAM Group', canActivate: [authGuardFn]},
     {path: '**', redirectTo: ''}
 ];
 
