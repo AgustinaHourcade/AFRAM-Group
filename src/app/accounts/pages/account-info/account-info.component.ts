@@ -32,13 +32,13 @@ export class AccountInfoComponent implements OnInit{
   today: Date = new Date();
   isLastDayOfMonth: boolean = false;
   isDownloading = false;
-
+  
   private fb = inject(FormBuilder);
   private transactionService = inject(TransactionService);
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
   private router = inject(ActivatedRoute);
-
+  
   dateForm = this.fb.nonNullable.group({
     monthYear: ['']
   });
@@ -65,10 +65,6 @@ export class AccountInfoComponent implements OnInit{
     });
 
     this.updateLastDayCheck();
-  }
-
-  ngAfterViewInit() {
-    console.log("child" + this.transactionComponent); // Esto debería mostrar el componente hijo en la consola.
   }
 
   setDefaultMonthYear() {
@@ -162,9 +158,10 @@ export class AccountInfoComponent implements OnInit{
         logoImg.src = logoUrl;
 
         logoImg.onload = () => {
-          const logoWidth = 3.125;
-          const logoHeight = 1.5625;
+          const logoWidth = 2.5;
+          const logoHeight = 1.25;
           const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
+          console.log(xPos + "cs");
           const yPos = 0.5;
           pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
 
@@ -189,10 +186,25 @@ export class AccountInfoComponent implements OnInit{
             ? monthYear.replace('-', '_')
             : 'default_date';
 
-          const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
 
-          pdf.setFontSize(14);
-          pdf.text(accountDetails, 0.5, 1.5);
+            const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
+
+            // Establecer tipo de fuente, tamaño y color negro
+            pdf.setFont('courier', 'normal');  // Fuente sin negrita para un estilo más limpio
+            pdf.setFontSize(12);  // Tamaño más grande para el encabezado
+            pdf.setTextColor(0, 0, 0);  // Color negro (RGB: 0, 0, 0)
+            
+            // Agregar el texto con márgenes adecuados
+            pdf.text(accountDetails, 0.5, 1); // Ajusté la posición para que se vea bien centrado
+            
+            const linePositionY = 1.6; // Coloca la línea 0.25 unidades más abajo que el texto
+
+            // Dibuja la línea horizontal debajo del texto
+            pdf.setDrawColor(0, 0, 0); // Negro
+            pdf.setLineWidth(0.01); // Grosor de la línea
+            pdf.line(0.5, linePositionY, pdf.internal.pageSize.getWidth() - 0.5, linePositionY); //
+            
+
 
           pdf.save(`Resumen-${this.accountId}-${formattedDate}.pdf`);
 
@@ -208,4 +220,6 @@ export class AccountInfoComponent implements OnInit{
 
     });
   }
+  
+  
 }
