@@ -9,7 +9,7 @@ import { Transaction } from '../../transactions/interface/transaction.interface'
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Account } from '../../accounts/interface/account.interface';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, forkJoin, of } from 'rxjs';
 import { Card } from '../../cards/interface/card';
 import { CardService } from '../../cards/service/card.service';
 import { DolarComponent } from "../../shared/dolar/components/dolar.component";
@@ -71,6 +71,7 @@ export class MainPageComponent implements OnInit {
     this.userId = this.userSessionService.getUserId();
     this.getAccounts();
     this.verifyFixedTerms();
+    this.verifyTransferProgramming();
     this.getCards();
   }
   
@@ -206,15 +207,8 @@ export class MainPageComponent implements OnInit {
   compareDateWithNow(dateString: string): boolean {
     const dateFromDatabase = new Date(dateString);
     const currentDate = new Date();
-  
-    const isBeforeOrEqual = 
-      dateFromDatabase.getFullYear() < currentDate.getFullYear() ||
-      (dateFromDatabase.getFullYear() === currentDate.getFullYear() &&
-        (dateFromDatabase.getMonth() < currentDate.getMonth() ||
-          (dateFromDatabase.getMonth() === currentDate.getMonth() &&
-            dateFromDatabase.getDate() <= currentDate.getDate())));
-  
-    return isBeforeOrEqual;
+    
+    return dateFromDatabase <= currentDate;
   }
 
   private loadTransactions(accountId: number): Observable<Transaction[]> {
@@ -258,4 +252,84 @@ export class MainPageComponent implements OnInit {
       lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }
+
+  private verifyTransferProgramming() {
+    this.transactionService.getTransactionsByAccountId(this.userId).subscribe({
+      next: (transactions) => {
+        this.transactions = transactions;
+        let programmingTransfer = false;
+        this.transactions.forEach((item) => {
+          if (item.is_paid === 'no' && this.compareDateWithNow(item.transaction_date.toDateString())) {
+            programmingTransfer = true;
+            this.processTransferProgramming(item);
+          }
+        });
+        if (programmingTransfer) {
+          this.getAccounts();
+        }
+      },
+      error: (err: Error) => {
+        console.log(err.message);
+      },
+    });
+  }
+  
+  private processTransferProgramming(item: Transaction) {
+    const amount = Number(item.amount);
+  
+    const updateSourceAccount$ = this.accountService.updateBalance(-amount, item.source_account_id);
+    const updateDestinationAccount$ = this.accountService.updateBalance(amount, item.destination_account_id);
+  
+    forkJoin([updateSourceAccount$, updateDestinationAccount$]).subscribe({
+      next: ([sourceUpdated, destinationUpdated]) => {
+        if (sourceUpdated && destinationUpdated) {
+          this.markTransferProgrammingAsPaid(item);
+        } else {
+          console.error('Error actualizando saldos en las cuentas. Transferencia no completada.');
+        }
+      },
+      error: (err) => {
+        console.error('Error procesando la transferencia programada:', err);
+      },
+    });
+  }
+
+
+private markTransferProgrammingAsPaid(item: Transaction) {
+  this.transactionService.setPayTransferProgramming(item.id as number).subscribe({
+    next: () => {
+      console.log('Transferencia marcada como pagada correctamente');
+      this.createProgrammingTransaction(item);
+    },
+    error: (error: Error) => {
+      console.error('Error al marcar la transferencia como pagada:', error);
+    },
+  });
+}
+
+private createProgrammingTransaction(item: Transaction) {
+  const transaction = {
+    amount: item.amount,
+    source_account_id: item.source_account_id,
+    destination_account_id: item.destination_account_id,
+    transaction_type: 'transfer',
+  };
+
+  console.log('Posting transaction:', transaction);
+
+  this.transactionService.postTransaction(transaction as Transaction).subscribe({
+    next: () => {
+      Swal.fire({
+        title: 'Se ha realizado una transaccion programada pendiente!',
+        text: `Puede ver el detalle en "transacciones".`,
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
+      });
+    },
+    error: (error: Error) => {
+      console.log('Error posting transaction:', error.message);
+    },
+  });
+}
 }

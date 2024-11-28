@@ -142,6 +142,17 @@ export class TransferProgrammingComponent implements OnInit {
         return;
       }
     
+      Swal.fire({
+        text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id},
+        para el dia ${transaction_date_value}`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, transferir',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#00b4d8',
+        cancelButtonColor: "#e63946"
+      }).then((result) => {
+        if (result.isConfirmed) {
       const transaction_date = new Date(transaction_date_value);
       console.log(transaction_date);
 
@@ -171,10 +182,8 @@ export class TransferProgrammingComponent implements OnInit {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#00b4d8',
           });
-          this.dateForm.reset();
-          this.amount.reset();
-          this.newRecipientForm.reset();
-    
+          this.router.navigate(['my-transactions']);
+        
           // if (this.user.email) {
           //   this.emailService
           //     .sendTransferEmail(
@@ -192,7 +201,7 @@ export class TransferProgrammingComponent implements OnInit {
         error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
       });
     }
-  
+  })};
 
   setDateRange() {
     const today = new Date();
@@ -305,10 +314,14 @@ export class TransferProgrammingComponent implements OnInit {
       this.scrollToBottom();
     }, 150);
   }
+  
   scrollToBottom() {
     const lastElement = document.querySelector('.search');
     if (lastElement) {
       lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }
+
+
+
 }

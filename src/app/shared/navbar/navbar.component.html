@@ -3,7 +3,7 @@
     <img src="/logo-navbar.png" alt="Logo del Banco" class="logo-image" />
   </a>
   <ul class="nav-links">
-
+    
     <li class="account-dropdown" [ngClass]="{'show-menu': activeMenu === 'account'}">
       <a class="dropdown-link" (click)="toggleMenu('account')">Cuentas</a>
       <ul class="account-menu">
@@ -11,12 +11,25 @@
         <li><a routerLink="/accounts/new-account">Solicitar cuenta</a></li>
       </ul>
     </li>
-
-    <li class="fixed-terms-dropdown" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
-      <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo</a>
-      <ul class="fixed-terms-menu">
-        <li><a routerLink="/fixed-terms">Mis plazos fijos</a></li>
-        <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
+    
+    <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'investments'}">
+      <a class="dropdown-link" (mouseenter)="toggleMenu('investments')" (mouseleave)="toggleMenu('')">Inversiones</a>
+      <ul class="submenu">
+        <li><a routerLink="/trading">Dólares</a></li>
+        <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
+          <a class="dropdown-link" (mouseenter)="toggleMenu('fixedterms')" (mouseleave)="toggleMenu('')">Plazo fijo</a>
+          <ul class="submenu">
+            <li><a routerLink="/fixed-terms">Mis plazos fijos</a></li>
+            <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
+          <a class="dropdown-link" (mouseenter)="toggleMenu('loans')" (mouseleave)="toggleMenu('')">Préstamos</a>
+          <ul class="submenu">
+            <li><a routerLink="/list-loan">Mis préstamos</a></li>
+            <li><a routerLink="/new-loan">Solicitar préstamo</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
 
@@ -33,14 +46,6 @@
       <ul class="cards-menu">
         <li><a routerLink="/cards">Mis tarjetas</a></li>
         <li><a routerLink="/newcard">Nueva tarjeta</a></li>
-      </ul>
-    </li>
-
-    <li class="loans-dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
-      <a class="loans-link dropdown-link" (click)="toggleMenu('loans')">Préstamos</a>
-      <ul class="loans-menu">
-        <li><a routerLink="/list-loan">Mis préstamos</a></li>
-        <li><a routerLink="/new-loan">Solicitar préstamo</a></li>
       </ul>
     </li>
 

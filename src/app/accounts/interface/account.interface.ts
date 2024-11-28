@@ -8,4 +8,5 @@ export interface Account {
     account_type: 'Checking' | 'Savings';
     overdraft_limit: number;
     user_id: number;
+    currency: 'ars' | 'usd' ;
   }

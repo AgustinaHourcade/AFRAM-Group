@@ -6,5 +6,10 @@
     <h3>Cuenta corriente</h3>
     <p>{{ account.id }}-{{ userId }}/2</p>
     }
-    <p class="balance-number">{{ account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
+    @if (account.currency === 'ars'){
+        <p class="balance-number">{{ account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
+    }
+    @if (account.currency === 'usd'){
+        <p class="balance-number">U<span>$</span>S  {{ account.balance | number:'1.2-2' }}</p>
+    }
 </div>

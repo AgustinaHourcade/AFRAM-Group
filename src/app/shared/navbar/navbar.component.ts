@@ -22,11 +22,13 @@ export class NavbarComponent implements OnInit{
   private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
 
-  activeMenu: string | null = null;
+  // activeMenu: string | null = null;
   type !: string;
+  
+  activeMenu: string = '';
 
-  toggleMenu(menu: string) {
-    this.activeMenu = this.activeMenu === menu ? null : menu;
+  toggleMenu(menu: string): void {
+    this.activeMenu = this.activeMenu === menu ? '' : menu;
   }
 
   logout(): void {

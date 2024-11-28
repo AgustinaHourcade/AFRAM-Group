@@ -40,6 +40,7 @@ import { MySupportsComponent } from './support/components/my-supports/my-support
 import { ChatSupportComponent } from './support/components/chat-support/chat-support.component';
 import { SupportThreadsComponent } from './admin/components/support-threads/support-threads.component';
 import { ChatSupportAdminComponent } from './admin/components/chat-support-admin/chat-support-admin.component';
+import { TradingComponent } from './accounts/components/trading/trading.component';
 
 
 export const routes: Routes = [
@@ -71,6 +72,7 @@ export const routes: Routes = [
     {path: 'list-users', component: ListUsersComponent, title: 'Lista Clientes | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'support', component: MySupportsComponent, title: 'Mis consultas | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'support-chat/:thread_id', component: ChatSupportComponent, title: 'Consulta | AFRAM Group', canActivate: [authGuardFn]},
+    {path: 'trading', component: TradingComponent, title: 'Compra-venta dolares  | AFRAM Group', canActivate: [authGuardFn]},
     //Admin Routes
     {path: 'admin-main', component: AdminMainPageComponent, title: 'Home | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'list-admins', component: ListAdminsComponent, title: 'Lista Administradores | AFRAM Group', canActivate: [authGuardFn]},

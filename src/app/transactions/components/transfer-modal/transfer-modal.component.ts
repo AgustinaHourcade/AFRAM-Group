@@ -238,16 +238,7 @@ export class TransferModalComponent implements OnInit {
           destination_account_id: this.account?.id,
           transaction_type: 'transfer'
         };
-        this.transactionData = {
-          id: 0,
-          amount: this.montoTransferencia as number,
-          source_account_id: selectedAccount.id,
-          destination_account_id: this.account?.id,
-          transaction_type: 'transfer',
-          transaction_date: new Date(),
-          is_paid: 'no'
-        };
-      
+        
         // Emite la transacción cargada al padre
         this.transactionConfirmed.emit(this.transactionData);
 

@@ -23,4 +23,7 @@ export class TransactionService {
     return this.http.post<number>(`${this.baseUrl}/future-transaction`, transaction);
   }
   
+  setPayTransferProgramming(id: number): Observable<boolean>{
+    return this.http.patch<boolean>(`${this.baseUrl}/is-paid`, {id})
+  }
 }

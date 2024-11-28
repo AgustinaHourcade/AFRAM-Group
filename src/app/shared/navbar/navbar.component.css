@@ -5,8 +5,6 @@
   padding: 10px;
   color: white;
   justify-content: space-between;
-  /* position: sticky;
-  top: 0px; */
 }
 
 .logo {
@@ -31,6 +29,7 @@
 
 .nav-links li {
   position: relative;
+  list-style: none;
 }
 
 .nav-links a {
@@ -43,52 +42,106 @@
   color: #fff;
 }
 
+/* Menús desplegables */
 .account-menu,
 .fixed-terms-menu,
 .profile-menu,
 .loans-menu,
-.cards-menu {
-  display: none;
+.cards-menu,
+.transactions-menu,
+.submenu {
+  display: none; /* Oculto por defecto */
   position: absolute;
   top: 100%;
   left: 0;
   background-color: var(--primary-color);
-  list-style: none;
   padding: 10px 0;
   min-width: 150px;
-  z-index: 100;
   border-radius: 5px;
+  z-index: 1000;
 }
 
-.nav-links li:hover ul {
-  display: block;
+.nav-links li:hover > .submenu,
+.nav-links li:hover > .account-menu,
+.nav-links li:hover > .fixed-terms-menu,
+.nav-links li:hover > .profile-menu,
+.nav-links li:hover > .loans-menu,
+.nav-links li:hover > .cards-menu,
+.nav-links li:hover > .transactions-menu {
+  display: block; /* Mostrar menú al pasar el cursor */
 }
 
+.submenu li,
 .account-menu li,
 .fixed-terms-menu li,
 .profile-menu li,
 .loans-menu li,
-.cards-menu li {
+.cards-menu li,
+.transactions-menu li {
   width: 100%;
+  border-bottom: 1px solid #003366;
 }
 
+.submenu li:last-child,
+.account-menu li:last-child,
+.fixed-terms-menu li:last-child,
+.profile-menu li:last-child,
+.loans-menu li:last-child,
+.cards-menu li:last-child,
+.transactions-menu li:last-child {
+  border-bottom: none;
+}
+
+.submenu a,
 .account-menu a,
 .fixed-terms-menu a,
 .profile-menu a,
 .loans-menu a,
-.cards-menu a {
+.cards-menu a,
+.transactions-menu a {
   color: white;
   text-decoration: none;
   padding: 10px;
   display: block;
+  white-space: nowrap;
 }
 
+.submenu a:hover,
 .account-menu a:hover,
 .fixed-terms-menu a:hover,
 .profile-menu a:hover,
-.loans-menu a:hover
-.cards-menu a:hover {
+.loans-menu a:hover,
+.cards-menu a:hover,
+.transactions-menu a:hover {
   background-color: var(--button-hover);
+}
+
+/* Submenús anidados */
+.dropdown .submenu {
+  display: none; /* Oculto por defecto */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown:hover > .submenu {
+  display: block; /* Mostrar submenú anidado al pasar el cursor */
+}
+
+.dropdown .submenu .submenu {
+  top: 0; /* Alinear con el padre */
+  left: 100%; /* Mostrarlo al lado derecho */
+  margin-left: 1px;
+  background-color: #00509e; /* Azul más claro */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Clase para activar menús desde TypeScript */
+.show-menu > .submenu {
+  display: block;
 }
 
 button {
