@@ -39,7 +39,8 @@ export class AccountService {
     alias: string,
     account_type: string,
     user_id: number,
-    overdraft_limit: number
+    overdraft_limit: number,
+    currency: string
   }): Observable<number>{
     return this.http.post<number>(`${this.baseUrl}`, account)
   }

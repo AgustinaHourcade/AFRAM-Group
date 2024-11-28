@@ -6,8 +6,10 @@
     <h2>Comprobante de Transferencia</h2>
   }@else if(transaction.transaction_type == 'loan'){
     <h2>Comprobante de Préstamo</h2>
-  }@else{
+  }@else if(transaction.transaction_type === 'fixed term'){
     <h2>Comprobante de Plazo Fijo</h2>
+  }@else if(transaction.transaction_type === 'exchange'){
+    <h2>Comprobante de compra-venta de dolares</h2>
   }
 
     <p class="transaction-id">ID de Transacción {{ transaction.id }}</p>
@@ -20,7 +22,11 @@
     </div>
     <div class="row">
       <label>Monto</label>
+      @if (transaction.transaction_type === 'exchange' && (transaction.destination_account_id == 2 || transaction.source_account_id == 2)) {
+        <span> U$S{{ transaction.amount}}</span>
+      }@else{
       <span>{{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}</span>
+      }
     </div>
     <div class="row">
       <label>Cuenta de Origen</label>

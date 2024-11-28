@@ -30,7 +30,7 @@ export class NewAdminComponent {
   private fb = inject(FormBuilder);
   private sesionService = inject(UserSessionService);
   private userService = inject(UserService);
- // private accountService = inject(AccountService);
+  private accountService = inject(AccountService);
   private addressService = inject(AddressService);
   private route = inject(Router);
 
@@ -141,13 +141,14 @@ export class NewAdminComponent {
 
     this.userService.postCompleteUser(user).subscribe({
       next: (response) => {
-        this.sesionService.setUserId(response);
+        // this.sesionService.setUserId(response);
         this.createAddress(response);
 
         if(user.user_type === 'admin'){
           tipo = 'administrador'
         }else{
-          tipo= 'usuario'
+          tipo = 'usuario'
+          this.createAccount(response);
         }
 
           Swal.fire({
@@ -167,6 +168,43 @@ export class NewAdminComponent {
         console.error('Error al crear usuario:', error);
       }
     });
+  }
+
+  generateRandomCBU() {
+    let cbu = '';
+    for (let i = 0; i < 22; i++) {
+      cbu += Math.floor(Math.random() * 10).toString();
+    }
+    return cbu;
+  }
+
+  generateRandomAlias() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let alias = '';
+    for (let i = 0; i < 14; i++) {
+      alias += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return alias;
+  }
+
+  createAccount(id: number): Account {
+    let cuenta = {
+      cbu: this.generateRandomCBU(),
+      alias: this.generateRandomAlias(),
+      account_type: 'Savings',
+      user_id: id,
+      overdraft_limit: 0,
+      currency: 'ars'
+    };
+    this.accountService.createAccount(cuenta).subscribe({
+      next: (id) => {
+        console.log("Caja de ahorros creada, id = " + id);
+      },
+      error: (error: Error) => {
+        console.log(error.message);
+      }
+    });
+    return cuenta as Account;
   }
 
   passwordForm: FormGroup;

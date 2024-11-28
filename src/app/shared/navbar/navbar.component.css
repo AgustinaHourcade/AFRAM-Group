@@ -41,8 +41,7 @@
 .nav-links a:hover {
   color: #fff;
 }
-
-/* Menús desplegables */
+/* Menú principal y primeros submenús */
 .account-menu,
 .fixed-terms-menu,
 .profile-menu,
@@ -50,17 +49,19 @@
 .cards-menu,
 .transactions-menu,
 .submenu {
-  display: none; /* Oculto por defecto */
+  display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 100%; /* El primer submenú se abre hacia abajo */
+  left: 0; /* Alineado con el padre */
   background-color: var(--primary-color);
   padding: 10px 0;
   min-width: 150px;
   border-radius: 5px;
   z-index: 1000;
+  list-style: none;
 }
 
+/* Mostrar el primer submenú al pasar el cursor */
 .nav-links li:hover > .submenu,
 .nav-links li:hover > .account-menu,
 .nav-links li:hover > .fixed-terms-menu,
@@ -68,37 +69,37 @@
 .nav-links li:hover > .loans-menu,
 .nav-links li:hover > .cards-menu,
 .nav-links li:hover > .transactions-menu {
-  display: block; /* Mostrar menú al pasar el cursor */
+  display: block;
 }
 
-.submenu li,
+/* Estilo para los elementos dentro del submenú */
 .account-menu li,
 .fixed-terms-menu li,
 .profile-menu li,
 .loans-menu li,
 .cards-menu li,
-.transactions-menu li {
+.transactions-menu li,
+.submenu li {
   width: 100%;
-  border-bottom: 1px solid #003366;
 }
 
-.submenu li:last-child,
 .account-menu li:last-child,
 .fixed-terms-menu li:last-child,
 .profile-menu li:last-child,
 .loans-menu li:last-child,
 .cards-menu li:last-child,
-.transactions-menu li:last-child {
+.transactions-menu li:last-child,
+.submenu li:last-child {
   border-bottom: none;
 }
 
-.submenu a,
 .account-menu a,
 .fixed-terms-menu a,
 .profile-menu a,
 .loans-menu a,
 .cards-menu a,
-.transactions-menu a {
+.transactions-menu a,
+.submenu a {
   color: white;
   text-decoration: none;
   padding: 10px;
@@ -106,37 +107,32 @@
   white-space: nowrap;
 }
 
-.submenu a:hover,
 .account-menu a:hover,
 .fixed-terms-menu a:hover,
 .profile-menu a:hover,
 .loans-menu a:hover,
 .cards-menu a:hover,
-.transactions-menu a:hover {
+.transactions-menu a:hover,
+.submenu a:hover {
   background-color: var(--button-hover);
 }
 
-/* Submenús anidados */
-.dropdown .submenu {
-  display: none; /* Oculto por defecto */
+/* Submenús anidados dentro de los primeros submenús */
+.dropdown .submenu .submenu {
+  display: none;
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 0; /* Alineado con el padre */
+  left: 100%; /* Mostrar a la derecha */
   min-width: 200px;
   background-color: var(--primary-color);
+  padding: 10px 0;
+  border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.dropdown:hover > .submenu {
-  display: block; /* Mostrar submenú anidado al pasar el cursor */
-}
-
-.dropdown .submenu .submenu {
-  top: 0; /* Alinear con el padre */
-  left: 100%; /* Mostrarlo al lado derecho */
-  margin-left: 1px;
-  background-color: #00509e; /* Azul más claro */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+/* Mostrar los submenús anidados al pasar el cursor */
+.dropdown .submenu:hover > .submenu {
+  display: block;
 }
 
 /* Clase para activar menús desde TypeScript */

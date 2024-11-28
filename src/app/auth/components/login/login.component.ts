@@ -57,14 +57,7 @@ export class LoginComponent {
       dni: user?.dni as string,
     };
 
-    this.accountService.getAccountsByIdentifier(Number(data?.dni)).subscribe({
-      next: (accounts) => {
-        this.accounts = accounts;
-      },
-      error: (error) => {
-        console.error('Error al obtener las cuentas', error);
-      }
-    });
+
     this.userService.verifyUser(data).subscribe({
       next: (id) => {
         this.id = id as number;
@@ -94,9 +87,9 @@ export class LoginComponent {
                   this.router.navigate(['/admin-main']);
                 }
               });}
-            //  } else {
-            //   this.router.navigate(['/main']);
-            // }
+              else {
+              this.router.navigate(['/main']);
+            }
           },
           error: (e: Error) => {
             console.log(e.message);

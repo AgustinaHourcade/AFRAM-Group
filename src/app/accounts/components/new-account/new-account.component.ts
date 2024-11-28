@@ -20,10 +20,13 @@ export class NewAccountComponent {
   private route = inject(Router)
   
   user_id = this.userSessionService.getUserId();
+  flag : string ='';
   
   formulario = this.fb.nonNullable.group({
-    account_type: ['', [Validators.required]],
+    account_type: ['', Validators.required],
+    currency: ['',Validators.required]
   })
+
 
   generateRandomCBU() {
     let cbu = '';
@@ -48,7 +51,8 @@ export class NewAccountComponent {
       alias: this.generateRandomAlias(),
       account_type: this.formulario.get('account_type')?.value as string,
       user_id: this.user_id,
-      overdraft_limit: 0
+      overdraft_limit: 0,
+      currency: this.formulario.get('currency')?.value as string
     };
     
     Swal.fire({
@@ -77,6 +81,18 @@ export class NewAccountComponent {
       }
     });
   }
+
+  onAccountTypeChange(): void {
+    const accountType = this.formulario.get('account_type')?.value;
+
+    if (accountType === 'Checking') {
+      this.flag = 'ars'
+      this.formulario.get('currency')?.setValue('ars'); 
+    } else if (accountType === 'Savings') {
+      this.flag = 'all';
+    }
+  }
+
 
 }
 
