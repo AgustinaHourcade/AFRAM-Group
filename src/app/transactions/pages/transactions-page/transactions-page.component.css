@@ -53,6 +53,7 @@
   text-decoration: none;
   border: solid 1px rgb(177, 177, 177);
   display: block;
+  margin-top: 25%;
 }
 
 .dashboard-grid {

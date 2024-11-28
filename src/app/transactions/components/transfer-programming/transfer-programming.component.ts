@@ -37,6 +37,7 @@ export class TransferProgrammingComponent implements OnInit {
   id !: number;
   origen!: Account;
   fechaValida: boolean = false;
+  openModal: boolean = false;
 
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
@@ -74,28 +75,29 @@ export class TransferProgrammingComponent implements OnInit {
   amount = this.fb.group({
     amountToTransfer: [1, [Validators.required, Validators.min(1)]],
     selectedAccountId: ['', [Validators.required]],
-    transaction_date: ['', [Validators.required]]
+  });
+  
+  dateForm = this.fb.nonNullable.group({
+  transaction_date: ['', [Validators.required]],
   });
 
   modalData: Transaction | null = null;
-
     realizarTransfer() {
       const selectedAccountId = this.amount.get('selectedAccountId')?.value;
       const selectedAccount = this.accounts.find(
         (account) => account.id === Number(selectedAccountId)
       );
       this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
-  
-      if(selectedAccount?.id == this.account?.id){
+      if (selectedAccount?.id == this.account?.id) {
         Swal.fire({
           text: 'No puede hacer una transferencia a la cuenta de origen.',
           icon: 'error',
           confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8'
+          confirmButtonColor: '#00b4d8',
         });
         return;
       }
-  
+    
       if (!selectedAccount) {
         Swal.fire({
           text: 'Seleccione una cuenta de origen.',
@@ -105,120 +107,92 @@ export class TransferProgrammingComponent implements OnInit {
         });
         return;
       }
-  
-      if(this.montoTransferencia as number < 1 ){
+    
+      if (this.montoTransferencia! < 1) {
         Swal.fire({
           text: 'El monto mínimo para transferir es de $1.',
           icon: 'error',
           confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8'
-        })
+          confirmButtonColor: '#00b4d8',
+        });
         return;
       }
-  
+    
       if (this.montoTransferencia! > selectedAccount.balance) {
         Swal.fire({
           text: 'Saldo insuficiente',
           icon: 'error',
           confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8'
+          confirmButtonColor: '#00b4d8',
         });
         this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
         return;
       }
-  
-      Swal.fire({
-        text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id}?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, transferir',
-        cancelButtonText: 'Cancelar',
-        confirmButtonColor: '#00b4d8',
-        cancelButtonColor: "#e63946"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const transferDateValue = this.amount.get('transferDate')?.value;
-          this.transferDate = transferDateValue ? new Date(transferDateValue) : new Date();
+    
+      const transaction_date_value = this.dateForm.get('transaction_date')?.value;
+      console.log(transaction_date_value);
 
-          const transactionData = {
-            amount: this.montoTransferencia as number,
-            source_account_id: selectedAccount.id ,
-            destination_account_id: this.account?.id,
-            transaction_type: 'transfer',
-            transaction_date: transferDateValue,
-            is_paid: 'no'
-          };
-        
-          // Emite la transacción cargada al padre
-          // this.transactionConfirmed.emit(transactionData as Transaction);
-  
-          // this.transactionService.postFutureTransaction(transactionData as Transaction).subscribe({
-          //   next: () => {
-          //     Swal.fire({
-          //       text: '¡Transferencia programada!',
-          //       icon: 'success',
-          //       confirmButtonText: 'Aceptar',
-          //       confirmButtonColor: '#00b4d8'
+      if (!transaction_date_value) {
+        Swal.fire({
+          text: 'Por favor, seleccione una fecha de transferencia.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#00b4d8',
+        });
+        return;
+      }
+    
+      const transaction_date = new Date(transaction_date_value);
+      console.log(transaction_date);
+
+      const transactionData = {
+        amount: this.montoTransferencia!,
+        source_account_id: selectedAccount.id,
+        destination_account_id: this.account?.id,
+        transaction_type: 'transfer',
+        transaction_date: transaction_date_value,
+        is_paid: 'no',
+      };
+    
+      const transaction: Transaction = {
+        ...transactionData,
+        transaction_date: new Date(transactionData.transaction_date),
+      };
+
+      console.log('aaaa'+ transaction.transaction_date);
+    
+      this.transactionConfirmed.emit(transaction);
+    
+      this.transactionService.postFutureTransaction(transaction).subscribe({
+        next: () => {
+          Swal.fire({
+            text: '¡Transferencia programada!',
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8',
+          });
+          this.dateForm.reset();
+          this.amount.reset();
+          this.newRecipientForm.reset();
+    
+          // if (this.user.email) {
+          //   this.emailService
+          //     .sendTransferEmail(
+          //       this.user.email,
+          //       this.montoTransferencia!,
+          //       selectedAccount.user_id,
+          //       this.account?.id
+          //     )
+          //     .subscribe({
+          //       next: () => console.log('Correo de notificación enviado'),
+          //       error: (error: Error) => console.log('Error al enviar el correo:', error),
           //     });
-  
-            //   if (this.user.email) {
-            //     this.emailService
-            //       .sendTransferEmail(
-            //         this.user.email,
-            //         this.montoTransferencia!,
-            //         selectedAccount.user_id,
-            //         this.account?.id
-            //       )
-            //       .subscribe({
-            //         next: () => console.log('Correo de notificación enviado'),
-            //         error: (error: Error) => console.log('Error al enviar el correo:', error),
-            //       });
-            //   }
-          //    },
-          //   error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
-          // });
-
-          
-          if( this.dateFromTimestamp === transactionData.transaction_date){
-
-            Swal.fire({
-              title: 'Se realizo la transferencia programada!',
-              text: `Se te descontaron $${transactionData.amount}.`,
-              icon: 'success',
-              confirmButtonText: 'Aceptar',
-              confirmButtonColor: '#00b4d8'
-            });
-            const newAmount = -1 * (this.montoTransferencia as number);
-            this.accountService.updateBalance(newAmount, selectedAccount.id).subscribe({
-              next: (flag) => {
-                if (flag) console.log('Saldo actualizado en la cuenta de origen');
-              },
-              error: (e: Error) => console.log(e.message),
-            });
-            
-            this.accountService.updateBalance(this.montoTransferencia as number, this.account?.id).subscribe({
-              next: (flag) => {
-                if (flag) console.log('Saldo actualizado en la cuenta de destino');
-              },
-              error: (e: Error) => console.log(e.message),
-            });
-            
-            this.router.navigate(['my-transactions']);
-
-          
-          }
-        }
+          // }
+        },
+        error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
       });
     }
   
-  onCloseModal() {
-    this.showModal = false;
-  }
-
-  onConfirmModal(event: any) {
-    console.log('Transferencia confirmada:', event);
-    this.showModal = false;
-  }
 
   setDateRange() {
     const today = new Date();
@@ -323,5 +297,18 @@ export class TransferProgrammingComponent implements OnInit {
         console.error('Error fetching accounts:', error);
       },
     });
+  }
+
+  showModalAndScroll(){
+    this.openModal = true;
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 150);
+  }
+  scrollToBottom() {
+    const lastElement = document.querySelector('.search');
+    if (lastElement) {
+      lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   }
 }

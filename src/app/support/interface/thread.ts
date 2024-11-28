@@ -4,6 +4,7 @@ export interface Thread{
     support_subject: string, 
     created_at: string,
     support_status: string // 'open' or 'closed
+    has_user_last_message ?: boolean;
 }
 
 export interface Message{
