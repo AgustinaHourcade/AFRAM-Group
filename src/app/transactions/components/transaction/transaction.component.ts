@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, Renderer2 } from '@angular/core';
 import { Transaction } from '../../interface/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../accounts/services/account.service';
@@ -56,5 +56,15 @@ export class TransactionComponent  implements OnInit{
     return true;
   }
 
+  constructor(private renderer: Renderer2, private elRef: ElementRef) {}
 
+
+  applyPDFStyles(apply: boolean, element: HTMLElement): void {
+    if (apply) {
+      this.renderer.addClass(element, 'pdf-styles');
+    } else {
+      this.renderer.removeClass(element, 'pdf-styles');
+    }
+  }
+  
 }

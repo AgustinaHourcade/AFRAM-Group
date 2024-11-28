@@ -47,3 +47,47 @@ button {
   padding: 8px 12px;
 }
 
+/* ************************************ */
+.pdf-styles {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; 
+  gap: 8px;
+  background-color: transparent !important;
+  border: none;
+  /* border: 1px solid #ccc; */
+  padding: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.pdf-styles .transaction-card {
+  background-color: transparent !important;
+  border: none;
+}
+
+.pdf-styles button,
+.pdf-styles app-receipt {
+  display: none;
+}
+
+
+.pdf-styles .transaction-date,
+.pdf-styles .transaction-type,
+.pdf-styles .transaction-amount {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.pdf-styles .transaction-date {
+  text-align: left;
+}
+
+.pdf-styles .transaction-type {
+  text-align: center;
+}
+
+.pdf-styles .transaction-amount {
+  text-align: right;
+}
+

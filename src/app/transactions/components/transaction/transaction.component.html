@@ -3,32 +3,31 @@
     {{ transaction.transaction_date | date : "dd/MM/yyyy" }}
   </p>
 
-  @if(transaction.transaction_type == 'transfer'){
-  <p>Transferencia</p>
-  }@else if(transaction.transaction_type == 'loan'){
-  <p>Préstamo</p>
-  }@else{
-  <p>Plazo fijo</p>
-
-  }
+  <p class="transaction-type">
+    @if(transaction.transaction_type == 'transfer') {
+      Transferencia
+    } @else if(transaction.transaction_type == 'loan') {
+      Préstamo
+    } @else {
+      Plazo fijo
+    }
+  </p>
 
   <p [ngClass]="{
       'transaction-amount': true,
       'transaction-in': isIncoming(transaction.source_account_id),
       'transaction-out': !isIncoming(transaction.source_account_id)
     }">
-    @if(isIncoming(transaction.source_account_id)){
+    @if(isIncoming(transaction.source_account_id)) {
       +
-    }@else{
+    } @else {
       -
-    } {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}
+    } {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2' }}
   </p>
 
   @if (!flag && !isDownloading) {
-  <button (click)="toggleFlag()">Ver comprobante</button>
+    <button (click)="toggleFlag()">Ver comprobante</button>
   }
 
-
   <app-receipt *ngIf="flag" [transaction]="transaction" (cancel)="onCancel()"></app-receipt>
-
 </div>

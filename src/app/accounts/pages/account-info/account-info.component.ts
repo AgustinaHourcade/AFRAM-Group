@@ -23,6 +23,7 @@ import { UserSessionService } from '../../../auth/services/user-session.service'
 })
 export class AccountInfoComponent implements OnInit{
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
+  @ViewChild(TransactionComponent) transactionComponent!: TransactionComponent;
 
   transactions: Array<Transaction> = [];
   filteredTransactions: Array<Transaction> = [];
@@ -64,6 +65,10 @@ export class AccountInfoComponent implements OnInit{
     });
 
     this.updateLastDayCheck();
+  }
+
+  ngAfterViewInit() {
+    console.log("child" + this.transactionComponent); // Esto debería mostrar el componente hijo en la consola.
   }
 
   setDefaultMonthYear() {
@@ -123,14 +128,22 @@ export class AccountInfoComponent implements OnInit{
 
   downloadAsPDF() {
     this.isDownloading = true; 
-    this.filterTransactions();
-    
+    if (!this.transactionComponent) {
+      console.error('TransactionComponent no detectado');
+      return;
+    }
+  
+    const transactionElements = this.pdfContent.nativeElement.querySelectorAll('.transaction-card');
+    transactionElements.forEach((transactionElement: HTMLElement) => {
+      this.transactionComponent.applyPDFStyles(true, transactionElement);
+    });  
+
+    const element = this.pdfContent.nativeElement;
 
     setTimeout(() => {
-      const element = this.pdfContent.nativeElement;
+
       const elementsToHide = element.querySelectorAll('.no-print');
       elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
-      element.classList.add('pdf-only');
 
       html2canvas(element, {
         scale: 2,
@@ -170,24 +183,29 @@ export class AccountInfoComponent implements OnInit{
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
+
           const monthYear = this.dateForm.get('monthYear')?.value;
           const formattedDate = monthYear
             ? monthYear.replace('-', '_')
-            : 'default_date'; 
+            : 'default_date';
 
           const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
 
           pdf.setFontSize(14);
-          pdf.text(accountDetails, 0.5, 1.5); 
+          pdf.text(accountDetails, 0.5, 1.5);
 
           pdf.save(`Resumen-${this.accountId}-${formattedDate}.pdf`);
+
+          const transactionElements = this.pdfContent.nativeElement.querySelectorAll('.transaction-card');
+          transactionElements.forEach((transactionElement: HTMLElement) => {
+            this.transactionComponent.applyPDFStyles(false, transactionElement);
+          });          
+          elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
+
+          this.isDownloading = false;
         };
       });
 
-      elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
-      element.classList.remove('pdf-only');
-
-      this.isDownloading = false;
     });
-   }
+  }
 }
