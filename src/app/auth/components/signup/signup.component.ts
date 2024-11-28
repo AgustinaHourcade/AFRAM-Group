@@ -149,7 +149,8 @@ export class SignupComponent{
       alias: this.generateRandomAlias(),
       account_type: 'Savings',
       user_id: id,
-      overdraft_limit: 0
+      overdraft_limit: 0,
+      currency: 'ars'
     };
     this.accountService.createAccount(cuenta).subscribe({
       next: (id) => {

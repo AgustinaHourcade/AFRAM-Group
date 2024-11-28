@@ -220,6 +220,7 @@ export class MainPageComponent implements OnInit {
       this.selectedAccountId = selectedAccountId;
       console.log('ID de la cuenta seleccionada:', selectedAccountId);
     }
+    this.transactions = [];
 
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {

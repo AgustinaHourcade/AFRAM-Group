@@ -9,6 +9,9 @@ import { Cotizacion } from '../../../shared/dolar/interface/cotizacion';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { DolarComponent } from "../../../shared/dolar/components/dolar.component";
+import { TransactionService } from '../../../transactions/services/transaction.service';
+import { Transaction } from '../../../transactions/interface/transaction.interface';
+import { EmailService } from '../../../email/service/email.service';
 
 @Component({
   selector: 'app-trading',
@@ -24,6 +27,8 @@ export class TradingComponent implements OnInit {
   private sessionService = inject(UserSessionService);
   private dolarService = inject(DolarService);
   private accountService = inject(AccountService); 
+  private transactionService = inject(TransactionService);
+  private emailService = inject(EmailService);
 
   trading: string = '';
   accounts: Array<Account> = [];
@@ -71,9 +76,6 @@ updateCalculatedARS(amount: string | undefined) {
   }
 }
 
-
- 
-  
   formulario = this.fb.nonNullable.group({
     'amount': ['', Validators.required],
     'source_account': ['', Validators.required],
@@ -81,14 +83,27 @@ updateCalculatedARS(amount: string | undefined) {
   })
 
   buyUSD() {
-    const amount = this.formulario.get('amount')?.value;
     const source_account = this.formulario.get('source_account')?.value;
     const destination_account = this.formulario.get('destination_account')?.value;
-  
-    const descAmount = -1 * Number(amount);
-    const amountUSD = Number(amount) / Number(this.dolar?.venta);
+    
     const account = this.accounts.find(acc => acc.id === Number(source_account));
-    if(Number(amount)> Number(account?.balance)){
+    
+    const transaction = {
+      amount: this.formulario.get('amount')?.value,
+      source_account_id: source_account,
+      destination_account_id: 1,
+      transaction_type: 'exchange'
+    }
+    
+    const transactionUSD = {
+      amount: Number(transaction.amount) / Number(this.dolar?.venta),
+      source_account_id: 2,
+      destination_account_id: destination_account,
+      transaction_type: 'exchange'
+    }
+    const descAmount = -1 * Number(transaction.amount);
+    
+    if(Number(transaction.amount)> Number(account?.balance)){
       Swal.fire({
         text: 'No tiene suficiente saldo.',
         icon: 'error',
@@ -100,8 +115,8 @@ updateCalculatedARS(amount: string | undefined) {
     }
   
     Swal.fire({
-      title: `¿Está seguro que desea comprar U$D` + amountUSD + `?`,
-      text: `Se le debitaran $` + amount + ` de la cuenta seleccionada.`,
+      title: `¿Está seguro que desea comprar U$D` + transactionUSD.amount + `?`,
+      text: `Se le debitaran $` + transaction.amount + ` de la cuenta seleccionada.`,
       icon: "success",
       showCancelButton: true,
       confirmButtonColor: '#00b4d8',
@@ -113,8 +128,10 @@ updateCalculatedARS(amount: string | undefined) {
 
         this.accountService.updateBalance(descAmount, Number(source_account)).subscribe({
           next: (response) => {
-            this.accountService.updateBalance(amountUSD, Number(destination_account)).subscribe({
+            this.accountService.updateBalance(transactionUSD.amount, Number(destination_account)).subscribe({
               next: (response) => {
+                this.postTransaction(transaction);
+                this.postTransaction(transactionUSD);
                 Swal.fire({
                   text: 'Operacion realizada correctamente.',
                   icon: 'success',
@@ -142,9 +159,24 @@ updateCalculatedARS(amount: string | undefined) {
     const source_account = this.formulario.get('source_account')?.value;
     const destination_account = this.formulario.get('destination_account')?.value;
   
-    const descAmount = -1 * Number(amount);
-    const amountUSD = Number(amount) * Number(this.dolar?.compra);
     const account = this.accounts.find(acc => acc.id === Number(source_account));
+    
+    const transactionUSD = {
+      amount: this.formulario.get('amount')?.value,
+      source_account_id: source_account,
+      destination_account_id: 2,
+      transaction_type: 'exchange'
+    }
+    
+    const transaction = {
+      amount: Number(transactionUSD.amount) * Number(this.dolar?.compra),
+      source_account_id: 1,
+      destination_account_id: destination_account,
+      transaction_type: 'exchange'
+    }
+    
+    const descAmount = -1 * Number(transactionUSD.amount);
+    
     if(Number(amount)> Number(account?.balance)){
       Swal.fire({
         text: 'No tiene suficiente saldo.',
@@ -158,7 +190,7 @@ updateCalculatedARS(amount: string | undefined) {
   
     Swal.fire({
       title: `¿Está seguro que desea vender U$D` + amount + `?`,
-      text: `Se le acreditaran $` + amountUSD + ` en la cuenta seleccionada.`,
+      text: `Se le acreditaran $` + transaction.amount + ` en la cuenta seleccionada.`,
       icon: "success",
       showCancelButton: true,
       confirmButtonColor: '#00b4d8',
@@ -170,8 +202,10 @@ updateCalculatedARS(amount: string | undefined) {
 
         this.accountService.updateBalance(descAmount, Number(source_account)).subscribe({
           next: (response) => {
-            this.accountService.updateBalance(amountUSD, Number(destination_account)).subscribe({
+            this.accountService.updateBalance(transaction.amount, Number(destination_account)).subscribe({
               next: (response) => {
+                this.postTransaction(transaction);
+                this.postTransaction(transactionUSD);
                 Swal.fire({
                   text: 'Operacion realizada correctamente.',
                   icon: 'success',
@@ -195,4 +229,19 @@ updateCalculatedARS(amount: string | undefined) {
   }
   
 
+
+  postTransaction(transaction: any) {
+  this.transactionService.postTransaction(transaction as Transaction).subscribe({
+    next: () => {
+      Swal.fire({
+        text: '¡Transferencia realizada!',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
+      });
+    },
+    error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
+  });
 }
+}
+
