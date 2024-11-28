@@ -33,6 +33,7 @@ import Swal from 'sweetalert2';
 export class MainPageComponent implements OnInit {
   accounts: Account[] = [];
   transactions: Array<Transaction> = [];
+  allTransactions: Array<Transaction> = [];
   cards: Array<Card> = [];
   fixedTerms: Array<FixedTerm> = [];
   userId: number = 0;
@@ -71,7 +72,6 @@ export class MainPageComponent implements OnInit {
     this.userId = this.userSessionService.getUserId();
     this.getAccounts();
     this.verifyFixedTerms();
-    this.verifyTransferProgramming();
     this.getCards();
   }
   
@@ -87,17 +87,7 @@ export class MainPageComponent implements OnInit {
             this.activeAccounts.push(account);
           }
         });
-        // for (const account of this.accounts) {
-        //   this.loadTransactions(account.id).subscribe({
-        //     next: (transactions) => {
-        //       this.transactions.push(...transactions);
-        //       this.transactions.sort((a, b) => b.id - a.id);
-        //     },
-        //     error: (err: Error) => {
-        //       console.log(err.message);
-        //     },
-        //   });
-        // }
+        this.verifyTransferProgramming();
       },
       error: (error: Error) => {
         console.error(error.message);
@@ -175,7 +165,7 @@ export class MainPageComponent implements OnInit {
   private showFixedTermSuccessAlert() {
     Swal.fire({
       title: 'Se le han acreditado plazos fijos pendientes!',
-      text: `Puede ver el detalle en "mis plazos fijos.`,
+      text: `Puede ver el detalle en "mis plazos fijos".`,
       icon: 'success',
       confirmButtonText: 'Aceptar',
       confirmButtonColor: '#00b4d8'
@@ -233,7 +223,12 @@ export class MainPageComponent implements OnInit {
 
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
-        this.transactions = transactions;
+        transactions.forEach((transaction) => {
+          if (transaction.is_paid === 'yes') {
+            this.transactions.push(transaction);
+          }
+        });
+
         this.changeDetector.detectChanges();
   
         setTimeout(() => {
@@ -253,37 +248,44 @@ export class MainPageComponent implements OnInit {
     }
   }
 
+
+
   private verifyTransferProgramming() {
-    this.transactionService.getTransactionsByAccountId(this.userId).subscribe({
-      next: (transactions) => {
-        this.transactions = transactions;
-        let programmingTransfer = false;
-        this.transactions.forEach((item) => {
-          if (item.is_paid === 'no' && this.compareDateWithNow(item.transaction_date.toDateString())) {
-            programmingTransfer = true;
-            this.processTransferProgramming(item);
+    this.activeAccounts.forEach((account) => {
+      this.loadTransactions(account.id).subscribe({
+        next: (transactions) => {
+          this.allTransactions = [];
+          transactions.forEach((transaction) => {
+            if (!this.allTransactions.some((t) => t.id === transaction.id)) {
+              this.allTransactions.push(transaction);
           }
-        });
-        if (programmingTransfer) {
-          this.getAccounts();
-        }
-      },
-      error: (err: Error) => {
-        console.log(err.message);
-      },
+        })
+          this.allTransactions.forEach((item) => {
+            if (item.is_paid === 'no' && this.compareDateWithNow(item.transaction_date.toString())) {
+              this.processTransferProgramming(item);
+              this.markTransferProgrammingAsPaid(item);
+            }
+          });
+        },
+        error: (err: Error) => {
+          console.log(err.message);
+        },
+      });
     });
+  
   }
+  
   
   private processTransferProgramming(item: Transaction) {
     const amount = Number(item.amount);
-  
-    const updateSourceAccount$ = this.accountService.updateBalance(-amount, item.source_account_id);
+    console.log('Monto a trans: ',amount);
+    const descAmount = -1 * amount
+    const updateSourceAccount$ = this.accountService.updateBalance(descAmount, item.source_account_id);
     const updateDestinationAccount$ = this.accountService.updateBalance(amount, item.destination_account_id);
   
     forkJoin([updateSourceAccount$, updateDestinationAccount$]).subscribe({
       next: ([sourceUpdated, destinationUpdated]) => {
         if (sourceUpdated && destinationUpdated) {
-          this.markTransferProgrammingAsPaid(item);
         } else {
           console.error('Error actualizando saldos en las cuentas. Transferencia no completada.');
         }
@@ -296,10 +298,16 @@ export class MainPageComponent implements OnInit {
 
 
 private markTransferProgrammingAsPaid(item: Transaction) {
-  this.transactionService.setPayTransferProgramming(item.id as number).subscribe({
+  this.transactionService.setPayTransferProgramming(Number(item.id)).subscribe({
     next: () => {
-      console.log('Transferencia marcada como pagada correctamente');
-      this.createProgrammingTransaction(item);
+      Swal.fire({
+        title: 'Se ha realizado una transferencia programada!',
+        text: `Puede ver el detalle en mis movimientos.`,
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8'
+      });
+      this.getAccounts();
     },
     error: (error: Error) => {
       console.error('Error al marcar la transferencia como pagada:', error);
@@ -307,29 +315,4 @@ private markTransferProgrammingAsPaid(item: Transaction) {
   });
 }
 
-private createProgrammingTransaction(item: Transaction) {
-  const transaction = {
-    amount: item.amount,
-    source_account_id: item.source_account_id,
-    destination_account_id: item.destination_account_id,
-    transaction_type: 'transfer',
-  };
-
-  console.log('Posting transaction:', transaction);
-
-  this.transactionService.postTransaction(transaction as Transaction).subscribe({
-    next: () => {
-      Swal.fire({
-        title: 'Se ha realizado una transaccion programada pendiente!',
-        text: `Puede ver el detalle en "transacciones".`,
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#00b4d8'
-      });
-    },
-    error: (error: Error) => {
-      console.log('Error posting transaction:', error.message);
-    },
-  });
-}
 }

@@ -124,3 +124,18 @@
     gap: 5px;
   }
 
+  .aviso {
+    font-family: var(--font-body);
+    color: var(--gray-3);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: var(--extra-light-color);
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

@@ -22,6 +22,7 @@ export class MyTransactionsComponent {
   accounts: Array<Account> = [];
   transactions: Array<Transaction> = [];
   transfers: Array<Transaction> = [];
+  pendingTransfers: Array<Transaction> = [];
   userId: number = 0;
   pageSize = 4 ;
   currentPage = 1;
@@ -84,10 +85,16 @@ export class MyTransactionsComponent {
 
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
+        this.transfers = transactions.filter(transaction => 
+          transaction.transaction_type === 'transfer' && transaction.is_paid === 'yes'
+        );
+        this.pendingTransfers = transactions.filter(transaction => 
+          transaction.transaction_type === 'transfer' && transaction.is_paid === 'no'
+        );
         this.transactions = transactions;
-        this.transfers = transactions.filter(transaction => transaction.transaction_type === 'transfer');
         this.changeDetector.detectChanges();
-      },
+      }
+      ,
       error: (error: Error) => {
         console.error(`Error loading transactions for account ${this.selectedAccountId}:`, error);
       },
