@@ -77,6 +77,16 @@ export class ChatSupportComponent implements OnInit{
           }
         });
         this.formulario.reset();
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 100);
+  }
+
+  scrollToBottom() {
+    const lastElement = document.querySelector('.message:last-child');
+    if (lastElement) {
+      lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   }
 
 }

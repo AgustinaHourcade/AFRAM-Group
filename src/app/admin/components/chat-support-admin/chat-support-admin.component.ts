@@ -100,6 +100,9 @@ export class ChatSupportAdminComponent implements OnInit{
           }
         });
         this.formulario.reset();
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 100);
   }
 
   toggleThread(){
@@ -143,6 +146,13 @@ export class ChatSupportAdminComponent implements OnInit{
         console.log(e.message);
       }
     })
+  }
+
+  scrollToBottom() {
+    const lastElement = document.querySelector('.message:last-child');
+    if (lastElement) {
+      lastElement.scrollIntoView({ behavior: 'instant', block: 'end' });
+    }
   }
 
 }

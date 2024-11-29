@@ -287,10 +287,14 @@ export class TransferModalComponent implements OnInit {
   }
 
   sendNotification(id: number) {
-    let user_id = 0;
     this.accountService.getAccountById(id).subscribe({
       next: (account) =>{
-        user_id = account.user_id
+        const notification = {
+          title: 'Transferencia recibida!',
+          message: 'Puede ver el comprobante en la seccion "Mis transferencias"',
+          user_id: account.user_id
+        }
+        this.postNotification(notification)
       },
       error: (e: Error)=>{
         console.log(e.message);
@@ -298,13 +302,6 @@ export class TransferModalComponent implements OnInit {
     })
 
 
-    const notification = {
-      title: 'Transferencia recibida!',
-      message: 'Puede ver el comprobante en la seccion "Mis transferencias"',
-      user_id: user_id
-    }
-
-    this.postNotification(notification)
   }
 
   postNotification(notification: any){

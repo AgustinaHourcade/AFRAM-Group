@@ -185,6 +185,7 @@ export class MainPageComponent implements OnInit {
       next: (flag) =>{
         if(flag){
           console.log('Notificacion enviada');
+          window.location.reload();
         }
       },
       error: (e: Error)=>{
@@ -333,23 +334,20 @@ private markTransferProgrammingAsPaid(item: Transaction) {
 }
 
 private sendTransferSourceNotification(id: number) {
-  let user_id = 0;
   this.accountService.getAccountById(id).subscribe({
-    next: (account) =>{
-      user_id = account.user_id
+    next: (account) =>{  
+        const notification = {
+          title: 'Se realizo una transferencia programada!',
+          message: 'Se le debito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
+          user_id: account.user_id
+        }
+      
+        this.postNotification(notification)
     },
     error: (e: Error)=>{
       console.log(e.message);
     }
   })
-
-  const notification = {
-    title: 'Se realizo una transferencia programada!',
-    message: 'Se le debito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
-    user_id: user_id
-  }
-
-  this.postNotification(notification)
 }
 
 private sendTransferDestinationNotification(id: number) {
