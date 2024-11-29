@@ -16,16 +16,14 @@ import { DolarComponent } from "../../shared/dolar/components/dolar.component";
 import { FixedTermService } from '../../fixedTerms/service/fixed-term.service';
 import { FixedTerm } from '../../fixedTerms/interface/fixed-term';
 import Swal from 'sweetalert2';
+import { NotificationsService } from '../../notifications/service/notifications.service';
+import { Notification } from '../../notifications/interface/notification';
 
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavbarComponent,
-            CardAccountComponent,
-            TransactionComponent,
-            CommonModule, 
-            DolarComponent],
+  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule, DolarComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })
@@ -42,7 +40,7 @@ export class MainPageComponent implements OnInit {
   activeAccounts: Array<Account> = [];
   pageSize = 4 ;
   currentPage = 1;
-  selectedAccountId !: number; 
+  selectedAccountId !: number;
 
   // private router = inject(Router);
   private changeDetector = inject(ChangeDetectorRef);
@@ -51,7 +49,8 @@ export class MainPageComponent implements OnInit {
   private transactionService = inject(TransactionService);
   private cardService = inject(CardService);
   private fixedTermService = inject(FixedTermService);
-  
+  private notificationService = inject(NotificationsService);
+
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);
   }
@@ -74,7 +73,7 @@ export class MainPageComponent implements OnInit {
     this.verifyFixedTerms();
     this.getCards();
   }
-  
+
 
   private getAccounts() {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
@@ -94,7 +93,7 @@ export class MainPageComponent implements OnInit {
       },
     });
   }
-  
+
 
   private verifyFixedTerms() {
     this.fixedTermService.getFixedTerms().subscribe({
@@ -116,8 +115,8 @@ export class MainPageComponent implements OnInit {
       },
     });
   }
-  
-  
+
+
   private processFixedTerm(item: FixedTerm) {
     const amount = Number(item.invested_amount) + Number(item.interest_earned);
     this.accountService.updateBalance(amount, item.account_id).subscribe({
@@ -125,13 +124,21 @@ export class MainPageComponent implements OnInit {
         if (flag) {
           this.markFixedTermAsPaid(item, amount);
         }
+        const descontar = -1 * amount;
+        this.accountService.updateBalance(descontar, 1).subscribe({
+          next: ()=>{
+            console.log('saldo actualizado en la cuenta 1 del banco');
+          }, error : (err:Error)=>{
+            console.log(err.message);
+          }
+        })
       },
       error: (err: Error) => {
         console.log(err.message);
       },
     });
   }
-  
+
   private markFixedTermAsPaid(item: FixedTerm, amount: number) {
     this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
       next: () => {
@@ -142,7 +149,7 @@ export class MainPageComponent implements OnInit {
       },
     });
   }
-  
+
   private createFixedTermTransaction(item: FixedTerm, amount: number) {
     const transaction = {
       amount: amount,
@@ -150,9 +157,9 @@ export class MainPageComponent implements OnInit {
       destination_account_id: item.account_id,
       transaction_type: 'fixed term',
     };
-  
+
     console.log('Posting transaction:', transaction);
-  
+
     this.transactionService.postTransaction(transaction as Transaction).subscribe({
       next: () => {
         this.showFixedTermSuccessAlert();
@@ -163,16 +170,29 @@ export class MainPageComponent implements OnInit {
     });
   }
   private showFixedTermSuccessAlert() {
-    Swal.fire({
-      title: 'Se le han acreditado plazos fijos pendientes!',
-      text: `Puede ver el detalle en "mis plazos fijos".`,
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-      confirmButtonColor: '#00b4d8'
-    });
+
+    const notification = {
+      title: 'Plazo fijo acreditado!',
+      message: 'Puede ver el comprobante en la seccion "Mis movimientos"',
+      user_id: this.userId
+    }
+
+    this.postNotification(notification)
   }
-  
-  
+
+  private postNotification(notification: any){
+    this.notificationService.postNotification(notification).subscribe({
+      next: (flag) =>{
+        if(flag){
+          console.log('Notificacion enviada');
+        }
+      },
+      error: (e: Error)=>{
+        console.log(e.message);
+      }
+    })
+  }
+
   private getCards(){
     this.cardService.getCardsById(this.userId).subscribe({
       next: (cards) => {
@@ -197,7 +217,7 @@ export class MainPageComponent implements OnInit {
   compareDateWithNow(dateString: string): boolean {
     const dateFromDatabase = new Date(dateString);
     const currentDate = new Date();
-    
+
     return dateFromDatabase <= currentDate;
   }
 
@@ -221,6 +241,7 @@ export class MainPageComponent implements OnInit {
       console.log('ID de la cuenta seleccionada:', selectedAccountId);
     }
     this.transactions = [];
+    this.currentPage = 1;
 
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
@@ -231,7 +252,7 @@ export class MainPageComponent implements OnInit {
         });
 
         this.changeDetector.detectChanges();
-  
+
         setTimeout(() => {
           this.scrollToBottom();
         }, 50);
@@ -273,17 +294,17 @@ export class MainPageComponent implements OnInit {
         },
       });
     });
-  
+
   }
-  
-  
+
+
   private processTransferProgramming(item: Transaction) {
     const amount = Number(item.amount);
     console.log('Monto a trans: ',amount);
     const descAmount = -1 * amount
     const updateSourceAccount$ = this.accountService.updateBalance(descAmount, item.source_account_id);
     const updateDestinationAccount$ = this.accountService.updateBalance(amount, item.destination_account_id);
-  
+
     forkJoin([updateSourceAccount$, updateDestinationAccount$]).subscribe({
       next: ([sourceUpdated, destinationUpdated]) => {
         if (sourceUpdated && destinationUpdated) {
@@ -301,13 +322,8 @@ export class MainPageComponent implements OnInit {
 private markTransferProgrammingAsPaid(item: Transaction) {
   this.transactionService.setPayTransferProgramming(Number(item.id)).subscribe({
     next: () => {
-      Swal.fire({
-        title: 'Se ha realizado una transferencia programada!',
-        text: `Puede ver el detalle en mis movimientos.`,
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#00b4d8'
-      });
+      this.sendTransferSourceNotification(item.source_account_id)
+      this.sendTransferDestinationNotification(item.destination_account_id)
       this.getAccounts();
     },
     error: (error: Error) => {
@@ -316,4 +332,33 @@ private markTransferProgrammingAsPaid(item: Transaction) {
   });
 }
 
+private sendTransferSourceNotification(id: number) {
+  let user_id = 0;
+  this.accountService.getAccountById(id).subscribe({
+    next: (account) =>{
+      user_id = account.user_id
+    },
+    error: (e: Error)=>{
+      console.log(e.message);
+    }
+  })
+
+  const notification = {
+    title: 'Se realizo una transferencia programada!',
+    message: 'Se le debito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
+    user_id: user_id
+  }
+
+  this.postNotification(notification)
+}
+
+private sendTransferDestinationNotification(id: number) {
+  const notification = {
+    title: 'Transferencia programada acreditada!',
+    message: 'Se le acredito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
+    user_id: id
+  }
+
+  this.postNotification(notification)
+}
 }

@@ -8,8 +8,10 @@
       Transferencia
     } @else if(transaction.transaction_type == 'loan') {
       Préstamo
-    } @else {
+    } @else if(transaction.transaction_type == 'fixedTerm'){
       Plazo fijo
+    } @else if (transaction.transaction_type == 'exchange') {
+      Cambio
     }
   </p>
 

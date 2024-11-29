@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 import { DolarComponent } from "../../../shared/dolar/components/dolar.component";
 import { TransactionService } from '../../../transactions/services/transaction.service';
 import { Transaction } from '../../../transactions/interface/transaction.interface';
-import { EmailService } from '../../../email/service/email.service';
 
 @Component({
   selector: 'app-trading',
@@ -26,14 +25,13 @@ export class TradingComponent implements OnInit {
   private fb = inject(FormBuilder);
   private sessionService = inject(UserSessionService);
   private dolarService = inject(DolarService);
-  private accountService = inject(AccountService); 
+  private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
-  private emailService = inject(EmailService);
 
   trading: string = '';
   accounts: Array<Account> = [];
   dolar ?: Cotizacion;
-  
+
 
   ngOnInit(): void {
     const id = this.sessionService.getUserId()
@@ -55,15 +53,15 @@ export class TradingComponent implements OnInit {
     })
   }
 
-calculatedValueUSD: number = 0; 
-calculatedValueARS: number = 0; 
+calculatedValueUSD: number = 0;
+calculatedValueARS: number = 0;
 
 updateCalculatedUSD(amount: string | undefined) {
   const amountNum = parseFloat(amount as string);
   if (!isNaN(amountNum) && this.dolar?.venta) {
     this.calculatedValueUSD = amountNum / Number(this.dolar.venta);
   } else {
-    this.calculatedValueUSD = 0; 
+    this.calculatedValueUSD = 0;
   }
 }
 
@@ -72,7 +70,7 @@ updateCalculatedARS(amount: string | undefined) {
   if (!isNaN(amountNum) && this.dolar?.compra) {
     this.calculatedValueARS = amountNum * Number(this.dolar.compra);
   } else {
-    this.calculatedValueARS = 0; 
+    this.calculatedValueARS = 0;
   }
 }
 
@@ -85,16 +83,16 @@ updateCalculatedARS(amount: string | undefined) {
   buyUSD() {
     const source_account = this.formulario.get('source_account')?.value;
     const destination_account = this.formulario.get('destination_account')?.value;
-    
+
     const account = this.accounts.find(acc => acc.id === Number(source_account));
-    
+
     const transaction = {
       amount: this.formulario.get('amount')?.value,
       source_account_id: source_account,
       destination_account_id: 1,
       transaction_type: 'exchange'
     }
-    
+
     const transactionUSD = {
       amount: Number(transaction.amount) / Number(this.dolar?.venta),
       source_account_id: 2,
@@ -102,7 +100,7 @@ updateCalculatedARS(amount: string | undefined) {
       transaction_type: 'exchange'
     }
     const descAmount = -1 * Number(transaction.amount);
-    
+
     if(Number(transaction.amount)> Number(account?.balance)){
       Swal.fire({
         text: 'No tiene suficiente saldo.',
@@ -113,7 +111,7 @@ updateCalculatedARS(amount: string | undefined) {
       this.formulario.reset();
       return;
     }
-  
+
     Swal.fire({
       title: `¿Está seguro que desea comprar U$D` + transactionUSD.amount + `?`,
       text: `Se le debitaran $` + transaction.amount + ` de la cuenta seleccionada.`,
@@ -139,6 +137,21 @@ updateCalculatedARS(amount: string | undefined) {
                   confirmButtonColor: '#00b4d8',
                 });
                 this.trading = '';
+                this.accountService.updateBalance(Number(transaction.amount), 1).subscribe({
+                  next: ()=>{
+                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)');
+                  }, error : (err:Error)=>{
+                    console.log(err.message);
+                  }
+                })
+                const descontarUSD = -1 * transactionUSD.amount;
+                this.accountService.updateBalance(descontarUSD, 2).subscribe({
+                  next: ()=>{
+                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');
+                  }, error : (err:Error)=>{
+                    console.log(err.message);
+                  }
+                })
               },
               error: (e: Error) => {
                 console.log(e.message);
@@ -153,30 +166,30 @@ updateCalculatedARS(amount: string | undefined) {
     });
     this.formulario.reset();
   }
-  
+
   sellUSD() {
     const amount = this.formulario.get('amount')?.value;
     const source_account = this.formulario.get('source_account')?.value;
     const destination_account = this.formulario.get('destination_account')?.value;
-  
+
     const account = this.accounts.find(acc => acc.id === Number(source_account));
-    
+
     const transactionUSD = {
       amount: this.formulario.get('amount')?.value,
       source_account_id: source_account,
       destination_account_id: 2,
       transaction_type: 'exchange'
     }
-    
+
     const transaction = {
       amount: Number(transactionUSD.amount) * Number(this.dolar?.compra),
       source_account_id: 1,
       destination_account_id: destination_account,
       transaction_type: 'exchange'
     }
-    
+
     const descAmount = -1 * Number(transactionUSD.amount);
-    
+
     if(Number(amount)> Number(account?.balance)){
       Swal.fire({
         text: 'No tiene suficiente saldo.',
@@ -187,7 +200,7 @@ updateCalculatedARS(amount: string | undefined) {
       this.formulario.reset();
       return;
     }
-  
+
     Swal.fire({
       title: `¿Está seguro que desea vender U$D` + amount + `?`,
       text: `Se le acreditaran $` + transaction.amount + ` en la cuenta seleccionada.`,
@@ -201,9 +214,9 @@ updateCalculatedARS(amount: string | undefined) {
       if (result.isConfirmed) {
 
         this.accountService.updateBalance(descAmount, Number(source_account)).subscribe({
-          next: (response) => {
+          next: () => {
             this.accountService.updateBalance(transaction.amount, Number(destination_account)).subscribe({
-              next: (response) => {
+              next: () => {
                 this.postTransaction(transaction);
                 this.postTransaction(transactionUSD);
                 Swal.fire({
@@ -213,6 +226,21 @@ updateCalculatedARS(amount: string | undefined) {
                   confirmButtonColor: '#00b4d8',
                 });
                 this.trading = '';
+                this.accountService.updateBalance(Number(transactionUSD.amount), 2).subscribe({
+                  next: ()=>{
+                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');
+                  }, error : (err:Error)=>{
+                    console.log(err.message);
+                  }
+                })
+                const descontarARS = -1 * transaction.amount;
+                this.accountService.updateBalance(descontarARS, 1).subscribe({
+                  next: ()=>{
+                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)');
+                  }, error : (err:Error)=>{
+                    console.log(err.message);
+                  }
+                })
               },
               error: (e: Error) => {
                 console.log(e.message);
@@ -227,7 +255,7 @@ updateCalculatedARS(amount: string | undefined) {
     });
     this.formulario.reset();
   }
-  
+
 
 
   postTransaction(transaction: any) {

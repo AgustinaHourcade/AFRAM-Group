@@ -30,7 +30,7 @@ export class NewFixedtermComponent implements OnInit {
   calculatedDate: Date | undefined;
   accounts?: Array<Account>;
   account?: Account;
-  
+
   private fb = inject(FormBuilder);
   private fixedTermService = inject(FixedTermService);
   private router = inject(Router);
@@ -71,7 +71,7 @@ export class NewFixedtermComponent implements OnInit {
     if (this.formulario.invalid) {
       return;
     }
-  
+
 
     this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value || 0;
     this.fixedTerm.account_id = this.formulario.get('account_id')?.value as number;
@@ -80,16 +80,16 @@ export class NewFixedtermComponent implements OnInit {
     this.accountService.getAccountById(this.fixedTerm.account_id).subscribe({
       next: (account) => {
         this.account = account;
-  
+
         if (this.fixedTerm.invested_amount <= this.account.balance) {
           const dias = this.formulario.get('daysToAdd')?.value || 0;
-          const total = this.fixedTerm.invested_amount + 
+          const total = this.fixedTerm.invested_amount +
                         this.fixedTerm.invested_amount * (this.rate.fixed_term_interest_rate * dias) / 100;
-  
+
           this.fixedTerm.interest_earned = total - this.fixedTerm.invested_amount;
           this.fixedTerm.expiration_date = this.formatDate(this.updateDate());
           this.fixedTerm.start_date = this.formatDate(new Date());
-  
+
           Swal.fire({
             title: `¿Está seguro que desea crear el plazo fijo?`,
             text: 'El monto a recibir el ' + this.formatearFecha() + ' es de $' + total + '.' ,
@@ -110,7 +110,7 @@ export class NewFixedtermComponent implements OnInit {
                     confirmButtonColor: '#00b4d8'
                   });
                   const descontar = -1 * this.fixedTerm.invested_amount;
-  
+
                   this.accountService.updateBalance(descontar, this.fixedTerm.account_id).subscribe({
                     next: (flag: any) => {
                       if (flag) {
@@ -120,6 +120,13 @@ export class NewFixedtermComponent implements OnInit {
                           destination_account_id: 1,
                           transaction_type: 'fixed term'
                         }
+                        this.accountService.updateBalance(this.fixedTerm.invested_amount, 1).subscribe({
+                          next: ()=>{
+                            console.log('saldo actualizado en la cuenta 1 del banco');
+                          }, error : (err:Error)=>{
+                            console.log(err.message);
+                          }
+                        })
                         this.transactionService.postTransaction(transaction as Transaction).subscribe({
                           next: (id: number) => {
                             console.log('Transacción creada correctamente con id:', id);
@@ -184,7 +191,7 @@ formatearFecha(){
     const id = this.userSessionService.getUserId();
     this.accountService.getAccountsByIdentifier(id).subscribe({
       next: (accounts) => {
-        this.accounts = accounts.filter(account => account.closing_date === null);    
+        this.accounts = accounts.filter(account => account.closing_date === null);
       },
       error: (e: Error) => {
         console.log(e.message);

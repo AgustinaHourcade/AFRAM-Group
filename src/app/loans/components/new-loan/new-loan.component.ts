@@ -106,9 +106,7 @@ export class NewLoanComponent implements OnInit {
           if (result.isConfirmed) {
             this.loanService.createLoan(this.loan as Loan).subscribe({
               next: (response) => {
-                this.accountService
-                  .updateBalance(this.loan.amount, this.loan.account_id)
-                  .subscribe({
+                this.accountService.updateBalance(this.loan.amount, this.loan.account_id).subscribe({
                     next: (flag: any) => {
                       if (flag) {
                         const transaction = {
@@ -117,6 +115,14 @@ export class NewLoanComponent implements OnInit {
                           destination_account_id: this.loan.account_id,
                           transaction_type: 'loan'
                         }
+                        const descontar = -1 * this.loan.amount;
+                        this.accountService.updateBalance(descontar, 1).subscribe({
+                          next: ()=>{
+                            console.log('saldo actualizado en la cuenta 1 del banco');
+                          }, error : (err:Error)=>{
+                            console.log(err.message);
+                          }
+                        })
                         this.transactionService.postTransaction(transaction as Transaction).subscribe({
                           next: () => {
                             console.log('Transacción de préstamo realizada');

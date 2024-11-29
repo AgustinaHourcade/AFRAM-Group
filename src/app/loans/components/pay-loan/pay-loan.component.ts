@@ -89,20 +89,23 @@ export class PayLoanComponent {
               cancelButtonText: 'Cancelar',
             }).then((result) => {
               if (result.isConfirmed) {
-                this.accountService
-                  .updateBalance(descontar, account_id)
-                  .subscribe({
-                    next: (account) => {
-                      this.loanService
-                        .updatePaid(this.loan?.id as number, amount)
-                        .subscribe({
-                          next: (response) => {
+                this.accountService.updateBalance(descontar, account_id).subscribe({
+                    next: () => {
+                      this.loanService.updatePaid(this.loan?.id as number, amount).subscribe({
+                          next: () => {
                             Swal.fire({
                               title: 'Préstamo pagado correctamente!',
                               icon: 'success',
                               confirmButtonText: 'Aceptar',
                               confirmButtonColor: '#00b4d8'
                             });
+                            this.accountService.updateBalance(amount, 1).subscribe({
+                              next: ()=>{
+                                console.log('saldo actualizado en la cuenta 1 del banco');
+                              }, error : (err:Error)=>{
+                                console.log(err.message);
+                              }
+                            })
                             const transaction = {
                               amount: amount,
                               source_account_id: this.loan.account_id,

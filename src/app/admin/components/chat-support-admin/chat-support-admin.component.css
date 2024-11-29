@@ -16,9 +16,10 @@
 .user {
     position: absolute;
     top: 20%;
-    left: 21%;
+    left: 15%;
     font-size: 16px;
     color: black;
+    z-index: 800;
 }
 
 /* Contenedor de mensajes */
@@ -41,7 +42,7 @@
     border-radius: 8px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
     position: relative;
-    max-width: 40%; 
+    max-width: 40%;
 }
 
 /* Mensajes del usuario */
@@ -57,7 +58,7 @@
     background-color: #a6dd7c;
     color: white;
     align-self: flex-end;
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 /* Fecha/hora del mensaje */
@@ -65,7 +66,7 @@
     font-size: 10px;
     color: #888;
     position: absolute;
-    bottom: -20px;  
+    bottom: -20px;
     right: 10px;
 }
 
@@ -146,6 +147,6 @@
 .botones-container {
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
     margin-top: 20px;
 }

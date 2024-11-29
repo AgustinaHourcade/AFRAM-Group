@@ -9,6 +9,8 @@ import { SupportService } from '../../../support/service/support.service';
 import Swal from 'sweetalert2';
 import { User } from '../../../users/interface/user.interface';
 import { UserService } from '../../../users/services/user.service';
+import { AccountService } from '../../../accounts/services/account.service';
+import { NotificationsService } from '../../../notifications/service/notifications.service';
 
 @Component({
   selector: 'app-chat-support-admin',
@@ -20,6 +22,8 @@ import { UserService } from '../../../users/services/user.service';
 export class ChatSupportAdminComponent implements OnInit{
 
   private activatedRoute = inject(ActivatedRoute);
+  private accountService = inject(AccountService);
+  private notificationService = inject(NotificationsService);
   private messageService = inject(MessageService);
   private supportService = inject(SupportService);
   private userService = inject(UserService);
@@ -88,6 +92,7 @@ export class ChatSupportAdminComponent implements OnInit{
       next: (data) => {
             if(data){
               this.loadMessages();
+              this.sendNotification();
             }
           },
           error: (e: Error) => {
@@ -106,10 +111,35 @@ export class ChatSupportAdminComponent implements OnInit{
         }).then((result) => {
           if (result.isConfirmed) {
             this.route.navigate(['admin-support']);
-          } 
-       })}
+          }
+        })
+      }
       },
       error: (e: Error) => {
+        console.log(e.message);
+      }
+    })
+  }
+
+  sendNotification() {
+
+    const notification = {
+      title: 'Recibio una respuesta de soporte.',
+      message: `Puede ver el contenido en la seccion "Soporte".`,
+      user_id: this.thread?.user_id
+    }
+
+    this.postNotification(notification)
+  }
+
+  postNotification(notification: any){
+    this.notificationService.postNotification(notification).subscribe({
+      next: (flag) =>{
+        if(flag){
+          console.log('Notificacion enviada');
+        }
+      },
+      error: (e: Error)=>{
         console.log(e.message);
       }
     })

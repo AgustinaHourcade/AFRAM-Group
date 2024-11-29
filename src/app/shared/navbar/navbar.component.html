@@ -3,7 +3,7 @@
     <img src="/logo-navbar.png" alt="Logo del Banco" class="logo-image" />
   </a>
   <ul class="nav-links">
-    
+
     <li class="account-dropdown" [ngClass]="{'show-menu': activeMenu === 'account'}">
       <a class="dropdown-link" (click)="toggleMenu('account')">Cuentas</a>
       <ul class="account-menu">
@@ -11,7 +11,7 @@
         <li><a routerLink="/accounts/new-account">Solicitar cuenta</a></li>
       </ul>
     </li>
-    
+
     <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'investments'}">
       <a class="dropdown-link" (mouseenter)="toggleMenu('investments')" (mouseleave)="toggleMenu('')">Inversiones</a>
       <ul class="submenu">
@@ -58,6 +58,52 @@
     </li>
 
     <li><a routerLink="/support">Soporte</a></li>
+
+    <div class="notification-container">
+      <!-- Icono de notificaciones -->
+      <div
+        class="notification-icon"
+        [class.has-unread]="unreadNotifications.length > 0"
+        [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
+        [class.no-notifications]="notifications.length === 0"
+        (click)="toggleNotificationsDropdown()"
+      >
+        <i
+          class="bi"
+          [class.bi-bell-fill]="notifications.length > 0"
+          [class.bi-bell]="notifications.length === 0"
+        ></i>
+      </div>
+
+      <!-- Cuadro desplegable de notificaciones -->
+      <div class="notification-dropdown" [class.open]="isDropdownOpen">
+        <div *ngIf="notifications.length === 0" class="no-notifications">
+          <p>No tiene notificaciones</p>
+        </div>
+
+        <div *ngFor="let notification of notifications" class="notification-item">
+
+          <div class="notification-content">
+            <h5>{{ notification.title }}</h5>
+            <p>{{ notification.message }}</p>
+            <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+          </div>
+
+          <div class="notification-actions">
+              @if(notification.is_read === 'no'){
+                <button class="mark-as-read" (click)="markAsRead(notification.id, id)">
+                  <i class="bi bi-check-all"></i>
+                </button>
+              }
+            <button class="delete-notification" (click)="deleteNotification(notification.id, id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
     @if (type === 'admin') {
       <button (click)="changeType()">Cambiar tipo</button>

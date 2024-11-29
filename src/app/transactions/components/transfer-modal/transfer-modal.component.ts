@@ -11,6 +11,7 @@ import { TransactionService } from '../../services/transaction.service';
 import { Transaction } from '../../interface/transaction.interface';
 import { EmailService } from '../../../email/service/email.service';
 import Swal from 'sweetalert2';
+import { NotificationsService } from '../../../notifications/service/notifications.service';
 
 @Component({
   selector: 'app-transfer-modal',
@@ -41,6 +42,7 @@ export class TransferModalComponent implements OnInit {
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
   private emailService = inject(EmailService);
+  private notificationService = inject(NotificationsService);
   private montoTransferencia: number | null | undefined = 0
   private fb = inject(FormBuilder);
 
@@ -54,9 +56,6 @@ export class TransferModalComponent implements OnInit {
     selectedAccountId: ['', [Validators.required]]
   });
 
-
-
-
   ngOnInit(): void {
     this.id = this.userSessionService.getUserId();
     this.userService.getUser(this.id).subscribe({
@@ -67,11 +66,10 @@ export class TransferModalComponent implements OnInit {
       }
     })
 
-
     this.cargarCuentas();
   }
 
-    onClose() {
+  onClose() {
     this.close.emit();
   }
 
@@ -157,7 +155,6 @@ export class TransferModalComponent implements OnInit {
         },
       });
     }
-
   }
 
   cargarCuentas() {
@@ -171,8 +168,6 @@ export class TransferModalComponent implements OnInit {
       },
     });
   }
-
-
 
   realizarTransfer() {
     const selectedAccountId = this.amount.get('selectedAccountId')?.value;
@@ -238,7 +233,7 @@ export class TransferModalComponent implements OnInit {
           destination_account_id: this.account?.id,
           transaction_type: 'transfer'
         };
-        
+
         // Emite la transacción cargada al padre
         this.transactionConfirmed.emit(this.transactionData);
 
@@ -250,6 +245,9 @@ export class TransferModalComponent implements OnInit {
               confirmButtonText: 'Aceptar',
               confirmButtonColor: '#00b4d8'
             });
+
+            this.sendNotification(transaction.destination_account_id);
+
 
             if (this.user.email) {
               this.emailService
@@ -288,6 +286,39 @@ export class TransferModalComponent implements OnInit {
     });
   }
 
+  sendNotification(id: number) {
+    let user_id = 0;
+    this.accountService.getAccountById(id).subscribe({
+      next: (account) =>{
+        user_id = account.user_id
+      },
+      error: (e: Error)=>{
+        console.log(e.message);
+      }
+    })
+
+
+    const notification = {
+      title: 'Transferencia recibida!',
+      message: 'Puede ver el comprobante en la seccion "Mis transferencias"',
+      user_id: user_id
+    }
+
+    this.postNotification(notification)
+  }
+
+  postNotification(notification: any){
+    this.notificationService.postNotification(notification).subscribe({
+      next: (flag) =>{
+        if(flag){
+          console.log('Notificacion enviada');
+        }
+      },
+      error: (e: Error)=>{
+        console.log(e.message);
+      }
+    })
+  }
 
 
 }
