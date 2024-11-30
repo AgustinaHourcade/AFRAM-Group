@@ -29,8 +29,12 @@
               <option [value]="account.id">
                   @if (account.account_type == "Savings") {
                     <h3>CA </h3>
-                    <p>{{ account.id }}-{{userId }}/1--${{account.balance}}</p>
-                  } @if (account.account_type == "Checking") {
+                    @if (account.currency === 'usd') {
+                      <p>{{ account.id }}-{{userId }}/1--U$D{{account.balance}}</p>
+                    }@else {
+                      <p>{{ account.id }}-{{userId }}/1--${{account.balance}}</p>
+                    }
+                  } @else if (account.account_type == "Checking") {
                     <h3>CC </h3>
                     <p>{{ account.id }}-{{ userId }}/2--${{account.balance}}</p>
                   }

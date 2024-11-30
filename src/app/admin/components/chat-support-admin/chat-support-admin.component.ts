@@ -34,6 +34,7 @@ export class ChatSupportAdminComponent implements OnInit{
   user ?: User;
   thread ?: Thread;
   id ?: number;
+  flag = false;
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -125,6 +126,7 @@ export class ChatSupportAdminComponent implements OnInit{
   }
 
   sendNotification() {
+    if(this.flag) return;
 
     const notification = {
       title: 'Recibio una respuesta de soporte.',
@@ -133,6 +135,7 @@ export class ChatSupportAdminComponent implements OnInit{
     }
 
     this.postNotification(notification)
+    this.flag = true;
   }
 
   postNotification(notification: any){

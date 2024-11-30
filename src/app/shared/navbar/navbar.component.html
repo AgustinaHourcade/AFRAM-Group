@@ -67,6 +67,7 @@
         [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
         [class.no-notifications]="notifications.length === 0"
         (click)="toggleNotificationsDropdown()"
+        (click)="$event.stopPropagation()"
       >
         <i
           class="bi"
@@ -86,19 +87,22 @@
           <div class="notification-content">
             <h5>{{ notification.title }}</h5>
             <p>{{ notification.message }}</p>
-            <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+            <div  class="notification-content-sub">
+              <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+              <div class="notification-actions">
+                @if(notification.is_read === 'no'){
+                  <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
+                    <i class="bi bi-check-all"></i>
+                  </a>
+                }
+              <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
+                <i class="bi bi-trash"></i>
+              </a>
+            </div>
+            </div>
           </div>
 
-          <div class="notification-actions">
-              @if(notification.is_read === 'no'){
-                <button class="mark-as-read" (click)="markAsRead(notification.id, id)">
-                  <i class="bi bi-check-all"></i>
-                </button>
-              }
-            <button class="delete-notification" (click)="deleteNotification(notification.id, id)">
-              <i class="bi bi-trash"></i>
-            </button>
-          </div>
+          
 
         </div>
       </div>

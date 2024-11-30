@@ -16,6 +16,9 @@
           <div class="thread-item active" [routerLink]="['/support-chat', item.id]">
             <h3>{{ item.support_subject }}</h3>
             <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+            @if(!item.has_user_last_message){
+              <i class="bi bi-patch-exclamation"></i>
+            }
           </div>
         }
       }
@@ -58,7 +61,7 @@
         </select>
 
         <label for="message">Mensaje</label>
-        <input type="text" id="message" formControlName="message" placeholder="Explique brevemente su consulta">
+        <textarea type="text" id="message" formControlName="message" placeholder="Explique brevemente su consulta"></textarea>
         <div class="submit-button">
           <button type="submit">Enviar</button>
         </div>

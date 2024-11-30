@@ -30,18 +30,19 @@
 .nav-links li {
   position: relative;
   list-style: none;
+  padding: 10px;
 }
 
 .nav-links a {
   color: white;
   text-decoration: none;
-  padding: 10px;
+  text-transform: uppercase;
 }
 
 .nav-links a:hover {
   color: #fff;
 }
-/* Menú principal y primeros submenús */
+
 .account-menu,
 .fixed-terms-menu,
 .profile-menu,
@@ -51,8 +52,8 @@
 .submenu {
   display: none;
   position: absolute;
-  top: 100%; /* El primer submenú se abre hacia abajo */
-  left: 0; /* Alineado con el padre */
+  top: 100%; 
+  left: 0;
   background-color: var(--primary-color);
   padding: 10px 0;
   min-width: 150px;
@@ -117,12 +118,11 @@
   background-color: var(--button-hover);
 }
 
-/* Submenús anidados dentro de los primeros submenús */
 .dropdown .submenu .submenu {
   display: none;
   position: absolute;
-  top: 0; /* Alineado con el padre */
-  left: 100%; /* Mostrar a la derecha */
+  top: 0; 
+  left: 100%; 
   min-width: 200px;
   background-color: var(--primary-color);
   padding: 10px 0;
@@ -130,12 +130,10 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Mostrar los submenús anidados al pasar el cursor */
 .dropdown .submenu:hover > .submenu {
   display: block;
 }
 
-/* Clase para activar menús desde TypeScript */
 .show-menu > .submenu {
   display: block;
 }
@@ -226,12 +224,15 @@ button {
   margin: 0;
   font-size: 1rem;
   color: #333;
+  padding-bottom: 8px;
 }
 
 .notification-content p {
   margin: 0;
   font-size: 0.9rem;
   color: #666;
+  padding-bottom: 8px;
+
 }
 
 .notification-content small {
@@ -239,7 +240,13 @@ button {
   color: #999;
 }
 
-.notification-actions button {
+.notification-content-sub, .notification-actions{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification-actions a {
   background: none;
   border: none;
   cursor: pointer;
@@ -247,9 +254,11 @@ button {
   color: #333;
   margin-left: 10px;
   transition: color 0.2s ease;
+  box-shadow: none;
+  padding: 5px;
 }
 
-.notification-actions button:hover {
+.notification-actions a:hover {
   color: #007bff;
 }
 
@@ -260,7 +269,6 @@ button {
   color: #666;
 }
 
-/* Animación para mover el ícono */
 @keyframes bell-shake {
   0% {
     transform: rotate(0);

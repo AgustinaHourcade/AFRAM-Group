@@ -46,6 +46,8 @@ export class TransferModalComponent implements OnInit {
   private montoTransferencia: number | null | undefined = 0
   private fb = inject(FormBuilder);
 
+  userId = this.userSessionService.getUserId();
+
   newRecipientForm = this.fb.group({
     searchType: ['alias', Validators.required],
     accountSearch: ['', Validators.required],
@@ -102,6 +104,7 @@ export class TransferModalComponent implements OnInit {
                     },
                   });
                 }
+                setTimeout(() => this.scrollToBottom(), 100);
               },
               error: (error: Error) => {
               console.log('Error al obtener la cuenta por ID:', error);
@@ -137,6 +140,7 @@ export class TransferModalComponent implements OnInit {
                     },
                   });
                 }
+                setTimeout(() => this.scrollToBottom(), 100);
             },
             error: (error: Error) => {
               console.log('Error al obtener la cuenta por ID:', error);
@@ -315,6 +319,13 @@ export class TransferModalComponent implements OnInit {
         console.log(e.message);
       }
     })
+  }
+
+  scrollToBottom() {
+    const lastElement = document.querySelector('.modal:last-child');
+    if (lastElement) {
+      lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   }
 
 

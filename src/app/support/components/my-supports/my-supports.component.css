@@ -1,159 +1,198 @@
 .support-container {
-    padding: 20px;
-    background-color: #f4f7fb;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 0 auto;
-  }
+  padding: 20px;
+  background-color: #f4f7fb;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: center;
-  }
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
 
-  .thread-list {
-    margin-bottom: 30px;
-  }
+.thread-list {
+  margin-bottom: 30px;
+}
 
+.thread-item {
+  background-color: #fff;
+  cursor: pointer;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  position: relative; 
+}
 
-  .thread-item {
-    background-color: #fff;
-    cursor: pointer;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
-  }
+.thread-item.active {
+  border-left: 5px solid #4CAF50;
+}
 
-  .thread-item.active {
-    border-left: 5px solid #4CAF50;
-  }
+.thread-item.closed {
+  border-left: 5px solid #FF5733;
+}
 
-  .thread-item.closed {
-    border-left: 5px solid #FF5733;
-  }
+.thread-item h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+}
 
-  .thread-item h3 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
-  }
+.thread-date {
+  font-size: 14px;
+  color: #666;
+}
 
-  .thread-date {
-    font-size: 14px;
-    color: #666;
-  }
+.thread-item .bi-patch-exclamation {
+  font-size: 20px;  
+  color: #4CAF50;  
+  position: absolute;  
+  top: 15px; 
+  right: 15px;  
+  transition: transform 0.3s; 
+}
 
-  .new-thread-button {
-    text-align: end;
-    margin-top: 20px;
-    margin-right: 5%;
-  }
+.thread-item .bi-patch-exclamation:hover {
+  transform: scale(1.2); 
+}
 
-  .new-thread-button button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+.new-thread-button {
+  text-align: end;
+  margin-top: 20px;
+  margin-right: 5%;
+}
 
-  .new-thread-button button:hover {
-    background-color: #0056b3;
-  }
+.new-thread-button button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+.new-thread-button button:hover {
+  background-color: #0056b3;
+}
 
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  display: block;
+}
+
+select, input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
+
+select:focus, input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #fff;
+}
+
+input[type="text"] {
+  height: 120px;
+  resize: vertical;
+  padding-top: 10px; /* Ajusta el espacio superior */
+  text-align: left; /* Alinea el texto a la izquierda */
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño del input */
+  font-family: var(--font-menu-form);
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  resize: vertical;
+  padding: 12px; /* Espaciado interno */
+  border-radius: 8px; /* Bordes redondeados */
+  border: 1px solid #ccc; /* Borde similar */
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+  box-sizing: border-box; /* Incluye el padding en las dimensiones */
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+  transition: border-color 0.3s, background-color 0.3s; /* Transiciones suaves */
+  font-family: var(--font-menu-form);
+
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #007bff; /* Borde azul al enfocar */
+  background-color: #fff; /* Fondo blanco al enfocar */
 }
 
 
-  label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
-    display: block;
-  }
 
-  select, input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    color: #333;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-  }
+option {
+  padding: 10px;
+  background-color: #fff;
+  font-size: 16px;
+}
 
-  select:focus, input[type="text"]:focus {
-    outline: none;
-    border-color: #007bff;
-    background-color: #fff;
-  }
+.submit-button button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-  input[type="text"] {
-    height: 120px;
-    resize: vertical;
-  }
+.submit-button button:hover {
+  background-color: #0056b3;
+}
 
-  option {
-    padding: 10px;
-    background-color: #fff;
-    font-size: 16px;
-  }
-
-  .submit-button button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  .submit-button button:hover {
-    background-color: #0056b3;
-  }
-  
-  .volver-button {
-    text-align: end;
-    margin-top: 20px;
-    margin-left: 5%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.volver-button {
+  text-align: end;
+  margin-top: 20px;
+  margin-left: 5%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .volver-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }

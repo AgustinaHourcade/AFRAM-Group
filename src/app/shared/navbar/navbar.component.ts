@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserSessionService } from '../../auth/services/user-session.service';
 import { CommonModule } from '@angular/common';
@@ -126,6 +126,14 @@ export class NavbarComponent implements OnInit{
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event): void {
+    const target = event.target as HTMLElement;
 
+    // Cierra el desplegable si el clic no está dentro del componente
+    if (!target.closest('.notification-dropdown') && this.isDropdownOpen) {
+      this.isDropdownOpen = false;
+    }
+  }
 
 }
