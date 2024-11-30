@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 <div class="page">
+    <div class="page-sub">
     <h2>Crear cuenta</h2>
     <form [formGroup]="formulario" (ngSubmit)="createAccount()">
         <label for="account_type">Seleccione el tipo de cuenta</label>
@@ -16,4 +17,5 @@
         </select>
         <button type="submit">Crear cuenta</button>
     </form> 
+</div>
 </div>

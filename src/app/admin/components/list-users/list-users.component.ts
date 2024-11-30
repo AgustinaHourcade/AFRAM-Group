@@ -17,7 +17,7 @@ export class ListUsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
   clients: Array<User> = [];
-  clientsFilter: Array<User> = [];
+  // clientsFilter: Array<User> = [];
 
   filterForm = this.fb.nonNullable.group({
     dni: [''],
@@ -27,8 +27,8 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next: (users) => {
-        this.clients = users.filter((user) => user.user_type === 'user');
-        this.clientsFilter = [...this.clients]; 
+        this.clients = users /*.filter((user) => user.user_type === 'user');*/
+        // this.clientsFilter = [...this.clients]; 
       },
       error: (e: Error) => {
         console.error(e.message);
@@ -42,7 +42,7 @@ export class ListUsersComponent implements OnInit {
     const dni = this.filterForm.get('dni')?.value.toString().trim();
     const lastName = this.filterForm.get('lastName')?.value.trim();
 
-    this.clientsFilter = this.clients.filter((client) => {
+    this.clients = this.clients.filter((client) => {
       const matchesDni = dni ? client.dni.includes(dni) : true;
       const matchesLastName = lastName
         ? client.last_name?.toLowerCase().includes(lastName.toLowerCase())
@@ -53,6 +53,6 @@ export class ListUsersComponent implements OnInit {
 
   onClearFilter() {
     this.filterForm.reset();
-    this.clientsFilter = [...this.clients]; 
+    this.clients = [...this.clients]; 
   }
 }

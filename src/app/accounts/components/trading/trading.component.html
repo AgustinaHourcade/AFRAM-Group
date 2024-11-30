@@ -19,10 +19,11 @@
   
     <!-- Sección de compra -->
     @if (trading === 'compra'){
+      <div class="page3">
+      <div class="closeButton">
+        <button (click)="trading = ''" (click)="this.formulario.reset()">Volver</button>
+      </div>
         <div class="modal">
-            <div class="closeButton">
-              <button (click)="trading = ''" (click)="this.formulario.reset()">Cerrar</button>
-            </div>
             <h2>Compra de USD</h2>
             <form [formGroup]="formulario" (ngSubmit)="buyUSD()">
               <label for="amount">Cantidad a comprar</label>
@@ -36,9 +37,9 @@
                   @if (!account.closing_date) {
                       @if (account.currency === 'ars') {
                           @if (account.account_type === 'Savings') {
-                              <option value="{{account.id}}">CA -- {{account.id}}/{{account.user_id}} -- ${{account.balance}} </option>
+                              <option value="{{account.id}}">CA {{account.id}}/{{account.user_id}} - ${{account.balance}} </option>
                           }@else {
-                              <option value="{{account.id}}">CC -- {{account.id}}/{{account.user_id}} -- ${{account.balance}} </option>
+                              <option value="{{account.id}}">CC {{account.id}}/{{account.user_id}} - ${{account.balance}} </option>
                           }
                       }
                   }
@@ -51,7 +52,7 @@
                 @for (account of accounts; track $index) {
                     @if (account.currency === 'usd') {
                     @if (!account.closing_date) {
-                                <option value="{{account.id}}">CA -- {{account.id}}/{{account.user_id}} -- U$S{{account.balance}} </option>
+                                <option value="{{account.id}}">CA {{account.id}}/{{account.user_id}} - U$S{{account.balance}} </option>
                         }
                     }
                 }
@@ -61,15 +62,16 @@
               <button type="submit" [disabled]="formulario.invalid">Comprar</button>
             </form>
           </div>
-      
+        </div>
     }
     
     <!-- Sección de venta -->
     @if (trading === 'venta'){
+      <div class="page3">
+      <div class="closeButton">
+        <button (click)="trading = ''">Volver</button>
+      </div>
         <div class="modal">
-            <div class="closeButton">
-              <button (click)="trading = ''">Cerrar</button>
-            </div>
             <h2>Venta de USD</h2>
             <form [formGroup]="formulario" (ngSubmit)="sellUSD()">
               <label for="amount">Cantidad a vender</label>
@@ -82,7 +84,7 @@
                   @for (account of accounts; track $index) {
                       @if (!account.closing_date) {
                           @if (account.currency === 'usd') {
-                                  <option value="{{account.id}}">CA -- {{account.id}}/{{account.user_id}} -- U$S{{account.balance}} </option>
+                                  <option value="{{account.id}}">CA {{account.id}}/{{account.user_id}} - U$S{{account.balance}} </option>
                           }
                       }
                   }
@@ -94,9 +96,9 @@
                       @if (!account.closing_date) {
                           @if (account.currency === 'ars') {
                               @if (account.account_type === 'Savings') {
-                                  <option value="{{account.id}}">CA -- {{account.id}}/{{account.user_id}} -- ${{account.balance}} </option>
+                                  <option value="{{account.id}}">CA {{account.id}}/{{account.user_id}} - ${{account.balance}} </option>
                               }@else {
-                                  <option value="{{account.id}}">CC -- {{account.id}}/{{account.user_id}} -- ${{account.balance}} </option>
+                                  <option value="{{account.id}}">CC {{account.id}}/{{account.user_id}} - ${{account.balance}} </option>
                               }
                           }
                       }
@@ -106,6 +108,7 @@
               <button type="submit" [disabled]="formulario.invalid">Vender</button>
             </form>
           </div>
+        </div>
     }
 
    

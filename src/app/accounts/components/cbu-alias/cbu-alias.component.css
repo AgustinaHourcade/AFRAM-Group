@@ -2,12 +2,12 @@
   width: 100%;
   max-width: 650px;
   margin: auto;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray-1);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
+  background-color: var(--background-gray);
   margin-top: 5%;
 }
 
@@ -16,13 +16,13 @@
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--gray-1);
 }
 
 .cbu p, .alias p, .name p, .dni p {
   margin: 0;
   font-size: 17px;
-  color: #333;
+  color: var(--gray-4);
 }
 
 .cbu p:first-child,
@@ -36,7 +36,7 @@
 .alias-sub input[type="text"] {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray-1);
   border-radius: 5px;
   font-size: 14px;
   margin-top: 5px;
@@ -81,9 +81,9 @@ h1{
   padding: 12px 5px; 
   border: 1px solid var(--extra-light-color);
   border-radius: 8px; 
-  background-color: #f9f9f9; 
+  background-color: var(--white); 
   font-size: 16px; 
-  color: #333;
+  color: var(--gray-4);
   box-sizing: border-box; 
   transition: border-color 0.3s ease, box-shadow 0.3s ease; 
   text-align: center;
@@ -91,7 +91,7 @@ h1{
 
 .input-field:focus {
   border-color: var(--accent-color); 
-  background-color: #fff; 
+  background-color: var(--white); 
   outline: none; 
 }
 
@@ -106,3 +106,4 @@ h1{
 .cancel-button:hover{
   background-color: var(--cancel-button-hover);
 }
+

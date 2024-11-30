@@ -1,14 +1,18 @@
 .page {
-  max-width: 450px;
+  max-width: 600px;
   margin: 20px auto;
   padding: 15px;
 }
-
+/* 
 .title {
   text-align: center;
   color: #2c3e50;
   font-weight: bold;
   padding-top: 40px;
+} */
+
+h2{
+  margin-top: 20px;
 }
 
 form {
@@ -30,13 +34,13 @@ label {
   left: 10px;
   transform: translateY(-50%);
   transition: all 0.3s ease;
-  color: #aaa;
+  /* color: #aaa; */
   pointer-events: none;
-  font-size: 13px;
+  /* font-size: 13px; */
 }
 
 .required {
-  color: #ff4d4d;
+  color: var(--cancel-button);
 }
 
 .input-wrapper {
@@ -47,9 +51,9 @@ label {
 input, select {
   width: 100%;
   padding: 8px 32px 8px 10px;
-  font-size: 14px;
+  /* font-size: 14px;
   font-family: 'Open sans';
-  border: 1px solid #ced4da;
+  border: 1px solid #ced4da; */
   border-radius: 4px;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -57,10 +61,10 @@ input, select {
   height: 36px;
 }
 
-input:focus, select:focus {
+/* input:focus, select:focus {
   border-color: #4e9af1;
   box-shadow: 0 0 0 0.15rem rgba(78, 154, 241, 0.25);
-}
+} */
 
 input:focus + label,
 input:not(:placeholder-shown) + label,
@@ -69,8 +73,8 @@ select:not([value=""]):not([value="undefined"]) + label {
   top: -8px;
   left: 8px;
   font-size: 11px;
-  color: #4e9af1;
-  background: white;
+  /* color: #4e9af1;
+  background: white; */
   padding: 0 4px;
 }
 
@@ -105,7 +109,7 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
 }
 
 .error-message {
-  color: #ff4d4d;
+  color: var(--cancel-button);
   font-size: 11px;
   margin-top: 3px;
   display: flex;
@@ -121,29 +125,29 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
 .submit-button {
   width: 100%;
   padding: 8px 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 4px var(--box-shadow-color);
   margin-top: 8px;
   height: 36px;
 }
 
 .submit-button:hover {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 6px var(--box-shadow-color);
 }
 
 .submit-button:active {
   transform: scale(0.98);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px var(--box-shadow-color);
 }
 
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
-  border-color: #ff4d4d;
-  box-shadow: 0 0 4px rgba(255, 77, 77, 0.4);
+  border-color: var(--cancel-button);
+  box-shadow: 0 0 4px var(--cancel-button-hover);
 }
 
 input.ng-invalid.ng-touched + label,
 select.ng-invalid.ng-touched + label {
-  color: #ff4d4d;
+  color:var(--cancel-button);
 }
 
 /* input[type="number"]::-webkit-outer-spin-button,
@@ -208,3 +212,4 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 12px;
   }
 }
+

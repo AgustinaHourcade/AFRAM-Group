@@ -3,7 +3,7 @@
   padding: 20px;
   border-radius: 8px;
   border: 1px solid var(--secondary-color); 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--box-shadow-color);
   width: 300px;
   text-align: center;
   transition: transform 0.3s ease;
@@ -37,25 +37,6 @@
 span{
   font-size: 18px;
 }
-
-/* button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  margin-top: 20px;
-}
-
-button:focus {
-  outline: none;
-  box-shadow: 0 0 3px var(--accent-color);
-}
-
-button.cancel {
-  background-color: var(--cancel-button);
-}
-
-button.cancel:hover {
-  background-color: var(--cancel-button-hover); 
-} */
 
 @media (max-width: 768px) {
   body {

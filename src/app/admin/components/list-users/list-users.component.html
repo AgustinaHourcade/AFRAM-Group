@@ -1,4 +1,5 @@
 <app-navbar-admin></app-navbar-admin>
+<div class="page">
 <h2>Lista de Clientes</h2>
 
 <!-- Barra de filtración -->
@@ -20,7 +21,7 @@
   </button>
 </form>
 
-@if (clientsFilter.length === 0) {
+@if (clients.length === 0) {
   <h2>No hay resultados que coincidan con la búsqueda.</h2>
 }@else {
   <table >
@@ -35,7 +36,7 @@
       </tr>
     </thead>
   <tbody>
-    @for (client of clientsFilter; track $index) {
+    @for (client of clients; track $index) {
 
       <tr>
         <td>{{ client.real_name }}</td>
@@ -53,4 +54,4 @@
   </tbody>
 </table>
 }
-
+</div>

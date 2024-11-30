@@ -36,7 +36,9 @@
           @if(user?.is_Active === 'yes'){
             <div class="botones-admin">
               <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
-              <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
+              @if(user?.user_type === 'admin'){
+                <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
+              }
             </div>
           }@else {
             <div>
@@ -78,6 +80,8 @@
             <td>No</td>
           }
         </tr>
+    }@empty {
+      <p>El usuario no tiene cuentas asociadas</p>
     }
   </tbody>
 </table>
