@@ -1,8 +1,8 @@
 .dolar-info {
-  background-color: #f8f9fa;
-  border-radius: 10px;
+  background-color: var(--background-gray);
+  border-radius: var(--border-radius);
   padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px var(--box-shadow-color);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -12,14 +12,9 @@
 
 .dolar-info p {
   font-size: 16px;
-  color: #495057;
+  color: var(--gray-3);
   margin: 0;
   line-height: 1.5;
-}
-
-.dolar-info p  {
-  color: var(--primary-color); 
-  font-weight: 600;
 }
 
 .dolar-info p:nth-child(1),
@@ -37,7 +32,7 @@
 
 .dolar-info p:nth-child(4) {
   font-size: 14px;
-  color: #adb5bd;
+  color: var(--gray-3);
   font-style: italic;
 }
 

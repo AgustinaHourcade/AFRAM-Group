@@ -1,12 +1,12 @@
 <div id="page">
   <div class="container">
     <div class="left-panel">
-      <button class="toggle-btn" [class.active]="isLoginActive" (click)="toggleForm('login')">Log In</button>
-      <button class="toggle-btn" [class.active]="!isLoginActive" (click)="toggleForm('signup')">Sign Up</button>
+      <button [class.active]="isLoginActive" (click)="toggleForm('login')">Log In</button>
+      <button [class.active]="!isLoginActive" (click)="toggleForm('signup')">Sign Up</button>
     </div>
     <div class="form-container">
       <div class="logo">
-        <a href="" routerLink=""><img src="/logo-fff.png" alt="" style="height: 150px; width: 300px;"></a>
+        <a href="" routerLink=""><img src="/logo-fff.png" alt="AFRAM Group Logo"></a>
       </div>
       <app-login *ngIf="isLoginActive"></app-login>
       <app-signup *ngIf="!isLoginActive"></app-signup>

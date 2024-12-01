@@ -21,8 +21,8 @@ export class CardComponent implements OnInit {
   private sesionService = inject(UserSessionService);
   private cardService = inject(CardService);
   private accountService = inject(AccountService);
-  private route = inject (Router);
-  private cardsService = inject(CardService);
+  // private route = inject (Router);
+  // private cardsService = inject(CardService);
 
   borrar = false;
   cards!: Array<Card>;

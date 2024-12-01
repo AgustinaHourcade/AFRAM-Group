@@ -6,11 +6,11 @@
 
 @if (loans.length > 0) {
 <div class="tableDiv">
-  <h3>Prestamos activos</h3>
+  <h2>Préstamos activos</h2>
     <table>
       <thead>
       <tr>
-        <th>Numero de cuenta</th>
+        <th>Número de cuenta</th>
         <th>Cantidad solicitada</th>
         <th>Cantidad a devolver</th>
         <th>Cantidad pagada</th>
@@ -40,15 +40,15 @@
 
 @if (expiredLoans.length > 0) {
 <div class="tableDiv">
-  <h3>Prestamos finalizado</h3>
+  <h2>Préstamos finalizado</h2>
     <table>
       <thead>
       <tr>
-        <th>Numero de cuenta</th>
-        <th>Cantidad solicitada</th>
-        <th>Cantidad devuelta</th>
-        <th>Fecha de solicitud</th>
-        <th>Fecha de expiración</th>
+        <th class="thExpired">Número de cuenta</th>
+        <th class="thExpired">Cantidad solicitada</th>
+        <th class="thExpired">Cantidad devuelta</th>
+        <th class="thExpired">Fecha de solicitud</th>
+        <th class="thExpired">Fecha de expiración</th>
       </tr>
     </thead>
     <tbody>

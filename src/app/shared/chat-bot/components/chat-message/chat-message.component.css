@@ -1,25 +1,24 @@
-/* ! cambiar colores */
 .message {
   font-family:Arial, Helvetica, sans-serif;
   margin: 8px;
   padding: 8px 12px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   max-width: 85%;
   position: relative;
 }
 
 .bot {
-  background-color: #E8E8E8;
+  background-color: var(--background-gray);
   margin-right: auto;
   border-bottom-left-radius: 2px;
-  border-left: 4px solid #005AB5;
+  border-left: 4px solid var(--secondary-color);
 }
 
 .user {
-  background-color: #FFF3D4; 
+  background-color: var(--extra-light-color); 
   margin-left: auto;
   border-bottom-right-radius: 2px;
-  border-right: 4px solid #8C4B00; 
+  border-right: 4px solid var(--accent-color); 
 }
 
 .message-content {
@@ -29,7 +28,7 @@
 
 .message-time {
   font-size: 0.7rem;
-  color: #666;
+  color: var(--gray-4);
   text-align: right;
 }
 
@@ -40,23 +39,23 @@
 .topic-list h3, .faq-list h3 {
   margin-bottom: 6px;
   font-size: 0.85rem;
-  color: #333;
+  color: var(--gray-3);
 }
 
 .topic-button {
   display: flex;
   align-items: center;
   width: 100%;
-  background-color: #fff;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
+  background-color: var(--white);
+  border: 1px solid var(--gray-2);
+  border-radius: var(--border-radius);
   padding: 8px 12px;
   margin-bottom: 6px;
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
-  color: #005AB5;
+  color: var(--secondary-color);
 }
 
 .topic-icon {
@@ -67,20 +66,20 @@
 .faq-button {
   display: block;
   width: 100%;
-  background-color: #fff;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
+  background-color: var(--white);
+  border: 1px solid var(--gray-2);
+  border-radius: var(--border-radius);
   padding: 6px 12px;
   margin-bottom: 6px;
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s;
   text-align: left;
-  color: #005AB5; 
+  color: var(--primary-color);
 }
 
 .topic-button:hover, .faq-button:hover {
-  background-color: #f8f9fa;
-  border-color: #005AB5; 
+  background-color: var(--gray-2);
+  color: var(--secondary-color);
   transform: translateX(4px);
 }

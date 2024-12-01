@@ -1,25 +1,17 @@
 .profile-container {
   padding: 20px;
-  background-color: var(--extra-light-color);
+  background-color: var(--background-gray);
   font-family: var(--font-body);
 }
 
 .profile-card {
   background-color: var(--white);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   padding: 30px 40px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px var(--box-shadow-color);
   max-width: 800px;
   margin: 30px auto;
   border-left: 8px solid var(--secondary-color);
-}
-
-.profile-card h3 {
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  font-family: var(--font-title);
-  font-size: 1.5em;
-  font-weight: 600;
 }
 
 table {
@@ -31,7 +23,6 @@ table {
 tbody tr {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid var(--gray);
   padding: 10px 0;
 }
 
@@ -58,8 +49,3 @@ td:last-child {
   text-align: center;
   margin-top: 30px;
 }
-
-button {
-  padding: 12px 24px;
-}
-

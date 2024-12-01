@@ -6,7 +6,7 @@
 
 @if (fixedTerms.length > 0) {
 <div class="tableDiv">
-  <h3>Plazos fijos activos</h3>
+  <h2>Plazos fijos activos</h2>
   <table>
     <thead>
       <tr>
@@ -31,15 +31,15 @@
 }
 
 @if (expiredFixedTerms.length > 0) {
-<div class="tableDiv2">
-  <h3>Plazos fijos vencidos</h3>
+<div class="tableDiv">
+  <h2>Plazos fijos vencidos</h2>
   <table>
     <thead>
       <tr>
-        <th>Numero de cuenta</th>
-        <th>Cantidad invertida</th>
-        <th>Intereses ganados</th>
-        <th>Fecha de expiración</th>
+        <th class="thExpired">Numero de cuenta</th>
+        <th class="thExpired">Cantidad invertida</th>
+        <th class="thExpired">Intereses ganados</th>
+        <th class="thExpired">Fecha de expiración</th>
       </tr>
     </thead>
     <tbody>

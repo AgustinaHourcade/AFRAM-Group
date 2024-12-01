@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 
-
+<div class="page">
 <form [formGroup]="formulario" (ngSubmit)="updatePaid()">
   <div>
     <div>
@@ -34,7 +34,6 @@
       id="amount"
       type="number"
       formControlName="amount"
-      placeholder="Ingrese un monto..."
     />
     @if(formulario.controls['amount'].touched &&
     formulario.controls['amount'].getError('required')){
@@ -46,13 +45,12 @@
       <p>El monto invertido debe ser mayor a 0.</p>
       }
     </div>
-
   </div>
 
   <div class="buttons">
-    <button  id="cancel" class="cancel-button" [routerLink]="['/list-loan']" >Cancelar</button>
+    <button class="cancel-button" [routerLink]="['/list-loan']" >Cancelar</button>
     <button type="submit" class="submit-button" [disabled]="formulario.invalid">Confirmar</button>
   </div>
 </form>
-
+</div>
 

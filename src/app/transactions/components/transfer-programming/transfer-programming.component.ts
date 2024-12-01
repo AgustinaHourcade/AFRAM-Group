@@ -144,7 +144,7 @@ export class TransferProgrammingComponent implements OnInit {
     
       Swal.fire({
         text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id},
-        para el dia ${transaction_date_value}`,
+        para el dia ${transaction_date_value}?`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Sí, transferir',

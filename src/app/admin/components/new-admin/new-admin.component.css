@@ -3,15 +3,8 @@
   margin: 20px auto;
   padding: 15px;
 }
-/* 
-.title {
-  text-align: center;
-  color: #2c3e50;
-  font-weight: bold;
-  padding-top: 40px;
-} */
 
-h2{
+h2 {
   margin-top: 20px;
 }
 
@@ -34,9 +27,7 @@ label {
   left: 10px;
   transform: translateY(-50%);
   transition: all 0.3s ease;
-  /* color: #aaa; */
   pointer-events: none;
-  /* font-size: 13px; */
 }
 
 .required {
@@ -48,23 +39,16 @@ label {
   width: 100%;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 8px 32px 8px 10px;
-  /* font-size: 14px;
-  font-family: 'Open sans';
-  border: 1px solid #ced4da; */
   border-radius: 4px;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
   background: transparent;
   height: 36px;
 }
-
-/* input:focus, select:focus {
-  border-color: #4e9af1;
-  box-shadow: 0 0 0 0.15rem rgba(78, 154, 241, 0.25);
-} */
 
 input:focus + label,
 input:not(:placeholder-shown) + label,
@@ -73,8 +57,6 @@ select:not([value=""]):not([value="undefined"]) + label {
   top: -8px;
   left: 8px;
   font-size: 11px;
-  /* color: #4e9af1;
-  background: white; */
   padding: 0 4px;
 }
 
@@ -147,14 +129,8 @@ select.ng-invalid.ng-touched {
 
 input.ng-invalid.ng-touched + label,
 select.ng-invalid.ng-touched + label {
-  color:var(--cancel-button);
+  color: var(--cancel-button);
 }
-
-/* input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-} */
 
 .select-wrapper {
   position: relative;
@@ -189,7 +165,8 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 15px;
   }
 
-  input, select {
+  input,
+  select {
     font-size: 13px;
   }
 
@@ -204,7 +181,8 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 12px;
   }
 
-  input, select {
+  input,
+  select {
     font-size: 12px;
   }
 
@@ -212,4 +190,3 @@ input[type="number"]::-webkit-inner-spin-button {
     font-size: 12px;
   }
 }
-

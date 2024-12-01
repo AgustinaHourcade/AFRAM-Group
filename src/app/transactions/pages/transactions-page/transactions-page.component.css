@@ -1,57 +1,12 @@
-.container {
-  display: flex;
-  gap: 32px;
-  justify-content: center;
-  align-items: center;
-  height: 20%;
-  width: 100vw;
-  padding: 16px;
-}
-
-.square-card {
-  width: 200px;  
-  height: 200px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
-  color: #333;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.square-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-  background-color: var(--button-hover);
-}
-
-.fade-slide {
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.fade-slide-leave-active {
-  transform: translateX(-100%);
-  opacity: 0;
-}
-
-
 .dashboard-card {
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   padding: 3.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--box-shadow-color);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
-  border: solid 1px rgb(177, 177, 177);
+  border: solid 1px var(--gray-2);
   display: block;
   margin-top: 25%;
 }
@@ -65,7 +20,6 @@
   margin: 0 auto;
 }
 
-
 .card-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -74,13 +28,16 @@
 
 .card-title {
   font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 0.75rem;
 }
 
 .card-description {
   font-size: 1rem;
-  color: #666;
+  color: var(--gray-3);
   line-height: 1.4;
 }
 
+button {
+  text-align: end;
+  margin-top: 20px;
+  margin-left: 5%;
+}

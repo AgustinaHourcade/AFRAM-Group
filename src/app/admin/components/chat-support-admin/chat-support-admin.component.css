@@ -1,155 +1,106 @@
-/* Estilos generales del contenedor de chat */
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 80vh;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--background-gray);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px var(--box-shadow-color);
-    position: relative; 
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--background-gray);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--box-shadow-color);
+  position: relative;
 }
 
-/* Nombre del usuario arriba a la derecha */
 .user {
-    position: absolute;
-    top: 20%;
-    left: 15%;
-    font-size: 16px;
-    color: var(--black);
-    z-index: 800;
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  font-size: 16px;
+  color: var(--black);
+  z-index: 800;
 }
 
-/* Contenedor de mensajes */
 .messages-container {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 20px;
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
 }
 
-/* Estilos generales de mensajes */
 .message {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
 }
 
 .message-content {
-    padding: 10px;
-    background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px var(--box-shadow-color);
-    position: relative;
-    max-width: 40%;
+  padding: 10px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--box-shadow-color);
+  position: relative;
+  max-width: 40%;
 }
 
-/* Mensajes del usuario */
 .message.user-message .message-content {
-    background-color: var(--secondary-color);
-    color: var(--white);
-    align-self: flex-start;
-    margin-left: 10px;
+  background-color: var(--secondary-color);
+  color: var(--white);
+  align-self: flex-start;
+  margin-left: 10px;
 }
 
-/* Mensajes del administrador */
 .message.admin-message .message-content {
-    background-color: var(--light-color);
-    color: var(--gray-4);
-    align-self: flex-end;
-    margin-right: 10px;
+  background-color: var(--light-color);
+  color: var(--gray-4);
+  align-self: flex-end;
+  margin-right: 10px;
 }
 
-/* Fecha/hora del mensaje */
 .message-time {
-    font-size: 10px;
-    color: var(--gray-1);
-    position: absolute;
-    bottom: -20px;
-    right: 10px;
+  font-size: 10px;
+  color: var(--gray-1);
+  position: absolute;
+  bottom: -20px;
+  right: 10px;
 }
 
-/* Formulario de entrada de mensajes */
 .message-input-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .message-input {
-    flex: 1;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid var(--gray-2);
-    border-radius: 8px;
-    outline: none;
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid var(--gray-2);
+  border-radius: 8px;
+  outline: none;
 }
 
 .message-input:focus {
-    border-color: var(--accent-color);
+  border-color: var(--accent-color);
 }
 
-/* .send-button {
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-family: var(--font-buttons);
-}
-
-.send-button:hover {
-    background-color: var(--secondary-color);
-} */
-
-/* Botón Volver */
 .volver-button {
-    text-align: end;
-    margin-top: 20px;
-    margin-left: 5%;
-    /* background-color: var(--secondary-color);
-    color: var(--white);
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-family: var(--font-buttons); */
+  text-align: end;
+  margin-top: 20px;
+  margin-left: 5%;
 }
 
-/* .volver-button:hover {
-    background-color: var(--primary-color);
-} */
-
-/* Botón Finalizar */
 .finalizar-button {
-    margin-top: 20px;
-    margin-right: 5%;
-    background-color: var(--cancel-button);
-    /* color: var(--white);
-    border: none;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-family: var(--font-buttons); */
+  margin-top: 20px;
+  margin-right: 5%;
+  background-color: var(--cancel-button);
 }
 
 .finalizar-button:hover {
-    background-color: var(--cancel-button-hover);
+  background-color: var(--cancel-button-hover);
 }
 
-/* Contenedor de botones */
 .botones-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }

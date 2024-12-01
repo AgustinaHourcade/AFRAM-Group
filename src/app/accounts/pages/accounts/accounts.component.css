@@ -3,7 +3,7 @@
   text-align: center;
   color: var(--black);
   margin-bottom: 20px;
-  margin-top: 60px; 
+  margin-top: 60px;
 }
 
 .accounts-container {
@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .app-card-account-container {
@@ -26,7 +26,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  gap: 15px; 
+  gap: 15px;
 }
 
 .view-button {
@@ -41,4 +41,3 @@
 .deactivate-button:hover {
   background-color: var(--cancel-button-hover);
 }
-

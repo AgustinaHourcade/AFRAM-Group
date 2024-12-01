@@ -83,14 +83,13 @@ h2 {
 .action-button.admin:hover {
   background-color: var(--highlight-hover);
 }
-.action-button.admin{
-  background-color: #FAA307;
+.action-button.admin {
+  background-color: #faa307;
 }
 
-.action-button.admin:hover{
-  background-color: #F48C06;
+.action-button.admin:hover {
+  background-color: #f48c06;
 }
-
 
 .action-button.baja {
   background-color: var(--cancel-button);
@@ -152,13 +151,13 @@ td:nth-child(5) {
 
 @media (max-width: 768px) {
   table {
-      width: 100%;
+    width: 100%;
   }
 
   th,
   td {
-      font-size: 12px;
-      padding: 10px;
+    font-size: 12px;
+    padding: 10px;
   }
 }
 

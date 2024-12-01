@@ -1,24 +1,16 @@
 h2 {
-  margin-top: 20px;
-  font-family: var(--font-title);
-  color: var(--primary-color);
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
-h2.section-title {
-  text-align: center;
-}
 
-div > p {
-  font-family: var(--font-body);
-  color: var(--gray-3);
+p {
   font-size: 1.2rem;
   text-align: center;
   margin-top: 30px;
   padding: 15px;
   background-color: var(--extra-light-color);
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
   width: 60%;
   margin-left: auto;
   margin-right: auto;
@@ -27,7 +19,6 @@ div > p {
 .tableDiv {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
   flex-direction: column;
   align-items: center;
 }
@@ -35,9 +26,8 @@ div > p {
 table {
   width: 90%;
   border-collapse: collapse;
-  background-color: var(--white);
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
 }
 
 th, td {
@@ -54,16 +44,16 @@ th {
 }
 
 tr:nth-child(even) {
-  background-color: var(--gray-1);
+  background-color: var(--background-gray);
 }
 
 tr:hover {
-  background-color: var(--light-color);
+  background-color: var(--gray-2);
   cursor: pointer;
 }
 
-button {
-  padding: 8px 16px;
+.thExpired{
+  background-color: #003559cc;
 }
 
 @media (max-width: 768px) {

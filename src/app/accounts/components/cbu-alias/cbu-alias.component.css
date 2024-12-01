@@ -11,7 +11,10 @@
   margin-top: 5%;
 }
 
-.cbu, .alias, .name, .dni {
+.cbu,
+.alias,
+.name,
+.dni {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +22,10 @@
   border-bottom: 1px solid var(--gray-1);
 }
 
-.cbu p, .alias p, .name p, .dni p {
+.cbu p,
+.alias p,
+.name p,
+.dni p {
   margin: 0;
   font-size: 17px;
   color: var(--gray-4);
@@ -69,8 +75,7 @@ button {
   justify-content: center;
 }
 
-
-h1{
+h1 {
   display: grid;
   place-items: center;
   margin-top: 3%;
@@ -78,32 +83,31 @@ h1{
 
 .input-field {
   width: 100%;
-  padding: 12px 5px; 
+  padding: 12px 5px;
   border: 1px solid var(--extra-light-color);
-  border-radius: 8px; 
-  background-color: var(--white); 
-  font-size: 16px; 
+  border-radius: 8px;
+  background-color: var(--white);
+  font-size: 16px;
   color: var(--gray-4);
-  box-sizing: border-box; 
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
 }
 
 .input-field:focus {
-  border-color: var(--accent-color); 
-  background-color: var(--white); 
-  outline: none; 
+  border-color: var(--accent-color);
+  background-color: var(--white);
+  outline: none;
 }
 
 .input-field::placeholder {
   color: var(--gray-4);
 }
 
-.cancel-button{
+.cancel-button {
   background-color: var(--cancel-button);
 }
 
-.cancel-button:hover{
+.cancel-button:hover {
   background-color: var(--cancel-button-hover);
 }
-

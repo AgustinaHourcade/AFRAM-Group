@@ -1,13 +1,11 @@
 .receipt {
   width: 350px;
-    /* max-width: 500px; */
   margin: auto;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray-2);
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--box-shadow-color);
+  background-color: var(--white);
 }
 
 .header {
@@ -17,7 +15,7 @@
   margin-bottom: 20px;
 }
 
-.header .logo {
+.header img {
   width: 80px;
   margin-bottom: 10px;
 }
@@ -42,7 +40,7 @@
   display: flex;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--gray-2);
 }
 
 .row label {
@@ -50,7 +48,8 @@
   color: var(--primary-color);
 }
 
-.row span, .row p {
+.row span,
+.row p {
   color: var(--gray-3);
   font-weight: 500;
 }
@@ -64,10 +63,8 @@
 
 button {
   width: 48%;
-  padding: 10px;
   margin: 10px 1%;
 }
-
 
 button:first-of-type {
   background-color: var(--cancel-button);

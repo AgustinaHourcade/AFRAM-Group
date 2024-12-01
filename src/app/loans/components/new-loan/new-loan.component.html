@@ -32,7 +32,6 @@
       id="amount"
       type="number"
       formControlName="amount"
-      placeholder="ingrese un monto..."
     />
     @if(formulario.controls['amount'].touched &&
     formulario.controls['amount'].getError('required')){
@@ -44,9 +43,7 @@
       <p>El monto invertido debe ser mayor a 0.</p>
       }
     </div>
-
   </div>
-
 
   <div>
     <label for="daysToAdd">Seleccione el plazo en meses:</label>

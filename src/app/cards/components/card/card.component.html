@@ -1,12 +1,13 @@
 <app-navbar></app-navbar>
 @if(activeCards.length === 0){
-  <div class="buttonDiv">
-    <button id="solicitar" [routerLink]="['/newcard']">Solicitar tarjeta</button>
-  </div>
+<div class="buttonDiv">
+  <button routerLink="/newcard">Solicitar tarjeta</button>
+</div>
 }
 
-@for (item of activeCards; track $index) { 
-  <div class="cardsDiv" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
+@for (item of activeCards; track $index) {
+<div class="cardsDiv"
+  [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
   <div class="cardsDiv-card">
     <div class="background">
       <div class="left"></div>
@@ -61,15 +62,16 @@
                 <span class="end-date">{{ item.expiration_date.slice(5, 7) }}/{{
                   item.expiration_date.slice(2, 4)
                   }}</span>
-                 
+
               </div>
 
               <div class="card-holder">AFRAM Group</div>
-              
-              <div class="tipo"> 
+
+              <div class="tipo">
                 <span>
                   {{item.card_type}}
-                </span></div>
+                </span>
+              </div>
               <div class="type">
                 <div class="master">
                   <div class="circle master-red"></div>
@@ -106,6 +108,4 @@
     <button (click)="alerta(item.card_id)">Dar de baja</button>
   </div>
 </div>
-  } 
-
-
+}

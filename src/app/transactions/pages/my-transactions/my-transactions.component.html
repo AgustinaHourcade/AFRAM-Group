@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="accounts">
-  <h2 class="section-title">Cuenta</h2>
+  <h2>Cuenta</h2>
   <div class="accounts-div">
     <label for="accountSelect"></label>
     <select id="accountSelect" (change)="onAccountSelect($event)">
@@ -26,7 +26,7 @@
 
 @if (transfers.length > 0) {
   <div class="transactions">
-    <h2 class="section-title">Movimientos</h2>
+    <h2>Movimientos</h2>
     <div class="transactions-page">
       <div class="transactions-container">
         <div *ngFor="let transaction of paginatedTransactions">
@@ -37,7 +37,7 @@
   </div>
 
   <div class="transactions">
-    <h2 class="section-title">Transacciones pendientes...</h2>
+    <h2>Transacciones pendientes</h2>
     @if (pendingTransfers.length > 0) {
       <div *ngFor="let transaction of pendingTransfers">
         <div class="transactions-page">

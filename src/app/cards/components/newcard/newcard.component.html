@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
-<div class="card-container">
+<div class="page">
   <div class="card-content">
-    <h3>Solicitar Tarjeta</h3>
+    <h2>Solicitar Tarjeta</h2>
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
       <label for="cardType">Tipo de Tarjeta</label>
       <select id="cardType" class="input-field" formControlName="cardType">
@@ -33,7 +33,7 @@
 
       <div class="button-container">
         <button type="submit">Solicitar</button>
-        <button type="button" [routerLink]="['/cards']">Cancelar</button>
+        <button type="button" routerLink="/cards">Cancelar</button>
       </div>
     </form>
   </div>

@@ -1,16 +1,5 @@
-/* html,
-.tableDiv {
-  margin: 20px;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 30px;
-} */
-
-.page1{
+.page1 {
   margin: 20px 0;
-
 }
 
 table {
@@ -36,7 +25,6 @@ td {
 th {
   background-color: var(--primary-color);
   color: var(--white);
-  /* font-family: 'Arial', sans-serif; */
   font-weight: bold;
 }
 
@@ -53,11 +41,8 @@ tr:hover {
   font-size: 1.5rem;
   margin-left: auto;
   background: none;
-  /* border: none; */
   color: #4e9af1;
-  /* cursor: pointer; */
   padding: 10px 15px;
-  /* transition: color 0.3s ease, transform 0.3s ease; */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -87,9 +72,7 @@ tr:hover {
 input {
   width: 100%;
   padding: 10px;
-  /* border: 1px solid #ccc; */
   border-radius: 4px;
-  /* font-size: 16px; */
   margin-top: 30px;
 }
 
@@ -97,8 +80,6 @@ label {
   position: absolute;
   top: 40px;
   left: 10px;
-  /* font-size: 16px;
-  color: #aaa; */
   transition: 0.2s;
   cursor: auto;
 }
@@ -108,7 +89,6 @@ input:not(:placeholder-shown) + label {
   top: 10px;
   left: 10px;
   font-size: 12px;
-  /* color: #4e9af1; */
 }
 
 .error-message {
@@ -130,8 +110,6 @@ input:not(:placeholder-shown) + label {
 }
 
 .submit-button {
-  /* background-color: #4e9af1;
-  color: var(--white); */
   display: grid;
   align-items: center;
   justify-content: center;
@@ -144,12 +122,6 @@ input:not(:placeholder-shown) + label {
 .cancel-button:hover {
   background-color: var(--cancel-button-hover);
 }
-
-
-/* .submit-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-} */
 
 form {
   width: 50%;
@@ -164,9 +136,9 @@ form {
 
 .chat-bubble {
   position: absolute;
-  top: 50%; 
-  left: -220px; 
-  transform: translateY(-15%); 
+  top: 50%;
+  left: -220px;
+  transform: translateY(-15%);
   background-color: var(--secondary-color);
   color: var(--white);
   border-radius: 10px;
@@ -174,18 +146,17 @@ form {
   font-size: 14px;
   box-shadow: 0px 4px 6px var(--box-shadow-color);
   z-index: 100;
-  width: 200px; 
-  white-space: normal; 
+  width: 200px;
+  white-space: normal;
 }
 
 .chat-bubble:after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
-  right: -10px; 
+  right: -10px;
   transform: translateY(-50%);
   border-width: 10px;
   border-style: solid;
   border-color: transparent transparent transparent #f1f1f1;
 }
-

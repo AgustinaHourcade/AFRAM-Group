@@ -17,6 +17,7 @@
   --gray-4: #212529; /* Gris oscuro para texto destacado */
   --cancel-button: #e63946;
   --cancel-button-hover: #d62828;
+  --border-radius: 6px;
 
   --font-title: "Open Sans", sans-serif; /* Para títulos */ /* Para textos generales */
   --font-body: "Roboto", sans-serif; /* Para cuerpo de texto */
@@ -24,15 +25,21 @@
   --font-menu-form: "Lato", sans-serif; /* Para menú y navegación */ /* Para formularios y confirmaciones */
 }
 
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+h1 {
+  font-family: var(--font-buttons);
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-h1, h2 {
+h2 {
   font-family: var(--font-buttons);
   font-weight: 300;
   text-transform: uppercase;
@@ -42,14 +49,17 @@ h1, h2 {
   text-align: center;
 }
 
-h3, h4, h5, h6 {
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-title);
 }
 
-body, p {
+body,
+p {
   font-family: var(--font-body);
 }
-
 
 button {
   font-family: var(--font-buttons);
@@ -60,31 +70,35 @@ button {
   transition: background-color 0.3s;
   color: var(--white);
   font-size: 14px;
-  padding: 10px 15px; 
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px var(--box-shadow-color);
 }
 
 button:hover {
   background-color: var(--button-hover);
-  /* transform: translateY(-2px); */
+  box-shadow: 0 3px 6px var(--box-shadow-color);
 }
 
 button:disabled {
   background-color: var(--gray-2);
   cursor: not-allowed;
-  /* transform: none; */
 }
 
-nav, label {
+nav,
+label {
   font-family: var(--font-menu-form);
   font-size: 1rem;
   color: var(--primary-color);
 }
 
-input, select{
+input,
+select {
   font-family: var(--font-menu-form);
   font-size: 1rem;
   border: 1px solid var(--gray-2);
-color: var(--gray-3) ;
+  color: var(--gray-3);
+  border-radius: var(--border-radius);
+  margin-top: 8px;
 }
 
 input::placeholder {
@@ -93,14 +107,16 @@ input::placeholder {
 
 input:focus,
 select:focus {
-    border-color: var(--accent-color);
-    outline: none;
-    box-shadow: 0 0 8px var(--box-shadow-color);
-  }
-
+  border-color: var(--accent-color);
+  outline: none;
+  box-shadow: 0 0 8px var(--box-shadow-color);
+}
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+input[type="number"]::-ms-clear {
+  display: none;
 }

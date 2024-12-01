@@ -1,4 +1,4 @@
-.navbar {
+nav {
   background-color: var(--primary-color);
   display: flex;
   align-items: center;
@@ -7,12 +7,7 @@
   justify-content: space-between;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo-image {
+img {
   width: 90px;
   margin-right: 20px;
 }
@@ -34,13 +29,13 @@
 }
 
 .nav-links a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
   text-transform: uppercase;
 }
 
 .nav-links a:hover {
-  color: #fff;
+  color: var(--white);
 }
 
 .account-menu,
@@ -57,12 +52,11 @@
   background-color: var(--primary-color);
   padding: 10px 0;
   min-width: 150px;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   z-index: 1000;
   list-style: none;
 }
 
-/* Mostrar el primer submenú al pasar el cursor */
 .nav-links li:hover > .submenu,
 .nav-links li:hover > .account-menu,
 .nav-links li:hover > .fixed-terms-menu,
@@ -73,7 +67,6 @@
   display: block;
 }
 
-/* Estilo para los elementos dentro del submenú */
 .account-menu li,
 .fixed-terms-menu li,
 .profile-menu li,
@@ -101,7 +94,7 @@
 .cards-menu a,
 .transactions-menu a,
 .submenu a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
   padding: 10px;
   display: block;
@@ -127,7 +120,7 @@
   background-color: var(--primary-color);
   padding: 10px 0;
   border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px var(--box-shadow-color);
 }
 
 .dropdown .submenu:hover > .submenu {
@@ -136,11 +129,6 @@
 
 .show-menu > .submenu {
   display: block;
-}
-
-button {
-  padding: 10px 15px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .transactions-menu {
@@ -153,7 +141,7 @@ button {
   padding: 10px 0;
   min-width: 150px;
   z-index: 100;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
 }
 
 .transactions-menu li {
@@ -161,7 +149,7 @@ button {
 }
 
 .transactions-menu a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
   padding: 10px;
   display: block;
@@ -197,10 +185,10 @@ button {
   position: absolute;
   top: 100%;
   right: 0;
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  border: 1px solid var(--gray-2);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
   width: 300px;
   max-height: 400px;
   overflow-y: auto;
@@ -214,7 +202,7 @@ button {
 
 .notification-item {
   padding: 10px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--gray-2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -223,21 +211,21 @@ button {
 .notification-content h5 {
   margin: 0;
   font-size: 1rem;
-  color: #333;
+  color: var(--gray-3);
   padding-bottom: 8px;
 }
 
 .notification-content p {
   margin: 0;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--gray-4);
   padding-bottom: 8px;
 
 }
 
 .notification-content small {
   font-size: 0.8rem;
-  color: #999;
+  color: var(--gray-1);
 }
 
 .notification-content-sub, .notification-actions{
@@ -251,7 +239,7 @@ button {
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
-  color: #333;
+  color: var(--gray-3);
   margin-left: 10px;
   transition: color 0.2s ease;
   box-shadow: none;
@@ -259,14 +247,14 @@ button {
 }
 
 .notification-actions a:hover {
-  color: #007bff;
+  color: var(--button-hover);
 }
 
 .no-notifications {
   padding: 15px;
   text-align: center;
   font-size: 1rem;
-  color: #666;
+  color: var(--gray-3);
 }
 
 @keyframes bell-shake {

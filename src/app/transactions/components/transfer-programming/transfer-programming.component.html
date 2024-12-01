@@ -1,10 +1,10 @@
+<div class="page">
 <div class="programming-container">
     <h2>Programar Transferencia</h2>
     <form [formGroup]="dateForm">
       <label for="transaction_date">Fecha de transferencia:</label>
       <input id="transaction_date" type="date" formControlName="transaction_date" [min]="minDate" [max]="maxDate" />
-
-        <button class="dateButton" type="submit" (click)="showModalAndScroll()" [disabled]="!dateForm.valid"> Seleccionar fecha </button>
+      <button class="dateButton" type="submit" (click)="showModalAndScroll()" [disabled]="!dateForm.valid"> Seleccionar fecha </button>
     </form>
 
     @if (openModal) {
@@ -53,4 +53,4 @@
     </div>
   }
   </div>
-  
+</div>

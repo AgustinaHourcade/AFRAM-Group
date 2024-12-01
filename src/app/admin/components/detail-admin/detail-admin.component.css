@@ -1,15 +1,3 @@
-/* body {
-  font-family: var(--font-body);
-  background-color: var(--background-gray);
-  color: deeppink;
-  margin: 0;
-  padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-} */
-
 .profile-container {
   text-align: center;
   width: 100%;
@@ -46,16 +34,6 @@ h2 {
 .field-value {
   color: var(--gray-3);
 }
-
-/* .action-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-family: var(--font-buttons);
-  color: var(--white);
-  transition: background-color 0.3s ease;
-} */
 
 .botones-admin {
   display: flex;

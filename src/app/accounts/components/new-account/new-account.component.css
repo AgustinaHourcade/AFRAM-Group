@@ -5,16 +5,7 @@
   justify-content: center;
   height: calc(100vh - 82px);
   background-color: var(--background-gray);
-  /* padding: 20px; */
-  /* color: var(--primary-color); */
 }
-
-/* .page h2 { */
-  /* font-size: 2rem; */
-  /* margin-bottom: 20px; */
-  /* text-align: center; */
-  /* color:var(--primary-color); */
-/* } */
 
 .page-sub {
   width: 600px;
@@ -23,15 +14,12 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   margin: 2rem auto;
-  /* font-family: var(--font-body); */
-  /* position: relative; */
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background-color: var(--white); */
   padding: 20px;
   border-radius: 8px;
 }
@@ -53,4 +41,3 @@ form button {
   padding: 10px 15px;
   width: 100%;
 }
-

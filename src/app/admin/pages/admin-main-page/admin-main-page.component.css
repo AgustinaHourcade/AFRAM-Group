@@ -1,96 +1,52 @@
-/* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+.dashboard {
+  margin-top: 50px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 82px);
+}
 
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    min-height: 100vh;
-  } */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 300px));
+  gap: 5rem;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  .dashboard {
-    margin-top: 50px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: calc(100vh - 82px);
-  }
+.dashboard-card {
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px var(--box-shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  border: solid 1px var(--primary-color);
+  display: block;
+}
 
-  /* .dashboard-title {
-    color: #1a237e;
-    margin-bottom: 3rem;
-    font-size: 2.5rem;
-    text-align: center;
-  } */
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px var(--box-shadow-color);
+  background-color: var(--extra-light-color);
+}
 
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(250px, 300px));
-    gap: 5rem;
-    justify-content: center;
-    max-width: 800px;
-    margin: 0 auto;
-  }
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
 
-  .dashboard-card {
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 6px var(--box-shadow-color);
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    border: solid 1px var(--primary-color);
-    display: block;
-  }
+.card-title {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.75rem;
+}
 
-  .dashboard-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px var(--box-shadow-color);
-    background-color: var(--extra-light-color);
-  }
-
-  .card-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    /* color: #1a237e; */
-  }
-
-  .card-title {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    margin-bottom: 0.75rem;
-  }
-
-  .card-description {
-    font-size: 1rem;
-    color: var(--gray-3);
-    line-height: 1.4;
-  }
-
-  :root {
-    --primary-color: #003559; /* Color principal, un azul oscuro para una sensación de confianza */
-    --secondary-color: #0077b6; /* Un azul vibrante para destacar elementos secundarios */
-    --accent-color: #00b4d8; /* Color de acento, ideal para botones y enlaces */
-    --light-color: #90e0ef; /* Un azul claro para fondos suaves */
-    --extra-light-color: #caf0f8; /* Azul muy claro para áreas de contenido menos destacadas */
-    --white: #ffffff; /* Blanco puro para mantener la limpieza visual */
-    --black: #000000; /* Negro puro para contraste*/
-    --box-shadow-color: #0000001a; /* Sombra*/
-    --button-hover: #00b4d8; /* Hover de botones, mismo color de acento */
-    --background-gray: #f5f5f5;
-    --gray-1: #adb5bd; /* Gris para elementos neutrales */
-    --gray-2: #dee2e6; /* Gris muy claro para fondos más sutiles */
-    --gray-3: #495057; /* Gris oscuro, adecuado para textos secundarios */
-    --gray-4: #212529; /* Gris oscuro para texto destacado */
-    --cancel-button: #e63946;
-    --cancel-button-hover: #d62828;
-  
-    --font-title: "Open Sans", sans-serif; /* Para títulos */ /* Para textos generales */
-    --font-body: "Roboto", sans-serif; /* Para cuerpo de texto */
-    --font-buttons: "Poppins", sans-serif; /* Para botones y CTAs */
-    --font-menu-form: "Lato", sans-serif; /* Para menú y navegación */ /* Para formularios y confirmaciones */
-  }
+.card-description {
+  font-size: 1rem;
+  color: var(--gray-3);
+  line-height: 1.4;
+}

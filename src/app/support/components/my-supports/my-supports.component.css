@@ -1,18 +1,10 @@
 .support-container {
   padding: 20px;
-  background-color: #f4f7fb;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  background-color: var(--background-gray);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--box-shadow-color);
+  max-width: 600px;
   margin: 0 auto;
-}
-
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-  text-align: center;
 }
 
 .thread-list {
@@ -20,47 +12,47 @@ h2 {
 }
 
 .thread-item {
-  background-color: #fff;
+  background-color: var(--white);
   cursor: pointer;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px var(--box-shadow-color);
   transition: background-color 0.3s;
-  position: relative; 
+  position: relative;
 }
 
 .thread-item.active {
-  border-left: 5px solid #4CAF50;
+  border-left: 5px solid var(--primary-color);
 }
 
 .thread-item.closed {
-  border-left: 5px solid #FF5733;
+  border-left: 5px solid var(--light-color);
 }
 
 .thread-item h3 {
   font-size: 20px;
   font-weight: bold;
-  color: #333;
+  color: var(--gray-4);
   margin-bottom: 8px;
 }
 
 .thread-date {
   font-size: 14px;
-  color: #666;
+  color: var(--gray-3);
 }
 
 .thread-item .bi-patch-exclamation {
-  font-size: 20px;  
-  color: #4CAF50;  
-  position: absolute;  
-  top: 15px; 
-  right: 15px;  
-  transition: transform 0.3s; 
+  font-size: 20px;
+  color: var(--accent-color);
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  transition: transform 0.3s;
 }
 
 .thread-item .bi-patch-exclamation:hover {
-  transform: scale(1.2); 
+  transform: scale(1.2);
 }
 
 .new-thread-button {
@@ -69,130 +61,63 @@ h2 {
   margin-right: 5%;
 }
 
-.new-thread-button button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.new-thread-button button:hover {
-  background-color: #0056b3;
+.page {
+  height: calc(100vh - 82.95px);
+  background-color: var(--background-gray);
 }
 
 form {
-  background-color: #fff;
+  background-color: var(--white);
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px var(--box-shadow-color);
   margin-top: 20px;
   width: 50%;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
 label {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
   margin-bottom: 8px;
   display: block;
 }
 
-select, input[type="text"] {
+select {
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
   box-sizing: border-box;
-}
-
-select:focus, input[type="text"]:focus {
-  outline: none;
-  border-color: #007bff;
-  background-color: #fff;
-}
-
-input[type="text"] {
-  height: 120px;
-  resize: vertical;
-  padding-top: 10px; /* Ajusta el espacio superior */
-  text-align: left; /* Alinea el texto a la izquierda */
-  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño del input */
-  font-family: var(--font-menu-form);
 }
 
 textarea {
   width: 100%;
   height: 120px;
   resize: vertical;
-  padding: 12px; /* Espaciado interno */
-  border-radius: 8px; /* Bordes redondeados */
-  border: 1px solid #ccc; /* Borde similar */
+  padding: 12px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-2);
   font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  box-sizing: border-box; /* Incluye el padding en las dimensiones */
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* Sombra */
-  transition: border-color 0.3s, background-color 0.3s; /* Transiciones suaves */
+  color: var(--gray-4);
+  background-color: var(--background-gray);
+  box-sizing: border-box;
+  box-shadow: 0 1px 4px var(--box-shadow-color);
+  transition: border-color 0.3s, background-color 0.3s;
   font-family: var(--font-menu-form);
-
 }
 
 textarea:focus {
+  border-color: var(--accent-color);
   outline: none;
-  border-color: #007bff; /* Borde azul al enfocar */
-  background-color: #fff; /* Fondo blanco al enfocar */
-}
-
-
-
-option {
-  padding: 10px;
-  background-color: #fff;
-  font-size: 16px;
+  box-shadow: 0 0 8px var(--box-shadow-color);
 }
 
 .submit-button button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.submit-button button:hover {
-  background-color: #0056b3;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .volver-button {
-  text-align: end;
   margin-top: 20px;
   margin-left: 5%;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.volver-button:hover {
-  background-color: #0056b3;
 }
