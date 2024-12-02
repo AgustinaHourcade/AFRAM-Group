@@ -1,11 +1,11 @@
-import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
-import { User } from '../../../users/interface/user.interface';
-import { UserService } from '../../../users/services/user.service';
-import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
-import { AccountService } from '../../../accounts/services/account.service';
-import { Account } from '../../../accounts/interface/account.interface';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
+import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
 
 @Component({
   selector: 'app-detail-users',

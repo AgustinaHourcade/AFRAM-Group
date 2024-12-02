@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AccountService } from '../../../accounts/services/account.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
-import { Loan } from '../../interface/loan';
-import { LoanService } from '../../service/loan.service';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Loan } from '@loans/interface/loan';
+import { LoanService } from '@loans/service/loan.service';
 
 @Component({
   selector: 'app-list-loan',

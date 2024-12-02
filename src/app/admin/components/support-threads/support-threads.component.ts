@@ -1,13 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import Swal from 'sweetalert2';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { Thread } from '../../../support/interface/thread';
-import { MessageService } from '../../../support/service/messages.service';
-import { SupportService } from '../../../support/service/support.service';
-import { NavbarAdminComponent } from "../../shared/navbar-admin/navbar-admin.component";
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Thread } from '@support/interface/thread';
+import { SupportService } from '@support/service/support.service';
+import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
 
 @Component({
   selector: 'app-support-threads',

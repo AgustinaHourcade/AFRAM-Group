@@ -1,8 +1,8 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HomeCardComponent } from '../../shared/home-card/home-card.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
-import { UserSessionService } from '../../auth/services/user-session.service';
+import { HomeCardComponent } from '@shared/home-card/home-card.component';
+import { FooterComponent } from '@shared/footer/footer.component';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-home',

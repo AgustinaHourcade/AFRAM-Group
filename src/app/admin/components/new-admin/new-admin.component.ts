@@ -2,15 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AccountService } from '../../../accounts/services/account.service';
-import { Address } from '../../../addresses/interface/address.interface';
-import { AddressService } from '../../../addresses/service/address.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { User } from '../../../users/interface/user.interface';
-import { UserService } from '../../../users/services/user.service';
-import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
 import Swal from 'sweetalert2';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { Address } from '@addresses/interface/address.interface';
+import { AddressService } from '@addresses/service/address.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
+import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
 
 @Component({
   selector: 'app-new-admin',

@@ -1,20 +1,14 @@
-import { User } from './../../../users/interface/user.interface';
-import {
-  Component,
-  ElementRef,
-  inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Account } from '../../interface/account.interface';
-import { switchMap } from 'rxjs';
-import { AccountService } from '../../services/account.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserService } from '../../../users/services/user.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
 
 @Component({
   selector: 'app-cbu-alias',
@@ -34,8 +28,11 @@ export class CbuAliasComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   formulario = this.fb.nonNullable.group({
-    newAlias: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5)]]
-  })
+    newAlias: [
+      '',
+      [Validators.required, Validators.maxLength(15), Validators.minLength(5)],
+    ],
+  });
 
   isEditing = false;
 
@@ -43,22 +40,21 @@ export class CbuAliasComponent implements OnInit {
     this.router.paramMap
       .pipe(
         switchMap((params) => {
-          return this.accountService.getAccountById( Number (params.get('id')));
+          return this.accountService.getAccountById(Number(params.get('id')));
         })
       )
       .subscribe((account) => {
         this.account = account;
         this.userService.getUser(this.account.user_id).subscribe({
-          next: (user)  => {
-            this.user = user
+          next: (user) => {
+            this.user = user;
           },
-          error: (error: Error) =>{
+          error: (error: Error) => {
             console.log(error);
-          }
-        })
+          },
+        });
       });
   }
-
 
   toggleEditing() {
     this.isEditing = !this.isEditing;
@@ -67,36 +63,35 @@ export class CbuAliasComponent implements OnInit {
   modifyAlias() {
     const newAlias = this.formulario.get('newAlias')?.value;
 
-    if(this.account.alias === newAlias){
+    if (this.account.alias === newAlias) {
       Swal.fire({
         title: 'El alias ingresado es idéntico al actual.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#00b4d8'
+        confirmButtonColor: '#00b4d8',
       });
       return;
     }
 
-    if(newAlias && newAlias.length > 15) {
+    if (newAlias && newAlias.length > 15) {
       Swal.fire({
         title: 'La longitud máxima es de 15 caracteres.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#00b4d8'
+        confirmButtonColor: '#00b4d8',
       });
     }
 
-    if(newAlias && newAlias.length < 5) {
+    if (newAlias && newAlias.length < 5) {
       Swal.fire({
         title: 'La longitud mínima es de 5 caracteres.',
         icon: 'error',
         confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#00b4d8'
+        confirmButtonColor: '#00b4d8',
       });
     }
 
-
-    if(this.formulario.invalid) return;
+    if (this.formulario.invalid) return;
 
     if (newAlias) {
       this.accountService.modifyAlias(this.account.id, newAlias).subscribe({
@@ -108,7 +103,7 @@ export class CbuAliasComponent implements OnInit {
             title: 'Alias modificado correctamente!',
             icon: 'success',
             confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#00b4d8'
+            confirmButtonColor: '#00b4d8',
           });
         },
         error: (err) => {
@@ -117,7 +112,7 @@ export class CbuAliasComponent implements OnInit {
             text: 'El alias elegido ya está en uso.',
             icon: 'error',
             confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#00b4d8'
+            confirmButtonColor: '#00b4d8',
           });
           console.error('Error al modificar alias:', err.message);
         },
@@ -162,7 +157,14 @@ export class CbuAliasComponent implements OnInit {
         let heightLeft = imgHeight;
         let position = 0;
 
-        pdf.addImage(imgData, 'JPEG', 0, position + logoHeight + 0.5, imgWidth, imgHeight);
+        pdf.addImage(
+          imgData,
+          'JPEG',
+          0,
+          position + logoHeight + 0.5,
+          imgWidth,
+          imgHeight
+        );
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
@@ -194,8 +196,8 @@ export class CbuAliasComponent implements OnInit {
           title: 'Se han copiado los datos de la cuenta.',
           icon: 'success',
           confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8'
-        })
+          confirmButtonColor: '#00b4d8',
+        });
       })
       .catch((err) => {
         console.error('Error al copiar al portapapeles', err);

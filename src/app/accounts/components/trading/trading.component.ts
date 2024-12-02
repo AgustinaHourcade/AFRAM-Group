@@ -1,16 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { DolarService } from '../../../shared/dolar/service/dolar.service';
-import { AccountService } from '../../services/account.service';
-import { Account } from '../../interface/account.interface';
-import { Cotizacion } from '../../../shared/dolar/interface/cotizacion';
-import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
-import { DolarComponent } from "../../../shared/dolar/components/dolar.component";
-import { TransactionService } from '../../../transactions/services/transaction.service';
-import { Transaction } from '../../../transactions/interface/transaction.interface';
+import Swal from 'sweetalert2';
+import { NavbarComponent } from "@shared/navbar/navbar.component";
+import { DolarService } from '@shared/dolar/service/dolar.service';
+import { Cotizacion } from '@shared/dolar/interface/cotizacion';
+import { DolarComponent } from "@shared/dolar/components/dolar.component";
+import { UserSessionService } from '@auth/services/user-session.service';
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-trading',

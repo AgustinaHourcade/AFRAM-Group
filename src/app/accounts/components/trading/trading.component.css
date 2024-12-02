@@ -38,7 +38,7 @@ app-dolar {
   padding: 2.5rem;
   background-color: var(--white);
   box-shadow: 0 4px 20px var(--box-shadow-color);
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   margin: 2rem auto;
 }
 
@@ -52,7 +52,7 @@ app-dolar {
 .modal select {
   width: 100%;
   padding: 0.75rem;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -65,7 +65,7 @@ app-dolar {
 .dashboard-card {
   flex: 1;
   height: 180px;
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   padding: 3rem;
   box-shadow: 0 4px 6px var(--box-shadow-color);
   transition: transform 0.2s, box-shadow 0.2s;

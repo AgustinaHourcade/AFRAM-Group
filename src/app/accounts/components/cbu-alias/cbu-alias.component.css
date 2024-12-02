@@ -68,15 +68,13 @@
 
 button {
   width: 25%;
-  padding: 10px; 
+  padding: 10px;
   font-size: 14px;
   display: flex;
   justify-content: center;
 }
 
 h2 {
-  /* display: grid;
-  place-items: center; */
   margin-top: 20px;
 }
 
@@ -111,7 +109,6 @@ h2 {
   background-color: var(--cancel-button-hover);
 }
 
-
 @media (max-width: 768px) {
   .buttons {
     display: flex;
@@ -121,9 +118,7 @@ h2 {
     row-gap: 10px;
   }
 
-  button{
+  button {
     width: 100%;
   }
-  
-
 }

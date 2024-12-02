@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { SignupComponent } from '../../components/signup/signup.component';
-import { LoginComponent } from '../../components/login/login.component';
-import { UserSessionService } from '../../services/user-session.service';
+import { SignupComponent } from '@auth/components/signup/signup.component';
+import { LoginComponent } from '@auth/components/login/login.component';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-auth-page',

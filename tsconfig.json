@@ -28,6 +28,16 @@
       "@shared/*": ["app/shared/*"],
       "@services/*": ["app/service/*"],
       "@auth/*": ["app/auth/*"],
+      "@admin/*": ["app/admin/*"],
+      "@accounts/*": ["app/accounts/*"],
+      "@users/*": ["app/users/*"],
+      "@transactions/*": ["app/transactions/*"],
+      "@notifications/*": ["app/notifications/*"],
+      "@interestRates/*": ["app/interestRates/*"],
+      "@addresses/*": ["app/addresses/*"],
+      "@fixedTerms/*": ["app/fixedTerms/*"],
+      "@cards/*": ["app/cards/*"],
+      "@loans/*": ["app/loans/*"],
       "@support/*": ["app/support/*"]
 }
   },

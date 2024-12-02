@@ -1,11 +1,10 @@
-import { InterestRatesService } from './../../../interestRates/service/interest-rates.service';
-import { Component, inject, OnInit } from '@angular/core';
-import { Router} from '@angular/router';
-import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
-import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { InterestRatesService } from '@interestRates/service/interest-rates.service';
+import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
+import { InterestRates } from '@interestRates/interface/interest-rates.interface';
 
 @Component({
   selector: 'app-list-rates',

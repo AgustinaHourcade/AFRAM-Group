@@ -1,15 +1,15 @@
-import { UserSessionService } from './../../services/user-session.service';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { User } from '../../../users/interface/user.interface';
-import { UserService } from '../../../users/services/user.service';
 import { Router } from '@angular/router';
-import { AccountService } from '../../../accounts/services/account.service';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AddressService } from '../../../addresses/service/address.service';
-import { Address } from '../../../addresses/interface/address.interface';
+import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
+import { AddressService } from '@addresses/service/address.service';
+import { Address } from '@addresses/interface/address.interface';
 
 @Component({
   selector: 'app-signup',

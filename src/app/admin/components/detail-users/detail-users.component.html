@@ -28,24 +28,24 @@
         <span class="field-value">{{ user?.email }}</span>
       </div>
       <div class="action-buttons">
-        <div>
+        <!-- <div> -->
             <button class="action-button cuentas" (click)="loadAccounts()" >Ver Cuentas</button>
-        </div>
+        <!-- </div> -->
 
-        <div>
+        <!-- <div> -->
           @if(user?.is_Active === 'yes'){
-            <div class="botones-admin">
+            <!-- <div class="botones-admin"> -->
               <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
               @if(user?.user_type === 'admin'){
                 <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
               }
-            </div>
+            <!-- </div> -->
           }@else {
             <div>
               <button class="action-button alta" (click)="changeStatus()">Dar de alta</button>
             </div>
           }
-        </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>

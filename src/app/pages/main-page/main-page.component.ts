@@ -1,24 +1,20 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
-import { CardAccountComponent } from '../../accounts/components/card-account/card-account.component';
-import { TransactionComponent } from '../../transactions/components/transaction/transaction.component';
-import { AccountService } from '../../accounts/services/account.service';
-import { UserSessionService } from '../../auth/services/user-session.service';
-import { TransactionService } from '../../transactions/services/transaction.service';
-import { Transaction } from '../../transactions/interface/transaction.interface';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { Account } from '../../accounts/interface/account.interface';
 import { Observable, catchError, forkJoin, of } from 'rxjs';
-import { Card } from '../../cards/interface/card';
-import { CardService } from '../../cards/service/card.service';
-import { DolarComponent } from "../../shared/dolar/components/dolar.component";
-import { FixedTermService } from '../../fixedTerms/service/fixed-term.service';
-import { FixedTerm } from '../../fixedTerms/interface/fixed-term';
-import Swal from 'sweetalert2';
-import { NotificationsService } from '../../notifications/service/notifications.service';
-import { Notification } from '../../notifications/interface/notification';
-
+import { CommonModule } from '@angular/common';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { DolarComponent } from "@shared/dolar/components/dolar.component";
+import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { Card } from '@cards/interface/card';
+import { CardService } from '@cards/service/card.service';
+import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
+import { FixedTerm } from '@fixedTerms/interface/fixed-term';
+import { NotificationsService } from '@notifications/service/notifications.service';
 
 @Component({
   selector: 'app-main-page',

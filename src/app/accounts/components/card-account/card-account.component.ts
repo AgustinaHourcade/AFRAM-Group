@@ -1,8 +1,8 @@
-import { UserSessionService } from './../../../auth/services/user-session.service';
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Account } from '../../interface/account.interface';
 import { CommonModule } from '@angular/common';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { Account } from '@accounts/interface/account.interface';
 
 @Component({
   selector: 'app-card-account',

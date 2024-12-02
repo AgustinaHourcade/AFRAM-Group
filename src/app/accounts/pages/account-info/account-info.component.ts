@@ -1,17 +1,17 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { CbuAliasComponent } from '../../components/cbu-alias/cbu-alias.component';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
-import { Transaction } from '../../../transactions/interface/transaction.interface';
-import { TransactionService } from '../../../transactions/services/transaction.service';
-import { AccountService } from '../../services/account.service';
-import { TransactionComponent } from '../../../transactions/components/transaction/transaction.component';
 import { CommonModule } from '@angular/common';
+import { switchMap } from 'rxjs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { UserSessionService } from '../../../auth/services/user-session.service';
+import { CbuAliasComponent } from '@accounts/components/cbu-alias/cbu-alias.component';
+import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 
 @Component({

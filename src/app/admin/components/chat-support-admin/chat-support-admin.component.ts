@@ -1,16 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarAdminComponent } from "../../shared/navbar-admin/navbar-admin.component";
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Message, Thread } from '../../../support/interface/thread';
-import { MessageService } from '../../../support/service/messages.service';
-import { SupportService } from '../../../support/service/support.service';
 import Swal from 'sweetalert2';
-import { User } from '../../../users/interface/user.interface';
-import { UserService } from '../../../users/services/user.service';
-import { AccountService } from '../../../accounts/services/account.service';
-import { NotificationsService } from '../../../notifications/service/notifications.service';
+import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
+import { Message, Thread } from '@support/interface/thread';
+import { MessageService } from '@support/service/messages.service';
+import { SupportService } from '@support/service/support.service';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
+import { AccountService } from '@accounts/services/account.service';
+import { NotificationsService } from '@notifications/service/notifications.service';
 
 @Component({
   selector: 'app-chat-support-admin',
@@ -22,7 +22,7 @@ import { NotificationsService } from '../../../notifications/service/notificatio
 export class ChatSupportAdminComponent implements OnInit{
 
   private activatedRoute = inject(ActivatedRoute);
-  private accountService = inject(AccountService);
+  // private accountService = inject(AccountService);
   private notificationService = inject(NotificationsService);
   private messageService = inject(MessageService);
   private supportService = inject(SupportService);

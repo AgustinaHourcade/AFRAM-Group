@@ -6,7 +6,7 @@ table {
   width: 90%;
   border-collapse: collapse;
   background-color: var(--white);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: 0px 4px 6px var(--box-shadow-color);
   margin: 0 auto;
@@ -28,7 +28,7 @@ th {
   font-weight: bold;
   word-wrap: break-word; 
   white-space: normal; 
-  word-break: break-word; 
+  /* word-break: break-word;  */
 }
 
 tr:nth-child(even) {
@@ -44,7 +44,7 @@ tr:hover {
   font-size: 1.5rem;
   margin-left: auto;
   background: none;
-  color: #4e9af1;
+  color: var(--secondary-color);
   padding: 10px 15px;
   display: inline-flex;
   align-items: center;
@@ -54,7 +54,7 @@ tr:hover {
 }
 
 .new:hover {
-  color: #0056b3;
+  color: var(--button-hover);
   transform: rotate(180deg);
   transform-origin: center center;
 }
@@ -120,7 +120,7 @@ input:not(:placeholder-shown) + label {
 
 .cancel-button {
   background-color: var(--cancel-button);
-  width: auto; /* Cambiado para evitar que ocupe todo el ancho */
+  width: auto; 
 }
 
 .cancel-button:hover {

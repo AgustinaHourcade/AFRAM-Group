@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../../users/services/user.service';
-import { UserSessionService } from '../../services/user-session.service';
-import { User } from '../../../users/interface/user.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
 import Swal from 'sweetalert2';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AccountService } from '../../../accounts/services/account.service';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
-  private accountService = inject(AccountService);
+  // private accountService = inject(AccountService);
 
   showPassword = false;
   id: number = 0;

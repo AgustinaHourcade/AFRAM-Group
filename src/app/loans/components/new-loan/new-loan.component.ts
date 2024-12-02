@@ -1,17 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoanService } from '../../service/loan.service';
 import Swal from 'sweetalert2';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AccountService } from '../../../accounts/services/account.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
-import { InterestRatesService } from '../../../interestRates/service/interest-rates.service';
-import { Loan } from '../../interface/loan';
-import { TransactionService } from '../../../transactions/services/transaction.service';
-import { Transaction } from '../../../transactions/interface/transaction.interface';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { LoanService } from '@loans/service/loan.service';
+import { Loan } from '@loans/interface/loan';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { InterestRates } from '@interestRates/interface/interest-rates.interface';
+import { InterestRatesService } from '@interestRates/service/interest-rates.service';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-new-loan',

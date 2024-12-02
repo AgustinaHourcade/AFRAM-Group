@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../../../users/services/user.service';
 import { RouterLink } from '@angular/router';
-import { User } from '../../../users/interface/user.interface';
-import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
+import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
 
 
 @Component({

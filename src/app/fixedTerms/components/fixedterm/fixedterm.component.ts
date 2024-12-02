@@ -1,22 +1,18 @@
 import { Component, inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule,} from '@angular/forms';
 import { Router } from '@angular/router';
-import { FixedTerm } from '../../interface/fixed-term';
-import { FixedTermService } from '../../service/fixed-term.service';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { AccountService } from '../../../accounts/services/account.service';
-import { Account } from '../../../accounts/interface/account.interface';
-import { InterestRatesService } from '../../../interestRates/service/interest-rates.service';
-import { InterestRates } from '../../../interestRates/interface/interest-rates.interface';
 import Swal from 'sweetalert2';
-import { TransactionService } from '../../../transactions/services/transaction.service';
-import { Transaction } from '../../../transactions/interface/transaction.interface';
+import { FixedTerm } from '@fixedTerms/interface/fixed-term';
+import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
+import { InterestRatesService } from '@interestRates/service/interest-rates.service';
+import { InterestRates } from '@interestRates/interface/interest-rates.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-fixedterm',

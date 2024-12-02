@@ -1,86 +1,83 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="page1">
-@if(!flag){
+  @if(!flag){
   @if(rates.length === 0){
   <h2>No hay tasas de interes disponibles</h2>
   <button class="new" (click)="flag = false"><i class="bi bi-plus-circle"></i></button>
   }@else{
-    <div class="tableDiv">
-      <h2>Historial de tasas de interes</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Codigo</th>
-            <th>Interes de plazo fijo</th>
-            <th>Interes de prestamo</th>
-            <th>Fecha de actualizacion</th>
-            <th style="text-align: right;">
-              <button class="new" (click)="flag = true"><i class="bi bi-plus-circle"></i></button>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (item of rates; track $index) {
-          <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.fixed_term_interest_rate}}</td>
-            <td>{{item.loan_interest_rate}}</td>
-            <td>{{item.last_updated | date:'dd/MM/yyyy':'es-AR'}}</td>
-            <td></td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+  <div class="tableDiv">
+    <h2>Historial de tasas de interes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Codigo</th>
+          <th>Interes de plazo fijo</th>
+          <th>Interes de prestamo</th>
+          <th>Fecha de actualizacion</th>
+          <th style="text-align: right;">
+            <button class="new" (click)="flag = true"><i class="bi bi-plus-circle"></i></button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of rates; track $index) {
+        <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.fixed_term_interest_rate}}</td>
+          <td>{{item.loan_interest_rate}}</td>
+          <td>{{item.last_updated | date:'dd/MM/yyyy':'es-AR'}}</td>
+          <td></td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
   }
-}@else if(flag){
-<button class="go-back" (click)="flag = false" >Volver</button>
-<h2>Nueva tasa de interes</h2>
-<div class="page">
-  <form [formGroup]="formulario" (ngSubmit)="newRate()">
-    <div class="form-group">
-      <div class="input-wrapper">
-        <input
-          type="number"
-          id="loan_interest_rate"
-          formControlName="loan_interest_rate"
-          placeholder=" "
-          (focus)="showBubble('loan')"
-          (blur)="hideBubble()"
-        />
-        <label for="loan_interest_rate">Tasa de interés por día del préstamo <span class="required">*</span></label>
-        <div class="chat-bubble" *ngIf="showingBubble === 'loan'">
-          Tasa actual: {{ rates[0].loan_interest_rate }}%
+  }@else if(flag){
+  <button class="go-back" (click)="flag = false">Volver</button>
+  <h2>Nueva tasa de interes</h2>
+  <div class="page">
+    <form [formGroup]="formulario" (ngSubmit)="newRate()">
+      <div class="form-group">
+        <div class="input-wrapper">
+          <input type="number" id="loan_interest_rate" formControlName="loan_interest_rate" placeholder=" "
+            (focus)="showBubble('loan')" (blur)="hideBubble()" />
+          <label for="loan_interest_rate">Tasa de interés por día del préstamo <span class="required">*</span></label>
+          <div class="chat-bubble" *ngIf="showingBubble === 'loan'">
+            Tasa actual: {{ rates[0].loan_interest_rate }}%
+          </div>
         </div>
+        <span
+          *ngIf="formulario.controls['loan_interest_rate'].getError('required') && formulario.controls['loan_interest_rate'].touched"
+          class="error-message">Campo requerido</span>
+        <span
+          *ngIf="formulario.controls['loan_interest_rate'].getError('min') && formulario.controls['loan_interest_rate'].touched"
+          class="error-message">Debe ser mayor a 0</span>
       </div>
-      <span *ngIf="formulario.controls['loan_interest_rate'].getError('required') && formulario.controls['loan_interest_rate'].touched" class="error-message">Campo requerido</span>
-      <span *ngIf="formulario.controls['loan_interest_rate'].getError('min') && formulario.controls['loan_interest_rate'].touched" class="error-message">Debe ser mayor a 0</span>
-    </div>
-    
 
-    <div class="form-group">
-      <div class="input-wrapper">
-        <input
-          type="number"
-          id="fixed_term_interest_rate"
-          formControlName="fixed_term_interest_rate"
-          placeholder=" "
-          (focus)="showBubble('fixed')"
-          (blur)="hideBubble()"
-        />
-        <label for="fixed_term_interest_rate">Tasa de interés por día del plazo fijo <span class="required">*</span></label>
-        <div class="chat-bubble" *ngIf="showingBubble === 'fixed'">
-          Tasa actual: {{ rates[0].fixed_term_interest_rate }}%
+
+      <div class="form-group">
+        <div class="input-wrapper">
+          <input type="number" id="fixed_term_interest_rate" formControlName="fixed_term_interest_rate" placeholder=" "
+            (focus)="showBubble('fixed')" (blur)="hideBubble()" />
+          <label for="fixed_term_interest_rate">Tasa de interés por día del plazo fijo <span
+              class="required">*</span></label>
+          <div class="chat-bubble" *ngIf="showingBubble === 'fixed'">
+            Tasa actual: {{ rates[0].fixed_term_interest_rate }}%
+          </div>
         </div>
+        <span
+          *ngIf="formulario.controls['fixed_term_interest_rate'].getError('required') && formulario.controls['fixed_term_interest_rate'].touched"
+          class="error-message">Campo requerido</span>
+        <span
+          *ngIf="formulario.controls['fixed_term_interest_rate'].getError('min') && formulario.controls['fixed_term_interest_rate'].touched"
+          class="error-message">Debe ser mayor a 0</span>
       </div>
-      <span *ngIf="formulario.controls['fixed_term_interest_rate'].getError('required') && formulario.controls['fixed_term_interest_rate'].touched" class="error-message">Campo requerido</span>
-      <span *ngIf="formulario.controls['fixed_term_interest_rate'].getError('min') && formulario.controls['fixed_term_interest_rate'].touched" class="error-message">Debe ser mayor a 0</span>
-    </div>
-    <div class="buttons">
-      <button type="submit" class="submit-button" [disabled]="formulario.invalid">Confirmar</button>
-      <!-- <button class="cancel-button" (click)="flag = false">Cancelar</button> -->
-    </div>
-  </form>
-</div>
-}
+      <div class="buttons">
+        <button type="submit" class="submit-button" [disabled]="formulario.invalid">Confirmar</button>
+        <!-- <button class="cancel-button" (click)="flag = false">Cancelar</button> -->
+      </div>
+    </form>
+  </div>
+  }
 </div>

@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CardService } from '../../service/card.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { Card } from '../../interface/card';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
-import Swal from 'sweetalert2';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AccountService } from '../../../accounts/services/account.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { CardService } from '@cards/service/card.service';
+import { Card } from '@cards/interface/card';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
 
 @Component({
   selector: 'app-card',

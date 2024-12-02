@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
-import { AccountService } from '../../services/account.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { CardAccountComponent } from '../../components/card-account/card-account.component';
-import { Account } from '../../interface/account.interface';
 import { Router, RouterModule } from '@angular/router';
-import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { AccountService } from '@accounts/services/account.service';
+import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
+import { Account } from '@accounts/interface/account.interface';
 
 @Component({
   selector: 'app-accounts',

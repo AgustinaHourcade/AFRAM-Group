@@ -70,25 +70,26 @@ select:not(:focus):not([value=""]):not([value="undefined"]) + label {
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 1rem;
+  /* cursor: pointer;
+  font-size: 1rem; */
   color: #6c757d;
   background: none;
-  border: none;
+  /* border: none; */
   padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: color 0.3s;
+  box-shadow: none;
 }
 
-.toggle-btn:hover {
+/* .toggle-btn:hover {
   color: #4e9af1;
 }
 
 .toggle-btn:focus {
   outline: none;
-}
+} */
 
 .error-message {
   color: var(--cancel-button);

@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AccountService } from '../../services/account.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import Swal from 'sweetalert2';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { NavbarComponent } from "@shared/navbar/navbar.component";
 
 @Component({
   selector: 'app-new-account',

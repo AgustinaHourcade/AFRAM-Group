@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { Transaction } from '../../../transactions/interface/transaction.interface';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { TransactionService } from '../../../transactions/services/transaction.service';
-import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
-import { TransactionComponent } from '../../../transactions/components/transaction/transaction.component';
-import { AccountService } from '../../../accounts/services/account.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
+import { AccountService } from '@accounts/services/account.service';
 
 @Component({
   selector: 'app-list-transaction',

@@ -55,28 +55,30 @@ input:not(:focus) + label {
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
-  cursor: pointer;
-  font-size: 1rem;
+  /* cursor: pointer; */
+  /* font-size: 1rem; */
   color: var(--gray-3);
   background: none;
-  border: none;
+  /* border: none; */
   padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: color 0.3s;
+  box-shadow: none;
 }
 
-.toggle-btn:hover {
+/* .toggle-btn:hover {
   color: var(--accent-color);
 }
 
 .toggle-btn:focus {
   outline: none;
-}
+} */
 
 a {
   text-decoration: none;
+  color: var(--primary-color);
 }
 
 .errorInput {
@@ -122,4 +124,11 @@ a {
 .submit-button:active {
   transform: scale(0.98);
   box-shadow: 0 2px 4px var(--box-shadow-color);
+}
+
+@media (max-width: 768px) {
+  .page {
+    margin: 15px;
+    width: 100vw;
+  }
 }

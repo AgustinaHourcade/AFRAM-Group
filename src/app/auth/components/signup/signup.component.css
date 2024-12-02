@@ -131,7 +131,9 @@ input.ng-invalid.ng-touched + label {
 @media (max-width: 768px) {
   .page {
     margin: 15px;
+    width: 100vw;
   }
+
 
   input {
     font-size: 13px;

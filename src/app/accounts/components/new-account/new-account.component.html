@@ -1,21 +1,21 @@
 <app-navbar></app-navbar>
 <div class="page">
     <div class="page-sub">
-    <h2>Crear cuenta</h2>
-    <form [formGroup]="formulario" (ngSubmit)="createAccount()">
-        <label for="account_type">Seleccione el tipo de cuenta</label>
-        <select formControlName="account_type" id="account_type" (change)="onAccountTypeChange()">
-            <option value="Checking">Cuenta corriente</option>
-            <option value="Savings">Caja de ahorros</option>
-        </select>
-        <label for="currency">Seleccione el tipo de divisa</label>
-        <select formControlName="currency" id="currency">
-            <option value="ars">ARS</option>
-            @if (flag === 'all') {
+        <h2>Crear cuenta</h2>
+        <form [formGroup]="formulario" (ngSubmit)="createAccount()">
+            <label for="account_type">Seleccione el tipo de cuenta</label>
+            <select formControlName="account_type" id="account_type" (change)="onAccountTypeChange()">
+                <option value="Checking">Cuenta corriente</option>
+                <option value="Savings">Caja de ahorros</option>
+            </select>
+            <label for="currency">Seleccione el tipo de divisa</label>
+            <select formControlName="currency" id="currency">
+                <option value="ars">ARS</option>
+                @if (flag === 'all') {
                 <option value="usd">U$S</option>
-            }
-        </select>
-        <button type="submit">Crear cuenta</button>
-    </form> 
-</div>
+                }
+            </select>
+            <button type="submit">Crear cuenta</button>
+        </form>
+    </div>
 </div>
