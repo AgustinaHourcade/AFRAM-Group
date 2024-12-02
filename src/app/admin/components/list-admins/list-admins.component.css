@@ -1,5 +1,11 @@
+html{
+  background-color: deeppink;
+  width: 100%;
+}
 .page {
   margin-top: 20px;
+  width: 100vw;
+
 }
 
 table {
@@ -59,4 +65,62 @@ tbody tr:hover {
 
 .clear-button:hover {
   background-color: var(--cancel-button-hover);
+}
+
+@media (max-width: 768px) {
+
+  body{
+    width: 100%;
+    
+  }
+  table {
+    width: 95%;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+  }
+
+  .filter-input {
+    width: 80%;
+  }
+
+  .clear-button {
+    width: 80%;
+    padding: 12px;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  body{
+    width: 100%;
+    
+  }
+  table {
+    width: 100%;
+  }
+
+  .filter-input {
+    width: 100%;
+  }
+
+  .clear-button {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .filter-bar {
+    width: 100%;
+    padding: 10px;
+  }
+
+  th, td {
+    padding: 8px;
+  }
 }

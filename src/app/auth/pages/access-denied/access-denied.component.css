@@ -37,3 +37,94 @@
 .access-denied button:hover {
   background-color: var(--cancel-button-hover);
 }
+
+@media (max-width: 1024px) {
+  .access-denied {
+    padding: 20px;
+  }
+
+  .access-denied .content {
+    max-width: 500px;
+  }
+
+  .access-denied h1 {
+    font-size: 2.5em;
+    margin-bottom: 15px;
+  }
+
+  .access-denied p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+  }
+
+  .access-denied .info {
+    font-size: 0.95em;
+  }
+
+  .access-denied button {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 768px) {
+  .access-denied {
+    padding: 15px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .access-denied .content {
+    max-width: 400px;
+  }
+
+  .access-denied h1 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+
+  .access-denied p {
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+
+  .access-denied .info {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+  }
+
+  .access-denied button {
+    font-size: 0.9em;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .access-denied {
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  .access-denied .content {
+    max-width: 100%;
+  }
+
+  .access-denied h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+
+  .access-denied p {
+    font-size: 0.95em;
+    margin-bottom: 10px;
+  }
+
+  .access-denied .info {
+    font-size: 0.85em;
+    margin-bottom: 10px;
+  }
+
+  .access-denied button {
+    font-size: 0.85em;
+    padding: 8px 15px;
+  }
+}

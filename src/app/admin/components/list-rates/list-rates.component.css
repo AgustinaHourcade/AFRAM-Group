@@ -26,6 +26,9 @@ th {
   background-color: var(--primary-color);
   color: var(--white);
   font-weight: bold;
+  word-wrap: break-word; 
+  white-space: normal; 
+  word-break: break-word; 
 }
 
 tr:nth-child(even) {
@@ -117,6 +120,7 @@ input:not(:placeholder-shown) + label {
 
 .cancel-button {
   background-color: var(--cancel-button);
+  width: auto; /* Cambiado para evitar que ocupe todo el ancho */
 }
 
 .cancel-button:hover {
@@ -159,4 +163,90 @@ form {
   border-width: 10px;
   border-style: solid;
   border-color: transparent transparent transparent #f1f1f1;
+}
+
+@media (max-width: 768px) {
+  table {
+    width: 100%;
+  }
+
+  .new {
+    font-size: 1.2rem;
+    padding: 8px 12px;
+  }
+
+  form {
+    width: 80%;
+  }
+
+  .page1 {
+    margin: 15px 0;
+  }
+
+  .input-wrapper input {
+    margin-top: 20px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .submit-button,
+  .cancel-button {
+    width: auto;
+    padding: 12px 18px;
+  }
+
+  .go-back {
+    width: auto;
+  }
+
+  .chat-bubble {
+    left: -150px;
+    width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    width: 100%;
+  }
+
+  .new {
+    font-size: 1.1rem;
+    padding: 6px 10px;
+  }
+
+  form {
+    width: 90%;
+  }
+
+  .page1 {
+    margin: 10px 0;
+  }
+
+  .input-wrapper input {
+    margin-top: 15px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .submit-button,
+  .cancel-button {
+    width: auto;
+    padding: 14px 20px;
+  }
+
+  .go-back {
+    width: auto;
+  }
+
+  .chat-bubble {
+    left: -120px;
+    width: 140px;
+  }
 }

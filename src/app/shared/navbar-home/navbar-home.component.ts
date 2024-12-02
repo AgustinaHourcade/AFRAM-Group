@@ -1,14 +1,16 @@
-import { Component, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, HostListener, Input } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-home',
   standalone: true,
-  imports: [RouterModule, RouterLink],
+  imports: [RouterModule, RouterLink, CommonModule],
   templateUrl: './navbar-home.component.html',
   styleUrl: './navbar-home.component.css'
 })
 export class NavbarHomeComponent {
+  @Input() backgroundColor: string = 'transparent';
   isScrolled = false;
   private scrollThreshold = 100;
 

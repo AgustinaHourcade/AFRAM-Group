@@ -23,9 +23,7 @@ label {
   left: 10px;
   transform: translateY(-50%);
   transition: all 0.3s ease;
-  /* color: #aaa; */
   pointer-events: none;
-  /* font-size: 13px; */
 }
 
 .required {
@@ -40,9 +38,6 @@ label {
 input {
   width: 100%;
   padding: 8px 32px 8px 10px;
-  /* font-size: 14px; */
-  /* border: 1px solid #ced4da; */
-  /* border-radius: 4px; */
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
   background: transparent;

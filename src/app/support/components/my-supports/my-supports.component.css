@@ -121,3 +121,98 @@ textarea:focus {
   margin-top: 20px;
   margin-left: 5%;
 }
+
+/* Responsividad */
+
+@media (max-width: 1024px) {
+  .support-container {
+    max-width: 90%;
+  }
+
+  form {
+    width: 80%;
+  }
+
+  .thread-item h3 {
+    font-size: 18px; /* Ajustamos el tamaño de los títulos */
+  }
+
+  .thread-date {
+    font-size: 12px; /* Reducimos el tamaño de la fecha */
+  }
+
+  .new-thread-button {
+    text-align: center;
+  }
+  
+}
+
+@media (max-width: 768px) {
+  .support-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  form {
+    width: 90%;
+  }
+  
+  .thread-item h3 {
+    font-size: 16px; /* Ajustamos el tamaño de los títulos */
+  }
+  
+  .thread-date {
+    font-size: 12px; /* Ajustamos la fecha */
+  }
+  
+  .thread-item {
+    padding: 12px;
+  }
+
+  
+  .submit-button button {
+    padding: 14px;
+  }
+  
+  .volver-button {
+    margin-left: 2%;
+  }
+
+  .new-thread-button {
+    text-align: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .support-container {
+    padding: 10px;
+  }
+  
+  form {
+    width: 95%;
+  }
+  
+  .thread-item h3 {
+    font-size: 14px; /* Ajustamos más el tamaño de los títulos */
+  }
+  
+  .thread-date {
+    font-size: 11px; /* Reducimos más el tamaño de la fecha */
+  }
+  
+  .thread-item {
+    padding: 10px;
+  }
+  
+  .submit-button button {
+    padding: 12px;
+  }
+  
+  .volver-button {
+    margin-left: 0;
+  }
+  
+  .new-thread-button {
+    text-align: center;
+  }
+}

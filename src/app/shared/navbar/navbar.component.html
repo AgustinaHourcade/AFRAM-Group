@@ -27,7 +27,7 @@
 
         <li class="dropdown-fixedterms" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
           <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo</a>
-          <ul class="submenu">
+          <ul class="submenu2">
             <li><a routerLink="/fixed-terms">Mis plazos fijos</a></li>
             <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
           </ul>
@@ -35,7 +35,7 @@
 
         <li class="dropdown-loans" [ngClass]="{'show-menu': activeMenu === 'loans'}">
           <a class="dropdown-link" (click)="toggleMenu('loans')">Préstamos</a>
-          <ul class="submenu">
+          <ul class="submenu2">
             <li><a routerLink="/list-loan">Mis préstamos</a></li>
             <li><a routerLink="/new-loan">Solicitar préstamo</a></li>
           </ul>
@@ -94,24 +94,21 @@
               <div class="notification-actions">
                 <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
                 <div class="notifications-actions-sub">
-                @if(notification.is_read === 'no'){
-                <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
-                  <i class="bi bi-check-all"></i>
-                </a>
-                }
-                <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
-                  <i class="bi bi-trash"></i>
-                </a>
-              </div>
+                  @if(notification.is_read === 'no'){
+                  <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
+                    <i class="bi bi-check-all"></i>
+                  </a>
+                  }
+                  <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
+                    <i class="bi bi-trash"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-
 
     <div class="buttons">
       @if (type === 'admin') {

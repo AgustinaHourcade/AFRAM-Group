@@ -5,40 +5,39 @@
     <button (click)="new = true">Nueva Consulta</button>
   </div>
   <div class="support-container">
-    <h2>Consultas activas:</h2>
-    @if (activesThreads.length === 0) {
-      <h3>No hay consultas activas</h3>
-    }
-
+    <h2>Consultas activas</h2>
+  
     <div class="thread-list active" >
-      @for (item of threads; track $index) {
-        @if(item.support_status === 'open'){
-          <div class="thread-item active" [routerLink]="['/support-chat', item.id]">
-            <h3>{{ item.support_subject }}</h3>
-            <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
-            @if(!item.has_user_last_message){
-              <i class="bi bi-patch-exclamation"></i>
-            }
-          </div>
+      @if(activesThreads.length == 0){
+        <h3>No hay consultas activas</h3>
+      }@else {
+
+        @for (item of activesThreads; track $index) {
+            <div class="thread-item active" [routerLink]="['/support-chat', item.id]">
+              <h3>{{ item.support_subject }}</h3>
+              <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+              @if(item.has_user_last_message){
+                <i class="bi bi-patch-exclamation"></i>
+              }
+              
+            </div>
         }
       }
     </div>
-
-
-    <h2>Consultas finalizadas:</h2>
-
+    
+    
+    <h2>Consultas finalizadas</h2>
+    
     @if (finishedThreads.length === 0) {
       <h3>No hay consultas finalizadas</h3>
     }
 
     <div class="thread-list closed">
-      @for (item of threads; track $index) {
-        @if(item.support_status === 'closed'){
+      @for (item of finishedThreads; track $index) {
           <div class="thread-item closed" [routerLink]="['/support-chat', item.id]">
             <h3>{{ item.support_subject }}</h3>
             <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
           </div>
-        }
       }
     </div>
 
@@ -47,7 +46,7 @@
   <div class="page">
     <button (click)="new = false" class="volver-button">Volver</button>
     <form [formGroup]="formulario" (ngSubmit)="postThread()">
-    <h2>Nueva consulta</h2>
+      <h2>Nueva consulta</h2>
         <label for="support_subject">Seleccione el tema de su consulta:</label>
         <select id="support_subject" name="support_subject" formControlName="support_subject">
             <option value="Información sobre cuentas">Información sobre cuentas</option>

@@ -1,14 +1,38 @@
-.chat-container {
+
+.page{
+  display: flex;
+justify-content: center;
+}
+.chat{
   display: flex;
   flex-direction: column;
+  justify-content: start;
+  width: 800px;
+  max-width: 80%;
+  margin-top: 10px
+}
+
+.chat-container {
+  display: flex;  
+  flex-direction: column;
   height: 80vh;
-  max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   background-color: var(--background-gray);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 8px var(--box-shadow-color);
+  /* position: relative; */
 }
+
+/* .user {
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  font-size: 16px;
+  color: var(--black);
+  z-index: 800;
+} */
 
 .messages-container {
   flex: 1;
@@ -26,28 +50,28 @@
   padding: 10px;
   background-color: var(--white);
   border-radius: 8px;
-  box-shadow: 0 1px 4px var(--box-shadow-color);
+  box-shadow: 0 2px 4px var(--box-shadow-color);
   position: relative;
   max-width: 40%;
 }
 
-.message.admin-message .message-content {
-  background-color: var(--gray-1);
+.message.user-message .message-content {
+  background-color: var(--secondary-color);
   color: var(--white);
   align-self: flex-start;
   margin-left: 10px;
 }
 
-.message.user-message .message-content {
-  background-color: var(--primary-color);
-  color: var(--white);
+.message.admin-message .message-content {
+  background-color: var(--light-color);
+  color: var(--gray-4);
   align-self: flex-end;
   margin-right: 10px;
 }
 
 .message-time {
   font-size: 10px;
-  color: var(--gray-3);
+  color: var(--gray-1);
   position: absolute;
   bottom: -20px;
   right: 10px;
@@ -63,53 +87,34 @@
   flex: 1;
   padding: 10px;
   font-size: 14px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--gray-2);
   border-radius: 8px;
   outline: none;
 }
 
 .message-input:focus {
-  border-color: #007bff;
-}
-
-.send-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.send-button:hover {
-  background-color: #0056b3;
+  border-color: var(--accent-color);
 }
 
 .volver-button {
   text-align: end;
   margin-top: 20px;
   margin-left: 5%;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.volver-button:hover {
-  background-color: #0056b3;
+.finalizar-button {
+  margin-top: 20px;
+  margin-right: 5%;
+  background-color: var(--cancel-button);
 }
 
-.admin {
-  position: absolute;
-  top: 20%;
-  left: 15%;
-  font-size: 16px;
-  color: black;
-  z-index: 800;
+.finalizar-button:hover {
+  background-color: var(--cancel-button-hover);
+}
+
+.botones-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
 }

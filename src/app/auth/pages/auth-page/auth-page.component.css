@@ -22,16 +22,12 @@ img{
   justify-content: center !important;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 0 20px var(--box-shadow-color);
+  /* box-shadow: 0 0 20px var(--box-shadow-color); */
 }
 
 .left-panel {
   width: 40%;
-  background: linear-gradient(
-    135deg,
-    var(--secondary-color),
-    var(--primary-color)
-  );
+  background: linear-gradient( 135deg, var(--secondary-color), var(--primary-color) );
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -53,7 +49,7 @@ button {
   padding: 12px;
   margin: 10px 0;
   background: transparent;
-  border-radius: 30px;
+  /* border-radius: 30px; */
   transition: font-weight 0.3s, color 0.3s;
   font-size: 1.5rem;
 }
@@ -67,4 +63,9 @@ button.active {
   color: var(--light-color);
 }
 
-
+@media (max-width: 768px)
+{
+  #page, .container{
+    flex-direction: column-reverse;
+  }
+}

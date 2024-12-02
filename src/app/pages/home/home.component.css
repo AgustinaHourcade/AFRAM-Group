@@ -1,4 +1,4 @@
-h2{
+h2 {
   text-align: left;
 }
 
@@ -16,8 +16,8 @@ header {
 }
 
 header.scrolled {
-  background-color: var(--primary-color); 
-  box-shadow: 0 4px 12px var(--box-shadow-color); 
+  background-color: var(--primary-color);
+  box-shadow: 0 4px 12px var(--box-shadow-color);
 }
 
 img {
@@ -85,3 +85,97 @@ p {
   border-top: 3px solid var(--secondary-color);
 }
 
+/* Responsividad */
+/* Responsividad */
+@media (max-width: 1024px) {
+  header {
+    padding: 10px;
+  }
+
+  img {
+    height: 50px;
+  }
+
+  .intro-header {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .intro-message > h1 {
+    font-size: 2.5em;
+  }
+
+  .sectionB {
+    flex-direction: column;
+    padding: 60px 60px;
+    row-gap: 40px;
+  }
+
+  .lead {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  img {
+    height: 40px;
+  }
+
+  .intro-header {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .intro-message > h1 {
+    font-size: 2em;
+  }
+  
+  .sectionB {
+    flex-direction: column;
+    padding: 40px 40px;
+    column-gap: 0;
+    row-gap: 40px;
+  }
+
+  app-card {
+    display: none; /* Oculta las tarjetas en pantallas pequeñas */
+  }
+  
+  .lead {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 550px) {
+
+  
+  img {
+    height: 30px;
+  }
+  
+  .intro-header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-size: contain;
+  }
+  
+  .intro-message > h1 {
+    font-size: 1.5em;
+  }
+  
+  .sectionB {
+    flex-direction: column;
+    padding: 20px 20px;
+    column-gap: 0;
+    row-gap: 20px;
+  }
+
+  app-card {
+    display: none;
+  }
+
+  .lead {
+    font-size: 14px;
+  }
+}

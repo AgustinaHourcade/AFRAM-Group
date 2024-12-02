@@ -5,26 +5,29 @@
     <button (click)="toggleThread()" class="finalizar-button">Finalizar chat</button>
     }
 </div>
-<div class="chat">
-<h3 class="user">👤{{user?.real_name}} {{user?.last_name}}</h3>
-<div class="chat-container">
-    <div class="messages-container">
-        @for (message of messages; track $index) {
-        <div class="message"
-            [ngClass]="{ 'admin-message': message.sender_type === 'support', 'user-message': message.sender_type === 'user' }">
-            <div class="message-content">
-                <p>{{ message.message }}</p>
-                <span class="message-time">{{ message.created_at | date: 'dd/MM/yyyy' }}</span>
+<div class="page">
+    <div class="chat">
+        <h3 class="user">👤{{user?.real_name}} {{user?.last_name}}</h3>
+        <div class="chat-container">
+            <div class="messages-container">
+                @for (message of messages; track $index) {
+                <div class="message"
+                    [ngClass]="{ 'admin-message': message.sender_type === 'support', 'user-message': message.sender_type === 'user' }">
+                    <div class="message-content">
+                        <p>{{ message.message }}</p>
+                        <span class="message-time">{{ message.created_at | date: 'dd/MM/yyyy' }}</span>
+                    </div>
+                </div>
+                }
             </div>
-        </div>
-        }
-    </div>
 
-    @if(thread?.support_status === 'open'){
-    <form [formGroup]="formulario" (ngSubmit)="postThread()" class="message-input-form">
-        <input formControlName="message" type="text" placeholder="Escribe tu mensaje..." class="message-input" />
-        <button type="submit" class="send-button">Enviar</button>
-    </form>
-    }
-</div>
+            @if(thread?.support_status === 'open'){
+            <form [formGroup]="formulario" (ngSubmit)="postThread()" class="message-input-form">
+                <input formControlName="message" type="text" placeholder="Escribe tu mensaje..."
+                    class="message-input" />
+                <button type="submit" class="send-button">Enviar</button>
+            </form>
+            }
+        </div>
+    </div>
 </div>

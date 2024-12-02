@@ -3,12 +3,14 @@
   width: 100%;
   max-width: 500px;
   margin: auto;
+  padding: 20px;
 }
 
 h2 {
   color: var(--primary-color);
   margin-bottom: 20px;
   font-family: var(--font-title);
+  font-size: 1.8rem;
 }
 
 .profile-card {
@@ -37,11 +39,13 @@ h2 {
 
 .botones-admin {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .action-button.baja {
   background-color: var(--cancel-button);
+  padding: 10px 20px;
 }
 
 .action-button.baja:hover {
@@ -59,8 +63,75 @@ h2 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-family: var(--font-buttons);
+  font-size: 1rem;
 }
 
 .go-back:hover {
   background-color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile-card {
+    padding: 15px;
+  }
+
+  .profile-field {
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 10px 0;
+  }
+
+  .field-label {
+    font-size: 1rem;
+  }
+
+  .field-value {
+    font-size: 1rem;
+  }
+
+  .botones-admin {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px; 
+    width: 100%; 
+  }
+
+  .action-button.baja,
+  .go-back {
+    width: auto; 
+    text-align: center;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .profile-container {
+    max-width: 100%;
+  }
+
+  .profile-card {
+    padding: 10px;
+  }
+
+  .profile-field {
+    margin: 8px 0;
+  }
+
+  .action-button.baja,
+  .go-back {
+    padding: 12px 20px;
+    width: auto;
+  }
 }

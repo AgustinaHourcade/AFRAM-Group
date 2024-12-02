@@ -29,9 +29,14 @@ img {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  width: 200px;
   background-color: var(--primary-color);
   padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
 }
 
 .nav-links li {
@@ -49,17 +54,16 @@ img {
   color: #fff;
 }
 
-/* Menú desplegable para perfil */
 .profile-dropdown .profile-menu {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 100%;
   background-color: var(--primary-color);
   list-style: none;
   padding: 10px 0;
-  min-width: 150px;
-  z-index: 100;
+  min-width: 200px;
+  z-index: 101;
   border-radius: 5px;
 }
 
@@ -69,8 +73,8 @@ img {
 
 .nav-links.responsive .profile-menu {
   right: auto;
-  left: 0;
-  top: 100%;
+  left: 100%;
+  top: 0;
 }
 
 .profile-menu li {
@@ -88,21 +92,7 @@ img {
   background-color: var(--button-hover);
 }
 
-/* Botones "Cambiar tipo" y "Cerrar sesión" */
-button {
-  padding: 10px 15px;
-  border-radius: 5px;
-  background: none;
-  border: 1px solid white;
-  color: white;
-  cursor: pointer;
-}
 
-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Botón de hamburguesa */
 .hamburger {
   display: none;
   background: none;
@@ -116,8 +106,15 @@ button:hover {
   font-size: 1.5rem;
 }
 
-/* Media Query para pantallas pequeñas */
-@media (max-width: 768px) {
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+
+
+@media (max-width: 925px) {
   .hamburger {
     display: block;
   }
@@ -128,6 +125,11 @@ button:hover {
 
   .nav-links.responsive {
     display: flex;
+    flex-direction: column;
+    position: absolute; 
+    top: 82px; 
+    left: 0;
+    width: 200px;
   }
 
   .nav-links li {
@@ -135,19 +137,26 @@ button:hover {
   }
 
   .profile-dropdown .profile-menu {
-    position: relative;
-    left: 0;
+    position: absolute;
+    top: 100%;
+    left: 100%; 
+    background-color: var(--primary-color);
+    list-style: none;
+    padding: 10px 0;
+    min-width: 200px;
+    z-index: 101;
   }
 
-  .profile-menu a {
+  /* .profile-menu a {
     text-indent: 30px;
-  }
+  } */
 
   .buttons {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    row-gap: 10px;
     width: 100%;
+    
   }
 
   .buttons li {

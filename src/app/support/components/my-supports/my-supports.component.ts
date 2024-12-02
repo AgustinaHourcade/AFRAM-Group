@@ -1,18 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
-// import { NavbarComponent } from "../../../shared/navbar/navbar.component";
-// import { SupportService } from '../../service/support.service';
-// import { MessageService } from '../../service/messages.service';
-// import { Thread } from '../../interface/thread';
-// import { UserSessionService } from '../../../auth/services/user-session.service';
-import { SupportService } from '@support/service/support.service';
-import { MessageService } from '@support/service/messages.service';
-import { Thread } from '@support/interface/thread';
-import { UserSessionService } from '@auth/services/user-session.service';
+import { UserSessionService } from '../../../auth/services/user-session.service';
+import { Thread } from '../../../support/interface/thread';
+import { MessageService } from '../../../support/service/messages.service';
+import { SupportService } from '../../../support/service/support.service';
+import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-supports',

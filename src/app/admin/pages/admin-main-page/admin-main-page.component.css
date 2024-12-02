@@ -50,3 +50,90 @@
   color: var(--gray-3);
   line-height: 1.4;
 }
+
+@media (max-width: 1024px) {
+  .dashboard {
+    padding: 1.5rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(2, minmax(200px, 1fr));
+    gap: 3rem;
+    max-width: 700px;
+  }
+
+  .dashboard-card {
+    padding: 18px;
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 1.25rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(1, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 100%;
+  }
+
+  .dashboard-card {
+    padding: 16px;
+  }
+
+  .card-icon {
+    font-size: 2rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .dashboard {
+    margin-top: 30px;
+    padding: 1rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    max-width: 100%;
+  }
+
+  .dashboard-card {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 1.2rem;
+  }
+
+  .card-description {
+    font-size: 0.8rem;
+  }
+}

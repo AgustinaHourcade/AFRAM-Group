@@ -1,6 +1,6 @@
 main {
   position: relative;
-  width: 100vw;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
   display: flex;
@@ -59,11 +59,11 @@ h2 {
 }
 
 .credit-card .card {
-  background-image: linear-gradient( to left, var(--cancel-button) 5%, var(--gray-4) 95%);
+  background-image: linear-gradient(to left, var(--cancel-button) 5%, var(--gray-4) 95%);
 }
 
 .debit-card .card {
-  background-image: linear-gradient( to left, var(--secondary-color) 5%, var(--gray-4) 95% );
+  background-image: linear-gradient(to left, var(--secondary-color) 5%, var(--gray-4) 95%);
 }
 
 .card-header {
@@ -167,7 +167,7 @@ h2 {
   margin-right: auto;
 }
 
-.tipo{
+.tipo {
   display: grid;
   align-items: end;
   font-size: 14px;
@@ -183,4 +183,92 @@ h2 {
   margin-bottom: 10px;
   background-color: var(--white);
   outline: none;
+}
+
+/* Responsividad */
+@media (max-width: 1024px) {
+  main {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .sectionA, .sectionB {
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column; 
+    gap: 30px;
+  }
+
+  .sectionA, .sectionB {
+    width: 100%; 
+  }
+
+  .accounts-div {
+    flex-direction: column; 
+    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cardInfo {
+    justify-content: center; 
+    align-items: center; 
+  }
+
+  .card {
+    margin: 0 auto;
+    width: 60%; 
+    padding: 15px;
+  }
+
+  .card-header {
+    font-size: 1rem;
+  }
+
+  .card-number {
+    font-size: 0.85rem;
+  }
+
+  .pagination-button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .aviso {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+    border-radius: 8px;
+    width: 60%; /* Aumentamos el ancho para pantallas más pequeñas */
+  }
+
+  .card-header {
+    font-size: 0.9rem;
+  }
+
+  .card-details {
+    font-size: 0.8em;
+  }
+
+  .pagination-wrapper {
+    padding: 10px 0;
+  }
+
+  .aviso {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
 }

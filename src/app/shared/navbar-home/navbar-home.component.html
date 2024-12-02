@@ -1,7 +1,7 @@
-<header [class.scrolled]="isScrolled">
-    <a class="navbar-brand" routerLink="/">
-      <img src="/logo-navbar-png.png" alt="Logo de la aplicación de Banca Online" />
+<header [class.scrolled]="isScrolled" [ngStyle]="{'background-color': backgroundColor}">
+  <a class="navbar-brand" routerLink="/">
+    <img src="/logo-navbar-png.png" alt="Logo de la aplicación de Banca Online" />
     </a>
-    <button routerLink="/auth" id="button" aria-label="Ir a la página de Banca Online">Banca Online</button>
-  </header>
+  <button routerLink="/auth" id="button" aria-label="Ir a la página de Banca Online">Banca Online</button>
+</header>
   

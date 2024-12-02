@@ -20,7 +20,6 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class MyTransactionsComponent {
   accounts: Array<Account> = [];
-  transactions: Array<Transaction> = [];
   transfers: Array<Transaction> = [];
   pendingTransfers: Array<Transaction> = [];
   userId: number = 0;
@@ -41,7 +40,7 @@ export class MyTransactionsComponent {
   get paginatedTransactions() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    return this.transactions.slice(startIndex, endIndex);
+    return this.transfers.slice(startIndex, endIndex);
   }
 
   changePage(page: number): void {
@@ -56,7 +55,6 @@ export class MyTransactionsComponent {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = accounts;
-        console.log(this.accounts);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);
@@ -82,6 +80,7 @@ export class MyTransactionsComponent {
       this.selectedAccountId = selectedAccountId;
       console.log('ID de la cuenta seleccionada:', selectedAccountId);
     }
+    this.transfers = [];
 
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
@@ -91,7 +90,6 @@ export class MyTransactionsComponent {
         this.pendingTransfers = transactions.filter(transaction => 
           transaction.transaction_type === 'transfer' && transaction.is_paid === 'no'
         );
-        this.transactions = transactions;
         this.changeDetector.detectChanges();
       }
       ,

@@ -56,16 +56,84 @@ tr:hover {
   background-color: #003559cc;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  h2 {
+    margin: 15px 0;
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    width: 70%;
+    padding: 12px;
+    margin-top: 25px;
+  }
+
   table {
-    font-size: 0.9rem;
+    width: 95%;
   }
 
   th, td {
-    padding: 10px;
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  h2 {
+    margin: 10px 0;
+    font-size: 1.5rem;
   }
 
-  div > p {
+  p {
+    font-size: 1rem;
     width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+  }
+
+  table {
+    font-size: 0.9rem;
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 550px) {
+  h2 {
+    font-size: 1.1rem; /* Reducir tamaño de fuente */
+    margin: 8px 0; /* Menos margen */
+  }
+
+  p {
+    font-size: 0.9rem; /* Reducir tamaño de fuente */
+    width: 90%; /* Ajustar el ancho al 90% */
+    padding: 8px; /* Reducir padding */
+    margin: 8px auto; /* Asegurar centrado */
+  }
+
+  table {
+    font-size: 0.75rem; /* Reducir aún más el tamaño de la fuente */
+    width: 100%; /* Utilizar todo el ancho disponible */
+    margin: 5px auto; /* Reduce el margen */
+    border-radius: 4px; /* Bordes más pequeños */
+    box-shadow: none; /* Eliminar sombras */
+  }
+
+  th, td {
+    padding: 6px 8px; /* Reducir padding */
+    text-align: center; /* Centrar contenido */
+    word-wrap: break-word; /* Forzar saltos de línea en palabras largas */
+  }
+
+  .tableDiv {
+    padding: 5px; /* Reducir padding */
+    width: 100%; /* Asegurar que el contenedor ocupe todo el ancho disponible */
+  }
+
+  tr:hover {
+    background-color: var(--gray-2); /* Mantener el color de hover */
   }
 }
