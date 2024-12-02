@@ -39,7 +39,7 @@
 }
 
 .message.user-message .message-content {
-  background-color: var(--extra-light-color);
+  background-color: var(--primary-color);
   color: var(--white);
   align-self: flex-end;
   margin-right: 10px;

@@ -213,7 +213,7 @@ small {
     font-size: 2rem;
     cursor: pointer;
     position: relative;
-    left: -15px;
+    right: 0;
   }
 
   .nav-links {
