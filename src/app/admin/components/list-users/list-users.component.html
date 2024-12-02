@@ -30,9 +30,9 @@
         <th>Nombre</th>
         <th>Apellido</th>
         <th>DNI</th>
-        <th>Email</th>
+        <!-- <th>Email</th> -->
         <th>Activo</th>
-        <th></th>
+        <th>Acciones</th>
       </tr>
     </thead>
   <tbody>
@@ -42,11 +42,11 @@
         <td>{{ client.real_name }}</td>
         <td>{{ client.last_name }}</td>
         <td>{{ client.dni }}</td>
-        <td>{{ client.email }}</td>
+        <!-- <td>{{ client.email }}</td> -->
         <td>{{ client.is_Active === 'yes' ? 'Sí' : 'No' }}</td>
         <td>
           <button class="details" [routerLink]="['/detail-user', client.id]">
-            Ver detalles
+            Detalles
           </button>
         </td>
       </tr>

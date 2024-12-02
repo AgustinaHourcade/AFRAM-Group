@@ -1,17 +1,17 @@
 import { Component, EventEmitter, inject, Output, OnInit, Input } from '@angular/core';
-import { AccountService } from '../../../accounts/services/account.service';
 import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Account } from '../../../accounts/interface/account.interface';
 import { Router} from '@angular/router';
-import { User } from '../../../users/interface/user.interface';
-import { UserService } from '../../../users/services/user.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { TransactionService } from '../../services/transaction.service';
-import { Transaction } from '../../interface/transaction.interface';
-import { EmailService } from '../../../email/service/email.service';
 import Swal from 'sweetalert2';
-import { NotificationsService } from '../../../notifications/service/notifications.service';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { EmailService } from '@email/service/email.service';
+import { NotificationsService } from '@notifications/service/notifications.service';
 
 @Component({
   selector: 'app-transfer-modal',

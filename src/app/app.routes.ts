@@ -11,7 +11,6 @@ import { NewFixedtermComponent } from './fixedTerms/components/fixedterm/fixedte
 import { CardComponent } from './cards/components/card/card.component';
 import { NewcardComponent } from './cards/components/newcard/newcard.component';
 import { NewAccountComponent } from './accounts/components/new-account/new-account.component';
-import { UpdatePasswordComponent } from './users/components/update-password/update-password.component';
 import { NgModule } from '@angular/core';
 import { LegalComponent } from './pages/legal/legal.component';
 import { FixedTermsComponent } from './fixedTerms/pages/fixed-terms/fixed-terms.component';

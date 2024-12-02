@@ -34,7 +34,7 @@
 
 .chat-header {
   padding: 10px;
-  background-color: var(--secondary-color); 
+  background-color: var(--secondary-color);
   display: flex;
   align-items: center;
   gap: 10px;

@@ -1,15 +1,15 @@
-
-.page{
+.page {
   display: flex;
   justify-content: center;
 }
-.chat{
+
+.chat {
   display: flex;
   flex-direction: column;
   justify-content: start;
   width: 800px;
-  max-width: 80%;
-  margin-top: 10px
+  max-width: 90%;
+  margin-top: 10px;
 }
 
 .chat-container {
@@ -42,7 +42,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px var(--box-shadow-color);
   position: relative;
-  max-width: 40%;
+  max-width: 70%; /* Reduce el máximo ancho */
 }
 
 .message.user-message .message-content {
@@ -107,4 +107,60 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .chat-container {
+    padding: 15px;
+    height: 70vh;
+  }
+
+  .message-content {
+    max-width: 80%;
+    font-size: 14px;
+  }
+
+  .message-time {
+    font-size: 8px;
+  }
+
+  .message-input {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10%;
+  }
+
+  .chat-container {
+    height: 70vh;
+    padding: 10px;
+    margin-bottom: 10%;
+  }
+
+  .message-content {
+    max-width: 90%;
+    font-size: 12px;
+  }
+
+  .message-input {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .botones-container {
+    flex-direction: row; /* Cambia a columna */
+    gap: 10px;
+  }
+
+  .volver-button, .finalizar-button {
+    margin: 0;
+    width: 40%;
+    text-align: center;
+  }
 }

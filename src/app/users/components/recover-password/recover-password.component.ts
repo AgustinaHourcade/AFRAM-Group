@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../services/user.service';
-import { EmailService } from '../../../email/service/email.service';
-import Swal from 'sweetalert2';
-import { NavbarHomeComponent } from '../../../shared/navbar-home/navbar-home.component';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { UserService } from '@users/services/user.service';
+import { EmailService } from '@email/service/email.service';
+import { NavbarHomeComponent } from '@shared/navbar-home/navbar-home.component';
 
 @Component({
   selector: 'app-recover-password',

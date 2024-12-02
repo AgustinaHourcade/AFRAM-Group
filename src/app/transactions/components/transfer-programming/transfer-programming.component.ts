@@ -1,18 +1,16 @@
 import { Component, inject, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TransactionService } from '../../services/transaction.service';
-import { Transaction } from '../../interface/transaction.interface';
-import { Account } from '../../../accounts/interface/account.interface';
 import { Router} from '@angular/router';
-import { User } from '../../../users/interface/user.interface';
-import { UserService } from '../../../users/services/user.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { EmailService } from '../../../email/service/email.service';
-import { AccountService } from '../../../accounts/services/account.service';
-
 import Swal from 'sweetalert2';
-
+import { TransactionService } from '@transactions/services/transaction.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { EmailService } from '@email/service/email.service';
 
 @Component({
   selector: 'app-transfer-programming',
@@ -76,7 +74,7 @@ export class TransferProgrammingComponent implements OnInit {
     amountToTransfer: [1, [Validators.required, Validators.min(1)]],
     selectedAccountId: ['', [Validators.required]],
   });
-  
+
   dateForm = this.fb.nonNullable.group({
   transaction_date: ['', [Validators.required]],
   });
@@ -97,7 +95,7 @@ export class TransferProgrammingComponent implements OnInit {
         });
         return;
       }
-    
+
       if (!selectedAccount) {
         Swal.fire({
           text: 'Seleccione una cuenta de origen.',
@@ -107,7 +105,7 @@ export class TransferProgrammingComponent implements OnInit {
         });
         return;
       }
-    
+
       if (this.montoTransferencia! < 1) {
         Swal.fire({
           text: 'El monto mínimo para transferir es de $1.',
@@ -117,7 +115,7 @@ export class TransferProgrammingComponent implements OnInit {
         });
         return;
       }
-    
+
       if (this.montoTransferencia! > selectedAccount.balance) {
         Swal.fire({
           text: 'Saldo insuficiente',
@@ -128,7 +126,7 @@ export class TransferProgrammingComponent implements OnInit {
         this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
         return;
       }
-    
+
       const transaction_date_value = this.dateForm.get('transaction_date')?.value;
       console.log(transaction_date_value);
 
@@ -141,7 +139,7 @@ export class TransferProgrammingComponent implements OnInit {
         });
         return;
       }
-    
+
       Swal.fire({
         text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id},
         para el dia ${transaction_date_value}?`,
@@ -164,16 +162,16 @@ export class TransferProgrammingComponent implements OnInit {
         transaction_date: transaction_date_value,
         is_paid: 'no',
       };
-    
+
       const transaction: Transaction = {
         ...transactionData,
         transaction_date: new Date(transactionData.transaction_date),
       };
 
       console.log('aaaa'+ transaction.transaction_date);
-    
+
       this.transactionConfirmed.emit(transaction);
-    
+
       this.transactionService.postFutureTransaction(transaction).subscribe({
         next: () => {
           Swal.fire({
@@ -183,7 +181,7 @@ export class TransferProgrammingComponent implements OnInit {
             confirmButtonColor: '#00b4d8',
           });
           this.router.navigate(['my-transactions']);
-        
+
           // if (this.user.email) {
           //   this.emailService
           //     .sendTransferEmail(
@@ -314,7 +312,7 @@ export class TransferProgrammingComponent implements OnInit {
       this.scrollToBottom();
     }, 150);
   }
-  
+
   scrollToBottom() {
     const lastElement = document.querySelector('.search');
     if (lastElement) {

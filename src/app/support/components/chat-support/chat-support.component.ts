@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { MessageService } from '../../service/messages.service';
-import { Message, Thread } from '../../interface/thread';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { CommonModule } from '@angular/common';
-import { SupportService } from '../../service/support.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MessageService } from '@support/service/messages.service';
+import { Message, Thread } from '@support/interface/thread';
+import { SupportService } from '@support/service/support.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-chat-support',

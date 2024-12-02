@@ -1,24 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { UserService } from '../../services/user.service';
-import { NavbarHomeComponent } from "../../../shared/navbar-home/navbar-home.component";
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
+import { UserService } from '@users/services/user.service';
+import { NavbarHomeComponent } from "@shared/navbar-home/navbar-home.component";
 
 @Component({
   selector: 'app-new-password',
-  standalone: true, 
+  standalone: true,
   imports: [ReactiveFormsModule, NavbarHomeComponent, NavbarHomeComponent, CommonModule],
   templateUrl: './new-password.component.html',
   styleUrl: './new-password.component.css'
 })
 export class NewPasswordComponent {
-  
+
   flag = false;
   showPassword1 = false;
   showPassword2 = false;
- 
+
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private route = inject(Router);
@@ -49,7 +49,7 @@ export class NewPasswordComponent {
     token5: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
     token6: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
   }) as FormGroup;
-  
+
   formularioContra = this.fb.group(
     {
       hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
@@ -83,7 +83,7 @@ export class NewPasswordComponent {
       lastInput?.focus();
     }
   }
-  
+
   togglePasswordVisibility(field: 'password' | 'confirm'): void {
     if (field === 'password') {
       this.showPassword1 = !this.showPassword1;
@@ -99,7 +99,7 @@ export class NewPasswordComponent {
     const token4= this.formularioToken.get('token4')?.value || '';
     const token5= this.formularioToken.get('token5')?.value || '';
     const token6= this.formularioToken.get('token6')?.value || '';
-    
+
     const token = token1 + token2 + token3 + token4 + token5 + token6;
     this.userService.getUserIdByToken(Number(token)).subscribe({
       next: (id)=> {
@@ -126,10 +126,10 @@ export class NewPasswordComponent {
     const token4= this.formularioToken.get('token4')?.value || '';
     const token5= this.formularioToken.get('token5')?.value || '';
     const token6= this.formularioToken.get('token6')?.value || '';
-    
+
     const newPassword = this.formularioContra.get('confirm_password')?.value;
     const token = token1 + token2 + token3 + token4 + token5 + token6;
-    
+
     this.userService.getUserIdByToken(Number (token)).subscribe({
       next: (id) =>{
         this.userService.changePasswordById(newPassword as string, id).subscribe({

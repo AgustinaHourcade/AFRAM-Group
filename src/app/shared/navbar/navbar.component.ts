@@ -1,11 +1,11 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserSessionService } from '../../auth/services/user-session.service';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../users/services/user.service';
 import Swal from 'sweetalert2';
-import { NotificationsService } from '../../notifications/service/notifications.service';
-import { Notification } from '../../notifications/interface/notification';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { UserService } from '@users/services/user.service';
+import { NotificationsService } from '@notifications/service/notifications.service';
+import { Notification } from '@notifications/interface/notification';
 
 
 @Component({
@@ -27,22 +27,22 @@ export class NavbarComponent implements OnInit{
   private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
   private notificationsService = inject(NotificationsService);
-  
+
   isResponsiveMenuVisible: boolean = false;
+  activeMenu: string | null = null;
   id : number = 0;
   type !: string;
-  activeMenu: string | null = null;
   notifications: Array<Notification> = [];
   unreadNotifications: Array<Notification> = [];
   isDropdownOpen: boolean = false;
 
  // Toggle para el menú responsive
- toggleMenu(menu?: string): void {
+  toggleMenu(menu?: string): void {
   if (menu) {
     this.activeMenu = this.activeMenu === menu ? null : menu;
   } else {
     this.isResponsiveMenuVisible = !this.isResponsiveMenuVisible;
-    this.activeMenu = null; 
+    this.activeMenu = null;
   }
 }
 

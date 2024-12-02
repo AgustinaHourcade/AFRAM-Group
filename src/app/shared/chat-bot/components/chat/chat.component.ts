@@ -1,9 +1,9 @@
 import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Message, FaqItem, TopicItem } from '../../interface/chat.interface';
-import { FaqService } from '../../services/faq.service';
-import { ChatMessageComponent } from '../chat-message/chat-message.component';
+import { Message, FaqItem, TopicItem } from '@shared/chat-bot/interface/chat.interface';
+import { FaqService } from '@shared/chat-bot/services/faq.service';
+import { ChatMessageComponent } from '@shared/chat-bot/components/chat-message/chat-message.component';
 
 @Component({
   selector: 'app-chat',
@@ -53,11 +53,11 @@ export class ChatComponent {
     const userMessage = this.currentMessage.trim();
     this.addUserMessage(userMessage);
     this.currentMessage = '';
-    
+
     const answer = this.faqService.findAnswer(userMessage);
     setTimeout(() => {
       this.addBotMessage(answer);
-      
+
       const matchingTopic = this.faqService.findTopicByKeyword(userMessage);
       if (matchingTopic) {
         setTimeout(() => {
@@ -79,9 +79,9 @@ export class ChatComponent {
   selectTopic(topicTitle: string): void {
     const faqs = this.faqService.getFaqsByTopic(topicTitle);
     this.currentTopicFaqs = faqs;
-    
+
     this.addUserMessage(`Me gustaría saber sobre ${topicTitle}`);
-    
+
     setTimeout(() => {
       this.messages.push({
         content: 'faq-list',
@@ -97,7 +97,7 @@ export class ChatComponent {
   selectFaq(question: string): void {
     this.addUserMessage(question);
     const answer = this.faqService.findAnswer(question);
-    
+
     setTimeout(() => {
       this.addBotMessage(answer);
       this.showTopics();

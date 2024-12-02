@@ -112,9 +112,11 @@
 
     <div class="buttons">
       @if (type === 'admin') {
-      <li>
-        <button (click)="changeType()">Cambiar tipo</button>
-      </li>
+        <li>
+          <div class="toggle-container">
+            <i (click)="changeType()" [ngClass]="'bi bi-toggle-on'" class="toggle-icon"></i>
+          </div>
+        </li>
       }
       <li>
         <button (click)="logout()">Cerrar sesión</button>

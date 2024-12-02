@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, catchError, of } from 'rxjs';
-import { Account } from '../../../accounts/interface/account.interface';
-import { AccountService } from '../../../accounts/services/account.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { Transaction } from '../../interface/transaction.interface';
-import { TransactionService } from '../../services/transaction.service';
-import { TransactionComponent } from '../../components/transaction/transaction.component';
 import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
+import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
+import { Observable, catchError, of } from 'rxjs';
+import { Account } from '@accounts/interface/account.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-my-transactions',
@@ -32,7 +32,7 @@ export class MyTransactionsComponent {
   private accountService = inject(AccountService);
   private  transactionService = inject(TransactionService);
   selectedAccountId!: number;
-  
+
   get totalPages(): number {
     return Math.ceil(this.transfers.length / this.pageSize);
   }
@@ -84,10 +84,10 @@ export class MyTransactionsComponent {
 
     this.loadTransactions(this.selectedAccountId).subscribe({
       next: (transactions: Transaction[]) => {
-        this.transfers = transactions.filter(transaction => 
+        this.transfers = transactions.filter(transaction =>
           transaction.transaction_type === 'transfer' && transaction.is_paid === 'yes'
         );
-        this.pendingTransfers = transactions.filter(transaction => 
+        this.pendingTransfers = transactions.filter(transaction =>
           transaction.transaction_type === 'transfer' && transaction.is_paid === 'no'
         );
         this.changeDetector.detectChanges();

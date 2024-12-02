@@ -24,17 +24,27 @@
       <a [routerLink]="['/new-admin']">Nuevo usuario</a>
     </li>
     <!-- Menú desplegable de perfil -->
-    <li class="profile-dropdown" [ngClass]="{'show-menu': activeMenu === 'profile'}">
-      <a class="profile-link dropdown-link" (click)="toggleMenu('profile')">Perfil</a>
-      <ul class="profile-menu">
-        <li><a [routerLink]="['/admin-profile']">Ver perfil</a></li>
-        <li><a [routerLink]="['/update-password-admin']">Modificar contraseña</a></li>
-      </ul>
-    </li>
-    <div class="buttons">
-    <li>
-      <button (click)="changeType()">Cambiar tipo</button>
-    </li>
+    <li
+    class="profile-dropdown"
+    [ngClass]="{'show-menu': activeMenu === 'profile'}"
+    (mouseenter)="toggleMenu('profile')"
+    (mouseleave)="toggleMenu('profile')">
+    <a class="profile-link dropdown-link">Perfil</a>
+    <ul class="profile-menu">
+      <li><a [routerLink]="['/admin-profile']">Ver perfil</a></li>
+      <li><a [routerLink]="['/update-password-admin']">Modificar contraseña</a></li>
+    </ul>
+  </li>
+
+  <li>
+    <div class="toggle-container">
+      <i (click)="changeType()" [ngClass]="'bi bi-toggle-off'" class="toggle-icon"></i>
+    </div>
+  </li>
+
+
+
+  <div class="buttons">
     <li>
       <button (click)="logout()">Cerrar sesión</button>
     </li>

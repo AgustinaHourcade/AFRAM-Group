@@ -1,3 +1,8 @@
+@if (type === 'user') {
+  <button class="volver-button" [routerLink]="['/profile']">Volver</button>
+}@else {
+  <button class="volver-button" [routerLink]="['/admin-profile']">Volver</button>
+}
 <div class="page">
 <div class="account-page">
   <h2>Actualizar información personal</h2>

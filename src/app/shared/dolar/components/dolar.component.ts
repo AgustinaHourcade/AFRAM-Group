@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { DolarService } from '../service/dolar.service';
-import { Cotizacion } from '../interface/cotizacion';
 import { CommonModule } from '@angular/common';
+import { DolarService } from '@shared/dolar/service/dolar.service';
+import { Cotizacion } from '@shared/dolar/interface/cotizacion';
 
 @Component({
   selector: 'app-dolar',

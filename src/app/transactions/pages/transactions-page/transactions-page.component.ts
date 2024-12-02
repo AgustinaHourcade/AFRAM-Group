@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { NavbarComponent } from '../../../shared/navbar/navbar.component';
-import { Router, RouterModule } from '@angular/router';
-import { TransferModalComponent } from "../../components/transfer-modal/transfer-modal.component";
 import { CommonModule } from '@angular/common';
-import { TransferProgrammingComponent } from "../../components/transfer-programming/transfer-programming.component";
-
+import { Router, RouterModule } from '@angular/router';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { TransferModalComponent } from "@transactions/components/transfer-modal/transfer-modal.component";
+import { TransferProgrammingComponent } from "@transactions/components/transfer-programming/transfer-programming.component";
 
 @Component({
   selector: 'app-transactions-page',
@@ -39,7 +38,7 @@ export class TransactionsPageComponent{
   closeAppTransferProgramming(){
     this.appTransferProgramming = false;
   }
-  
+
   closeAppTransferModal(){
     this.appTransferModal = false;
   }

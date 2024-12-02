@@ -1,12 +1,12 @@
-import { UserSessionService } from './../../../auth/services/user-session.service';
 import { Component, ElementRef, ViewChild, Input, OnInit, inject, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { Transaction } from '../../interface/transaction.interface';
-import { UserService } from '../../../users/services/user.service';
-import { AccountService } from '../../../accounts/services/account.service';
-import { Account } from '../../../accounts/interface/account.interface';
-import { CommonModule } from '@angular/common';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { UserService } from '@users/services/user.service';
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
 
 
 @Component({
@@ -76,7 +76,7 @@ export class ReceiptComponent implements OnInit{
   }
 
   account!: Account;
-  
+
   getUserById(id: number){
     this.accountService.getAccountById(this.transaction.destination_account_id).subscribe({
     next: (account) => {
@@ -84,7 +84,7 @@ export class ReceiptComponent implements OnInit{
       this.userService.getUser(this.account.user_id).subscribe({
         next: (user) => {
           this.nameD = user?.real_name;
-          this.lastNameD = user?.last_name 
+          this.lastNameD = user?.last_name
           if (account.account_type == "Savings"){
             this.typeD = "CA";
           }else{
@@ -106,7 +106,7 @@ export class ReceiptComponent implements OnInit{
         this.userService.getUser(this.account.user_id).subscribe({
           next: (user) => {
             this.nameS = user?.real_name;
-            this.lastNameS = user?.last_name 
+            this.lastNameS = user?.last_name
             if (account.account_type == "Savings"){
               this.typeS = "CA";
             }else{
@@ -127,7 +127,7 @@ export class ReceiptComponent implements OnInit{
   @Output() cancel = new EventEmitter<void>();
 
   onCancel(): void {
-    this.cancel.emit(); 
+    this.cancel.emit();
   }
 
   // formatearFecha(date : Date){

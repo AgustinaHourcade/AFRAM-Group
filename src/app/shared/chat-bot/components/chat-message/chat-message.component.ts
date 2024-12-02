@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Message } from '../../interface/chat.interface';
+import { Message } from '@shared/chat-bot/interface/chat.interface';
 
 @Component({
   selector: 'app-chat-message',

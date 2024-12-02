@@ -1,9 +1,9 @@
 import { Component, ElementRef, inject, Input, OnInit, Renderer2 } from '@angular/core';
-import { Transaction } from '../../interface/transaction.interface';
 import { CommonModule } from '@angular/common';
-import { AccountService } from '../../../accounts/services/account.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { ReceiptComponent } from '../receipt/receipt.component';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { ReceiptComponent } from '@transactions/components//receipt/receipt.component';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-transaction',
@@ -15,7 +15,7 @@ import { ReceiptComponent } from '../receipt/receipt.component';
 export class TransactionComponent  implements OnInit{
   @Input() transaction!: Transaction;
   @Input() selectedAccountId!: number;
-  @Input() isDownloading: boolean = false; 
+  @Input() isDownloading: boolean = false;
 
   ownAccountsId: number[] = [];
   destinatario: string = '';
@@ -66,5 +66,5 @@ export class TransactionComponent  implements OnInit{
       this.renderer.removeClass(element, 'pdf-styles');
     }
   }
-  
+
 }

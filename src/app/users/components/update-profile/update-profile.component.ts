@@ -1,17 +1,17 @@
-import Swal from 'sweetalert2';
-import { AddressService } from './../../../addresses/service/address.service';
-import { User } from './../../interface/user.interface';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { Router } from '@angular/router';
-import { Address } from '../../../addresses/interface/address.interface';
+import { Router, RouterLink } from '@angular/router';
+import Swal from 'sweetalert2';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { AddressService } from '@addresses/service/address.service';
+import { Address } from '@addresses/interface/address.interface';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
 
 @Component({
   selector: 'app-update-profile',
   standalone: true,
-  imports: [ ReactiveFormsModule],
+  imports: [ ReactiveFormsModule, RouterLink],
   templateUrl: './update-profile.component.html',
   styleUrl: './update-profile.component.css',
 })

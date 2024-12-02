@@ -1,10 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { UserSessionService } from '../../../auth/services/user-session.service';
-import { User } from '../../interface/user.interface';
 import { RouterLink } from '@angular/router';
-import { AddressService } from '../../../addresses/service/address.service';
-import { Address } from '../../../addresses/interface/address.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
+import { AddressService } from '@addresses/service/address.service';
+import { Address } from '@addresses/interface/address.interface';
 
 @Component({
   selector: 'app-profile',

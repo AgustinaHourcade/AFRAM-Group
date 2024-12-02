@@ -77,7 +77,7 @@ export class NavbarAdminComponent implements OnInit {
       this.activeMenu = this.activeMenu === menu ? null : menu;
     } else {
       this.isResponsiveMenuVisible = !this.isResponsiveMenuVisible;
-      this.activeMenu = null; // Cierra submenús al cerrar el hamburguesa
+      this.activeMenu = null;
     }
   }
 

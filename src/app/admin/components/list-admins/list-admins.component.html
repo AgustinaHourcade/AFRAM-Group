@@ -22,7 +22,7 @@
           <th>Nombre</th>
           <th>Apellido</th>
           <th>DNI</th>
-          <th>Email</th>
+          <!-- <th>Email</th> -->
           <th>Activo</th>
           <th>Acciones</th>
         </tr>
@@ -33,11 +33,11 @@
           <td>{{ item.real_name }}</td>
           <td>{{ item.last_name }}</td>
           <td>{{ item.dni }}</td>
-          <td>{{ item.email }}</td>
+          <!-- <td>{{ item.email }}</td> -->
           <td>{{ item.is_Active === 'yes' ? 'Si' : 'No' }}</td>
           <td>
             <button class="details" [routerLink]="['/detail-admin', item.id]">
-              Ver detalles
+              Detalles
             </button>
           </td>
         </tr>

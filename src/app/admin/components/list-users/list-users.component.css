@@ -140,4 +140,9 @@ tbody tr:hover {
     padding: 6px 10px;
     font-size: 12px;
   }
+
+  .details{
+    padding: 8px;
+
+  }
 }

@@ -5,7 +5,7 @@ nav {
   padding: 10px;
   color: var(--white);
   justify-content: space-between;
-  
+  width: 100%;
 }
 
 .buttons {
@@ -226,7 +226,68 @@ small {
   padding: 5px;
 }
 
-@media (max-width: 780px) {
+.toggle-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toggle-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.toggle-container span {
+  font-size: 1rem;
+}
+
+@media (max-width: 1165px) {
+  .nav-links {
+    gap: 15px;
+  }
+
+  .nav-links li {
+    font-size: 0.9rem;
+    padding: 8px 10px;
+  }
+
+  .buttons {
+    flex-direction: row;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  .account-menu,
+  .fixed-terms-menu,
+  .profile-menu,
+  .loans-menu,
+  .cards-menu,
+  .transactions-menu,
+  .submenu {
+    min-width: 100px;
+  }
+
+  .submenu2 {
+    min-width: 100px;
+  }
+
+  .notification-dropdown {
+    width: 300px;
+  }
+}
+
+
+
+
+@media (max-width: 1080px) {
+
+  nav{
+    width: 100%;
+  }
+
   .hamburger {
     display: block;
     font-size: 2rem;
@@ -272,7 +333,7 @@ small {
     position: absolute;
     left: 100%;
     top: 0;
-  } 
+  }
 
   .notification-dropdown {
     width: 350px;
@@ -290,5 +351,5 @@ small {
   .nav-links{
     flex-wrap: wrap;
   }
-
 }
+

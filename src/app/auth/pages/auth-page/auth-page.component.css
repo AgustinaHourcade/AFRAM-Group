@@ -57,11 +57,8 @@ button {
   border-radius: 30px;
   transition: font-weight 0.3s, color 0.3s;
   font-size: 1.5rem;
+  box-shadow: none;
 }
-
-/* button:hover {
-  background-color: var(--button-hover);
-} */
 
 button.active {
   font-weight: bold;

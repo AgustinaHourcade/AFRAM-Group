@@ -62,60 +62,63 @@ tbody tr:hover {
   background-color: var(--cancel-button-hover);
 }
 
-@media (max-width: 768px) {
 
-  body{
-    width: 100%;
-    
-  }
+@media (max-width: 768px) {
   table {
-    width: 95%;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+
+  .filter-bar {
+    padding: 8px;
+  }
+
+  .filter-input {
+    width: 100%;
+    padding: 8px;
+  }
+
+  .clear-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 550px) {
+  table {
+    font-size: 12px;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 8px;
   }
 
   .filter-bar {
     flex-direction: column;
-    width: 100%;
-    gap: 15px;
-  }
-
-  .filter-input {
-    width: 80%;
-  }
-
-  .clear-button {
-    width: 80%;
-    padding: 12px;
-  }
-
-  th, td {
-    padding: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  body{
-    width: 100%;
-    
-  }
-  table {
-    width: 100%;
-  }
-
-  .filter-input {
-    width: 100%;
-  }
-
-  .clear-button {
-    width: 100%;
-    padding: 14px;
-  }
-
-  .filter-bar {
-    width: 100%;
-    padding: 10px;
-  }
-
-  th, td {
+    align-items: stretch;
     padding: 8px;
+    gap: 5px;
+  }
+
+  .filter-input {
+    width: 100%;
+    padding: 6px;
+  }
+
+  .clear-button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .details{
+    padding: 8px;
+
   }
 }

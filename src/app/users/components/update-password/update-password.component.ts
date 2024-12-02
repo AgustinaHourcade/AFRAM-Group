@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
-import { User } from '../../interface/user.interface';
-import { UserSessionService } from '../../../auth/services/user-session.service';
+import Swal from 'sweetalert2';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-update-password',
@@ -92,7 +92,7 @@ export class UpdatePasswordComponent implements OnInit {
       currentPassword: this.formularioContra.get('current_password')?.value,
       newPassword: this.formularioContra.get('confirm_password')?.value,
     };
-    
+
     if(datos.currentPassword === datos.newPassword){
       Swal.fire({
         title: 'La nueva contraseña no puede ser idéntica a la actual!',

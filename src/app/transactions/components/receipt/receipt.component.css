@@ -73,3 +73,76 @@ button:first-of-type {
 button:last-of-type {
   background-color: var(--accent-color);
 }
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .receipt {
+    width: 85%;
+    padding: 15px;
+  }
+
+  .header img {
+    width: 60px;
+  }
+
+  .header h2 {
+    font-size: 15px;
+  }
+
+  .content {
+    font-size: 12px;
+  }
+
+  .row {
+    flex-wrap: wrap;
+  }
+
+  .row label,
+  .row span {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 550px) {
+  .receipt {
+    display: none;
+  }
+
+  .header img {
+    width: 50px;
+  }
+
+  .header h2 {
+    font-size: 14px;
+  }
+
+  .content {
+    font-size: 11px;
+  }
+
+  .row {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .row label,
+  .row span {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  button {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  button:first-of-type {
+    display: none;
+  }
+}

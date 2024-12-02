@@ -31,6 +31,28 @@
   outline: none;
 }
 
+@media screen and (max-width: 1024px) {
+  .modal {
+    width: 95%;
+    padding: 2.2rem;
+  }
+
+  .modal h2 {
+    font-size: 1.4rem;
+  }
+
+  .modal button {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  .modal input,
+  .modal select {
+    padding: 0.7rem;
+    font-size: 1rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .modal {
     width: 95%;
@@ -50,5 +72,27 @@
   .modal select {
     padding: 0.6rem;
     font-size: 0.9rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .modal {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .modal h2 {
+    font-size: 1.3rem;
+  }
+
+  .modal button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .modal input,
+  .modal select {
+    padding: 0.5rem;
+    font-size: 0.85rem;
   }
 }

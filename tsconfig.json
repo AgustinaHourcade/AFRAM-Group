@@ -38,6 +38,7 @@
       "@fixedTerms/*": ["app/fixedTerms/*"],
       "@cards/*": ["app/cards/*"],
       "@loans/*": ["app/loans/*"],
+      "@email/*": ["app/email/*"],
       "@support/*": ["app/support/*"]
 }
   },

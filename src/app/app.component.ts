@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, RouterOutlet } from '@angular/router';
-import { ChatComponent } from './shared/chat-bot/components/chat/chat.component';
+import { Component, inject, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { filter, map } from 'rxjs/operators';
+import { ChatComponent } from '@shared/chat-bot/components/chat/chat.component';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +16,10 @@ export class AppComponent implements OnInit {
   title = 'AframGroup';
   constructor(
     private titleService: Title,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
   ) {}
+
+  private router = inject(Router);
+  private activatedRoute= inject(ActivatedRoute);
 
   ngOnInit() {
     this.router.events.pipe(

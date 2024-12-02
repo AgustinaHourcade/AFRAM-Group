@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FaqItem } from '../../interface/chat.interface';
+import { FaqItem } from '@shared/chat-bot/interface/chat.interface';
 
 @Component({
   selector: 'app-suggestions',

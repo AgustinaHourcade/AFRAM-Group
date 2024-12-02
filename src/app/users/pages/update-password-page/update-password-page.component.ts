@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UpdatePasswordComponent } from "../../components/update-password/update-password.component";
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
+import { UpdatePasswordComponent } from "@users/components/update-password/update-password.component";
+import { NavbarComponent } from "@shared/navbar/navbar.component";
 
 @Component({
   selector: 'app-update-password-page',
