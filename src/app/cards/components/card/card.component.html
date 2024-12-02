@@ -3,12 +3,12 @@
 <div class="buttonDiv">
   <button routerLink="/newcard">Solicitar tarjeta</button>
 </div>
-}
-
-@for (item of activeCards; track $index) {
-<div class="cardsDiv"
-  [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
-  <div class="cardsDiv-card">
+}@else{
+  <h2>Mis tarjetas</h2>
+<div class="cardsDiv">
+  @for (item of activeCards; track $index) {
+  <div class="cardsDiv-card"
+    [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
     <div class="background">
       <div class="left"></div>
       <div class="right">
@@ -107,5 +107,6 @@
 
     <button (click)="alerta(item.card_id)">Dar de baja</button>
   </div>
+  }
 </div>
 }

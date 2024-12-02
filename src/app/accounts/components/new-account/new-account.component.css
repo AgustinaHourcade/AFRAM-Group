@@ -9,10 +9,11 @@
 
 .page-sub {
   width: 600px;
+  max-width: 90%;
   padding: 2.5rem;
   background-color: var(--white);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--box-shadow-color);
+  border-radius: var(--border-radius);
   margin: 2rem auto;
 }
 
@@ -21,7 +22,7 @@ form {
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 }
 
 form label {
@@ -34,10 +35,9 @@ form select {
   padding: 8px;
   margin-bottom: 20px;
   border: 1px solid var(--gray-2);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 form button {
-  padding: 10px 15px;
   width: 100%;
 }

@@ -1,9 +1,5 @@
-.title {
-  font-size: 24px;
-  text-align: center;
-  color: var(--black);
-  margin-bottom: 20px;
-  margin-top: 60px;
+h2 {
+  margin-top: 20px;
 }
 
 .accounts-container {
@@ -15,29 +11,34 @@
 }
 
 .app-card-account-container {
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 20px;
-  margin-top: 0;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-card-account-buttons {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 15px;
+  width: 100%;
 }
 
 .view-button {
-  padding: 10px 50px;
+  margin-left: 10px;
 }
 
 .deactivate-button {
   background-color: var(--cancel-button);
-  padding: 10px 50px;
+  margin-right: 10px;
 }
 
 .deactivate-button:hover {
   background-color: var(--cancel-button-hover);
+}
+
+button {
+  width: 40%;
 }

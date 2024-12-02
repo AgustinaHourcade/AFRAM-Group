@@ -27,18 +27,25 @@ export class NavbarComponent implements OnInit{
   private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
   private notificationsService = inject(NotificationsService);
-
+  
+  isResponsiveMenuVisible: boolean = false;
   id : number = 0;
   type !: string;
-  activeMenu: string = '';
+  activeMenu: string | null = null;
   notifications: Array<Notification> = [];
   unreadNotifications: Array<Notification> = [];
   isDropdownOpen: boolean = false;
 
-
-  toggleMenu(menu: string): void {
-    this.activeMenu = this.activeMenu === menu ? '' : menu;
+ // Toggle para el menú responsive
+ toggleMenu(menu?: string): void {
+  if (menu) {
+    this.activeMenu = this.activeMenu === menu ? null : menu;
+  } else {
+    this.isResponsiveMenuVisible = !this.isResponsiveMenuVisible;
+    this.activeMenu = null; 
   }
+}
+
   logout(): void {    this.userSessionService.logOut();this.userSessionService.clearUserId();
     localStorage.clear();
     this.router.navigate(['/home']);
@@ -135,5 +142,12 @@ export class NavbarComponent implements OnInit{
       this.isDropdownOpen = false;
     }
   }
+
+  isNavbarOpen = false;
+
+toggleNavbar() {
+  this.isNavbarOpen = !this.isNavbarOpen;
+}
+
 
 }

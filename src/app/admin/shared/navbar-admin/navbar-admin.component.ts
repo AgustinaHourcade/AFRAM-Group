@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class NavbarAdminComponent implements OnInit {
   activeMenu: string | null = null;
+  isResponsiveMenuVisible: boolean = false;
   type !: string;
 
   private router = inject(Router);
@@ -24,9 +25,6 @@ export class NavbarAdminComponent implements OnInit {
     this.getUserById();
   }
 
-  toggleMenu(menu: string) {
-    this.activeMenu = this.activeMenu === menu ? null : menu;
-  }
 
   logout(): void {
     this.userSessionService.logOut();
@@ -72,4 +70,16 @@ export class NavbarAdminComponent implements OnInit {
       }
     });
   }
+
+  // Toggle para el menú responsive
+  toggleMenu(menu?: string): void {
+    if (menu) {
+      this.activeMenu = this.activeMenu === menu ? null : menu;
+    } else {
+      this.isResponsiveMenuVisible = !this.isResponsiveMenuVisible;
+      this.activeMenu = null; // Cierra submenús al cerrar el hamburguesa
+    }
+  }
+
 }
+

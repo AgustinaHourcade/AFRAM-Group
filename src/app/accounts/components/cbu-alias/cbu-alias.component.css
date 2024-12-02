@@ -1,12 +1,11 @@
 .cbuAlias {
-  width: 100%;
+  width: 80%;
   max-width: 650px;
   margin: auto;
   border: 1px solid var(--gray-1);
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 8px var(--box-shadow-color);
   background-color: var(--background-gray);
   margin-top: 5%;
 }
@@ -43,7 +42,7 @@
   width: 100%;
   padding: 8px;
   border: 1px solid var(--gray-1);
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   font-size: 14px;
   margin-top: 5px;
 }
@@ -69,23 +68,23 @@
 
 button {
   width: 25%;
-  padding: 10px;
+  padding: 10px; 
   font-size: 14px;
   display: flex;
   justify-content: center;
 }
 
-h1 {
-  display: grid;
-  place-items: center;
-  margin-top: 3%;
+h2 {
+  /* display: grid;
+  place-items: center; */
+  margin-top: 20px;
 }
 
 .input-field {
   width: 100%;
   padding: 12px 5px;
   border: 1px solid var(--extra-light-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   background-color: var(--white);
   font-size: 16px;
   color: var(--gray-4);
@@ -110,4 +109,21 @@ h1 {
 
 .cancel-button:hover {
   background-color: var(--cancel-button-hover);
+}
+
+
+@media (max-width: 768px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  button{
+    width: 100%;
+  }
+  
+
 }

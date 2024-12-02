@@ -1,7 +1,7 @@
 .card {
   background-color: var(--white);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   border: 1px solid var(--secondary-color);
   box-shadow: 0 4px 6px var(--box-shadow-color);
   width: 300px;
@@ -38,7 +38,7 @@ span {
   font-size: 18px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   body {
     padding: 20px;
   }
@@ -61,4 +61,4 @@ span {
   .card .balance-number {
     font-size: 1.2rem;
   }
-}
+} */

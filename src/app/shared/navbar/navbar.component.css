@@ -3,8 +3,14 @@ nav {
   display: flex;
   align-items: center;
   padding: 10px;
-  color: white;
+  color: var(--white);
   justify-content: space-between;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 img {
@@ -24,7 +30,6 @@ img {
 
 .nav-links li {
   position: relative;
-  list-style: none;
   padding: 10px;
 }
 
@@ -47,11 +52,10 @@ img {
 .submenu {
   display: none;
   position: absolute;
-  top: 100%; 
-  left: 0;
+  top: 100%;
   background-color: var(--primary-color);
   padding: 10px 0;
-  min-width: 150px;
+  min-width: 180px;
   border-radius: var(--border-radius);
   z-index: 1000;
   list-style: none;
@@ -111,54 +115,6 @@ img {
   background-color: var(--button-hover);
 }
 
-.dropdown .submenu .submenu {
-  display: none;
-  position: absolute;
-  top: 0; 
-  left: 100%; 
-  min-width: 200px;
-  background-color: var(--primary-color);
-  padding: 10px 0;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px var(--box-shadow-color);
-}
-
-.dropdown .submenu:hover > .submenu {
-  display: block;
-}
-
-.show-menu > .submenu {
-  display: block;
-}
-
-.transactions-menu {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: var(--primary-color);
-  list-style: none;
-  padding: 10px 0;
-  min-width: 150px;
-  z-index: 100;
-  border-radius: var(--border-radius);
-}
-
-.transactions-menu li {
-  width: 100%;
-}
-
-.transactions-menu a {
-  color: var(--white);
-  text-decoration: none;
-  padding: 10px;
-  display: block;
-}
-
-.transactions-menu a:hover {
-  background-color: var(--button-hover);
-}
-
 .notification-container {
   position: relative;
 }
@@ -169,18 +125,6 @@ img {
   transition: transform 0.2s ease;
 }
 
-.notification-icon.has-unread {
-  animation: bell-shake 0.3s infinite alternate;
-}
-
-.notification-icon.has-notifications {
-  transform: none;
-}
-
-.notification-icon.no-notifications {
-  transform: none;
-}
-
 .notification-dropdown {
   position: absolute;
   top: 100%;
@@ -189,7 +133,7 @@ img {
   border: 1px solid var(--gray-2);
   border-radius: var(--border-radius);
   box-shadow: 0px 4px 6px var(--box-shadow-color);
-  width: 300px;
+  width: 250px;
   max-height: 400px;
   overflow-y: auto;
   display: none;
@@ -212,23 +156,21 @@ img {
   margin: 0;
   font-size: 1rem;
   color: var(--gray-3);
-  padding-bottom: 8px;
 }
 
 .notification-content p {
   margin: 0;
   font-size: 0.9rem;
   color: var(--gray-4);
-  padding-bottom: 8px;
-
 }
 
-.notification-content small {
-  font-size: 0.8rem;
-  color: var(--gray-1);
+.notification-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.notification-content-sub, .notification-actions{
+.notification-actions-sub {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -242,7 +184,6 @@ img {
   color: var(--gray-3);
   margin-left: 10px;
   transition: color 0.2s ease;
-  box-shadow: none;
   padding: 5px;
 }
 
@@ -257,15 +198,57 @@ img {
   color: var(--gray-3);
 }
 
-@keyframes bell-shake {
-  0% {
-    transform: rotate(0);
-  }
-  50% {
-    transform: rotate(-10deg);
-  }
-  100% {
-    transform: rotate(10deg);
-  }
+.hamburger {
+  display: none;
 }
 
+small {
+  color: var(--gray-3);
+  padding: 5px;
+}
+
+@media (max-width: 780px) {
+  .hamburger {
+    display: block;
+    font-size: 2rem;
+    cursor: pointer;
+    position: relative;
+    left: -15px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 200px;
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+
+  .nav-links.responsive {
+    display: flex;
+  }
+
+  .account-menu,
+  .fixed-terms-menu,
+  .profile-menu,
+  .loans-menu,
+  .cards-menu,
+  .transactions-menu,
+  .submenu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    min-width: 200px;
+    width: 220px;
+  }
+
+  .notification-dropdown {
+    width: 350px;
+    max-height: 300px;
+  }
+}

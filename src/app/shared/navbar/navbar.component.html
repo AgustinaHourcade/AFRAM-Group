@@ -1,8 +1,15 @@
-<nav>
+<nav class="navbar">
   <a routerLink="/main">
-    <img src="/logo-navbar.png" alt="Logo del Banco"/>
+    <img src="/logo-navbar.png" alt="Logo del Banco" />
   </a>
-  <ul class="nav-links">
+
+  <!-- Botón de menú hamburguesa -->
+  <button class="hamburger" (click)="toggleMenu()" [class.is-open]="isResponsiveMenuVisible">
+    <span *ngIf="!isResponsiveMenuVisible">☰</span>
+    <span *ngIf="isResponsiveMenuVisible">✖</span>
+  </button>
+
+  <ul class="nav-links" [ngClass]="{'responsive': isResponsiveMenuVisible}">
 
     <li class="account-dropdown" [ngClass]="{'show-menu': activeMenu === 'account'}">
       <a class="dropdown-link" (click)="toggleMenu('account')">Cuentas</a>
@@ -12,19 +19,22 @@
       </ul>
     </li>
 
-    <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'investments'}">
-      <a class="dropdown-link" (mouseenter)="toggleMenu('investments')" (mouseleave)="toggleMenu('')">Inversiones</a>
+
+    <li class="dropdown-investment" [ngClass]="{'show-menu': activeMenu === 'investments'}">
+      <a class="dropdown-link" (click)="toggleMenu('investments')">Inversiones</a>
       <ul class="submenu">
         <li><a routerLink="/trading">Dólares</a></li>
-        <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
-          <a class="dropdown-link" (mouseenter)="toggleMenu('fixedterms')" (mouseleave)="toggleMenu('')">Plazo fijo</a>
+
+        <li class="dropdown-fixedterms" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
+          <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo</a>
           <ul class="submenu">
             <li><a routerLink="/fixed-terms">Mis plazos fijos</a></li>
             <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
           </ul>
         </li>
-        <li class="dropdown" [ngClass]="{'show-menu': activeMenu === 'loans'}">
-          <a class="dropdown-link" (mouseenter)="toggleMenu('loans')" (mouseleave)="toggleMenu('')">Préstamos</a>
+
+        <li class="dropdown-loans" [ngClass]="{'show-menu': activeMenu === 'loans'}">
+          <a class="dropdown-link" (click)="toggleMenu('loans')">Préstamos</a>
           <ul class="submenu">
             <li><a routerLink="/list-loan">Mis préstamos</a></li>
             <li><a routerLink="/new-loan">Solicitar préstamo</a></li>
@@ -32,6 +42,7 @@
         </li>
       </ul>
     </li>
+
 
     <li class="transactions-dropdown" [ngClass]="{'show-menu': activeMenu === 'transactions'}">
       <a class="dropdown-link" (click)="toggleMenu('transactions')">Transferencias</a>
@@ -60,23 +71,15 @@
     <li><a routerLink="/support">Soporte</a></li>
 
     <div class="notification-container">
-      <!-- Icono de notificaciones -->
-      <div
-        class="notification-icon"
-        [class.has-unread]="unreadNotifications.length > 0"
+
+      <div class="notification-icon" [class.has-unread]="unreadNotifications.length > 0"
         [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
-        [class.no-notifications]="notifications.length === 0"
-        (click)="toggleNotificationsDropdown()"
-        (click)="$event.stopPropagation()"
-      >
-        <i
-          class="bi"
-          [class.bi-bell-fill]="notifications.length > 0"
-          [class.bi-bell]="notifications.length === 0"
-        ></i>
+        [class.no-notifications]="notifications.length === 0" (click)="toggleNotificationsDropdown()"
+        (click)="$event.stopPropagation()">
+        <i class="bi" [class.bi-bell-fill]="notifications.length > 0" [class.bi-bell]="notifications.length === 0"></i>
       </div>
 
-      <!-- Cuadro desplegable de notificaciones -->
+
       <div class="notification-dropdown" [class.open]="isDropdownOpen">
         <div *ngIf="notifications.length === 0" class="no-notifications">
           <p>No tiene notificaciones</p>
@@ -87,32 +90,38 @@
           <div class="notification-content">
             <h5>{{ notification.title }}</h5>
             <p>{{ notification.message }}</p>
-            <div  class="notification-content-sub">
-              <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+            <div class="notification-content-sub">
               <div class="notification-actions">
+                <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+                <div class="notifications-actions-sub">
                 @if(notification.is_read === 'no'){
-                  <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
-                    <i class="bi bi-check-all"></i>
-                  </a>
+                <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
+                  <i class="bi bi-check-all"></i>
+                </a>
                 }
-              <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
-                <i class="bi bi-trash"></i>
-              </a>
-            </div>
+                <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
+                  <i class="bi bi-trash"></i>
+                </a>
+              </div>
+              </div>
             </div>
           </div>
-
-          
-
         </div>
       </div>
     </div>
 
 
-    @if (type === 'admin') {
-      <button (click)="changeType()">Cambiar tipo</button>
-    }
-    <button (click)="logout()">Cerrar sesión</button>
 
+
+    <div class="buttons">
+      @if (type === 'admin') {
+      <li>
+        <button (click)="changeType()">Cambiar tipo</button>
+      </li>
+      }
+      <li>
+        <button (click)="logout()">Cerrar sesión</button>
+      </li>
+    </div>
   </ul>
 </nav>

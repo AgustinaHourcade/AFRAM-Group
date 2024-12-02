@@ -4,7 +4,7 @@
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--box-shadow-color);
   padding: 16px;
-  width: 800px;
+  width:100%;
   transition: transform 0.2s;
   display: flex;
   flex-direction: row;
@@ -74,4 +74,25 @@
 
 .pdf-styles .transaction-amount {
   text-align: right;
+}
+
+
+@media (max-width: 840px) {
+  /* .transaction-card {
+    background-color: var(--background-gray);
+    border: 1px solid var(--gray-2);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px var(--box-shadow-color);
+    padding: 16px;
+    width: 90%;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+  } */
+  
+  
+
 }

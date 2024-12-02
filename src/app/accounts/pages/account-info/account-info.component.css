@@ -1,55 +1,48 @@
 .container {
-  max-width: 90%;
+  width: 90%;
   margin: 20px auto;
   padding: 20px;
   color: var(--gray-4);
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
+.div-sub {
+  width: 100%;
+}
+
+.div-sub button {
+  margin-bottom: 10px;
+}
+
 h2 {
-  font-size: 1.6rem;
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  font-family: var(--font-title);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
 form {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  margin: 0;
 }
 
 input[type="month"] {
   padding: 8px;
-  border: 1px solid var(--gray-2);
-  border-radius: 4px;
-  font-size: 1rem;
   background-color: var(--white);
-  font-family: var(--font-menu-form);
   transition: border-color 0.3s ease;
   color: var(--gray-4);
-}
-
-input[type="month"]:focus {
-  border-color: var(--primary-color);
-  outline: none;
-  color: var(--gray-4);
-}
-
-button {
-  padding: 10px 20px;
-  margin: 20px 0;
+  margin: 0;
 }
 
 span {
   font-size: 1rem;
   color: var(--gray-3);
-  margin-top: 10px;
   display: block;
+  text-align: center;
 }
 
 p {
@@ -59,9 +52,16 @@ p {
   text-align: center;
 }
 
-h2,
-p,
-span,
-button {
-  margin: 10px 0;
+@media (max-width: 840px) {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 10px;
+  }
+
+  .buttons button {
+    width: 100%;
+  }
 }

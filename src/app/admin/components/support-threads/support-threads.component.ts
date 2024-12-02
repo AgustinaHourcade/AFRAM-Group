@@ -19,10 +19,10 @@ import { CommonModule } from '@angular/common';
 export class SupportThreadsComponent implements OnInit{
 
   private supportService = inject(SupportService);
-  private messageService = inject(MessageService);
-  private sessionService = inject(UserSessionService);
-  private fb = inject(FormBuilder);
-  private routes = inject(Router);
+  // private messageService = inject(MessageService);
+  // private sessionService = inject(UserSessionService);
+  // private fb = inject(FormBuilder);
+  // private routes = inject(Router);
 
 
   threads : Array<Thread> = [];

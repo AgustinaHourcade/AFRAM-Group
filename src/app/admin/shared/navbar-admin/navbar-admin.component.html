@@ -1,28 +1,29 @@
 <nav class="navbar">
-  <a class="logo" routerLink="/admin-main">
-    <img src="/logo-navbar.png" alt="Logo del Banco" class="logo-image" />
+  <a routerLink="/admin-main">
+    <img src="/logo-navbar.png" alt="Logo del Banco" />
   </a>
-  <ul class="nav-links">
-
+  <!-- Botón de menú hamburguesa -->
+  <button class="hamburger" (click)="toggleMenu()" [ngClass]="{'is-open': isResponsiveMenuVisible}">
+    <span *ngIf="!isResponsiveMenuVisible">☰</span>
+    <span *ngIf="isResponsiveMenuVisible">✖</span>
+  </button>
+  <ul class="nav-links" [ngClass]="{'responsive': isResponsiveMenuVisible}">
     <li>
       <a [routerLink]="['/admin-support']">Soporte</a>
     </li>
     <li>
       <a [routerLink]="['/list-admins']">Ver administradores</a>
     </li>
-
     <li>
       <a [routerLink]="['/list-users']">Ver clientes</a>
     </li>
-
     <li>
       <a [routerLink]="['/list-rates']">Tarifas</a>
     </li>
-
     <li>
       <a [routerLink]="['/new-admin']">Nuevo usuario</a>
     </li>
-
+    <!-- Menú desplegable de perfil -->
     <li class="profile-dropdown" [ngClass]="{'show-menu': activeMenu === 'profile'}">
       <a class="profile-link dropdown-link" (click)="toggleMenu('profile')">Perfil</a>
       <ul class="profile-menu">
@@ -30,9 +31,13 @@
         <li><a [routerLink]="['/update-password-admin']">Modificar contraseña</a></li>
       </ul>
     </li>
-
-
-    <button (click)="changeType()">Cambiar tipo</button>
-    <button (click)="logout()">Cerrar sesión</button>
+    <div class="buttons">
+    <li>
+      <button (click)="changeType()">Cambiar tipo</button>
+    </li>
+    <li>
+      <button (click)="logout()">Cerrar sesión</button>
+    </li>
+  </div>
   </ul>
 </nav>

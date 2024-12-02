@@ -1,13 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { NavbarComponent } from "../../../shared/navbar/navbar.component";
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SupportService } from '../../service/support.service';
-import { MessageService } from '../../service/messages.service';
-import { Thread } from '../../interface/thread';
-import { Router, RouterLink, RouterModule } from '@angular/router';
-import { UserSessionService } from '../../../auth/services/user-session.service';
 import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
+// import { NavbarComponent } from "../../../shared/navbar/navbar.component";
+// import { SupportService } from '../../service/support.service';
+// import { MessageService } from '../../service/messages.service';
+// import { Thread } from '../../interface/thread';
+// import { UserSessionService } from '../../../auth/services/user-session.service';
+import { SupportService } from '@support/service/support.service';
+import { MessageService } from '@support/service/messages.service';
+import { Thread } from '@support/interface/thread';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 
 @Component({
   selector: 'app-my-supports',
@@ -72,7 +77,8 @@ export class MySupportsComponent implements OnInit{
                 title: 'Mensaje enviado con éxito!',
                 text: 'En breve un agente de soporte le brindara una respuesta.',
                 icon: 'success',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#00b4d8'
               }).then((result) => {
                 if (result.isConfirmed) {
                   window.location.reload();

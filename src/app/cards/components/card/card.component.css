@@ -232,12 +232,16 @@
   color: var(--black);
 }
 
+h2{
+  margin-top: 20px;
+}
 .cardsDiv{
   display: flex;
   flex-direction: column;
-  row-gap: 200px;
   align-items: center;
-  padding: 75px;
+  row-gap: 100px;
+  /* padding: 75px; */
+  margin-top: 20px;
 }
 
 .cardsDiv-card{
@@ -245,7 +249,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 50%;
+  column-gap: 30px;
+  /* width: 50%; */
 }
 
 .tipo{
