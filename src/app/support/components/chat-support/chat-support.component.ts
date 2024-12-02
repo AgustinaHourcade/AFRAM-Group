@@ -53,6 +53,9 @@ export class ChatSupportComponent implements OnInit{
     this.messageService.getMessages(Number(this.id)).subscribe({
       next: (messages) => {
         this.messages = messages;
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 100);
       },
       error: (e: Error) => {
         console.log(e.message);

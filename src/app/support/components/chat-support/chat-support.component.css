@@ -38,34 +38,55 @@
 }
 
 .message-content {
-  padding: 10px;
-  background-color: var(--white);
-  border-radius: 8px;
-  box-shadow: 0 2px 4px var(--box-shadow-color);
-  position: relative;
   max-width: 40%;
+} 
+
+.message.admin-message .message-content > *:nth-child(1) {
+  box-shadow: 0 2px 4px var(--box-shadow-color);
+  background-color: var(--secondary-color);
+  padding: 10px;
+  border-radius: var(--border-radius);
 }
 
+.message.admin-message .message-content > *:nth-child(2) {
+  padding: 5px;
+  color: var(--gray-3);
+
+}
 .message.admin-message .message-content {
-  background-color: var(--secondary-color);
+  display: grid;
+  grid-template-rows: auto auto;
   color: var(--white);
   align-self: flex-start;
   margin-left: 10px;
 }
 
 .message.user-message .message-content {
-  background-color: var(--light-color);
+  display: grid;
+  grid-template-rows: auto auto;
+  /* background-color: var(--light-color); */
   color: var(--gray-4);
   align-self: flex-end;
   margin-right: 10px;
 }
 
+.message.user-message .message-content > *:nth-child(1) {
+  box-shadow: 0 2px 4px var(--box-shadow-color);
+  background-color: var(--light-color);
+  padding: 10px;
+  border-radius: var(--border-radius);
+}
+
+.message.user-message .message-content > *:nth-child(2) {
+  padding: 5px;
+  color: var(--gray-3);
+  text-align: end;
+
+}
+
 .message-time {
   font-size: 10px;
   color: var(--gray-1);
-  position: absolute;
-  bottom: -20px;
-  right: 10px;
 }
 
 .message-input-form {
@@ -112,7 +133,6 @@
   margin-top: 20px;
 }
 
-/* Media Queries */
 @media (max-width: 1024px) {
   .chat {
     width: 90%;
@@ -121,7 +141,7 @@
 
   .chat-container {
     padding: 15px;
-    margin-bottom: 40px; /* Aumentado para más espacio */
+    margin-bottom: 40px;
   }
 
   .message-content {
@@ -157,7 +177,7 @@
 
   .chat-container {
     padding: 10px;
-    margin-bottom: 40px; /* Aumentado para más espacio */
+    margin-bottom: 40px;
   }
 
   .message-content {
@@ -188,8 +208,6 @@
 }
 
 @media (max-width: 550px) {
-
-
 
   .chat {
     width: 100%;

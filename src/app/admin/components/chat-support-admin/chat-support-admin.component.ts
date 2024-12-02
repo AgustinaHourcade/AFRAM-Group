@@ -47,6 +47,7 @@ export class ChatSupportAdminComponent implements OnInit{
         console.log(error.message);
       }
     });
+
   }
 
   loadUser(id: number){
@@ -71,11 +72,15 @@ export class ChatSupportAdminComponent implements OnInit{
       }
     })
   }
-
+  
   loadMessages(){
     this.messageService.getMessages(Number(this.id)).subscribe({
       next: (messages) => {
         this.messages = messages;
+        
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 100);
       },
       error: (e: Error) => {
         console.log(e.message);

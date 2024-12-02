@@ -25,7 +25,7 @@
             <form [formGroup]="formulario" (ngSubmit)="postThread()" class="message-input-form">
                 <input formControlName="message" type="text" placeholder="Escribe tu mensaje..."
                     class="message-input" />
-                <button type="submit" class="send-button">Enviar</button>
+                <button type="submit" class="send-button" [disabled]="formulario.invalid">Enviar</button>
             </form>
             }
         </div>
