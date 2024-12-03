@@ -41,7 +41,7 @@ img {
 }
 
 .nav-links a:hover {
-  color: var(--white);
+  color: var(--button-hover);
 }
 
 .account-menu,
