@@ -17,7 +17,6 @@ export class ListUsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
   clients: Array<User> = [];
-  // clientsFilter: Array<User> = [];
 
   filterForm = this.fb.nonNullable.group({
     dni: [''],
@@ -27,8 +26,7 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next: (users) => {
-        this.clients = users /*.filter((user) => user.user_type === 'user');*/
-        // this.clientsFilter = [...this.clients]; 
+        this.clients = users
       },
       error: (e: Error) => {
         console.error(e.message);
@@ -53,6 +51,6 @@ export class ListUsersComponent implements OnInit {
 
   onClearFilter() {
     this.filterForm.reset();
-    this.clients = [...this.clients]; 
+    this.clients = [...this.clients];
   }
 }
