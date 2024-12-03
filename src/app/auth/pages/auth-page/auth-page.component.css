@@ -1,93 +1,109 @@
+/* Estilo general */
 #page {
   display: flex;
-  justify-content: center !important;
+  justify-content: center;
   align-items: center;
   height: 100vh;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-}
-
-img {
-  width: 300px;
+  background-color: var(--primary-color); 
 }
 
 .container {
-  width: 95%;
-  height: 95%;
   display: flex;
-  justify-content: center !important;
+  width: 80%;
+  height: 80%;
   border-radius: 20px;
   overflow: hidden;
-  /* box-shadow: 0 0 20px var(--box-shadow-color); */
-  /* border: 1px solid var(--cancel-button); */
-
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: var(--white);
 }
 
+/* Panel izquierdo */
 .left-panel {
-  width: 40%;
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-  padding: 50px;
+  width: 50%;
+  background-image: url(/fondo-auth.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
+  padding: 30px;
+}
+
+.logo img {
+  padding: 0;
+  width: 150px;  
+  height: auto;
+  margin-left: 15%; 
+  position: fixed;
+}
+
+
+h2{
+  margin-top: 30px;
+}
+
+/* Panel derecho (formulario) */
+.form-container {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  color: var(--white);
-  border-radius: 20px 0 0 20px;
-  box-shadow: 20px 0 0 var(--box-shadow-color);
-
+  align-items: center;
+  padding: 30px;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.form-container {
-  width: 40%;
-  padding: 10px 50px;
-  background-color: var(--white);
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  border-radius: 0 20px 20px 0;
-  box-shadow: 0 0 20px var(--box-shadow-color);
+
+.form-header {
+  display: flex;
+  justify-content: end;
+  align-items: end;
 }
 
-button {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  background: transparent;
-  border-radius: 30px;
-  transition: font-weight 0.3s, color 0.3s;
-  font-size: 1.5rem;
-  box-shadow: none;
-}
-
-button.active {
+.toggle {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  padding: 12px 30px;
+  border: none;
+  background-color: #00bcd4; 
+  color: white;
+  font-size: 16px;
   font-weight: bold;
-  color: var(--light-color);
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  cursor: pointer;
+  border-radius: 25px;
+  z-index: 1;
+  outline: none;
 }
+
+/* Cambiar color a azul cuando el botón esté activo */
+.toggle:hover {
+  background-color: #2196f3; /* Azul */
+  color: #fff; 
+}
+
+.toggle:focus {
+  outline: none; 
+}
+
+
+
 
 @media (max-width: 768px) {
   .container {
-    flex-direction: column-reverse;
-    box-shadow: none;
-  }
-
-  img {
-    width: 200px;
+    flex-direction: column;
+    height: auto;
+    width: 95%;
   }
 
   .left-panel {
     width: 100%;
     flex-direction: row;
-    padding: 30px;
+    justify-content: center;
+    gap: 20px;
   }
-  
+
   .form-container {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    padding: 20px;
   }
 }

@@ -1,19 +1,36 @@
-<!-- ! LISTO  -->
 <div id="page">
   <div class="container">
+    <!-- Sección izquierda -->
     <div class="left-panel">
-      <button [class.active]="isLoginActive" (click)="toggleForm('login')">Log In</button>
-      <button [class.active]="!isLoginActive" (click)="toggleForm('signup')">Sign Up</button>
+    </div>
+    
+    <!-- Sección derecha (formulario) -->
+    <div class="logo">
+      <a href="" routerLink=""><img src="/logo-fff.png" alt="AFRAM Group Logo"></a>
     </div>
     <div class="form-container">
-      <div class="logo">
-        <a href="" routerLink=""><img src="/logo-fff.png" alt="AFRAM Group Logo"></a>
+      
+      <div class="form-content">
+        @if(isLoginActive){
+          <app-login></app-login>
+        }@else {
+          <app-signup></app-signup>
+        }
       </div>
-      @if(isLoginActive){
-        <app-login></app-login>
-      }@else {
-        <app-signup></app-signup>
-      }
+      <div class="form-header">
+        <button *ngIf="!isLoginActive" (click)="toggleForm('login')" class="toggle">
+         <i class="bi bi-arrow-left"></i> Log In 
+        </button>
+      
+        <button *ngIf="isLoginActive" (click)="toggleForm('signup')" class="toggle">
+        Sign Up <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+      
+      
+      
+      
+      
     </div>
   </div>
 </div>
