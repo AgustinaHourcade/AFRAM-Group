@@ -2,8 +2,7 @@
   display: flex;
   justify-content: center !important;
   align-items: center;
-  height: auto;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .logo {
@@ -12,7 +11,6 @@
 }
 
 img {
-  height: 150px;
   width: 300px;
 }
 
@@ -28,11 +26,7 @@ img {
 
 .left-panel {
   width: 40%;
-  background: linear-gradient(
-    135deg,
-    var(--secondary-color),
-    var(--primary-color)
-  );
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -47,6 +41,7 @@ img {
   background-color: var(--white);
   position: relative;
   overflow: hidden;
+  height: 100%;
 }
 
 button {
@@ -68,6 +63,11 @@ button.active {
 @media (max-width: 768px) {
   .container {
     flex-direction: column-reverse;
+    box-shadow: none;
+  }
+
+  img {
+    width: 200px;
   }
 
   .left-panel {
@@ -75,6 +75,7 @@ button.active {
     flex-direction: row;
     padding: 30px;
   }
+  
   .form-container {
     width: 100%;
     display: flex;

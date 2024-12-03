@@ -16,12 +16,12 @@ import { Account } from '@accounts/interface/account.interface';
   styleUrl: './accounts.component.css'
 })
 export class AccountsComponent {
-  accounts: Array<Account> = [];
-  userId: number = 0;
-
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
+
+  accounts: Array<Account> = [];
+  userId: number = 0;
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();

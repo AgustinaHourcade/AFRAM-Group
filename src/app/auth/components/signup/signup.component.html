@@ -1,13 +1,15 @@
 <div class="page">
   <form [formGroup]="formulario" (ngSubmit)="addUsuario()">
-    <div class="form-group">
+    <div class="double-input">
+    <div class="form-group">  
       <div class="input-wrapper">
-        <input type="text" id="real_name" formControlName="real_name" placeholder=" " />
-        <label for="real_name">Nombre <span class="required">*</span></label>
+        <input type="text" id="real_name" formControlName="real_name"  [ngClass]="{ errorInput:(formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched)}"/>
+        <label [ngClass]="{ filled: formulario.get('real_name')?.value, errorLabel: formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched }">
+            @if (formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched) {
+              <i class="bi bi-exclamation-circle"></i> 
+            }
+            Nombre </label>
       </div>
-      @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
-        <span class="error-message">Campo requerido</span>
-      }
       @if (formulario.controls['real_name'].getError('minlength') && formulario.controls['real_name'].touched) {
         <span class="error-message">Mínimo 3 caracteres</span>
       }
@@ -15,46 +17,55 @@
 
     <div class="form-group">
       <div class="input-wrapper">
-        <input type="text" id="last_name" formControlName="last_name" placeholder=" " />
-        <label for="last_name">Apellido <span class="required">*</span></label>
+        <input type="text" id="last_name" formControlName="last_name" />
+        <label [ngClass]="{ filled: formulario.get('last_name')?.value, errorLabel: formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched }">
+            @if (formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched) {
+              <i class="bi bi-exclamation-circle"></i> 
+            }
+            Apellido </label>
       </div>
-      @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
-        <span class="error-message">Campo requerido</span>
-      }
       @if (formulario.controls['last_name'].getError('minlength') && formulario.controls['last_name'].touched) {
-        <span class="error-message">Mínimo 2 caracteres</span>
+        <span class="error-message">Mínimo 3 caracteres</span>
       }
     </div>
+  </div>
 
     <div class="form-group">
       <div class="input-wrapper">
-        <input type="text" id="name-user" formControlName="name_user" placeholder=" " />
-        <label for="name-user">Usuario <span class="required">*</span></label>
+        <input type="text" id="name_user" formControlName="name_user" placeholder=" " />
+        <label [ngClass]="{
+          filled: formulario.get('name_user')?.value,
+          errorLabel: formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched }">
+            @if (formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched) {
+              <i class="bi bi-exclamation-circle"></i> 
+            }
+            Usuario </label>
       </div>
-      @if (formulario.controls['name_user'].getError('required') && formulario.controls['name_user'].touched) {
-        <span class="error-message">Campo requerido</span>
-      }
       @if (formulario.controls['name_user'].getError('minlength') && formulario.controls['name_user'].touched) {
-        <span class="error-message">Mínimo 4 caracteres</span>
+        <span class="error-message">Mínimo 3 caracteres</span>
       }
+      
     </div>
-
+    
     <div class="form-group">
       <div class="input-wrapper">
         <input type="number" id="dni" formControlName="dni" placeholder=" " />
-        <label for="dni">DNI <span class="required">*</span></label>
+        <label [ngClass]="{
+          filled: formulario.get('dni')?.value,
+          errorLabel: formulario.controls['dni'].invalid && formulario.controls['dni'].touched }">
+            @if (formulario.controls['dni'].invalid && formulario.controls['dni'].touched) {
+              <i class="bi bi-exclamation-circle"></i> 
+            }
+            Dni </label>
       </div>
-      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
+      @if (formulario.controls['dni'].getError('minlength') && formulario.controls['dni'].touched) {
+        <span class="error-message">Mínimo 7 caracteres</span>
       }
-      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('minLength')) {
-        <span class="error-message">Mínimo 7 números</span>
-      }
-      @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('maxLength')) {
-        <span class="error-message">Máximo 8 números</span>
+      @if (formulario.controls['dni'].getError('maxlength') && formulario.controls['dni'].touched) {
+        <span class="error-message">Mínimo 8 caracteres</span>
       }
     </div>
-
+    <div class="double-input">
     <div class="form-group">
       <div class="input-wrapper">
         <input
@@ -65,14 +76,17 @@
           placeholder=" "
           (input)="validatePassword()"
         />
-        <label for="hashed_password">Contraseña <span class="required">*</span></label>
+        <label [ngClass]="{
+          filled: formulario.get('hashed_password')?.value,
+          errorLabel: formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched }">
+            @if (formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched) {
+              <i class="bi bi-exclamation-circle"></i> 
+            }
+            Contraseña </label>
         <button type="button" class="toggle-btn" (click)="togglePasswordVisibility(passwordInput1)">
           <i [class]="showPassword1 ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
         </button>
       </div>
-      @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
-      }
       @if (formulario.controls['hashed_password'].touched && formulario.controls['hashed_password'].getError('minlength')) {
         <span class="error-message">Mínimo 6 caracteres</span>
       }
@@ -89,20 +103,24 @@
           id="confirm_password"
           formControlName="confirm_password"
           placeholder=" "
+          [ngClass]="{ errorInput: formulario.controls['confirm_password'].invalid && formulario.controls['confirm_password'].touched || (formulario.hasError('matchPasswords') && formulario.controls['confirm_password'].touched)}"
         />
-        <label for="confirm_password">Repetir contraseña <span class="required">*</span></label>
+        <label [ngClass]="{
+          filled: formulario.get('confirm_password')?.value,
+          errorLabel: (formulario.controls['confirm_password'].invalid && formulario.controls['confirm_password'].touched) || (formulario.hasError('matchPasswords') && formulario.controls['confirm_password'].touched)}">
+            @if (formulario.controls['confirm_password'].invalid && formulario.controls['confirm_password'].touched || (formulario.hasError('matchPasswords') && formulario.controls['confirm_password'].touched)) {
+              <i class="bi bi-exclamation-circle"></i> 
+            }
+            Repetir contraseña </label>
         <button type="button" class="toggle-btn" (click)="togglePasswordVisibilityRepet(passwordInput2)">
           <i [class]="showPassword2 ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
         </button>
       </div>
-      @if (formulario.controls['confirm_password'].touched && formulario.controls['confirm_password'].getError('required')) {
-        <span class="error-message">Campo requerido</span>
-      }
       @if (formulario.controls['confirm_password'].touched && formulario.hasError('matchPasswords')) {
         <span class="error-message">Las contraseñas no coinciden</span>
       }
     </div>
-
-    <button type="submit" class="submit-button">Registrarse</button>
+  </div>
+    <button type="submit" class="submit-button" [disabled]="formulario.invalid">Registrarse</button>
   </form>
 </div>

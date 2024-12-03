@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { Observable, catchError, of } from 'rxjs';
 import { Account } from '@accounts/interface/account.interface';
@@ -25,13 +24,13 @@ export class MyTransactionsComponent {
   userId: number = 0;
   pageSize = 4 ;
   currentPage = 1;
-
-  //private router = inject(Router);
+  selectedAccountId!: number;
+  
   private changeDetector = inject(ChangeDetectorRef);
   private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private  transactionService = inject(TransactionService);
-  selectedAccountId!: number;
+  
 
   get totalPages(): number {
     return Math.ceil(this.transfers.length / this.pageSize);

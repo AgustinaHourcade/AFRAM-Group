@@ -11,12 +11,13 @@
     </div>
 
     <div #chatMessages class="chat-messages">
-      <app-chat-message
-        *ngFor="let message of messages"
+      @for(message of messages; track $index){
+        <app-chat-message
         [message]="message"
         (faqSelected)="selectFaq($event)"
         (topicSelected)="selectTopic($event)">
       </app-chat-message>
+      }
     </div>
 
     <div class="chat-input">

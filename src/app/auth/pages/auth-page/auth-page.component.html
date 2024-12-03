@@ -1,3 +1,4 @@
+<!-- ! LISTO  -->
 <div id="page">
   <div class="container">
     <div class="left-panel">
@@ -8,8 +9,11 @@
       <div class="logo">
         <a href="" routerLink=""><img src="/logo-fff.png" alt="AFRAM Group Logo"></a>
       </div>
-      <app-login *ngIf="isLoginActive"></app-login>
-      <app-signup *ngIf="!isLoginActive"></app-signup>
+      @if(isLoginActive){
+        <app-login></app-login>
+      }@else {
+        <app-signup></app-signup>
+      }
     </div>
   </div>
 </div>

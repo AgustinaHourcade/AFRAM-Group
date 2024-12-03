@@ -1,8 +1,9 @@
+<!-- ! LISTO -->
 @if (account.account_type==='Savings') {
-<h2> Caja de ahorros - {{account.id}}/{{account.user_id}}</h2>
+  <h2> Caja de ahorros - {{account.id}}/{{account.user_id}}</h2>
 }
 @if (account.account_type==='Checking') {
-<h2> Cuenta corriente - {{account.id}}/{{account.user_id}}</h2>
+  <h2> Cuenta corriente - {{account.id}}/{{account.user_id}}</h2>
 }
 <div #pdfContent class="cbuAlias">
   <div class="cbu">
@@ -13,13 +14,14 @@
   <div class="alias">
     <p>Alias</p>
     @if (!isEditing){
-    <p>{{ account.alias }}</p>
-    } @if (isEditing){
-    <form [formGroup]="formulario">
-      <div class="form-group">
-        <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field" />
-      </div>
-    </form>
+      <p>{{ account.alias }}</p>
+    } 
+    @if (isEditing){
+      <form [formGroup]="formulario">
+        <div class="form-group">
+          <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field" />
+        </div>
+      </form>
     }
   </div>
 
@@ -32,20 +34,11 @@
     <p>{{ user.dni }}</p>
   </div>
   <div class="buttons">
-    <button (click)="copyToClipboard()" class="no-print">
-      Copiar datos <i class="bi bi-copy"></i>
-    </button>
-    <button (click)="downloadAsPDF()" class="no-print">
-      Descargar <i class="bi bi-download"></i>
-    </button>
-    <button class="no-print" (click)="isEditing ? modifyAlias() : toggleEditing()">
-      {{ isEditing ? "Guardar" : "Modificar alias" }}
-      <i class="bi bi-pencil-square"></i>
-    </button>
+    <button (click)="copyToClipboard()" class="no-print">Copiar datos <i class="bi bi-copy"></i></button>
+    <button (click)="downloadAsPDF()" class="no-print">Descargar <i class="bi bi-download"></i></button>
+    <button class="no-print" (click)="isEditing ? modifyAlias() : toggleEditing()">{{ isEditing ? "Guardar" : "Modificar alias" }}<i class="bi bi-pencil-square"></i></button>
     @if (isEditing) {
-    <button class="no-print cancel-button" (click)="toggleEditing()">
-      Cancelar
-    </button>
+      <button class="no-print cancel-button" (click)="toggleEditing()">Cancelar</button>
     }
   </div>
 </div>

@@ -50,7 +50,7 @@ img {
 .loans-menu,
 .cards-menu,
 .transactions-menu,
-.submenu{
+.submenu {
   display: none;
   position: absolute;
   top: 100%;
@@ -62,7 +62,7 @@ img {
   list-style: none;
 }
 
-.submenu2{
+.submenu2 {
   display: none;
   position: absolute;
   top: 100%;
@@ -279,12 +279,8 @@ small {
   }
 }
 
-
-
-
 @media (max-width: 1080px) {
-
-  nav{
+  nav {
     width: 100%;
   }
 
@@ -294,8 +290,8 @@ small {
     background: none;
     color: var(--white);
     cursor: pointer;
+    box-shadow: none;
   }
-
 
   .nav-links {
     display: none;
@@ -321,7 +317,7 @@ small {
   .loans-menu,
   .cards-menu,
   .transactions-menu,
-  .submenu{
+  .submenu {
     position: absolute;
     left: 112%;
     top: 0;
@@ -329,7 +325,7 @@ small {
     width: 220px;
   }
 
-  .submenu2{
+  .submenu2 {
     position: absolute;
     left: 100%;
     top: 0;
@@ -341,15 +337,13 @@ small {
     left: 50%;
   }
 
-  .buttons{
+  .buttons {
     flex-direction: column;
   }
 }
 
-
 @media (min-width: 768px) and (max-width: 1024px) {
-  .nav-links{
+  .nav-links {
     flex-wrap: wrap;
   }
 }
-

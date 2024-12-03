@@ -21,6 +21,4 @@ export class LegalComponent implements OnInit {
       firstElement.scrollIntoView({ behavior: 'instant', block: 'end' });
     }
   }
-
-
 }

@@ -1,57 +1,40 @@
+<!-- ! LISTO -->
 <app-navbar-admin></app-navbar-admin>
 <div class="page">
-<h2>Lista de Clientes</h2>
+  <h2>Lista de Clientes</h2>
 
-<!-- Barra de filtración -->
-<form [formGroup]="filterForm" class="filter-bar">
-  <input
-    type="number"
-    formControlName="dni"
-    placeholder="Buscar por DNI"
-    class="filter-input"
-  />
-  <input
-    type="text"
-    formControlName="lastName"
-    placeholder="Buscar por Apellido"
-    class="filter-input"
-  />
-  <button type="button" (click)="onClearFilter()" class="clear-button">
-    Limpiar
-  </button>
-</form>
+  <form [formGroup]="filterForm" class="filter-bar">
+    <input type="number" formControlName="dni" placeholder="Buscar por DNI" class="filter-input"/>
+    <input type="text" formControlName="lastName" placeholder="Buscar por Apellido" class="filter-input"/>
+    <button type="button" (click)="onClearFilter()" class="clear-button">Limpiar</button>
+  </form>
 
-@if (clients.length === 0) {
-  <h2>No hay resultados que coincidan con la búsqueda.</h2>
-}@else {
-  <table >
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>DNI</th>
-        <!-- <th>Email</th> -->
-        <th>Activo</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-  <tbody>
-    @for (client of clients; track $index) {
-
-      <tr>
-        <td>{{ client.real_name }}</td>
-        <td>{{ client.last_name }}</td>
-        <td>{{ client.dni }}</td>
-        <!-- <td>{{ client.email }}</td> -->
-        <td>{{ client.is_Active === 'yes' ? 'Sí' : 'No' }}</td>
-        <td>
-          <button class="details" [routerLink]="['/detail-user', client.id]">
-            Detalles
-          </button>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
-}
+  @if (clients.length === 0) {
+    <h2>No hay resultados que coincidan con la búsqueda.</h2>
+  }@else {
+    <table >
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>DNI</th>
+          <!-- <th>Email</th> -->
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+    <tbody>
+      @for (client of clients; track $index) {
+        <tr>
+          <td>{{ client.real_name }}</td>
+          <td>{{ client.last_name }}</td>
+          <td>{{ client.dni }}</td>
+          <!-- <td>{{ client.email }}</td> -->
+          <td>{{ client.is_Active === 'yes' ? 'Sí' : 'No' }}</td>
+          <td><button class="details" [routerLink]="['/detail-user', client.id]">Detalles</button></td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  }
 </div>

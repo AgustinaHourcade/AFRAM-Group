@@ -1,8 +1,8 @@
+/* ! LISTO */
 footer {
   background-color: var(--primary-color);
   color: var(--white);
   padding: 20px 10px;
-  font-family: Arial, sans-serif;
 }
 
 .footer-content {
@@ -15,14 +15,14 @@ footer {
   margin-bottom: 10px;
 }
 
-.footer-links a {
+.footer-links {
   color: var(--extra-light-color);
   margin: 0 10px;
   text-decoration: none;
   font-size: 14px;
 }
 
-.footer-links a:hover {
+.footer-links:hover {
   text-decoration: underline;
 }
 
@@ -56,50 +56,24 @@ img {
   object-fit: contain;
 }
 
-@media (max-width: 480px) {
-  .footer h1 {
-    font-size: 20px;
-  }
 
-  .footer-links a {
+@media (max-width: 767px) {
+  .footer-links {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links{
     font-size: 12px;
     margin: 0 5px;
   }
 
-  .footer-social a {
+  .footer-social {
     font-size: 18px;
   }
 
   .footer-bottom p {
     font-size: 10px;
-  }
-}
-
-@media (max-width: 767px) {
-  .intro-message {
-    padding-bottom: 15%;
-  }
-
-  .intro-message > h1 {
-    font-size: 3em;
-  }
-
-  ul.intro-social-buttons > li {
-    display: block;
-    margin-bottom: 20px;
-    padding: 0;
-  }
-
-  ul.intro-social-buttons > li:last-child {
-    margin-bottom: 0;
-  }
-  .footer-content,
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .footer-links {
-    margin-top: 10px;
   }
 }

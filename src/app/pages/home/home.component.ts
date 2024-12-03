@@ -1,8 +1,8 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HomeCardComponent } from '@shared/home-card/home-card.component';
 import { FooterComponent } from '@shared/footer/footer.component';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { HomeCardComponent } from '@shared/home-card/home-card.component';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +12,20 @@ import { UserSessionService } from '@auth/services/user-session.service';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  isScrolled = false;
-  private scrollThreshold = 100;
+  // ! Listo
   private userSessionService = inject(UserSessionService);
+  
+  isScrolled = false;
+  scrollThreshold = 550;
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     this.isScrolled = scrollPosition > this.scrollThreshold;
+  }
+  
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   ngOnInit(){

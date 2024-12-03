@@ -4,8 +4,11 @@
   </a>
   <!-- Botón de menú hamburguesa -->
   <button class="hamburger" (click)="toggleMenu()" [ngClass]="{'is-open': isResponsiveMenuVisible}">
-    <span *ngIf="!isResponsiveMenuVisible">☰</span>
-    <span *ngIf="isResponsiveMenuVisible">✖</span>
+    @if(!isResponsiveMenuVisible){
+      <span>☰</span>
+    }@else {
+      <span>✖</span>
+    }
   </button>
   <ul class="nav-links" [ngClass]="{'responsive': isResponsiveMenuVisible}">
     <li>

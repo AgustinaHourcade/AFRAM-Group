@@ -1,3 +1,4 @@
+<!-- LISTO -->
 <app-navbar></app-navbar>
 <div class="page">
   <div class="card-content">
@@ -14,17 +15,13 @@
       <select id="account" class="input-field" formControlName="account">
         <option value="" disabled selected>Seleccione una cuenta</option>
         @for (item of accounts; track $index) {
-          @if (item.account_type === 'Savings') 
-          {
+          @if (item.account_type === 'Savings') {
             @if(!item.closing_date){
-              
               <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
             }
           }
-          @if (item.account_type === 'Checking') 
-          {
+          @else if (item.account_type === 'Checking') {
             @if(!item.closing_date){
-              
               <option value="{{item.id}}">CC {{ item.id }}-{{ userId }}/2 </option>
             }
           }

@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Component, HostListener, Input } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar-home',
@@ -11,8 +11,9 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class NavbarHomeComponent {
   @Input() backgroundColor: string = 'transparent';
+
   isScrolled = false;
-  private scrollThreshold = 100;
+  scrollThreshold = 100;
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {

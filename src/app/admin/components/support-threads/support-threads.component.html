@@ -7,13 +7,13 @@
     }@else {
       <div class="thread-list active">
           @for (item of activesThreads; track $index) {
-          <div class="thread-item active" [routerLink]="['/admin-support-chat', item.id]">
-            <h3>{{ item.support_subject }}</h3>
-            <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
-            @if(item.has_user_last_message){
-              <i class="bi bi-patch-exclamation"></i>
-            }
-          </div>
+            <div class="thread-item active" [routerLink]="['/admin-support-chat', item.id]">
+              <h3>{{ item.support_subject }}</h3>
+              <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+              @if(item.has_user_last_message){
+                <i class="bi bi-patch-exclamation"></i>
+              }
+            </div>
           }
       </div>
     }
@@ -22,16 +22,16 @@
     @if (finishedThreads.length === 0) {
       <h3>No hay consultas finalizadas</h3>
     }@else {
-    <div class="thread-list closed">
-      @for (item of finishedThreads; track $index) {
-        @if(item.support_status === 'closed'){
-        <div class="thread-item closed" [routerLink]="['/admin-support-chat', item.id]">
-          <h3>{{ item.support_subject }}</h3>
-          <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
-        </div>
+      <div class="thread-list closed">
+        @for (item of finishedThreads; track $index) {
+          @if(item.support_status === 'closed'){
+            <div class="thread-item closed" [routerLink]="['/admin-support-chat', item.id]">
+              <h3>{{ item.support_subject }}</h3>
+              <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+            </div>
+          }
         }
-      }
-    </div>
+      </div>
     }
   </div>
 </div>

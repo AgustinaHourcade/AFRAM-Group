@@ -1,23 +1,19 @@
+/* ! LISTO */
 .dashboard {
-  margin-top: 50px;
-  padding: 2rem;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 82px);
+  height: calc(100vh - 82px);
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(250px, 300px));
   gap: 5rem;
-  justify-content: center;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 .dashboard-card {
-  border-radius: 12px;
+  border-radius: var(--border-radius);
   padding: 20px;
   box-shadow: 0 4px 6px var(--box-shadow-color);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -34,28 +30,25 @@
   background-color: var(--extra-light-color);
 }
 
-.card-icon {
+.dashboard-card i {
   font-size: 3rem;
   margin-bottom: 1rem;
+  color: var(--primary-color);
 }
 
-.card-title {
+.dashboard-card h2 {
   font-size: 1.5rem;
   color: var(--primary-color);
   margin-bottom: 0.75rem;
 }
 
-.card-description {
+.dashboard-card p {
   font-size: 1rem;
   color: var(--gray-3);
   line-height: 1.4;
 }
 
 @media (max-width: 1024px) {
-  .dashboard {
-    padding: 1.5rem;
-  }
-
   .dashboard-grid {
     grid-template-columns: repeat(2, minmax(200px, 1fr));
     gap: 3rem;
@@ -66,24 +59,20 @@
     padding: 18px;
   }
 
-  .card-icon {
+  .dashboard-card i {
     font-size: 2.5rem;
   }
 
-  .card-title {
+  .dashboard-card h2 {
     font-size: 1.4rem;
   }
 
-  .card-description {
+  .dashboard-card p {
     font-size: 0.9rem;
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard {
-    padding: 1.25rem;
-  }
-
   .dashboard-grid {
     grid-template-columns: repeat(1, minmax(200px, 1fr));
     gap: 2rem;
@@ -94,7 +83,7 @@
     padding: 16px;
   }
 
-  .card-icon {
+  .dashboard-card i {
     font-size: 2rem;
   }
 
@@ -108,11 +97,6 @@
 }
 
 @media (max-width: 550px) {
-  .dashboard {
-    margin-top: 30px;
-    padding: 1rem;
-  }
-
   .dashboard-grid {
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
@@ -124,16 +108,16 @@
     font-size: 0.9rem;
   }
 
-  .card-icon {
+  .dashboard-card i {
     font-size: 1.8rem;
     margin-bottom: 0.5rem;
   }
 
-  .card-title {
+  .dashboard-card h2 {
     font-size: 1.2rem;
   }
 
-  .card-description {
+  .dashboard-card p {
     font-size: 0.8rem;
   }
 }

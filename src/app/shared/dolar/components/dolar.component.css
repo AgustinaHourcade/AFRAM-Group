@@ -1,3 +1,4 @@
+/* ! LISTO */
 .dolar-info {
   background-color: var(--background-gray);
   border-radius: var(--border-radius);
@@ -42,11 +43,6 @@
 }
 
 @media (max-width: 768px) {
-  .dolar-info {
-    padding: 15px;
-    max-width: 100%;
-  }
-
   .dolar-info p {
     font-size: 14px;
   }

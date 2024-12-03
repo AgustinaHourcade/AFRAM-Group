@@ -31,5 +31,7 @@
     <button (click)="toggleFlag()">Ver comprobante</button>
   }
 
-  <app-receipt *ngIf="flag" [transaction]="transaction" (cancel)="onCancel()"></app-receipt>
+  @if(flag){
+    <app-receipt [transaction]="transaction" (cancel)="onCancel()"></app-receipt>
+  }
 </div>

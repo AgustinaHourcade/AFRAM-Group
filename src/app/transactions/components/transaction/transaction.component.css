@@ -5,11 +5,14 @@
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--box-shadow-color);
   padding: 16px;
-  width: 100%;
+  /* width: 100vw; */
   transition: transform 0.2s;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   border: none;
 }

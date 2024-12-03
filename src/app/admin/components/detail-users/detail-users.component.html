@@ -1,3 +1,4 @@
+<!-- ! LISTO -->
 <app-navbar-admin></app-navbar-admin>
 <button class="go-back" routerLink="/list-users" >Volver</button>
 <div class="profile-container">
@@ -28,61 +29,54 @@
         <span class="field-value">{{ user?.email }}</span>
       </div>
       <div class="action-buttons">
-        <!-- <div> -->
-            <button class="action-button cuentas" (click)="loadAccounts()" >Ver Cuentas</button>
-        <!-- </div> -->
-
-        <!-- <div> -->
+          <button class="action-button" (click)="loadAccounts()" >Ver Cuentas</button>
           @if(user?.is_Active === 'yes'){
-            <!-- <div class="botones-admin"> -->
               <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
               @if(user?.user_type === 'admin'){
                 <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
               }
-            <!-- </div> -->
           }@else {
             <div>
               <button class="action-button alta" (click)="changeStatus()">Dar de alta</button>
             </div>
           }
-        <!-- </div> -->
       </div>
     </div>
   </div>
 
   @if(flag){
     <h2>Cuentas de {{user?.real_name}}</h2>
-<table>
-  <thead>
-    <tr  id="accounts">
-      <th>Numero</th>
-      <th>Tipo</th>
-      <th>Fecha de apertura</th>
-      <th>Fondos</th>
-      <th>Activa</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of accounts; track $index) {
+    <table>
+      <thead>
         <tr>
-          <td>{{item.id}}</td>
-          <td>{{item.account_type}}</td>
-          <td>{{ formatearFecha(item.opening_date) }}</td>
-          <td>${{item.balance}}</td>
-          @if (!item.closing_date) {
-            <td>Si</td>
-            <div class="action-buttons">
-              <button class="action-button movimientos" [routerLink]="['/list-transaction', item.id]">Ver movimientos</button>
-            <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
-            </div>
-          }@else {
-            <td>No</td>
-          }
+          <th>Numero</th>
+          <th>Tipo</th>
+          <th>Fecha de apertura</th>
+          <th>Fondos</th>
+          <th>Activa</th>
+          <th></th>
         </tr>
-    }@empty {
-      <p>El usuario no tiene cuentas asociadas</p>
-    }
-  </tbody>
-</table>
+      </thead>
+      <tbody>
+        @for (item of accounts; track $index) {
+            <tr>
+              <td>{{item.id}}</td>
+              <td>{{item.account_type}}</td>
+              <td>{{ formatearFecha(item.opening_date) }}</td>
+              <td>${{item.balance}}</td>
+              @if (!item.closing_date) {
+                <td>Si</td>
+                <div class="action-buttons">
+                  <button class="action-button" [routerLink]="['/list-transaction', item.id]">Ver movimientos</button>
+                  <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
+                </div>
+              }@else {
+                <td>No</td>
+              }
+            </tr>
+        }@empty {
+          <p>El usuario no tiene cuentas asociadas</p>
+        }
+      </tbody>
+    </table>
   }

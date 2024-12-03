@@ -1,33 +1,27 @@
+<!--  ! LISTO -->
 <app-navbar></app-navbar>
 <app-cbu-alias></app-cbu-alias>
 
 <div class="container">
-  <h2>
-    Movimientos de
+  <h2>Movimientos de
     <form [formGroup]="dateForm">
-      <input id="monthYear" type="month" formControlName="monthYear"
-      [min]="openingDate ? (openingDate | date: 'yyyy-MM') : ''" [max]="today ? (today | date: 'yyyy-MM') : ''" />
-      
+      <input id="monthYear" type="month" formControlName="monthYear" [min]="openingDate ? (openingDate | date: 'yyyy-MM') : ''" [max]="today ? (today | date: 'yyyy-MM') : ''" />
     </form>
   </h2>
   
   <div class="div-sub">
-    <button *ngIf="isLastDayOfMonth" (click)="downloadAsPDF()">
-      Descargar resumen {{ dateForm.value.monthYear | date:'MM/yyyy':'es-AR'}}
-    </button>
-    <span *ngIf="!isLastDayOfMonth">
-      Resumen disponible el {{ nextAvailableDate(dateForm.value.monthYear ?? null) | date: 'dd/MM/yyyy':'es-AR' }}
-    </span>
-
+    @if(isLastDayOfMonth){
+      <button (click)="downloadAsPDF()">Descargar resumen {{ dateForm.value.monthYear | date:'MM/yyyy':'es-AR'}}</button>
+    }@else{
+      <span>Resumen disponible el {{ nextAvailableDate(dateForm.value.monthYear ?? null) | date: 'dd/MM/yyyy':'es-AR' }}</span>
+    }
+   
     <div #pdfContent class="transactions">
-
       @for(transaction of filteredTransactions; track $index){
-      <app-transaction [transaction]="transaction" [selectedAccountId]="accountId"
-        [isDownloading]="isDownloading"></app-transaction>
+        <app-transaction [transaction]="transaction" [selectedAccountId]="accountId" [isDownloading]="isDownloading"></app-transaction>
       }@empty {
-      <p>No hay transacciones para el mes seleccionado.</p>
+        <p>No hay transacciones para el mes seleccionado.</p>
       }
-
     </div>
   </div>
 </div>

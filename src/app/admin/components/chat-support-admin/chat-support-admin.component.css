@@ -1,3 +1,4 @@
+/* ! LISTO */
 .page {
   display: flex;
   justify-content: center;
@@ -22,6 +23,7 @@
   background-color: var(--background-gray);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px var(--box-shadow-color);
+  padding-bottom: 0;
 }
 
 .messages-container {
@@ -87,7 +89,7 @@
   color: var(--gray-1);
 }
 
-message-input-form {
+.message-input-form {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -108,13 +110,9 @@ message-input-form {
 
 .volver-button {
   text-align: end;
-  margin-top: 20px;
-  margin-left: 5%;
 }
 
 .finalizar-button {
-  margin-top: 20px;
-  margin-right: 5%;
   background-color: var(--cancel-button);
 }
 
@@ -122,8 +120,14 @@ message-input-form {
   background-color: var(--cancel-button-hover);
 }
 
-.botones-container {
+.botones{
   display: flex;
+  justify-content: center;
+}
+
+.botones-container {
+  width: 800px;
+  max-width: 90%;  display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
@@ -151,8 +155,6 @@ message-input-form {
 
 @media (max-width: 480px) {
   .chat {
-    width: 100%;
-    max-width: 100%;
     margin-bottom: 10%;
   }
 
@@ -163,23 +165,11 @@ message-input-form {
   }
 
   .message-content {
-    max-width: 90%;
     font-size: 12px;
   }
 
   .message-input {
     padding: 8px;
     font-size: 12px;
-  }
-
-  .botones-container {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .volver-button, .finalizar-button {
-    margin: 0;
-    width: 40%;
-    text-align: center;
   }
 }

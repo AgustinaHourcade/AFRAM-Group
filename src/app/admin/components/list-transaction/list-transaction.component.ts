@@ -19,7 +19,7 @@ export class ListTransactionComponent implements OnInit{
   destinatario: string = '';
   flag: boolean = false;
   transactions : Array<Transaction> = [];
-  id ?: number;
+  id: number = 0;
   coming = false;
   pageSize = 4 ;
   currentPage = 1;
@@ -55,14 +55,14 @@ export class ListTransactionComponent implements OnInit{
     this.flag = false;
   }
 
-  isIncoming(sourceId: number): boolean {
-    if(sourceId === this.id){
-      this.coming = false;
-      return false
-    }
-    this.coming = true;
-    return true;
-  }
+  // isIncoming(sourceId: number): boolean {
+  //   if(sourceId === this.id){
+  //     this.coming = false;
+  //     return false
+  //   }
+  //   this.coming = true;
+  //   return true;
+  // }
 
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);

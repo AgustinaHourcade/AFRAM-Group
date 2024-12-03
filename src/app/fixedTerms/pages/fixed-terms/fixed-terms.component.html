@@ -1,57 +1,59 @@
+<!-- LISTO -->
 <app-navbar></app-navbar>
-
-<div *ngIf="fixedTerms.length === 0">
-  <p>No hay plazos fijos realizados por el usuario</p>
-</div>
-
-@if (fixedTerms.length > 0) {
-<div class="tableDiv">
-  <h2>Plazos fijos activos</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Numero de cuenta</th>
-        <th>Cantidad invertida</th>
-        <th>Intereses ganados</th>
-        <th>Fecha de expiración</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (ft of fixedTerms; track $index) { @if (ft.is_paid === 'no') {
-      <tr>
-        <td>{{ ft.account_id }}</td>
-        <td>${{ ft.invested_amount }}</td>
-        <td>${{ ft.interest_earned }}</td>
-        <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
-      </tr>
-      } }
-    </tbody>
-  </table>
-</div>
+@if(fixedTerms.length === 0){
+  <p>No hay plazos fijos realizados por el usuario</p>  
+}@else {
+  <div class="tableDiv">
+    <h2>Plazos fijos activos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Numero de cuenta</th>
+          <th>Cantidad invertida</th>
+          <th>Intereses ganados</th>
+          <th>Fecha de expiración</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (ft of fixedTerms; track $index) { 
+          @if (ft.is_paid === 'no') {
+            <tr>
+              <td>{{ ft.account_id }}</td>
+              <td>${{ ft.invested_amount }}</td>
+              <td>${{ ft.interest_earned }}</td>
+              <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
+            </tr>
+          } 
+        }
+      </tbody>
+    </table>
+  </div>
 }
 
 @if (expiredFixedTerms.length > 0) {
-<div class="tableDiv">
-  <h2>Plazos fijos vencidos</h2>
-  <table>
-    <thead>
-      <tr>
-        <th class="thExpired">Numero de cuenta</th>
-        <th class="thExpired">Cantidad invertida</th>
-        <th class="thExpired">Intereses ganados</th>
-        <th class="thExpired">Fecha de expiración</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (ft of expiredFixedTerms; track $index) { @if (ft.is_paid === 'yes') {
-      <tr>
-        <td>{{ ft.account_id }}</td>
-        <td>${{ ft.invested_amount }}</td>
-        <td>${{ ft.interest_earned }}</td>
-        <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
-      </tr>
-      } }
-    </tbody>
-  </table>
-</div>
+  <div class="tableDiv">
+    <h2>Plazos fijos vencidos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="thExpired">Numero de cuenta</th>
+          <th class="thExpired">Cantidad invertida</th>
+          <th class="thExpired">Intereses ganados</th>
+          <th class="thExpired">Fecha de expiración</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (ft of expiredFixedTerms; track $index) { 
+        @if (ft.is_paid === 'yes') {
+            <tr>
+              <td>{{ ft.account_id }}</td>
+              <td>${{ ft.invested_amount }}</td>
+              <td>${{ ft.interest_earned }}</td>
+              <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
+            </tr>
+          } 
+        }
+      </tbody>
+    </table>
+  </div>
 }

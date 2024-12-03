@@ -1,49 +1,41 @@
+<!-- ! listo -->
 <app-navbar-admin></app-navbar-admin>
 <div class="page">
-  <h2 style="text-align: center; margin-bottom: 20px;">Lista de Administradores</h2>
+  <h2>Lista de Administradores</h2>
 
-  <!-- Barra de filtración -->
   <form [formGroup]="filterForm" class="filter-bar">
     <input type="number" formControlName="dni" placeholder="Buscar por DNI" class="filter-input" />
     <input type="text" formControlName="lastName" placeholder="Buscar por Apellido" class="filter-input" />
-    <button type="button" (click)="onClearFilter()" class="clear-button">
-      Limpiar
-    </button>
+    <button type="button" (click)="onClearFilter()" class="clear-button">Limpiar</button>
   </form>
   @if (adminsFilter.length === 0) {
-  <div>
-    <h2>No hay resultados que coincidan con la búsqueda.</h2>
-  </div>
+    <div>
+      <h2>No hay resultados que coincidan con la búsqueda.</h2>
+    </div>
   }@else {
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>DNI</th>
-          <!-- <th>Email</th> -->
-          <th>Activo</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of adminsFilter; track $index) {
-        <tr>
-          <td>{{ item.real_name }}</td>
-          <td>{{ item.last_name }}</td>
-          <td>{{ item.dni }}</td>
-          <!-- <td>{{ item.email }}</td> -->
-          <td>{{ item.is_Active === 'yes' ? 'Si' : 'No' }}</td>
-          <td>
-            <button class="details" [routerLink]="['/detail-admin', item.id]">
-              Detalles
-            </button>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-  </div>
-  }
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>DNI</th>
+            <!-- <th>Email</th> -->
+            <th>Activo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of adminsFilter; track $index) {
+            <tr>
+              <td>{{ item.real_name }}</td>
+              <td>{{ item.last_name }}</td>
+              <td>{{ item.dni }}</td>
+              <!-- <td>{{ item.email }}</td> -->
+              <td>{{ item.is_Active === 'yes' ? 'Si' : 'No' }}</td>
+              <td><button class="details" [routerLink]="['/detail-admin', item.id]">Detalles</button></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
 </div>

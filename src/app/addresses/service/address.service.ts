@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Address } from '../interface/address.interface';
 import { Observable } from 'rxjs';
+import { Address } from '@addresses/interface/address.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
+  private http = inject(HttpClient);
 
   private urlBase = 'http://localhost:3000/addresses/';
-  private http = inject(HttpClient);
 
   getAddressByUserId(user_id: number): Observable<Address> {
     return this.http.get<Address>(`${this.urlBase}user/${user_id}`);

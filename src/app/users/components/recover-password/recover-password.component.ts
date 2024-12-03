@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserService } from '@users/services/user.service';

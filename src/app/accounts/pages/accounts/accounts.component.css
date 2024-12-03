@@ -1,5 +1,6 @@
+/* ! LISTO */
 h2 {
-  margin-top: 20px;
+  margin: 20px;
 }
 
 .accounts-container {
@@ -7,7 +8,6 @@ h2 {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 }
 
 .app-card-account-container {
@@ -20,7 +20,6 @@ h2 {
 
 .app-card-account-buttons {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   gap: 15px;
   width: 100%;

@@ -1,3 +1,4 @@
+/* LISTO */
 .card {
   width: 400px;
   height: 250px;
@@ -5,7 +6,8 @@
 }
 
 @keyframes flip {
-  0%, 100% {
+  0%,
+  100% {
     transform: rotateY(0deg);
   }
   50% {
@@ -21,7 +23,8 @@
   animation: flip 2.5s ease;
 }
 
-.front, .back {
+.front,
+.back {
   position: absolute;
   width: inherit;
   height: inherit;
@@ -38,27 +41,40 @@
   transform: translateZ(0);
 }
 
-.strip-bottom, .strip-top {
+.strip-bottom,
+.strip-top {
   position: absolute;
   right: 0;
   height: inherit;
-  background-image: linear-gradient(to bottom, var(--accent-color), var(--secondary-color));
+  background-image: linear-gradient(
+    to bottom,
+    var(--accent-color),
+    var(--secondary-color)
+  );
   box-shadow: 0 0 10px 0px var(--box-shadow-color);
 }
 
 .credit-card .strip-bottom,
 .credit-card .strip-top {
-  background-image: linear-gradient(to bottom, var(--cancel-button), var(--gray-4));
+  background-image: linear-gradient(
+    to bottom,
+    var(--cancel-button),
+    var(--gray-4)
+  );
 }
 
 .debit-card .strip-bottom,
 .debit-card .strip-top {
-  background-image: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  background-image: linear-gradient(
+    to bottom,
+    var(--primary-color),
+    var(--secondary-color)
+  );
 }
 
 .strip-bottom {
   width: 200px;
-  transform: skewX(-15deg) translateX(50px); 
+  transform: skewX(-15deg) translateX(50px);
 }
 
 .strip-top {
@@ -133,26 +149,25 @@
   align-items: center;
   margin: 40px 25px 10px;
   font-size: 23px;
-  font-family: 'cc font', monospace;
+  font-family: "cc font", monospace;
 }
 
 .end {
   margin-left: 25px;
   text-transform: uppercase;
-  font-family: 'cc font', monospace;
+  font-family: "cc font", monospace;
   text-align: left;
-
 }
 
 .end .end-text {
   font-size: 9px;
-  color: var(--white)
+  color: var(--white);
 }
 
 .card-holder {
   margin: 10px 25px;
   text-transform: uppercase;
-  font-family: 'cc font', monospace;
+  font-family: "cc font", monospace;
   text-align: left;
 }
 
@@ -184,7 +199,7 @@
 
 .back {
   transform: rotateY(180deg) translateZ(0);
-  background: var(--white)
+  background: var(--white);
 }
 
 .back .strip-black {
@@ -228,32 +243,31 @@
   text-align: justify;
 }
 
-.terms p{
+.terms p {
   color: var(--black);
 }
 
-h2{
+h2 {
   margin-top: 20px;
 }
-.cardsDiv{
+
+.cardsDiv {
   display: flex;
   flex-direction: column;
   align-items: center;
   row-gap: 100px;
-  /* padding: 75px; */
   margin-top: 20px;
 }
 
-.cardsDiv-card{
+.cardsDiv-card {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   column-gap: 30px;
-  /* width: 50%; */
 }
 
-.tipo{
+.tipo {
   position: absolute;
   color: var(--white);
   margin-right: 10px;
@@ -261,15 +275,14 @@ h2{
   margin-left: 60%;
 }
 
-.buttonDiv{
+.buttonDiv {
   display: flex;
   justify-content: center;
   padding: 15px;
 }
 
-.type{
+.type {
   display: flex;
   flex-direction: column;
   row-gap: 3px;
 }
-

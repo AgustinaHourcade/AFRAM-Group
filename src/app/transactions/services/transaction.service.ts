@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TransactionService {
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   private baseUrl = 'http://localhost:3000/transactions';
 

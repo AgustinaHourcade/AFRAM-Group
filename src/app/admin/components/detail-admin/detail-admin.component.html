@@ -1,14 +1,15 @@
+<!-- ! LISTO -->
 <app-navbar-admin></app-navbar-admin>
-<button class="go-back" routerLink="/list-admins" >Volver</button>
+<button class="go-back" routerLink="/list-admins">Volver</button>
 <div class="profile-container">
     <h2>Información Personal</h2>
     <div class="profile-card">
       <div class="profile-field">
-        <span class="field-label">Nombre:</span>
+        <span class="field-label">Nombre</span>
         <span class="field-value">{{ admin?.real_name }}</span>
       </div>
       <div class="profile-field">
-        <span class="field-label">Apellido:</span>
+        <span class="field-label">Apellido</span>
         <span class="field-value">{{ admin?.last_name }}</span>
       </div>
       <div class="profile-field">
@@ -16,19 +17,19 @@
         <span class="field-value">{{ admin?.name_user }}</span>
       </div>
       <div class="profile-field">
-        <span class="field-label">DNI:</span>
+        <span class="field-label">DNI</span>
         <span class="field-value">{{ admin?.dni }}</span>
       </div>
       <div class="profile-field">
-        <span class="field-label">Telefono:</span>
+        <span class="field-label">Teléfono</span>
         <span class="field-value">{{ admin?.phone }}</span>
       </div>
       <div class="profile-field">
-        <span class="field-label">Email:</span>
+        <span class="field-label">Email</span>
         <span class="field-value">{{ admin?.email }}</span>
       </div>
       <div class="profile-field">
-        <span class="field-label">Activo:</span>
+        <span class="field-label">Activo</span>
         @if (admin?.is_Active === 'yes') {
           <span class="field-value">Si</span>
         }@else {
@@ -41,9 +42,9 @@
               <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
           </div>
         }@else {
-            <div>
-                <button class="action-button" (click)="changeStatus()">Dar de alta</button>
-            </div>
+          <div>
+              <button class="action-button" (click)="changeStatus()">Dar de alta</button>
+          </div>
         }
     </div>
-  </div>
+</div>

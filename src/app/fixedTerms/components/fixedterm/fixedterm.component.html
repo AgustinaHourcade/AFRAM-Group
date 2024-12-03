@@ -1,3 +1,4 @@
+<!-- listo -->
 <app-navbar></app-navbar>
 <div class="page">
   @if(accounts?.length == 0){
@@ -13,9 +14,7 @@
       <select name="account_id" id="account_id" formControlName="account_id">
         @for (item of accounts; track $index) {
           @if (!item.closing_date) {
-            <option [value]="item.id">
-              {{ item.id }} - {{ item.balance }}
-            </option>
+            <option [value]="item.id">{{ item.id }} - {{ item.balance }}</option>
           }
         }
       </select>

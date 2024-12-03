@@ -1,3 +1,4 @@
+/* ! LISTO */
 body {
   background-color: var(--background-gray);
 }
@@ -8,6 +9,7 @@ app-dolar {
   right: 3%;
   transform: translateY(-50%);
   z-index: 10;
+  max-width: 300px;
 }
 
 .page {
@@ -45,7 +47,6 @@ app-dolar {
 .modal form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
 }
 
 .modal input,
@@ -54,27 +55,30 @@ app-dolar {
   padding: 0.75rem;
   border-radius: var(--border-radius);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 15px;
 }
 
 .modal p {
   color: var(--primary-color);
-  margin: 1rem 0;
+  margin-bottom: 15px;
   text-align: center;
 }
 
 .dashboard-card {
-  flex: 1;
   height: 180px;
+  width: 250px;
   border-radius: var(--border-radius);
   padding: 3rem;
   box-shadow: 0 4px 6px var(--box-shadow-color);
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   text-decoration: none;
   border: solid 1px var(--gray-2);
   display: block;
-  margin-right: 30px;
   overflow: hidden;
 }
 
@@ -84,8 +88,13 @@ app-dolar {
   background-color: var(--extra-light-color);
 }
 
+.dashboard-card p {
+ text-align: center;
+}
+
 .card-icon {
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .card-title {
@@ -96,18 +105,11 @@ app-dolar {
 
 .closeButton {
   padding: 20px;
-  position: absolute;
-  top: 23%;
-  left: 1%;
-  transform: translateY(-50%);
   z-index: 10;
 }
 
-@media screen and (max-width: 768px) {
-  .modal {
-    width: 95%;
-    padding: 2rem;
-  }
+
+@media screen and (max-width: 780px) {
 
   .modal h2 {
     font-size: 1.5rem;
@@ -123,8 +125,30 @@ app-dolar {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
+}
 
-  app-dolar{
-    display: none;
+@media screen and (max-width: 550px) {
+
+  .dashboard-card .card-title {
+    font-size: 1.2rem;
+  }
+
+  .dashboard-card .card-icon {
+    font-size: 1.2rem;
+  }
+
+  .modal h2 {
+    font-size: 1.2rem;
+  }
+
+  .modal input,
+  .modal select {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .modal button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
 }

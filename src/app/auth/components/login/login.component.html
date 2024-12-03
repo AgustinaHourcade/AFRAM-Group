@@ -1,52 +1,42 @@
 <div class="page">
   <form [formGroup]="formulario" (ngSubmit)="admitUser()">
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    @if(errorMessage){
+      <div class="error">{{ errorMessage }}</div>
+    }
 
     <div class="input-container">
-      <input type="number" id="dni" formControlName="dni" [ngClass]="{
-      errorInput:
-          (formulario.controls['dni'].invalid && formulario.controls['dni'].touched)
-          }" />
-      <label [ngClass]="{
-            filled: formulario.get('dni')?.value,
-            errorLabel:
-            (formulario.controls['dni'].invalid && formulario.controls['dni'].touched)
-            }">
-        <span *ngIf="formulario.controls['dni'].invalid && formulario.controls['dni'].touched">
-          <i class="bi bi-exclamation-circle"></i>
-        </span> DNI
+      <input type="number" id="dni" formControlName="dni" [ngClass]="{ errorInput:(formulario.controls['dni'].invalid && formulario.controls['dni'].touched)}" />
+      <label [ngClass]="{ filled: formulario.get('dni')?.value, errorLabel: (formulario.controls['dni'].invalid && formulario.controls['dni'].touched) }">
+        @if(formulario.controls['dni'].invalid && formulario.controls['dni'].touched){
+          <span><i class="bi bi-exclamation-circle"></i></span> 
+        }
+        DNI</label>
+    </div>
+
+    <div class="input-container">
+      <input type="text" id="usuario" formControlName="name_user" [ngClass]="{ errorInput: formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched}" />
+      <label [ngClass]="{ filled: formulario.get('name_user')?.value, errorLabel: formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched}">
+        @if(formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched){
+          <span><i class="bi bi-exclamation-circle"></i></span> 
+        }
+       Usuario
       </label>
     </div>
 
     <div class="input-container">
-      <input type="text" id="usuario" formControlName="name_user" [ngClass]="{
-            errorInput:
-            formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched
-            }" />
-      <label [ngClass]="{
-      filled: formulario.get('name_user')?.value,
-      errorLabel:
-      formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched
-      }">
-        <span *ngIf="formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched">
-          <i class="bi bi-exclamation-circle"></i>
-        </span> Usuario
+      <input #passwordInput [type]="showPassword ? 'text' : 'password'" id="password" formControlName="hashed_password" [ngClass]="{ errorInput: formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched }" />
+      <label [ngClass]="{ filled: formulario.get('hashed_password')?.value, errorLabel: formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched }">
+        @if(formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched){
+          <span><i class="bi bi-exclamation-circle"></i></span>
+        }
+         Contraseña
       </label>
-    </div>
-
-    <div class="input-container">
-      <input #passwordInput [type]="showPassword ? 'text' : 'password'" id="password" formControlName="hashed_password"
-        [ngClass]="{ errorInput: formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched }" />
-      <label
-        [ngClass]="{ filled: formulario.get('hashed_password')?.value, errorLabel: formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched }">
-        Contraseña
-      </label>
-      <button type="button" class="toggle-btn" (click)="togglePasswordVisibility(passwordInput)">
+      <button type="button" class="toggle-btn"  (click)="togglePasswordVisibility(passwordInput)">
         <i [class]="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
       </button>
     </div>
 
-    <button type="submit" class="submit-button">Login</button>
+    <button type="submit" class="submit-button" [disabled]="formulario.invalid">Login</button>
     <a routerLink="/recover-password" class="forgot-password">¿Olvidaste tu contraseña?</a>
   </form>
 </div>

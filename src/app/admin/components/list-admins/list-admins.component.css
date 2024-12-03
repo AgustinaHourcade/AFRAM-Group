@@ -1,3 +1,4 @@
+/* ! LISTO */
 .page {
   margin-top: 20px;
   width: 100vw;
@@ -8,7 +9,7 @@ table {
   margin: 20px auto;
   border-collapse: collapse;
   background-color: var(--white);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: 0 4px 6px var(--box-shadow-color);
 }
@@ -41,17 +42,16 @@ tbody tr:hover {
   margin-bottom: 15px;
   padding: 8px;
   background-color: var(--background-gray);
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px var(--box-shadow-color);
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
 }
 
 .filter-input {
   width: 35%;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .clear-button {
@@ -119,6 +119,5 @@ tbody tr:hover {
 
   .details{
     padding: 8px;
-
   }
 }

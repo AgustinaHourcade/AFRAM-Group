@@ -1,8 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { UserSessionService } from '@auth/services/user-session.service';
+import { RouterLink } from '@angular/router';
 import { Account } from '@accounts/interface/account.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-card-account',
@@ -12,6 +12,7 @@ import { Account } from '@accounts/interface/account.interface';
   styleUrl: './card-account.component.css',
 })
 export class CardAccountComponent {
+  // ! LISTO
   @Input()
   account!: Account;
 

@@ -1,11 +1,12 @@
 <div class="suggestions">
   <h3>Preguntas frecuentes:</h3>
   <div class="suggestion-list">
-    <button
-      *ngFor="let faq of faqs"
+    @for(faq of faqs; track $index){
+      <button
       (click)="selectSuggestion(faq.question)"
       class="suggestion-button">
       {{ faq.question }}
     </button>
+    }
   </div>
 </div>

@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
 import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserService } from '@users/services/user.service';
@@ -14,15 +14,14 @@ import { NavbarHomeComponent } from "@shared/navbar-home/navbar-home.component";
   styleUrl: './new-password.component.css'
 })
 export class NewPasswordComponent {
-
-  flag = false;
-  showPassword1 = false;
-  showPassword2 = false;
-
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private route = inject(Router);
   //private activatedRoute = inject(ActivatedRoute);
+
+  flag = false;
+  showPassword1 = false;
+  showPassword2 = false;
 
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
@@ -115,9 +114,7 @@ export class NewPasswordComponent {
         });
       }
     })
-
   }
-
 
   changePassword(){
     const token1= this.formularioToken.get('token1')?.value || '';
@@ -159,7 +156,5 @@ export class NewPasswordComponent {
       }
     })
   }
-
-
 }
 

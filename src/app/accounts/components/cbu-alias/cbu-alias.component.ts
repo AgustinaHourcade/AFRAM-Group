@@ -1,14 +1,14 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import jsPDF from 'jspdf';
+import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
+import { switchMap } from 'rxjs';
+import jsPDF from 'jspdf';
 import Swal from 'sweetalert2';
+import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
 import { Account } from '@accounts/interface/account.interface';
 import { AccountService } from '@accounts/services/account.service';
-import { UserService } from '@users/services/user.service';
-import { User } from '@users/interface/user.interface';
 
 @Component({
   selector: 'app-cbu-alias',
@@ -18,14 +18,15 @@ import { User } from '@users/interface/user.interface';
   styleUrl: './cbu-alias.component.css',
 })
 export class CbuAliasComponent implements OnInit {
-  account!: Account;
-  user!: User;
-
   private router = inject(ActivatedRoute);
   // private route = inject(Router)
   private userService = inject(UserService);
   private accountService = inject(AccountService);
   private fb = inject(FormBuilder);
+  
+  account!: Account;
+  user!: User;
+
 
   formulario = this.fb.nonNullable.group({
     newAlias: [

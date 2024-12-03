@@ -1,5 +1,10 @@
+/* ! LISTO */
 .page1 {
   margin: 20px 0;
+}
+
+.required {
+  color: var(--cancel-button);
 }
 
 table {
@@ -28,7 +33,6 @@ th {
   font-weight: bold;
   word-wrap: break-word;
   white-space: normal;
-  /* word-break: break-word;  */
 }
 
 tr:nth-child(even) {
@@ -54,7 +58,6 @@ tr:hover {
 }
 
 .new:hover {
-  color: var(--button-hover);
   transform: rotate(180deg);
   transform-origin: center center;
 }
@@ -75,41 +78,12 @@ tr:hover {
 input {
   width: 100%;
   padding: 10px;
-  border-radius: 4px;
-  margin-top: 30px;
-}
-
-label {
-  position: absolute;
-  top: 40px;
-  left: 10px;
-  transition: 0.2s;
-  cursor: auto;
-}
-
-input:focus + label,
-input:not(:placeholder-shown) + label {
-  top: 10px;
-  left: 10px;
-  font-size: 12px;
+  border-radius: var(--border-radius);
 }
 
 .error-message {
   color: var(--cancel-button-hover);
   font-size: 12px;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
-.submit-button,
-.cancel-button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .submit-button {
@@ -118,24 +92,13 @@ input:not(:placeholder-shown) + label {
   justify-content: center;
 }
 
-.cancel-button {
-  background-color: var(--cancel-button);
-  width: auto;
-}
-
-.cancel-button:hover {
-  background-color: var(--cancel-button-hover);
-}
-
 form {
   width: 50%;
   margin: 0 auto;
 }
 
 .go-back {
-  padding: 10px 15px;
   margin: 20px;
-  box-shadow: 0px 4px 6px var(--box-shadow-color);
 }
 
 .chat-bubble {
@@ -145,7 +108,7 @@ form {
   transform: translateY(-15%);
   background-color: var(--secondary-color);
   color: var(--white);
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   padding: 10px;
   font-size: 14px;
   box-shadow: 0px 4px 6px var(--box-shadow-color);
@@ -166,15 +129,6 @@ form {
 }
 
 @media (max-width: 850px) {
-  table {
-    width: 100%;
-  }
-
-  .new {
-    font-size: 1.2rem;
-    padding: 8px 12px;
-  }
-
   form {
     width: 80%;
   }
@@ -183,71 +137,21 @@ form {
     margin: 15px 0;
   }
 
-  .input-wrapper input {
-    margin-top: 20px;
-  }
-
-  .buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .submit-button,
-  .cancel-button {
-    width: auto;
-    padding: 12px 18px;
-  }
-
-  label {
-    position: absolute;
-    top: 25px;
-    left: 10px;
-    transition: 0.2s;
-    cursor: auto;
-  }
-
-  input:focus + label,
-  input:not(:placeholder-shown) + label {
-    top: 0;
-    left: 10px;
-    font-size: 12px;
-  }
-
-  .go-back {
-    width: auto;
-  }
-
   .chat-bubble {
     position: relative;
     bottom: -5px;
     left: 0;
     width: 140px;
     max-width: 90%;
-    padding: 10px;
     margin-bottom: 20px;
-    z-index: 100;
   }
 
   .chat-bubble:after {
-    top: 50%;
-    left: -10px;
-    transform: translateY(-50%);
-    border-width: 10px;
-    border-style: solid;
     border-color: transparent var(--white) transparent transparent;
   }
 }
 
 @media (max-width: 480px) {
-  table {
-    width: 100%;
-  }
-
-  .new {
-    font-size: 1.1rem;
-    padding: 6px 10px;
-  }
-
   form {
     width: 90%;
   }
@@ -259,59 +163,5 @@ form {
 
   .page1 {
     margin: 10px 0;
-  }
-
-  .input-wrapper input {
-    margin-top: 15px;
-  }
-
-  .buttons {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  label {
-    position: absolute;
-    top: 25px;
-    left: 10px;
-    transition: 0.2s;
-    cursor: auto;
-  }
-
-  input:focus + label,
-  input:not(:placeholder-shown) + label {
-    top: 0;
-    left: 10px;
-    font-size: 12px;
-  }
-
-  .submit-button,
-  .cancel-button {
-    width: auto;
-    padding: 14px 20px;
-  }
-
-  .go-back {
-    width: auto;
-  }
-
-  .chat-bubble {
-    position: relative;
-    bottom: -5px;
-    left: 0;
-    width: 140px;
-    max-width: 90%;
-    padding: 10px;
-    margin-bottom: 20px;
-    z-index: 100;
-  }
-
-  .chat-bubble:after {
-    top: 50%;
-    left: -10px;
-    transform: translateY(-50%);
-    border-width: 10px;
-    border-style: solid;
-    border-color: transparent var(--white) transparent transparent;
   }
 }

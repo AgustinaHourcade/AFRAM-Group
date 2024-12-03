@@ -1,3 +1,4 @@
+/* ! LISTO */
 .cbuAlias {
   width: 80%;
   max-width: 650px;
@@ -7,7 +8,7 @@
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--box-shadow-color);
   background-color: var(--background-gray);
-  margin-top: 5%;
+  margin-top: 10px;
 }
 
 .cbu,
@@ -81,20 +82,11 @@ h2 {
 .input-field {
   width: 100%;
   padding: 12px 5px;
-  border: 1px solid var(--extra-light-color);
-  border-radius: var(--border-radius);
   background-color: var(--white);
-  font-size: 16px;
   color: var(--gray-4);
   box-sizing: border-box;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-}
-
-.input-field:focus {
-  border-color: var(--accent-color);
-  background-color: var(--white);
-  outline: none;
 }
 
 .input-field::placeholder {

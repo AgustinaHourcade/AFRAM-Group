@@ -1,3 +1,4 @@
+/* ! LISTO */
 h2 {
   margin: 20px 0;
 }
@@ -11,8 +12,7 @@ p {
  border-radius: var(--border-radius);
  box-shadow: 0px 4px 6px var(--box-shadow-color);
  width: 60%;
- margin-left: auto;
- margin-right: auto;
+ margin: 0 auto;
 }
 
 .tableDiv{

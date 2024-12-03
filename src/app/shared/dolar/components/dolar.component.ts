@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DolarService } from '@shared/dolar/service/dolar.service';
 import { Cotizacion } from '@shared/dolar/interface/cotizacion';
+import { DolarService } from '@shared/dolar/service/dolar.service';
 
 @Component({
   selector: 'app-dolar',
@@ -11,7 +11,8 @@ import { Cotizacion } from '@shared/dolar/interface/cotizacion';
   styleUrl: './dolar.component.css',
 })
 export class DolarComponent implements OnInit {
-  dolarService = inject(DolarService);
+  // ! LISTO
+  private dolarService = inject(DolarService);
   dolar?: Cotizacion;
 
   ngOnInit(): void {

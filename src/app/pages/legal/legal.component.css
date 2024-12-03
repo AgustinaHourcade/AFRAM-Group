@@ -1,22 +1,15 @@
-/* navbar-home-component > header{
-  background-color: var(--primary-color);
-} */
-
+/* ! LISTO */
 navbar-home-component header.scrolled {
-  /* background-color: var(--primary-color);  */
   box-shadow: none;
 }
 
 body {
   background-color: var(--primary-color);
   color: var(--gray-4);
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -27,7 +20,6 @@ body {
   width: 90%;
   max-width: 800px;
   line-height: 1.75;
-  transition: background-color 0.3s, color 0.3s;
   margin: 20px;
 }
 
@@ -64,16 +56,6 @@ header h1 {
   font-size: 1.2rem;
 }
 
-.legal-list li a {
-  color: var(--secondary-color);
-  text-decoration: none;
-}
-
-.legal-list li a:hover {
-  color: var(--accent-color);
-  text-decoration: underline;
-}
-
 /* Responsividad */
 @media (max-width: 1024px) {
   header h1 {
@@ -94,10 +76,6 @@ header h1 {
 }
 
 @media (max-width: 768px) {
-  body {
-    flex-direction: column;
-    padding: 1rem;
-  }
 
   .container {
     padding: 1rem;
@@ -125,7 +103,6 @@ header h1 {
 
   header h1 {
     font-size: 1.5rem;
-    text-align: center;
   }
 
   .intro {

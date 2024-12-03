@@ -1,10 +1,8 @@
 <app-navbar></app-navbar>
 
-<div *ngIf="loans.length === 0">
+@if(loans.length === 0){
   <p>No hay préstamos solicitados por el usuario</p>
-</div>
-
-@if (loans.length > 0) {
+}@else {
 <div class="tableDiv">
   <h2>Préstamos activos</h2>
     <table>

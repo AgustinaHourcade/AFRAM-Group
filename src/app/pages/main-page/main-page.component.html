@@ -1,129 +1,109 @@
+<!-- ! LISTO -->
 <app-navbar></app-navbar>
 <main>
-  <section class="sectionA">
-    <div class="accounts">
-      <h2>
-        Cuentas
-        <!-- ! agregar ojo para mostrar saldos -->
-      </h2>
-      @if(activeAccounts.length == 0){
-        <p class="aviso">No posee cuentas activas</p>
+  <div class="accounts">
+    <h2>Cuentas</h2>
+    @if(activeAccounts.length == 0){
+      <p class="aviso">No posee cuentas activas</p>
+    }
+    <div class="accounts-div">
+      @for (account of accounts; track $index){ 
+        @if (!account.closing_date) {
+          <app-card-account [account]="account"></app-card-account>
+        } 
       }
-      <div class="accounts-div">
-        @for (account of accounts; track $index){ @if (!account.closing_date) {
-        <app-card-account [account]="account"></app-card-account>
-        } }
-        
-      </div>
     </div>
+  </div>
 
-    <div class="transactions">
-      <h2>Movimientos</h2>
-      <div class="accounts">
-        <div class="accounts-div">
-          <label for="accountSelect"></label>
-          <select id="accountSelect" (change)="onAccountSelect($event)">
-            <option value="">Seleccione una cuenta</option>
-            @for (account of accounts; track $index) {
-              @if(account.closing_date == null) {
-              <option [value]="account.id">
-                  @if (account.account_type == "Savings") {
-                    <h3>CA </h3>
-                    @if (account.currency === 'usd') {
-                      <p>{{ account.id }}-{{userId }}/1--U$D{{account.balance}}</p>
-                    }@else {
-                      <p>{{ account.id }}-{{userId }}/1--${{account.balance}}</p>
-                    }
-                  } @else if (account.account_type == "Checking") {
-                    <h3>CC </h3>
-                    <p>{{ account.id }}-{{ userId }}/2--${{account.balance}}</p>
-                  }
-                </option>
-              }
-            }
-          </select>
-        </div>
-      </div>
-      @if (paginatedTransactions.length == 0) {
-        <p class="aviso">No hay movimientos para mostrar</p>
-      }@else {
-        <div class="transactions-page">
-          <div class="transactions-container">
-            <div *ngFor="let transaction of paginatedTransactions">
-                <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
-              </div>
-          </div>
-  
-          <div class="pagination-wrapper">
-            <div class="pagination-controls">
-              <button 
-                class="pagination-button" 
-                *ngIf="currentPage > 1" 
-                (click)="changePage(currentPage - 1)">
-                ⬅ Anterior
-              </button>
-              <div class="page-buttons">
-                <button 
-                  class="pagination-button" 
-                  *ngFor="let page of [].constructor(totalPages); let i = index" 
-                  [class.active]="i + 1 === currentPage"
-                  (click)="changePage(i + 1)">
-                  {{ i + 1 }}
-                </button>
-              </div>
-        
-              <button 
-                class="pagination-button" 
-                *ngIf="currentPage < totalPages" 
-                (click)="changePage(currentPage + 1)">
-                Siguiente ➡
-              </button>
-            </div>
-          </div>
-        </div>
-      }
-
-    </div>
-  </section>
-
-  <section class="sectionB">
+  <div>
     <h2>Tarjetas</h2>
     @if(activeCards.length == 0){
       <p class="aviso">No posee tarjetas activas</p>
     }
-    @for (item of cards; track $index) { @if (item.is_Active === 'yes') {
-    <div class="cardInfo" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
-      <div class="card">
-        <div class="card-header">
-          <div class="master">
-            <div class="circle master-red"></div>
-            <div class="circle master-yellow"></div>
+    @for (item of cards; track $index) { 
+      @if (item.is_Active === 'yes') {
+        <div class="cardInfo" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
+          <div class="card">
+            <div class="card-header">
+              <div class="master">
+                <div class="circle master-red"></div>
+                <div class="circle master-yellow"></div>
+              </div>
+            </div>
+
+            <div class="tipo">
+              <span>{{item.card_type}}</span>
+            </div>
+
+            <div class="card-details">
+              <span class="card-number">**** **** **** {{ item.card_number.slice(-4) }}</span>
+              <span class="expiry-date">{{ item.expiration_date.slice(5, 7) }}/{{item.expiration_date.slice(2, 4)}}</span>
+            </div>
           </div>
         </div>
+      } 
+    }
+  </div>
 
-        <div class="tipo"> 
-          <span>
-            {{item.card_type}}
-          </span></div>
-          
-        <div class="card-details">
-          <span class="card-number"
-            >**** **** **** {{ item.card_number.slice(-4) }}</span
-          >
-          <span class="expiry-date"
-            >{{ item.expiration_date.slice(5, 7) }}/{{
-              item.expiration_date.slice(2, 4)
-            }}</span
-          >
-        </div>
+  <div class="transactions">
+    <h2>Movimientos</h2>
+    <div class="accounts">
+      <div class="accounts-div">
+        <label for="accountSelect"></label>
+        <select id="accountSelect" (change)="onAccountSelect($event)">
+          <option value="">Seleccione una cuenta</option>
+          @for (account of accounts; track $index) {
+            @if(account.closing_date == null) {
+              <option [value]="account.id">
+                @if (account.account_type == "Savings") {
+                  <h3>CA </h3>
+                  @if (account.currency === 'usd') {
+                    <p>{{ account.id }}-{{userId }}/1--U$D{{account.balance}}</p>
+                  }@else {
+                    <p>{{ account.id }}-{{userId }}/1--${{account.balance}}</p>
+                  }
+                } @else if (account.account_type == "Checking") {
+                  <h3>CC </h3>
+                  <p>{{ account.id }}-{{ userId }}/2--${{account.balance}}</p>
+                }
+              </option>
+            }
+          }
+        </select>
       </div>
     </div>
-    } }
-    <div class="dolar">
-      <h2 class="section-title">Cotización</h2>
-      
-      <app-dolar></app-dolar>
-    </div>
-  </section>
-</main>
 
+    @if (paginatedTransactions.length == 0) {
+      <p class="aviso">No hay movimientos para mostrar</p>
+    }@else {
+      <div class="transactions-page">
+        <div class="transactions-container">
+          @for(transaction of paginatedTransactions; track $index){
+            <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
+          }
+        </div>
+
+        <div class="pagination-wrapper">
+          <div class="pagination-controls">
+            @if(currentPage > 1){
+              <button class="pagination-button" (click)="changePage(currentPage - 1)">⬅ Anterior</button>
+            }
+            <div class="page-buttons">
+              <button class="pagination-button" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+            </div>
+
+            @if(currentPage < totalPages){
+              <button class="pagination-button" (click)="changePage(currentPage + 1)">Siguiente ➡</button>
+            }
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="dolar">
+    <h2 class="section-title">Cotización</h2>
+    <app-dolar></app-dolar>
+  </div>
+  
+</main>

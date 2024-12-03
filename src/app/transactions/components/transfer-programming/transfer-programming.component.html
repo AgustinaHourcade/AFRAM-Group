@@ -1,56 +1,59 @@
 <div class="page">
-<div class="programming-container">
+  <div class="programming-container">
     <h2>Programar Transferencia</h2>
     <form [formGroup]="dateForm">
       <label for="transaction_date">Fecha de transferencia:</label>
       <input id="transaction_date" type="date" formControlName="transaction_date" [min]="minDate" [max]="maxDate" />
-      <button class="dateButton" type="submit" (click)="showModalAndScroll()" [disabled]="!dateForm.valid"> Seleccionar fecha </button>
+      <button class="dateButton" type="submit" (click)="showModalAndScroll()" [disabled]="!dateForm.valid"> Seleccionar
+        fecha </button>
     </form>
 
     @if (openModal) {
-    <div class="modal">    
+    <div class="modal">
       <form [formGroup]="newRecipientForm" (ngSubmit)="searchAccount()">
         <label for="searchType">Buscar por:</label>
         <select formControlName="searchType" id="searchType">
           <option value="cbu">CBU</option>
           <option value="alias">Alias</option>
         </select>
-    
-        <div *ngIf="newRecipientForm.get('searchType')?.value === 'cbu'">
-          <input formControlName="accountSearch" placeholder="Ingrese CBU" />
-          <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
-        </div>
-    
-        <div *ngIf="newRecipientForm.get('searchType')?.value === 'alias'">
-          <input formControlName="accountSearch" placeholder="Ingrese Alias" />
-          <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
-        </div>
+
+        @if(newRecipientForm.get('searchType')?.value === 'cbu'){
+        <input formControlName="accountSearch" placeholder="Ingrese CBU" />
+        <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
+        }
+
+        @if(newRecipientForm.get('searchType')?.value === 'alias'){
+        <input formControlName="accountSearch" placeholder="Ingrese Alias" />
+        <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
+        }
+
       </form>
-    
+
       <form [formGroup]="amount" (ngSubmit)="realizarTransfer()">
-        <div *ngIf="flag">
+        @if(flag){
           <p>Titular: {{ userDestino.last_name }}, {{ userDestino.real_name }}</p>
           <p>CBU: {{ account.cbu }}</p>
           <p>Alias: {{ account.alias }}</p>
-    
+
           <label for="cuentas">Seleccione una cuenta</label>
           <select name="cuentas" id="cuentas" formControlName="selectedAccountId">
             @for (item of accounts; track $index) {
-              @if (!item.closing_date) {
-              <option [value]="item.id">
-                  {{ item.id }} - {{ item.balance }}
-              </option>
-              }
+            @if (!item.closing_date) {
+            <option [value]="item.id">
+              {{ item.id }} - {{ item.balance }}
+            </option>
+            }
             }
           </select>
-    
+
           <label for="cantidad">Ingrese cantidad a transferir: </label>
           <input type="number" id="cantidad" formControlName="amountToTransfer" min="1" />
-          <button type="button" (click)="realizarTransfer()" >Continuar</button>
-        </div>
-    
+          <button type="button" (click)="realizarTransfer()">Continuar</button>
+        }
+          
+
       </form>
     </div>
-  }
+    }
   </div>
 </div>

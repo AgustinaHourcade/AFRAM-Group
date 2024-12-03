@@ -1,3 +1,4 @@
+/* ! LISTO */
 .profile-container {
   text-align: center;
   width: 100%;
@@ -6,17 +7,10 @@
   padding: 20px;
 }
 
-h2 {
-  color: var(--primary-color);
-  margin-bottom: 20px;
-  font-family: var(--font-title);
-  font-size: 1.8rem;
-}
-
 .profile-card {
   background-color: var(--white);
   padding: 20px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   box-shadow: 0 4px 6px var(--box-shadow-color);
 }
 
@@ -30,7 +24,7 @@ h2 {
 
 .field-label {
   font-weight: bold;
-  color: var(--gray-4);
+  color: var(--primary-color);
 }
 
 .field-value {
@@ -40,12 +34,12 @@ h2 {
 .botones-admin {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 10px;
 }
 
 .action-button.baja {
   background-color: var(--cancel-button);
-  padding: 10px 20px;
 }
 
 .action-button.baja:hover {
@@ -53,21 +47,7 @@ h2 {
 }
 
 .go-back {
-  padding: 10px 15px;
   margin: 20px;
-  background-color: var(--secondary-color);
-  color: var(--white);
-  box-shadow: 0px 4px 6px var(--box-shadow-color);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: var(--font-buttons);
-  font-size: 1rem;
-}
-
-.go-back:hover {
-  background-color: var(--primary-color);
 }
 
 @media (max-width: 768px) {
@@ -96,29 +76,11 @@ h2 {
   .field-value {
     font-size: 1rem;
   }
-
-  .botones-admin {
-    flex-direction: row;
-    align-items: center;
-    gap: 10px; 
-    width: 100%; 
-  }
-
-  .action-button.baja,
-  .go-back {
-    width: auto; 
-    text-align: center;
-    padding: 10px 20px;
-  }
 }
 
 @media (max-width: 480px) {
   h2 {
     font-size: 1.3rem;
-  }
-
-  .profile-container {
-    max-width: 100%;
   }
 
   .profile-card {
@@ -127,11 +89,5 @@ h2 {
 
   .profile-field {
     margin: 8px 0;
-  }
-
-  .action-button.baja,
-  .go-back {
-    padding: 12px 20px;
-    width: auto;
   }
 }

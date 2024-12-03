@@ -1,18 +1,15 @@
+<!-- ! LISTO -->
 <header [class.scrolled]="isScrolled">
-  <a routerLink="/">
+  <a (click)="scrollToTop()">
     <img src="/logo-navbar-png.png" alt="Logo de la aplicación de Banca Online" />
   </a>
-  <button routerLink="/auth" aria-label="Ir a la página de Banca Online">Banca Online</button>
+  <button routerLink="/auth" aria-label="Ir a la página de autenticación Banca Online">Banca Online</button>
 </header>
 
 <main>
   <section class="sectionA">
-    <div class="intro-header">
-      <div class="container">
-        <div class="intro-message">
-          <h1>Innovación y seguridad en cada operación</h1>
-        </div>
-      </div>
+    <div class="intro-message">
+      <h1>Innovación y seguridad en cada operación</h1>
     </div>
   </section>
 

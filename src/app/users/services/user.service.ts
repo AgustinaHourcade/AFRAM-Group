@@ -7,7 +7,7 @@ import { User } from '../interface/user.interface';
   providedIn: 'root',
 })
 export class UserService {
-  http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   // URL base para todas las operaciones relacionadas con usuarios.
   private baseUrl = 'http://localhost:3000/users/';

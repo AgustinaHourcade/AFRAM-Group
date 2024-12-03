@@ -31,18 +31,12 @@ export class TradingComponent implements OnInit {
   trading: string = '';
   accounts: Array<Account> = [];
   dolar ?: Cotizacion;
+  id = this.sessionService.getUserId();
 
 
   ngOnInit(): void {
-    const id = this.sessionService.getUserId()
-    this.accountService.getAccountsByIdentifier(id).subscribe({
-      next: (accounts) => {
-        this.accounts = accounts
-      },
-      error: (e: Error)=>{
-        console.log(e.message);
-      }
-    })
+    this.getAccounts()
+
     this.dolarService.getDolarOficial().subscribe({
       next: (cotizacion) => {
         this.dolar = cotizacion
@@ -51,34 +45,55 @@ export class TradingComponent implements OnInit {
           console.log(e.message)
             }
     })
+    
   }
 
-calculatedValueUSD: number = 0;
-calculatedValueARS: number = 0;
+getAccounts(){
+  this.accounts = [];
+  this.accountService.getAccountsByIdentifier(this.id).subscribe({
+    next: (accounts) => {
+      this.accounts = accounts
+    },
+    error: (e: Error)=>{
+      console.log(e.message);
+    }
+  })
 
-updateCalculatedUSD(amount: string | undefined) {
+}
+
+calculatedValueARSsell: number = 0;
+calculatedValueARSbuy: number = 0;
+
+updateCalculatedARSsell(amount: string | undefined) {
   const amountNum = parseFloat(amount as string);
   if (!isNaN(amountNum) && this.dolar?.venta) {
-    this.calculatedValueUSD = amountNum / Number(this.dolar.venta);
+    this.calculatedValueARSsell = amountNum * Number(this.dolar.compra);
   } else {
-    this.calculatedValueUSD = 0;
+    this.calculatedValueARSsell = 0;
   }
 }
 
-updateCalculatedARS(amount: string | undefined) {
+updateCalculatedARSbuy(amount: string | undefined) {
   const amountNum = parseFloat(amount as string);
   if (!isNaN(amountNum) && this.dolar?.compra) {
-    this.calculatedValueARS = amountNum * Number(this.dolar.compra);
+    this.calculatedValueARSbuy = amountNum * Number(this.dolar.venta);
   } else {
-    this.calculatedValueARS = 0;
+    this.calculatedValueARSbuy = 0;
   }
 }
 
-  formulario = this.fb.nonNullable.group({
-    'amount': ['', Validators.required],
+resetValues(){
+  this.calculatedValueARSsell = 0;
+  this.calculatedValueARSbuy = 0;
+  setTimeout(() => this.formulario.reset(), 1000);
+}
+
+formulario = this.fb.nonNullable.group({
+    'amount': ['', [Validators.required, Validators.max(10000), Validators.min(1)]],
     'source_account': ['', Validators.required],
     'destination_account': ['', Validators.required]
   })
+
 
   buyUSD() {
     const source_account = this.formulario.get('source_account')?.value;
@@ -87,14 +102,14 @@ updateCalculatedARS(amount: string | undefined) {
     const account = this.accounts.find(acc => acc.id === Number(source_account));
 
     const transaction = {
-      amount: this.formulario.get('amount')?.value,
+      amount: Number(this.formulario.get('amount')?.value) * Number(this.dolar?.venta),
       source_account_id: source_account,
       destination_account_id: 1,
       transaction_type: 'exchange'
     }
 
     const transactionUSD = {
-      amount: Number(transaction.amount) / Number(this.dolar?.venta),
+      amount: Number(this.formulario.get('amount')?.value),
       source_account_id: 2,
       destination_account_id: destination_account,
       transaction_type: 'exchange'
@@ -113,9 +128,9 @@ updateCalculatedARS(amount: string | undefined) {
     }
 
     Swal.fire({
-      title: `¿Está seguro que desea comprar U$D` + transactionUSD.amount + `?`,
+      title: `¿Está seguro que desea comprar U$D ` + transactionUSD.amount + `?`,
       text: `Se le debitaran $` + transaction.amount + ` de la cuenta seleccionada.`,
-      icon: "success",
+      icon: "question",
       showCancelButton: true,
       confirmButtonColor: '#00b4d8',
       cancelButtonColor: "#e63946",
@@ -136,6 +151,7 @@ updateCalculatedARS(amount: string | undefined) {
                   confirmButtonText: 'Aceptar',
                   confirmButtonColor: '#00b4d8',
                 });
+                this.resetValues();
                 this.trading = '';
                 this.accountService.updateBalance(Number(transaction.amount), 1).subscribe({
                   next: ()=>{
@@ -164,7 +180,10 @@ updateCalculatedARS(amount: string | undefined) {
         });
       }
     });
-    this.formulario.reset();
+    setTimeout(() => {
+      this.getAccounts();
+    }, 2000);
+    
   }
 
   sellUSD() {
@@ -197,14 +216,13 @@ updateCalculatedARS(amount: string | undefined) {
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#00b4d8',
       });
-      this.formulario.reset();
       return;
     }
 
     Swal.fire({
-      title: `¿Está seguro que desea vender U$D` + amount + `?`,
+      title: `¿Está seguro que desea vender U$D ` + amount + `?`,
       text: `Se le acreditaran $` + transaction.amount + ` en la cuenta seleccionada.`,
-      icon: "success",
+      icon: "question",
       showCancelButton: true,
       confirmButtonColor: '#00b4d8',
       cancelButtonColor: "#e63946",
@@ -225,6 +243,7 @@ updateCalculatedARS(amount: string | undefined) {
                   confirmButtonText: 'Aceptar',
                   confirmButtonColor: '#00b4d8',
                 });
+                this.resetValues();
                 this.trading = '';
                 this.accountService.updateBalance(Number(transactionUSD.amount), 2).subscribe({
                   next: ()=>{
@@ -253,7 +272,10 @@ updateCalculatedARS(amount: string | undefined) {
         });
       }
     });
-    this.formulario.reset();
+    setTimeout(() => {
+      this.getAccounts();
+    }, 2000);
+    
   }
 
 
