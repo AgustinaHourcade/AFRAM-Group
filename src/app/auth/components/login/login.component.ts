@@ -20,7 +20,6 @@ export class LoginComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
-  // private accountService = inject(AccountService);
 
   showPassword = false;
   id: number = 0;
@@ -36,7 +35,7 @@ export class LoginComponent {
   formulario = this.fb.nonNullable.group({
     name_user: ['', [Validators.required, Validators.minLength(3)]],
     hashed_password: ['', [Validators.required, Validators.minLength(6)]],
-    dni: ['', Validators.required],
+    dni: ['', [Validators.required, Validators.min(999999)]]
   });
 
   admitUser() {

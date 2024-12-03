@@ -55,7 +55,7 @@ export class NewcardComponent implements OnInit {
   loadAccounts(): void {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
-        this.accounts = accounts;
+        this.accounts = accounts.filter(account => account.closing_date == null);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);

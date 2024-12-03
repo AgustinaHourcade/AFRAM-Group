@@ -11,9 +11,7 @@
     }
   </button>
   <ul class="nav-links" [ngClass]="{'responsive': isResponsiveMenuVisible}">
-    <li>
-      <a [routerLink]="['/admin-support']">Soporte</a>
-    </li>
+    
     <li>
       <a [routerLink]="['/list-admins']">Administradores</a>
     </li>
@@ -26,6 +24,10 @@
     <li>
       <a [routerLink]="['/new-admin']">Nuevo usuario</a>
     </li>
+
+    <li>
+      <a [routerLink]="['/admin-support']">Soporte</a>
+    </li>
     <!-- Menú desplegable de perfil -->
     <li
     class="profile-dropdown"
@@ -37,7 +39,9 @@
       <li><a [routerLink]="['/admin-profile']">Ver perfil</a></li>
       <li><a [routerLink]="['/update-password-admin']">Modificar contraseña</a></li>
     </ul>
-  </li>
+    
+    </li>
+    
 
   <li>
     <div class="toggle-container">

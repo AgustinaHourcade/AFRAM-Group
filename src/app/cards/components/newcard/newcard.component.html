@@ -13,20 +13,20 @@
 
       <label for="account">Cuenta Asociada</label>
       <select id="account" class="input-field" formControlName="account">
-        <option value="" disabled selected>Seleccione una cuenta</option>
-        @for (item of accounts; track $index) {
+        @if (accounts?.length === 0) {
+            <option value="" disabled select>No posee cuentas</option>
+        }@else {
+          <option value="" disabled selected>Seleccione una cuenta</option>
+          @for (item of accounts; track $index) {
           @if (item.account_type === 'Savings') {
-            @if(!item.closing_date){
               <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
-            }
           }
           @else if (item.account_type === 'Checking') {
-            @if(!item.closing_date){
               <option value="{{item.id}}">CC {{ item.id }}-{{ userId }}/2 </option>
-            }
           }
         }
-        </select>
+      }
+      </select>
 
       <div class="button-container">
         <button type="submit">Solicitar</button>

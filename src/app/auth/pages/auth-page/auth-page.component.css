@@ -21,7 +21,9 @@ img {
   justify-content: center !important;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 0 20px var(--box-shadow-color);
+  /* box-shadow: 0 0 20px var(--box-shadow-color); */
+  /* border: 1px solid var(--cancel-button); */
+
 }
 
 .left-panel {
@@ -33,15 +35,20 @@ img {
   align-items: center;
   justify-content: center;
   color: var(--white);
+  border-radius: 20px 0 0 20px;
+  box-shadow: 20px 0 0 var(--box-shadow-color);
+
 }
 
 .form-container {
-  width: 60%;
+  width: 40%;
   padding: 10px 50px;
   background-color: var(--white);
   position: relative;
   overflow: hidden;
   height: 100%;
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 0 20px var(--box-shadow-color);
 }
 
 button {

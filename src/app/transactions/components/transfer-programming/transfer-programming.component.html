@@ -1,4 +1,7 @@
 <div class="page">
+@if (accounts.length === 0) {
+  <h2>Lo sentimos, no tiene cuentas disponibles para realizar una transferencia</h2>     
+}@else {  
   <div class="programming-container">
     <h2>Programar Transferencia</h2>
     <form [formGroup]="dateForm">
@@ -16,15 +19,15 @@
           <option value="cbu">CBU</option>
           <option value="alias">Alias</option>
         </select>
-
+        
         @if(newRecipientForm.get('searchType')?.value === 'cbu'){
-        <input formControlName="accountSearch" placeholder="Ingrese CBU" />
-        <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
+          <input formControlName="accountSearch" placeholder="Ingrese CBU" />
+          <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
         }
-
+        
         @if(newRecipientForm.get('searchType')?.value === 'alias'){
-        <input formControlName="accountSearch" placeholder="Ingrese Alias" />
-        <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
+          <input formControlName="accountSearch" placeholder="Ingrese Alias" />
+          <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
         }
 
       </form>
@@ -38,11 +41,9 @@
           <label for="cuentas">Seleccione una cuenta</label>
           <select name="cuentas" id="cuentas" formControlName="selectedAccountId">
             @for (item of accounts; track $index) {
-            @if (!item.closing_date) {
             <option [value]="item.id">
               {{ item.id }} - {{ item.balance }}
             </option>
-            }
             }
           </select>
 
@@ -50,10 +51,11 @@
           <input type="number" id="cantidad" formControlName="amountToTransfer" min="1" />
           <button type="button" (click)="realizarTransfer()">Continuar</button>
         }
-          
-
+        
+        
       </form>
     </div>
     }
   </div>
+}
 </div>

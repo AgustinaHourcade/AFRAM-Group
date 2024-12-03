@@ -28,7 +28,7 @@ export class AccountsComponent {
     
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts) => {
-        this.accounts = accounts;
+        this.accounts = accounts.filter(account => account.closing_date == null);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);

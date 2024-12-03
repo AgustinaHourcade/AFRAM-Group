@@ -1,3 +1,11 @@
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 180px);
+  background-color: var(--background-gray);
+}
+
 .modal button {
   width: 100%;
 }
@@ -19,13 +27,6 @@
   width: 100%;
   padding: 12px;
   outline: none;
-}
-
-.page {
-  background-color: var(--background-gray);
-  min-height: calc(100vh - 82px);
-  display: flex;
-  align-items: center;
 }
 
 .programming-container {

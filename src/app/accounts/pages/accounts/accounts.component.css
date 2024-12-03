@@ -1,7 +1,12 @@
 /* ! LISTO */
-h2 {
+.title {
   margin: 20px;
 }
+
+.not-found{
+  margin-top: 35vh;
+}
+
 
 .accounts-container {
   display: flex;

@@ -1,8 +1,12 @@
-<div class="modal">
-  <h2>Transferir</h2>
+<div class="page">
+  @if (accounts.length === 0) {
+    <h2>Lo sentimos, no tiene cuentas disponibles para realizar una transferencia</h2>
+  }@else {  
+    <div class="modal">
+      <h2>Transferir</h2>
 
-  <form [formGroup]="newRecipientForm" (ngSubmit)="searchAccount()">
-    <label for="searchType">Buscar por:</label>
+      <form [formGroup]="newRecipientForm" (ngSubmit)="searchAccount()">
+        <label for="searchType">Buscar por:</label>
     <select formControlName="searchType" id="searchType">
       <option value="cbu">CBU</option>
       <option value="alias">Alias</option>
@@ -12,28 +16,29 @@
       <input formControlName="accountSearch" placeholder="Ingrese CBU" />
       <button type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
     }
-
+    
     @if(newRecipientForm.get('searchType')?.value === 'alias'){
       <input formControlName="accountSearch" placeholder="Ingrese Alias" />
       <button type="submit" [disabled]="newRecipientForm.invalid" (click)="scrollToBottom()">Buscar</button>
     }
     
   </form>
-
+  
   <form [formGroup]="amount" (ngSubmit)="realizarTransfer()">
     
     @if (flag) {
-
+      
       <p>Titular: {{ userDestino.last_name }}, {{ userDestino.real_name }}</p>
       <p>CBU: {{ account.cbu }}</p>
       <p>Alias: {{ account.alias }}</p>
       
       <label for="cuentas">Seleccione una cuenta</label>
       <select name="cuentas" id="cuentas" formControlName="selectedAccountId">
+        @if (accounts.length === 0) {
+          <option value="" disabled selected>No hay cuentas disponibles</option>
+        }
         @for (item of accounts; track $index) {
-          @if (!item.closing_date) {
             @if(item.currency !== 'usd'){
-              
               @if (item.account_type == "Savings") {
                 <option [value]="item.id">
                   CA {{ item.id }}-{{userId }}/1 - ${{item.balance}}
@@ -46,7 +51,6 @@
               }
             }
           }
-        }
       </select>
       
       <label for="cantidad">Ingrese cantidad a transferir: </label>
@@ -54,4 +58,6 @@
       <button type="button" (click)="realizarTransfer()" >Continuar</button>
     }
   </form>
+</div>
+}
 </div>

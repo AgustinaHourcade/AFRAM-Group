@@ -92,6 +92,7 @@ export class TransferModalComponent implements OnInit {
                   title: 'Cuenta no encontrada',
                   icon: 'error'
                 })
+                return;
               }
                 if (this.account && this.account.user_id) {
                   this.userService.getUser(this.account.user_id).subscribe({
@@ -114,6 +115,7 @@ export class TransferModalComponent implements OnInit {
         error: () => {
           this.errorMessage = 'Cuenta no encontrada.';
           this.account = null;
+          return;
         },
       });
     } else if (searchType === 'alias') {
@@ -128,6 +130,7 @@ export class TransferModalComponent implements OnInit {
                   title: 'Cuenta no encontrada',
                   icon: 'error'
                 })
+                return;
               }
                 if (this.account && this.account.user_id) {
                   this.userService.getUser(this.account.user_id).subscribe({
@@ -156,6 +159,7 @@ export class TransferModalComponent implements OnInit {
           });
           this.errorMessage = 'Error al buscar la cuenta.';
           this.account = null;
+          return;
         },
       });
     }
@@ -164,8 +168,7 @@ export class TransferModalComponent implements OnInit {
   cargarCuentas() {
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
       next: (accounts: Account[]) => {
-        this.accounts = accounts;
-        console.log(this.accounts);
+        this.accounts = accounts.filter(account => account.closing_date == null);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);

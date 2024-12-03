@@ -130,7 +130,7 @@ export class CbuAliasComponent implements OnInit {
     element.classList.add('pdf-only');
 
     html2canvas(element, {
-      scale: 2,
+      scale: 4,
     }).then((canvas) => {
       const imgData = canvas.toDataURL('image/jpeg', 0.9);
       const pdf = new jsPDF({

@@ -6,7 +6,7 @@
 
     <div class="input-container">
       <input type="number" id="dni" formControlName="dni" [ngClass]="{ errorInput:(formulario.controls['dni'].invalid && formulario.controls['dni'].touched)}" />
-      <label [ngClass]="{ filled: formulario.get('dni')?.value, errorLabel: (formulario.controls['dni'].invalid && formulario.controls['dni'].touched) }">
+      <label [ngClass]="{ filled: formulario.get('dni')?.value, errorLabel: formulario.controls['dni'].invalid && formulario.controls['dni'].touched }">
         @if(formulario.controls['dni'].invalid && formulario.controls['dni'].touched){
           <span><i class="bi bi-exclamation-circle"></i></span> 
         }

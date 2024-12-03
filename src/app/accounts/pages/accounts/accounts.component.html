@@ -1,9 +1,12 @@
 <!--  ! LISTO -->
 <app-navbar></app-navbar>
 
-<h2>Mis cuentas</h2>
-<div class="accounts-container">
-  @for (account of accounts; track $index) { 
+@if (accounts.length === 0) {
+  <h2 class="not-found">No posee cuentas</h2>     
+}@else {
+<h2 class="title">Mis cuentas</h2>
+  <div class="accounts-container">
+    @for (account of accounts; track $index) { 
     @if (!account.closing_date) {
       <div class="app-card-account-container">
         <app-card-account [account]="account"></app-card-account>
@@ -15,5 +18,6 @@
     }
   }
 </div>
+}
 
 

@@ -22,8 +22,15 @@ export class CardAccountComponent {
   private userSessionService = inject(UserSessionService);
   
   userId: number = this.userSessionService.getUserId();
+  showBalance = false;
 
   onNavigate(){
     this.navigateEvent.emit(String(this.account.id));
   }
+
+  toggleBalance(event: Event): void {
+    event.stopPropagation(); 
+    this.showBalance = !this.showBalance;
+  }
+
 }

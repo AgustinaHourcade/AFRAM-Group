@@ -39,3 +39,37 @@ span {
   font-size: 18px;
 }
 
+.amount {
+  display: flex;
+  align-items: center; /* Alinea verticalmente los elementos */
+  justify-content: space-between; /* Mueve el texto a la izquierda y el botón a la derecha */
+  padding: 8px;
+}
+
+.balance-number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer; 
+  padding: 0; 
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  box-shadow: none;
+}
+
+.toggle-btn i {
+  font-size: 1.5rem;
+  color: var(--primary-color); 
+  transition: color 0.3s; 
+}
+
+.toggle-btn:hover i {
+  color: var(--accent-color);
+}
+

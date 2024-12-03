@@ -1,5 +1,5 @@
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
@@ -16,6 +16,9 @@ import { UserSessionService } from '@auth/services/user-session.service';
   styleUrl: './update-profile.component.css',
 })
 export class UpdateProfileComponent implements OnInit {
+
+  @Output() userPhone = new EventEmitter<string>();
+
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private sessionService = inject(UserSessionService);
@@ -25,6 +28,7 @@ export class UpdateProfileComponent implements OnInit {
   type !:string;
   flag = false;
   id: number = 0;
+  phone ?: string = '';
   user?: User;
   address?: Address;
 
@@ -35,6 +39,8 @@ export class UpdateProfileComponent implements OnInit {
     this.userService.getUser(this.id).subscribe({
       next: (data) => {
         this.user = data;
+        this.phone = data.phone?.toString();
+        this.userPhone.emit(this.phone);
         this.addressService.getAddressByUserId(this.id).subscribe({
           next: (address) => {
             this.address = address;

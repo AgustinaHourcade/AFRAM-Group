@@ -168,8 +168,6 @@ export class TransferProgrammingComponent implements OnInit {
         transaction_date: new Date(transactionData.transaction_date),
       };
 
-      console.log('aaaa'+ transaction.transaction_date);
-
       this.transactionConfirmed.emit(transaction);
 
       this.transactionService.postFutureTransaction(transaction).subscribe({
@@ -181,20 +179,6 @@ export class TransferProgrammingComponent implements OnInit {
             confirmButtonColor: '#00b4d8',
           });
           this.router.navigate(['my-transactions']);
-
-          // if (this.user.email) {
-          //   this.emailService
-          //     .sendTransferEmail(
-          //       this.user.email,
-          //       this.montoTransferencia!,
-          //       selectedAccount.user_id,
-          //       this.account?.id
-          //     )
-          //     .subscribe({
-          //       next: () => console.log('Correo de notificación enviado'),
-          //       error: (error: Error) => console.log('Error al enviar el correo:', error),
-          //     });
-          // }
         },
         error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
       });
@@ -297,8 +281,7 @@ export class TransferProgrammingComponent implements OnInit {
   cargarCuentas() {
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
       next: (accounts: Account[]) => {
-        this.accounts = accounts;
-        console.log(this.accounts);
+        this.accounts = accounts.filter(account => account.closing_date == null);
       },
       error: (error: Error) => {
         console.error('Error fetching accounts:', error);

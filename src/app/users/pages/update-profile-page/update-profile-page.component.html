@@ -1,2 +1,5 @@
-<app-navbar></app-navbar>
-<app-update-profile></app-update-profile>
+@if(phone !== ''){
+    <app-navbar></app-navbar>
+}
+<app-update-profile (userPhone)="onProfileUpdated($event)"></app-update-profile>
+
