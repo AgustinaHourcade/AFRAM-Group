@@ -1,8 +1,4 @@
 /* ! LISTO */
-body {
-  background-color: var(--background-gray);
-}
-
 app-dolar {
   position: absolute;
   top: 30%;

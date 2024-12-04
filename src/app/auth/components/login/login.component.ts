@@ -26,6 +26,7 @@ export class LoginComponent {
   user?: User;
   errorMessage = '';
   accounts!: Array<Account>;
+  intentos: number = 0;
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
@@ -55,18 +56,28 @@ export class LoginComponent {
       dni: user?.dni as string,
     };
 
-
-    this.userService.verifyUser(data).subscribe({
-      next: (id) => {
-        this.id = id as number;
-        this.userSessionService.setUserId(Number(id));
-
-        this.userService.getUser(Number(id)).subscribe({
-          next: (user) => {
-            this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
-            if (user.user_type === 'admin') {
-              Swal.fire({
-                title: `¿Como desea iniciar sesión?`,
+    if(this.intentos<3 && user?.is_blocked === 'no'){
+      this.userService.verifyUser(data).subscribe({
+        next: (id) => {
+          this.id = id as number;
+          this.userSessionService.setUserId(Number(id));
+          
+          this.userService.getUser(Number(id)).subscribe({
+            next: (user) => {
+              if(user.is_blocked === 'yes' ){
+                Swal.fire({
+                  title: 'Su cuenta esta bloqueada',
+                  text: 'Ha excedido el límite de intentos de inicio de sesion. Verifique el email asociado a su cuenta para restablecer la contraseña',
+                  icon: 'error',
+                  confirmButtonText: 'Aceptar',
+                  confirmButtonColor: '#00b4d8'
+                })
+                return;
+              }
+              this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
+              if (user.user_type === 'admin') {
+                Swal.fire({
+                  title: `¿Como desea iniciar sesión?`,
                 text: 'Puede ingresar como Administrator o como Cliente.',
                 icon: 'question',
                 showCancelButton: true,
@@ -94,12 +105,40 @@ export class LoginComponent {
           }
         })
 
-      },
-      error: (error: Error) => {
-        console.error('Error al verificar usuario:', error);
-        this.errorMessage =
+        },
+        error: (error: Error) => {
+          this.intentos += 1;
+          console.error('Error al verificar usuario:', error);
+          this.errorMessage =
           'Usuario, DNI o contraseña incorrecta. Por favor, intenta de nuevo.';
-      },
-    });
+        },
+      });
+    }else{
+      Swal.fire({
+        title: 'Intentos de inicio de sesión superados',
+        text: 'Ha excedido el límite de intentos. Le enviamos un email a su cuenta con los pasos a seguir para restablecer la contraseña.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        confirmButtonColor: '#00b4d8'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.userService.blockUser(data.dni).subscribe({
+            next: (flag) => {
+              console.log("Cuenta bloqueada con exito.");
+            },
+            error: (e:Error) => {
+              Swal.fire({
+                title: 'Para recuperar su cuenta dirijase a olvide mi contraseña ',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#00b4d8'
+              })
+            }
+          })
+        } 
+      })
+    }
   }
 }

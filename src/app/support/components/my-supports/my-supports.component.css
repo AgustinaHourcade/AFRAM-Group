@@ -1,6 +1,6 @@
 .support-container {
   padding: 20px;
-  background-color: var(--background-gray);
+  background-color: var(--white);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px var(--box-shadow-color);
   max-width: 600px;

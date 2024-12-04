@@ -76,4 +76,14 @@ export class UserService {
   changeAdminStatus(id: number, userType: string): Observable<boolean>{
     return this.http.post<boolean>(`${this.baseUrl}toggle-admin-status/${id}`, {userType});
   }
+
+// Cambia el estado de un usuario (bloqueado si o no, para cuando realiza mas de 3 intentos de login fallidos).
+  blockUser(dni: string): Observable<boolean>{
+    return this.http.patch<boolean>(`${this.baseUrl}block`, {dni});
+  }
+
+  // Cambia el estado de un usuario (bloqueado si o no, para cuando realiza mas de 3 intentos de login fallidos).
+  unblockUser(dni: string): Observable<boolean>{
+    return this.http.patch<boolean>(`${this.baseUrl}unblock`, {dni});
+  }
 }

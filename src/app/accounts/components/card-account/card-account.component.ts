@@ -5,29 +5,31 @@ import { Account } from '@accounts/interface/account.interface';
 import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
-  selector: 'app-card-account', 
+  selector: 'app-card-account',
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './card-account.component.html',
   styleUrl: './card-account.component.css',
 })
 export class CardAccountComponent {
+  // Dependency Injection
+  private userSessionService = inject(UserSessionService); // Service to get session data.
 
-  @Input()  
-  account!: Account; 
+  //Variables
+  @Input()
+  account!: Account;
 
   @Output()
-  navigateEvent = new EventEmitter<string>(); 
+  navigateEvent = new EventEmitter<string>();
 
-  private userSessionService = inject(UserSessionService); 
-
-  userId: number = this.userSessionService.getUserId(); 
-  showBalance = false;
+  userId: number = this.userSessionService.getUserId();
+  showBalance: boolean = false;
 
   onNavigate() {
     this.navigateEvent.emit(String(this.account.id));
   }
 
+  // Toggles balance´s visibility
   toggleBalance(event: Event): void {
     event.stopPropagation();
     this.showBalance = !this.showBalance;

@@ -126,6 +126,11 @@ export class NewPasswordComponent {
 
     const newPassword = this.formularioContra.get('confirm_password')?.value;
     const token = token1 + token2 + token3 + token4 + token5 + token6;
+    let dni: string;
+
+    
+
+
 
     this.userService.getUserIdByToken(Number (token)).subscribe({
       next: (id) =>{
@@ -135,7 +140,25 @@ export class NewPasswordComponent {
               title: 'Se ha restablecido su contraseña.',
               icon: 'success',
             });
-            this.route.navigate(['/auth']);
+            this.userService.getUser(id).subscribe({
+              next: (user) =>{
+                if(user.is_blocked === "yes"){
+                  this.userService.unblockUser(user.dni).subscribe({
+                    next: (flag) => {
+                      console.log("Cuenta desbloqueada con exito.");
+                      this.route.navigate(['/auth']);
+                    },
+                    error: (e:Error) => {
+                      console.log(e.message);
+                    }
+                  })
+                }
+                this.route.navigate(['/auth']);
+                
+              },error: (e: Error) => {
+                console.log(e.message);
+              }
+            })
           },
           error: (e: Error) =>{
             Swal.fire({

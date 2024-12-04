@@ -20,7 +20,7 @@
   width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: var(--background-gray);
+  background-color: var(--white);
   border-radius: var(--border-radius);
   box-shadow: 0 2px 8px var(--box-shadow-color);
   padding-bottom: 0;

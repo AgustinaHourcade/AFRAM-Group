@@ -9,6 +9,7 @@ export interface User{
     user_type?: string,
     is_Active?: string,
     real_name?: string,
-    reset_token?: number
+    reset_token?: number,
+    is_blocked?: string
 }
 
