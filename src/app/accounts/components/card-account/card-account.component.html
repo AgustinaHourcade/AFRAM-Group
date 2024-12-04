@@ -9,7 +9,6 @@
         <p>{{ account.id }}-{{ userId }}/2</p>
     }
     <div class="amount">
-
         @if (showBalance === true) {
             @if (account.currency === 'ars'){
                 <p class="balance-number">{{ account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
@@ -20,10 +19,6 @@
         }@else {
             <p class="balance-number">******</p>
         }
-        <button type="button" class="toggle-btn"  (click)="toggleBalance($event)">
-            <i [class]="showBalance ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-        </button>
-        
-        
+        <button type="button" class="toggle-btn"  (click)="toggleBalance($event)"><i [class]="showBalance ? 'bi bi-eye' : 'bi bi-eye-slash'"></i></button>
     </div>
 </div>

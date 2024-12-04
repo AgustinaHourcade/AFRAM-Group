@@ -41,8 +41,8 @@ span {
 
 .amount {
   display: flex;
-  align-items: center; /* Alinea verticalmente los elementos */
-  justify-content: space-between; /* Mueve el texto a la izquierda y el botón a la derecha */
+  align-items: center; 
+  justify-content: space-between; 
   padding: 8px;
 }
 
