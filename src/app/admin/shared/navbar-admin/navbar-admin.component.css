@@ -50,14 +50,10 @@ img {
   color: var(--white);
   text-decoration: none;
   text-transform: uppercase;
-
   padding: 10px;
   cursor: pointer;
 }
 
-.nav-links a:hover {
-  color: var(--button-hover);
-}
 
 .profile-dropdown .profile-menu {
   display: none;

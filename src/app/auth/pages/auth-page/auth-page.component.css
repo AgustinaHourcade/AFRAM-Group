@@ -26,11 +26,19 @@
 }
 
 .left-panel.signup {
-  background-image: url(/logo-signup.jpg); /* Fondo para el signup */
+  background-image: url(/logo-signup.png); /* Fondo para el signup */
 }
 
 .left-panel.login {
   background-image: url(/fondo-auth.jpeg); /* Fondo para el login */
+}
+
+.container.container-signup {
+  flex-direction: row-reverse;
+}
+
+.container.container-login {
+  flex-direction: row;
 }
 
 img {

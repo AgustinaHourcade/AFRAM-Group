@@ -40,10 +40,6 @@ img {
   text-transform: uppercase;
 }
 
-.nav-links a:hover {
-  color: var(--button-hover);
-}
-
 .account-menu,
 .fixed-terms-menu,
 .profile-menu,

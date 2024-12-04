@@ -2,7 +2,7 @@
   @if (accounts.length === 0) {
     <h2>Lo sentimos, no tiene cuentas disponibles para realizar una transferencia</h2>
   }@else {  
-    <div class="modal">
+    <div class="modal" [ngClass]="{'open': flag }">
       <h2>Transferir</h2>
 
       <form [formGroup]="newRecipientForm" (ngSubmit)="searchAccount()">
@@ -23,9 +23,10 @@
     }
     
   </form>
-  
-  <form [formGroup]="amount" (ngSubmit)="realizarTransfer()">
-    
+
+
+    <form [formGroup]="amount" (ngSubmit)="realizarTransfer()">
+      
     @if (flag) {
       
       <p>Titular: {{ userDestino.last_name }}, {{ userDestino.real_name }}</p>

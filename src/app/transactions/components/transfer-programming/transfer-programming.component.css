@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 180px);
+  height: calc(100vh - 82px);
   background-color: var(--background-gray);
 }
 
@@ -23,6 +23,10 @@
   text-align: center;
 }
 
+.programming-container.open{
+  margin-top: 30%;
+}
+
 #cantidad {
   width: 100%;
   padding: 12px;
@@ -32,7 +36,7 @@
 .programming-container {
   background-color: var(--white);
   padding: 30px;
-  max-width: 600px;
+  max-width: 470px;
   margin: 0 auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px var(--box-shadow-color);

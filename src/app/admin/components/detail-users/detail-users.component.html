@@ -59,7 +59,7 @@
       </thead>
       <tbody>
         @for (item of accounts; track $index) {
-            <tr>
+            <tr class="tr">
               <td>{{item.id}}</td>
               <td>{{item.account_type}}</td>
               <td>{{ formatearFecha(item.opening_date) }}</td>

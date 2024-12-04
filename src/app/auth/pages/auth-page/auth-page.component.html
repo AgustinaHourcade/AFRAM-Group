@@ -1,9 +1,8 @@
 <div id="page">
-  <div class="container">
+  <div class="container" [ngClass]="{ 'container-signup': !isLoginActive, 'container-login': isLoginActive }">
     <!-- Sección izquierda -->
     <div class="left-panel" [ngClass]="{ 'signup': !isLoginActive, 'login': isLoginActive }"></div>
 
-    <!-- <div class="left-panel"></div> -->
     
     <!-- Sección derecha (formulario) -->
     <div class="right-panel">
@@ -19,9 +18,9 @@
       </div>
       <div class="form-header">
         @if (!isLoginActive) {
-          <button (click)="toggleForm('login')" class="toggle"><span><i class="bi bi-arrow-left"></i></span> &nbsp; Log In</button>
+          <button (click)="toggleForm('login')" class="toggle">Log In &nbsp; <span><i class="bi bi-arrow-right"></i></span></button>
         } @else {
-          <button (click)="toggleForm('signup')" class="toggle-2">Sign Up &nbsp; <span><i class="bi bi-arrow-right"></i></span></button>
+          <button (click)="toggleForm('signup')" class="toggle-2"><span><i class="bi bi-arrow-left"></i></span> &nbsp; Sign Up </button>
         }
       </div>
     </div>

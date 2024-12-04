@@ -80,7 +80,9 @@ export class DetailUsersComponent implements OnInit{
       next: (accounts) =>{
         this.accounts = accounts;
         this.flag = true;
-        setTimeout(() => this.scrollToSection(), 100);
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 300);
       },
       error: (e: Error) =>{
         console.log(e.message);
@@ -165,10 +167,10 @@ export class DetailUsersComponent implements OnInit{
     });
   }
 
-  scrollToSection() {
-    const section = document.getElementById('accounts');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  scrollToBottom() {
+    const lastElement = document.querySelector('.tr:last-child');
+    if (lastElement) {
+      lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }
 

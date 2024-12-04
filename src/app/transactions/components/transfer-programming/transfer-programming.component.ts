@@ -293,11 +293,11 @@ export class TransferProgrammingComponent implements OnInit {
     this.openModal = true;
     setTimeout(() => {
       this.scrollToBottom();
-    }, 150);
+    }, 300);
   }
 
   scrollToBottom() {
-    const lastElement = document.querySelector('.search');
+    const lastElement = document.querySelector('.modal:last-child');
     if (lastElement) {
       lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
