@@ -4,13 +4,13 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--primary-color); 
+  background-color: var(--primary-color);
 }
 
 .container {
   display: flex;
   width: 80%;
-  height: 80%;
+  height: 95%;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -20,51 +20,51 @@
 /* Panel izquierdo */
 .left-panel {
   width: 50%;
-  background-image: url(/fondo-auth.jpeg);
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; 
-  padding: 30px;
+  background-repeat: no-repeat;
 }
 
-.logo img {
-  padding: 0;
-  width: 150px;  
-  height: auto;
-  margin-left: 15%; 
-  position: fixed;
+.left-panel.signup {
+  background-image: url(/logo-signup.jpg); /* Fondo para el signup */
 }
 
+.left-panel.login {
+  background-image: url(/fondo-auth.jpeg); /* Fondo para el login */
+}
 
-h2{
-  margin-top: 30px;
+img {
+  width: 150px;
 }
 
 /* Panel derecho (formulario) */
-.form-container {
+.right-panel {
   width: 50%;
-  display: flex;
+  display: grid;
+  grid-template-rows: 80px 430px 0.5fr;
+  justify-items: center;
+}
+
+.form-container {
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px;
-  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
 }
-
 
 .form-header {
   display: flex;
-  justify-content: end;
-  align-items: end;
+  justify-content: center;
+  align-items: center;
 }
 
-.toggle {
+.toggle, .toggle-2 {
   display: flex;
   align-items: end;
   justify-content: end;
   padding: 12px 30px;
   border: none;
-  background-color: #00bcd4; 
+  background-color: #00bcd4;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -75,35 +75,89 @@ h2{
   outline: none;
 }
 
-/* Cambiar color a azul cuando el botón esté activo */
-.toggle:hover {
-  background-color: #2196f3; /* Azul */
-  color: #fff; 
+.toggle:hover, .toggle-2:hover {
+  background-color: #2196f3;
+  color: #fff;
 }
 
-.toggle:focus {
-  outline: none; 
+.toggle:focus, .toggle-2:focus {
+  outline: none;
 }
 
+/* Media Queries */
 
-
-
-@media (max-width: 768px) {
+/* Pantallas de hasta 1024px */
+@media (max-width: 1024px) {
   .container {
-    flex-direction: column;
-    height: auto;
-    width: 95%;
+    /* flex-direction: column; */
+    height: 90%;
+    width: 70%;
   }
 
   .left-panel {
+    display: none
+  }
+  .right-panel {
     width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
+    height: 100%;
+    /* padding: 20px; */
   }
 
   .form-container {
+    padding: 10px;
+  }
+
+  .toggle, .toggle-2 {
+    font-size: 14px;
+  }
+}
+
+
+/* Pantallas de hasta 768px */
+@media (max-width: 768px) {
+  /* .container {
+    flex-direction: column;
+    height: auto;
+    width: 90%;
+  } */
+
+  /* .left-panel {
+    display: none;
+  } */
+
+  /* .right-panel {
     width: 100%;
-    padding: 20px;
+    height: 60%;
+    padding: 15px; 
+  } */
+
+  .toggle, .toggle-2 {
+    font-size: 14px;
+  }
+}
+
+/* Pantallas de hasta 550px */
+@media (max-width: 550px) {
+  /* .container {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+  }
+
+  .left-panel {
+    display: none;
+  }
+
+  .right-panel {
+    height: 70%;
+    padding: 10px; 
+  } */
+
+  .toggle, .toggle-2 {
+    font-size: 12px;
+  }
+
+  img {
+    width: 100px;
   }
 }

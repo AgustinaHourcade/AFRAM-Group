@@ -38,9 +38,6 @@ export class ChatComponent {
   toggleChat(event: Event): void {
     event.stopPropagation();
     this.isOpen = !this.isOpen;
-    if (this.isOpen) {
-      setTimeout(() => this.scrollToBottom(), 0);
-    }
   }
 
   preventClose(event: Event): void {

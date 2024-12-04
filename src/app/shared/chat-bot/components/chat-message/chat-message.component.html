@@ -1,23 +1,27 @@
 <!-- CAMBIAR NG IF CUANDO REVISEMOS CSS -->
 <div class="message" [ngClass]="{'bot': message.isBot, 'user': !message.isBot}">
-  <div class="message-content" *ngIf="!message.isFaqList && !message.isTopicList">
-    {{ message.content }}
-  </div>
-  
-  <div class="topic-list" *ngIf="message.isTopicList">
-    <h3>¿Sobre qué tema te gustaría consultar?</h3>
-    @for(topic of message.topics; track $index){
-      <button
-      (click)="selectTopic(topic.title)"
-      class="topic-button">
-      <span class="topic-icon">{{ topic.icon }}</span>
-      {{ topic.title }}
-    </button>
-    }
-    
-  </div>
+  @if (!message.isFaqList && !message.isTopicList) {
+    <div class="message-content">
+      {{ message.content }}
+    </div>
+  }
 
-  <div class="faq-list" *ngIf="message.isFaqList">
+  @if (message.isTopicList) {
+    <div class="topic-list" >
+      <h3>¿Sobre qué tema te gustaría consultar?</h3>
+      @for(topic of message.topics; track $index){
+        <button
+        (click)="selectTopic(topic.title)"
+        class="topic-button">
+        <span class="topic-icon">{{ topic.icon }}</span>
+        {{ topic.title }}
+      </button>
+    }
+  </div>
+  }
+    
+@if (message.isFaqList) {
+  <div class="faq-list" >
     <h3>Selecciona tu consulta:</h3>
     @for(faq of message.faqs; track $index){
       <button
@@ -25,9 +29,9 @@
       class="faq-button">
       {{ faq.question }}
     </button>
-    }
-    
-  </div>
+  } 
+</div>
+}
 
   <div class="message-time">
     {{ message.timestamp | date:'shortTime' }}

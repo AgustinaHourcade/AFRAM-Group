@@ -123,16 +123,13 @@ input:not(:focus) + label {
 
 
 .submit-button {
-  width: 100%;
+  width: 80%;
   padding: 8px 16px;
-  background: linear-gradient(
-    135deg,
-    var(--secondary-color),
-    var(--primary-color)
-  );
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
   transition: background 0.3s, transform 0.2s;
   margin-top: 8px;
   height: 36px;
+  margin: 0 auto;
 }
 
 .submit-button:hover {
@@ -142,6 +139,12 @@ input:not(:focus) + label {
 .submit-button:active {
   transform: scale(0.98);
   box-shadow: 0 2px 4px var(--box-shadow-color);
+}
+
+.submit-button:disabled {
+  background: #ccc; 
+  cursor: not-allowed; 
+  box-shadow: none; 
 }
 
 input.ng-invalid.ng-touched {
@@ -161,10 +164,8 @@ input.ng-invalid.ng-touched + label {
 
 @media (max-width: 768px) {
   .page {
-    margin: 15px;
-    width: 100vw;
+    width: 100%;
   }
-
 
   input {
     font-size: 13px;
@@ -176,10 +177,6 @@ input.ng-invalid.ng-touched + label {
 }
 
 @media (max-width: 480px) {
-  .page {
-    margin: 10px;
-    padding: 12px;
-  }
 
   input {
     font-size: 12px;

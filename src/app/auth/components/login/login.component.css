@@ -124,7 +124,6 @@ a {
 
 @media (max-width: 768px) {
   .page {
-    margin: 15px;
-    width: 100vw;
+    width: 100%;
   }
 }

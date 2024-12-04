@@ -20,6 +20,7 @@
     @if(activeCards.length == 0){
       <p class="aviso">No posee tarjetas activas</p>
     }
+    <div class="cardsFlex">
     @for (item of cards; track $index) { 
       @if (item.is_Active === 'yes') {
         <div class="cardInfo" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
@@ -31,18 +32,22 @@
               </div>
             </div>
 
-            <div class="tipo">
-              <span>{{item.card_type}}</span>
+            
+            <div class="card-details">
+              <p class="card-number">**** **** **** {{ item.card_number.slice(-4) }}</p>
+            </div>
+            <div class="card-details">
+              <p class="expiry-date">{{ item.expiration_date.slice(5, 7) }}/{{item.expiration_date.slice(2, 4)}}</p>
             </div>
 
-            <div class="card-details">
-              <span class="card-number">**** **** **** {{ item.card_number.slice(-4) }}</span>
-              <span class="expiry-date">{{ item.expiration_date.slice(5, 7) }}/{{item.expiration_date.slice(2, 4)}}</span>
+            <div class="tipo">
+              <span>{{item.card_type}}</span>
             </div>
           </div>
         </div>
       } 
     }
+  </div>
   </div>
 
   <div class="transactions">
