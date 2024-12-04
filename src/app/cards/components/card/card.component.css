@@ -286,3 +286,17 @@ h2 {
   flex-direction: column;
   row-gap: 3px;
 }
+
+.toggle-btn {
+  background-color: var(--white);
+  font-size: 1.75rem;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color:black;
+  box-shadow: none;
+}
+
+.toggle-btn i {
+  color: inherit;
+}

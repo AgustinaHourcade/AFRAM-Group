@@ -8,17 +8,19 @@
       <input id="monthYear" type="month" formControlName="monthYear" [min]="openingDate ? (openingDate | date: 'yyyy-MM') : ''" [max]="today ? (today | date: 'yyyy-MM') : ''" />
     </form>
   </h2>
-  
+
   <div class="div-sub">
     @if(isLastDayOfMonth){
       <button (click)="downloadAsPDF()">Descargar resumen {{ dateForm.value.monthYear | date:'MM/yyyy':'es-AR'}}</button>
     }@else{
       <span>Resumen disponible el {{ nextAvailableDate(dateForm.value.monthYear ?? null) | date: 'dd/MM/yyyy':'es-AR' }}</span>
     }
-   
+
     <div #pdfContent class="transactions">
       @for(transaction of filteredTransactions; track $index){
-        <app-transaction [transaction]="transaction" [selectedAccountId]="accountId" [isDownloading]="isDownloading"></app-transaction>
+        @if(transaction.is_paid === 'yes'){
+          <app-transaction [transaction]="transaction" [selectedAccountId]="accountId" [isDownloading]="isDownloading"></app-transaction>
+        }
       }@empty {
         <p>No hay transacciones para el mes seleccionado.</p>
       }

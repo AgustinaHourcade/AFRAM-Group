@@ -182,6 +182,7 @@ export class TransferModalComponent implements OnInit {
       (account) => account.id === Number(selectedAccountId)
     );
     this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
+    let destinationAccount! : Account;
 
     if(selectedAccount?.id == this.account?.id){
       Swal.fire({
@@ -255,6 +256,13 @@ export class TransferModalComponent implements OnInit {
 
             this.sendNotification(transaction.destination_account_id);
 
+            this.accountService.getAccountById(transaction.destination_account_id).subscribe({
+              next: (account) =>{
+                destinationAccount = account
+              },error: (e: Error) =>{
+                console.log(e.message);
+              }
+            })
 
             if (this.user.email) {
               this.emailService
@@ -262,7 +270,7 @@ export class TransferModalComponent implements OnInit {
                   this.user.email,
                   this.montoTransferencia!,
                   selectedAccount.user_id,
-                  this.account?.id
+                  destinationAccount.user_id
                 )
                 .subscribe({
                   next: () => console.log('Correo de notificación enviado'),

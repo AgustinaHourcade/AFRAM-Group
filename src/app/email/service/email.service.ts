@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmailService {
-  private baseUrl = 'http://localhost:3000/email'; 
+  private baseUrl = 'http://localhost:3000/email';
   private http = inject(HttpClient)
 
-  sendTransferEmail(to: string, amount: number, sourceAccountId: number, destinationAccountId: number) {
-    return this.http.post(`${this.baseUrl}/sendTransfer`, { to, amount, sourceAccountId, destinationAccountId });
+  sendTransferEmail(to: string, amount: number, sourceUserId: number, destinationUserId: number) {
+    return this.http.post(`${this.baseUrl}/sendTransfer`, { to, amount, sourceUserId, destinationUserId });
   }
 
   sendRecoverEmail(email: string): Observable<boolean>{

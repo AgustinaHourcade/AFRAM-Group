@@ -21,14 +21,13 @@ export class CardComponent implements OnInit {
   private sesionService = inject(UserSessionService);
   private cardService = inject(CardService);
   private accountService = inject(AccountService);
-  // private route = inject (Router);
-  // private cardsService = inject(CardService);
 
   borrar = false;
-  cards!: Array<Card>;
+  cards!: Array<any>;
   accounts!: Array<Account>;
   userId = this.sesionService.getUserId();
-  activeCards: Array<Card> = [];
+  activeCards: Array<any> = [];
+  showNumbers: boolean= false;
 
   ngOnInit(): void {
     this.cardService.getCardsById(this.userId).subscribe({
@@ -37,6 +36,10 @@ export class CardComponent implements OnInit {
         cards.forEach((card) => {
           if (card.is_Active === 'yes') {
             this.activeCards.push(card);
+            this.activeCards = this.activeCards.map((card) => ({
+              ...card,
+              showNumbers: false // Inicialmente todas ocultas
+            }));
           }
         });
         this.expiredCard();
@@ -131,7 +134,7 @@ export class CardComponent implements OnInit {
                 console.log(err.message);
               }
               })
-            }, 
+            },
             error:(err :Error) =>{
               console.log(err.message);
             }
@@ -146,8 +149,14 @@ export class CardComponent implements OnInit {
   }
 
   generarFechaExpiracion(): string {
-    const fechaOriginal = new Date(); 
-    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5); 
-    return fechaOriginal.toISOString().split('T')[0]; 
+    const fechaOriginal = new Date();
+    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5);
+    return fechaOriginal.toISOString().split('T')[0];
   }
+
+  toggleVisibility(card: any): void {
+    // event.stopPropagation();
+    card.showNumbers = !card.showNumbers;
+  }
+
 }

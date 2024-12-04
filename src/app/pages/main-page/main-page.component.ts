@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { Observable, catchError, forkJoin, of } from 'rxjs';
+import { Observable, catchError, firstValueFrom, forkJoin, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { DolarComponent } from "@shared/dolar/components/dolar.component";
@@ -15,11 +15,15 @@ import { CardService } from '@cards/service/card.service';
 import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
 import { FixedTerm } from '@fixedTerms/interface/fixed-term';
 import { NotificationsService } from '@notifications/service/notifications.service';
+import { RouterLink } from '@angular/router';
+import { EmailService } from '@email/service/email.service';
+import { UserService } from '@users/services/user.service';
+import { User } from '@users/interface/user.interface';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule, DolarComponent],
+  imports: [NavbarComponent, CardAccountComponent, TransactionComponent, CommonModule, DolarComponent, RouterLink],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
 })
@@ -37,8 +41,9 @@ export class MainPageComponent implements OnInit {
   pageSize = 4 ;
   currentPage = 1;
   selectedAccountId !: number;
+  user !: User;
 
-  // private router = inject(Router);
+
   private changeDetector = inject(ChangeDetectorRef);
   private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
@@ -46,6 +51,8 @@ export class MainPageComponent implements OnInit {
   private cardService = inject(CardService);
   private fixedTermService = inject(FixedTermService);
   private notificationService = inject(NotificationsService);
+  private emailService = inject(EmailService);
+  private userService = inject(UserService);
 
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);
@@ -69,6 +76,7 @@ export class MainPageComponent implements OnInit {
     this.verifyFixedTerms();
     this.getCards();
   }
+
 
 
   private getAccounts() {
@@ -181,7 +189,6 @@ export class MainPageComponent implements OnInit {
       next: (flag) =>{
         if(flag){
           console.log('Notificacion enviada');
-          window.location.reload();
         }
       },
       error: (e: Error)=>{
@@ -235,7 +242,6 @@ export class MainPageComponent implements OnInit {
     if (target) {
       const selectedAccountId = Number(target.value);
       this.selectedAccountId = selectedAccountId;
-      console.log('ID de la cuenta seleccionada:', selectedAccountId);
     }
     this.transactions = [];
     this.currentPage = 1;
@@ -282,7 +288,9 @@ export class MainPageComponent implements OnInit {
           this.allTransactions.forEach((item) => {
             if (item.is_paid === 'no' && this.compareDateWithNow(item.transaction_date.toString())) {
               this.processTransferProgramming(item);
+              this.sendEmail(item);
               this.markTransferProgrammingAsPaid(item);
+              setTimeout(() => window.location.reload(), 300)
             }
           });
         },
@@ -291,13 +299,11 @@ export class MainPageComponent implements OnInit {
         },
       });
     });
-
   }
 
 
   private processTransferProgramming(item: Transaction) {
     const amount = Number(item.amount);
-    console.log('Monto a trans: ',amount);
     const descAmount = -1 * amount
     const updateSourceAccount$ = this.accountService.updateBalance(descAmount, item.source_account_id);
     const updateDestinationAccount$ = this.accountService.updateBalance(amount, item.destination_account_id);
@@ -320,7 +326,9 @@ private markTransferProgrammingAsPaid(item: Transaction) {
   this.transactionService.setPayTransferProgramming(Number(item.id)).subscribe({
     next: () => {
       this.sendTransferSourceNotification(item.source_account_id)
+
       this.sendTransferDestinationNotification(item.destination_account_id)
+
       this.getAccounts();
     },
     error: (error: Error) => {
@@ -331,13 +339,13 @@ private markTransferProgrammingAsPaid(item: Transaction) {
 
 private sendTransferSourceNotification(id: number) {
   this.accountService.getAccountById(id).subscribe({
-    next: (account) =>{  
+    next: (account) =>{
         const notification = {
           title: 'Se realizo una transferencia programada!',
           message: 'Se le debito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
           user_id: account.user_id
         }
-      
+
         this.postNotification(notification)
     },
     error: (e: Error)=>{
@@ -347,12 +355,77 @@ private sendTransferSourceNotification(id: number) {
 }
 
 private sendTransferDestinationNotification(id: number) {
-  const notification = {
-    title: 'Transferencia programada acreditada!',
-    message: 'Se le acredito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
-    user_id: id
-  }
+  this.accountService.getAccountById(id).subscribe({
+    next: (account) =>{
+        const notification = {
+          title: 'Transferencia acreditada!',
+          message: 'Se le acredito una transferencia, puede ver el detalle en la seccion "Mis movimientos"',
+          user_id: account.user_id
+        }
 
-  this.postNotification(notification)
+        this.postNotification(notification)
+    },
+    error: (e: Error)=>{
+      console.log(e.message);
+    }
+  })
 }
+
+async sendEmail(transaction: Transaction): Promise<void> {
+  let destinationAccount !: Account;
+
+
+  try {
+    await this.getUserByAccountId(transaction.destination_account_id);
+
+    this.accountService.getAccountById(transaction.destination_account_id).subscribe({
+      next: (account) =>{
+        destinationAccount = account
+      },error: (e: Error) =>{
+        console.log(e.message);
+      }
+    })
+
+    this.accountService.getAccountById(transaction.source_account_id).subscribe({
+      next: (account) =>{
+        if (this.user?.email) {
+          this.emailService.sendTransferEmail(
+              this.user.email,
+              transaction.amount,
+              account.user_id,
+              destinationAccount.user_id
+            )
+            .subscribe({
+              next: () => console.log('Correo de notificación enviado'),
+              error: (error: Error) =>
+                console.log('Error al enviar el correo:', error),
+            });
+        } else {
+          console.log('No se encontró un correo para el usuario.');
+        }
+      },error: (e: Error) =>{
+        console.log(e.message);
+      }
+    })
+
+
+  } catch (error) {
+    console.error('Error en sendEmail:', error);
+  }
+}
+
+async getUserByAccountId(accountId: number): Promise<void> {
+
+  try {
+
+    const account = await firstValueFrom(this.accountService.getAccountById(accountId));
+
+    this.user = await firstValueFrom(this.userService.getUser(account.user_id));
+
+  } catch (error) {
+    console.error('Error en getUserByAccountId:', error);
+    throw error;
+  }
+}
+
 }

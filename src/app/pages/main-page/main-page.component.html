@@ -7,10 +7,10 @@
       <p class="aviso">No posee cuentas activas</p>
     }
     <div class="accounts-div">
-      @for (account of accounts; track $index){ 
+      @for (account of accounts; track $index){
         @if (!account.closing_date) {
           <app-card-account [account]="account"></app-card-account>
-        } 
+        }
       }
     </div>
   </div>
@@ -20,11 +20,11 @@
     @if(activeCards.length == 0){
       <p class="aviso">No posee tarjetas activas</p>
     }
-    <div class="cardsFlex">
-    @for (item of cards; track $index) { 
+    <div class="cardsFlex" >
+    @for (item of cards; track $index) {
       @if (item.is_Active === 'yes') {
         <div class="cardInfo" [ngClass]="{ 'debit-card': item.card_type === 'debit', 'credit-card': item.card_type === 'credit' }">
-          <div class="card">
+          <div class="card" [routerLink]="['/cards']">
             <div class="card-header">
               <div class="master">
                 <div class="circle master-red"></div>
@@ -32,10 +32,10 @@
               </div>
             </div>
 
-            
             <div class="card-details">
               <p class="card-number">**** **** **** {{ item.card_number.slice(-4) }}</p>
             </div>
+
             <div class="card-details">
               <p class="expiry-date">{{ item.expiration_date.slice(5, 7) }}/{{item.expiration_date.slice(2, 4)}}</p>
             </div>
@@ -45,7 +45,7 @@
             </div>
           </div>
         </div>
-      } 
+      }
     }
   </div>
   </div>
@@ -110,5 +110,5 @@
     <h2 class="section-title">Cotización</h2>
     <app-dolar></app-dolar>
   </div>
-  
+
 </main>

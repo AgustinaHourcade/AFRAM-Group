@@ -41,9 +41,19 @@
 
                   <div class="card-number">
                     <div class="section">
-                      **** **** **** {{ item.card_number.slice(-4) }}
+                      @if(!item.showNumbers){
+                        **** **** **** {{ item.card_number.slice(-4) }}
+                      }@else {
+                          {{ item.card_number.slice(0, 4) }}
+                          {{ item.card_number.slice(4, 8) }}
+                          {{ item.card_number.slice(8, 12) }}
+                          {{ item.card_number.slice(12, 16) }}
+                      }
+
                     </div>
                   </div>
+
+
 
                   <div class="end">
                     <span>{{ item.cardHolder_name }}</span>
@@ -74,7 +84,11 @@
 
                   <div class="ccv">
                     <label>ccv</label>
-                    <div>{{ item.cvv }}</div>
+                    @if(!item.showNumbers){
+                      <div>***</div>
+                    }@else {
+                      <div>{{ item.cvv }}</div>
+                    }
                   </div>
 
                   <div class="terms">
@@ -86,6 +100,10 @@
             </div>
           </div>
         </div>
+
+        <button type="button" class="toggle-btn"  (click)="toggleVisibility(item)">
+          <i [class]="item.showNumbers ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+        </button>
 
         <button (click)="alerta(item.card_id)">Dar de baja</button>
       </div>

@@ -3,14 +3,14 @@
   justify-content: center;
   align-items: center;
   height: calc(100vh - 180px);
-  background-color: var(--background-gray);
+  /* background-color: var(--background-gray); */
 }
 
 .modal {
   width: 90%;
   max-width: 600px;
   padding: 2.5rem;
-  background-color: var(--white);
+  /* background-color: var(--white); */
   box-shadow: 0 4px 20px var(--box-shadow-color);
   border-radius: var(--border-radius);
 }

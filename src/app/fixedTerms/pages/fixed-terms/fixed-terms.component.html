@@ -1,7 +1,9 @@
 <!-- LISTO -->
 <app-navbar></app-navbar>
 @if(fixedTerms.length === 0){
-  <p>No hay plazos fijos realizados por el usuario</p>  
+  <div class="noFixedTerms">
+    <p>No hay plazos fijos realizados por el usuario</p>
+  </div>
 }@else {
   <div class="tableDiv">
     <h2>Plazos fijos activos</h2>
@@ -15,7 +17,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (ft of fixedTerms; track $index) { 
+        @for (ft of fixedTerms; track $index) {
           @if (ft.is_paid === 'no') {
             <tr>
               <td>{{ ft.account_id }}</td>
@@ -23,7 +25,7 @@
               <td>${{ ft.interest_earned }}</td>
               <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
             </tr>
-          } 
+          }
         }
       </tbody>
     </table>
@@ -43,7 +45,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (ft of expiredFixedTerms; track $index) { 
+        @for (ft of expiredFixedTerms; track $index) {
         @if (ft.is_paid === 'yes') {
             <tr>
               <td>{{ ft.account_id }}</td>
@@ -51,7 +53,7 @@
               <td>${{ ft.interest_earned }}</td>
               <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
             </tr>
-          } 
+          }
         }
       </tbody>
     </table>
