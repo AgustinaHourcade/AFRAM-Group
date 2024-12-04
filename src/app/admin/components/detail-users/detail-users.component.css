@@ -164,6 +164,20 @@ td:nth-child(5) {
     font-size: 12px;
     padding: 10px;
   }
+
+ 
+}
+
+@media (max-width: 550px) {
+  .action-buttons2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .action-buttons2 button{
+    padding: 5px 10px;
+    font-size: 12px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -194,29 +208,10 @@ td:nth-child(5) {
   td {
     padding: 8px;
   }
-}
 
-@media (max-width: 320px) {
-  h2 {
-    font-size: 18px;
-  }
-
-  .profile-card {
-    padding: 8px;
-    margin: 10px 0;
-  }
-
-  .profile-field {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  table {
+  .action-buttons2 button{
     font-size: 10px;
   }
-
-  th,
-  td {
-    padding: 5px;
-  }
 }
+
+

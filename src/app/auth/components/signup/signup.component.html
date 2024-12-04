@@ -3,7 +3,7 @@
     <div class="double-input">
     <div class="form-group">  
       <div class="input-wrapper">
-        <input type="text" id="real_name" formControlName="real_name"  [ngClass]="{ errorInput:(formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched)}"/>
+        <input type="text" id="real_name" formControlName="real_name" (keydown)="preventNumbers($event)"  [ngClass]="{ errorInput:(formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched)}"/>
         <label [ngClass]="{ filled: formulario.get('real_name')?.value, errorLabel: formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched }">
             @if (formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched) {
               <i class="bi bi-exclamation-circle"></i> 
@@ -17,7 +17,7 @@
 
     <div class="form-group">
       <div class="input-wrapper">
-        <input type="text" id="last_name" formControlName="last_name" />
+        <input type="text" id="last_name" formControlName="last_name" (keydown)="preventNumbers($event)"/>
         <label [ngClass]="{ filled: formulario.get('last_name')?.value, errorLabel: formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched }">
             @if (formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched) {
               <i class="bi bi-exclamation-circle"></i> 

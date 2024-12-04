@@ -17,16 +17,25 @@ export class ListUsersComponent implements OnInit {
   private userService = inject(UserService);
   private fb = inject(FormBuilder);
   clients: Array<User> = [];
+  clientsFilter: Array<User> = [];
 
   filterForm = this.fb.nonNullable.group({
     dni: [''],
     lastName: [''],
   });
 
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next: (users) => {
-        this.clients = users
+        this.clients = users;
+        this.clientsFilter = users;
       },
       error: (e: Error) => {
         console.error(e.message);
@@ -37,10 +46,15 @@ export class ListUsersComponent implements OnInit {
   }
 
   applyFilter() {
-    const dni = this.filterForm.get('dni')?.value.toString().trim();
-    const lastName = this.filterForm.get('lastName')?.value.trim();
-
-    this.clients = this.clients.filter((client) => {
+    const dni = this.filterForm.get('dni')?.value?.toString().trim();
+    const lastName = this.filterForm.get('lastName')?.value?.trim();
+  
+    if (!dni && !lastName) {
+      this.clientsFilter = [...this.clients];
+      return;
+    }
+  
+    this.clientsFilter = this.clients.filter((client) => {
       const matchesDni = dni ? client.dni.includes(dni) : true;
       const matchesLastName = lastName
         ? client.last_name?.toLowerCase().includes(lastName.toLowerCase())
@@ -48,9 +62,10 @@ export class ListUsersComponent implements OnInit {
       return matchesDni && matchesLastName;
     });
   }
+  
 
   onClearFilter() {
     this.filterForm.reset();
-    this.clients = [...this.clients];
+    this.clientsFilter = [...this.clients];
   }
 }

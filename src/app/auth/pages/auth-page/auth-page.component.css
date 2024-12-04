@@ -1,4 +1,3 @@
-/* Estilo general */
 #page {
   display: flex;
   justify-content: center;
@@ -17,7 +16,6 @@
   background-color: var(--white);
 }
 
-/* Panel izquierdo */
 .left-panel {
   width: 50%;
   background-size: cover;
@@ -26,11 +24,11 @@
 }
 
 .left-panel.signup {
-  background-image: url(/logo-signup.png); /* Fondo para el signup */
+  background-image: url(/logo-signup.png); 
 }
 
 .left-panel.login {
-  background-image: url(/fondo-auth.jpeg); /* Fondo para el login */
+  background-image: url(/fondo-auth.jpeg); 
 }
 
 .container.container-signup {
@@ -45,7 +43,6 @@ img {
   width: 150px;
 }
 
-/* Panel derecho (formulario) */
 .right-panel {
   width: 50%;
   display: grid;
@@ -64,6 +61,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  column-gap: 20px;
 }
 
 .toggle, .toggle-2 {

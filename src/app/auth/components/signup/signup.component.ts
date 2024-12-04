@@ -33,6 +33,14 @@ export class SignupComponent{
     validLength: false,
   };
 
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+  
   private fb = inject(FormBuilder);
   private sesionService = inject(UserSessionService);
   private userService = inject(UserService);

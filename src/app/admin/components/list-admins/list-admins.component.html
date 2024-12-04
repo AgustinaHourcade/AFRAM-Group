@@ -5,7 +5,7 @@
 
   <form [formGroup]="filterForm" class="filter-bar">
     <input type="number" formControlName="dni" placeholder="Buscar por DNI" class="filter-input" />
-    <input type="text" formControlName="lastName" placeholder="Buscar por Apellido" class="filter-input" />
+    <input type="text" formControlName="lastName" placeholder="Buscar por Apellido" class="filter-input" (keydown)="preventNumbers($event)"/>
     <button type="button" (click)="onClearFilter()" class="clear-button">Limpiar</button>
   </form>
   @if (adminsFilter.length === 0) {

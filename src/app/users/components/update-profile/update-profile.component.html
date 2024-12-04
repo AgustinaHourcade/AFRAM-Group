@@ -35,7 +35,7 @@
 
       <div>
         <label for="country">País <span class="required">*</span></label>
-        <input type="text" id="country" formControlName="country" />
+        <input type="text" id="country" formControlName="country" (keydown)="preventNumbers($event)"/>
         @if (formulario.controls['country'].getError('required') &&
         formulario.controls['country'].touched) {
         <span> Campo requerido </span>

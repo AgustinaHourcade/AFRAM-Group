@@ -134,7 +134,8 @@ img {
   position: relative;
 }
 
-.notification-icon {
+.notification-icon i {
+  color: white;
   cursor: pointer;
   font-size: 1.5rem;
   transition: transform 0.2s ease;

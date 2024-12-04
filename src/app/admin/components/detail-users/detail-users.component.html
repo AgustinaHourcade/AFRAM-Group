@@ -66,8 +66,8 @@
               <td>${{item.balance}}</td>
               @if (!item.closing_date) {
                 <td>Si</td>
-                <div class="action-buttons">
-                  <button class="action-button" [routerLink]="['/list-transaction', item.id]">Ver movimientos</button>
+                <div class="action-buttons action-buttons2">
+                  <button class="action-button" [routerLink]="['/list-transaction', item.id]">Movimientos</button>
                   <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
                 </div>
               }@else {

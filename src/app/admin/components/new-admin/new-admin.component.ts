@@ -34,6 +34,14 @@ export class NewAdminComponent {
   private addressService = inject(AddressService);
   private route = inject(Router);
 
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+
   formulario = this.fb.group(
     {
       name_user: ['', [Validators.required, Validators.minLength(4)]],

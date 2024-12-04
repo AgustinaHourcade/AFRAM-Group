@@ -26,4 +26,8 @@ export class TransactionService {
   setPayTransferProgramming(id: number): Observable<boolean>{
     return this.http.patch<boolean>(`${this.baseUrl}/is-paid`, {id})
   }
+
+  deleteTransaction(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.baseUrl}/${id}`)
+  }
 }

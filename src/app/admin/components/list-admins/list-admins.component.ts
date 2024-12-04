@@ -24,6 +24,13 @@ export class ListAdminsComponent implements OnInit {
     lastName: [''],
   });
 
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next: (users) => {
@@ -39,9 +46,14 @@ export class ListAdminsComponent implements OnInit {
   }
 
   applyFilter() {
-    const dni = this.filterForm.get('dni')?.value.toString().trim();
-    const lastName = this.filterForm.get('lastName')?.value.trim();
-
+    const dni = this.filterForm.get('dni')?.value?.toString().trim();
+    const lastName = this.filterForm.get('lastName')?.value?.trim();
+  
+    if (!dni && !lastName) {
+      this.adminsFilter = [...this.admins];
+      return;
+    }
+  
     this.adminsFilter = this.admins.filter((admin) => {
       const matchesDni = dni ? admin.dni.includes(dni) : true;
       const matchesLastName = lastName

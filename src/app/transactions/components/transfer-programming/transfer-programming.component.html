@@ -28,12 +28,12 @@
         </select>
         
         @if(newRecipientForm.get('searchType')?.value === 'cbu'){
-          <input formControlName="accountSearch" placeholder="Ingrese CBU" />
+          <input formControlName="accountSearch" placeholder="Ingrese CBU" type="text"/>
           <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
         }
         
         @if(newRecipientForm.get('searchType')?.value === 'alias'){
-          <input formControlName="accountSearch" placeholder="Ingrese Alias" />
+          <input formControlName="accountSearch" placeholder="Ingrese Alias" type="text"/>
           <button class="search" type="submit" [disabled]="newRecipientForm.invalid" (click)="showModalAndScroll()">Buscar</button>
         }
 

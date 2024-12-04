@@ -32,6 +32,13 @@ export class UpdateProfileComponent implements OnInit {
   user?: User;
   address?: Address;
 
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
   ngOnInit(): void {
     this.id = this.sessionService.getUserId();
     this.type = this.sessionService.getUserType() as string;

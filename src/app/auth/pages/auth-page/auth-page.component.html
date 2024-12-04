@@ -18,8 +18,10 @@
       </div>
       <div class="form-header">
         @if (!isLoginActive) {
+          <p>¿Ya sos cliente?</p>
           <button (click)="toggleForm('login')" class="toggle">Log In &nbsp; <span><i class="bi bi-arrow-right"></i></span></button>
         } @else {
+          <p>¿No tienes cuenta?</p>
           <button (click)="toggleForm('signup')" class="toggle-2"><span><i class="bi bi-arrow-left"></i></span> &nbsp; Sign Up </button>
         }
       </div>

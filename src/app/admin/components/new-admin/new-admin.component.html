@@ -6,7 +6,7 @@
       <div class="form-group">
         <label for="real_name">Nombre <span class="required">*</span></label>
         <div class="input-wrapper">
-          <input type="text" id="real_name" formControlName="real_name" placeholder=" " />
+          <input type="text" id="real_name" formControlName="real_name" placeholder=" " (keydown)="preventNumbers($event)"/>
         </div>
         @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
         <span class="error-message">Campo requerido</span>
@@ -19,7 +19,7 @@
       <div class="form-group">
         <label for="last_name">Apellido <span class="required">*</span></label>
         <div class="input-wrapper">
-          <input type="text" id="last_name" formControlName="last_name" placeholder=" " />
+          <input type="text" id="last_name" formControlName="last_name" placeholder=" " (keydown)="preventNumbers($event)"/>
         </div>
         @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
         <span class="error-message">Campo requerido</span>
@@ -141,7 +141,7 @@
         }
       </div>
 
-      <button type="submit" class="submit-button">Registrarse</button>
+      <button type="submit" class="submit-button" [disabled]="formulario.invalid">Registrarse</button>
     </form>
   </div>
 </div>

@@ -37,7 +37,7 @@ export class PayLoanComponent {
   }
 
   formulario = this.fb.nonNullable.group({
-    amount: [null, [Validators.required, Validators.min(1)]],
+    amount: [null, [Validators.required, Validators.min(0.001)]],
     account_id: [0, [Validators.required, Validators.min(1)]],
   });
 

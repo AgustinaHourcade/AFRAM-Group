@@ -160,6 +160,7 @@ export class MainPageComponent implements OnInit {
       source_account_id: 1, // Verifica si este ID es correcto
       destination_account_id: item.account_id,
       transaction_type: 'fixed term',
+      is_paid: 'yes'
     };
 
     console.log('Posting transaction:', transaction);
@@ -276,6 +277,7 @@ export class MainPageComponent implements OnInit {
 
 
   private verifyTransferProgramming() {
+    let account : Account;
     this.activeAccounts.forEach((account) => {
       this.loadTransactions(account.id).subscribe({
         next: (transactions) => {
@@ -287,6 +289,20 @@ export class MainPageComponent implements OnInit {
         })
           this.allTransactions.forEach((item) => {
             if (item.is_paid === 'no' && this.compareDateWithNow(item.transaction_date.toString())) {
+              this.accountService.getAccountById(item.source_account_id).subscribe({
+                next: (account) =>{
+                  account = account
+                },
+                error: (e: Error)=>{
+                  console.log(e.message);
+                }
+              })
+              if(account.balance < item.amount){
+                this.deleteTransfer(Number(item.id));
+                this.sendNotificationFail(account.user_id);
+                setTimeout(() => window.location.reload(), 300)
+                return;
+              }
               this.processTransferProgramming(item);
               this.sendEmail(item);
               this.markTransferProgrammingAsPaid(item);
@@ -299,6 +315,28 @@ export class MainPageComponent implements OnInit {
         },
       });
     });
+  }
+
+  deleteTransfer(id: number){
+    this.transactionService.deleteTransaction(id).subscribe({
+      next: (flag) =>{
+          console.log('Transferencia eliminada por falta de saldo');
+      },
+      error: (e: Error)=>{
+          console.log(e.message);
+      }
+    })
+  }
+
+
+  sendNotificationFail(id: number){
+    const notification = {
+      title: 'No pudo realizarse una transferencia programada!',
+      message: 'No tiene suficiente saldo, por favor revise su cuenta',
+      user_id: id
+    }
+
+    this.postNotification(notification)
   }
 
 
@@ -359,7 +397,7 @@ private sendTransferDestinationNotification(id: number) {
     next: (account) =>{
         const notification = {
           title: 'Transferencia acreditada!',
-          message: 'Se le acredito una transferencia, puede ver el detalle en la seccion "Mis movimientos"',
+          message: 'Se le acredito una transferencia, puede ver el detalle en la seccion "Mis transferenc"',
           user_id: account.user_id
         }
 
