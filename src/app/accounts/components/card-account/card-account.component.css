@@ -52,6 +52,7 @@ span {
   margin: 0;
 }
 
+/* Estilo para el botón de alternar visibilidad del balance */
 .toggle-btn {
   background: none;
   border: none;

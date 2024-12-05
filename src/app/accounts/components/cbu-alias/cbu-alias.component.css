@@ -48,18 +48,6 @@
   margin-top: 5px;
 }
 
-.no-print {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.no-print i {
-  font-size: 16px;
-}
-
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -101,6 +89,20 @@ h2 {
   background-color: var(--cancel-button-hover);
 }
 
+/* Estilo para los elementos que no deben imprimirse */
+.no-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.no-print i {
+  font-size: 16px;
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
   .buttons {
     display: flex;

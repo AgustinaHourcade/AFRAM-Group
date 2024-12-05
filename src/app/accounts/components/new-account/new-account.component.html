@@ -3,6 +3,7 @@
 <div class="page">
     <div class="page-sub">
         <h2>Crear cuenta</h2>
+        <!-- Formulario para crear cuenta -->
         <form [formGroup]="formulario" (ngSubmit)="createAccount()">
             <label for="account_type">Seleccione el tipo de cuenta</label>
             <select formControlName="account_type" id="account_type" (change)="onAccountTypeChange()">
@@ -12,10 +13,12 @@
             <label for="currency">Seleccione el tipo de divisa</label>
             <select formControlName="currency" id="currency">
                 <option value="ars">ARS</option>
+                <!-- Se agrega la opción 'USD' solo si el flag es 'all'/el tipo de cuenta es Caja de ahorro -->
                 @if (flag === 'all') {
                     <option value="usd">U$S</option>
                 }
             </select>
+            <!-- Botón deshabilitado si el formulario es inválido -->
             <button type="submit" [disabled]="formulario.invalid">Crear cuenta</button>
         </form>
     </div>

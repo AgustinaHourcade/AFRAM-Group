@@ -65,10 +65,7 @@ export class UpdateProfileComponent implements OnInit {
     email: ['', [Validators.required, Validators.email]],
     phone: [0, [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
     street: ['', [Validators.required]],
-    address_number: [
-      0,
-      [Validators.required, Validators.pattern('^[0-9]{1,5}$')],
-    ],
+    address_number: [ 0, [Validators.required, Validators.pattern('^[0-9]{1,5}$')],],
     floor: [''],
     apartment: [''],
     city: ['', [Validators.required]],
@@ -93,6 +90,7 @@ export class UpdateProfileComponent implements OnInit {
     this.formulario.controls['country'].setValue(address.country);
   }
 
+  // Actualizar direccion
   updateAddress() {
     if (this.formulario.invalid) return;
 
@@ -117,6 +115,7 @@ export class UpdateProfileComponent implements OnInit {
     });
   }
 
+  // Actualizar usuario
   updateProfile() {
     if (this.formulario.invalid) return;
 

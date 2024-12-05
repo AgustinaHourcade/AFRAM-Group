@@ -31,9 +31,9 @@
         <li><a routerLink="/trading">Dólares</a></li>
 
         <li class="dropdown-fixedterms" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
-          <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo</a>
+          <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo<i class="bi bi-arrow-right"></i></a>
           <ul class="submenu2">
-            <li><a routerLink="/fixed-terms">Mis plazos fijos</a></li>
+            <li><a routerLink="/fixed-terms">Mis plazos fijos </a></li>
             <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
           </ul>
         </li>

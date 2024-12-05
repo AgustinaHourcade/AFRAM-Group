@@ -1,22 +1,23 @@
 <!-- ! LISTO -->
 @if (account.account_type==='Savings') {
   <h2> Caja de ahorros - {{account.id}}/{{account.user_id}}</h2>
-}
-@if (account.account_type==='Checking') {
+}@else if (account.account_type==='Checking') {
   <h2> Cuenta corriente - {{account.id}}/{{account.user_id}}</h2>
 }
+
 <div #pdfContent class="cbuAlias">
   <div class="cbu">
     <p>CBU</p>
     <p>{{ account.cbu }}</p>
   </div>
 
+  <!-- Sección para mostrar y editar el Alias -->
   <div class="alias">
     <p>Alias</p>
+    <!-- Muestra el Alias o el formulario de edición según el estado de isEditing -->
     @if (!isEditing){
       <p>{{ account.alias }}</p>
-    } 
-    @if (isEditing){
+    } @else{
       <form [formGroup]="formulario">
         <div class="form-group">
           <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field" />
@@ -29,14 +30,17 @@
     <p>Titular</p>
     <p>{{ user.last_name }} {{ user.real_name }}</p>
   </div>
+
   <div class="dni">
     <p>DNI</p>
     <p>{{ user.dni }}</p>
   </div>
+
   <div class="buttons">
     <button (click)="copyToClipboard()" class="no-print">Copiar datos <i class="bi bi-copy"></i></button>
     <button (click)="downloadAsPDF()" class="no-print">Descargar <i class="bi bi-download"></i></button>
     <button class="no-print" (click)="isEditing ? modifyAlias() : toggleEditing()">{{ isEditing ? "Guardar" : "Modificar alias" }}<i class="bi bi-pencil-square"></i></button>
+    <!-- Botón de cancelar, solo visible en modo edición -->
     @if (isEditing) {
       <button class="no-print cancel-button" (click)="toggleEditing()">Cancelar</button>
     }

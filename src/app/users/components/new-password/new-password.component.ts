@@ -17,12 +17,12 @@ export class NewPasswordComponent {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private route = inject(Router);
-  //private activatedRoute = inject(ActivatedRoute);
 
   flag = false;
   showPassword1 = false;
   showPassword2 = false;
 
+  // Funcion para que la contraseña contenga una Mayuscula, Minuscila y algun numero.
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const hasUpperCase = /[A-Z]/.test(value);
@@ -33,6 +33,7 @@ export class NewPasswordComponent {
     return valid ? null : { passwordStrength: true };
   }
 
+  // Funcion para verificar que ambas contraseñas sean iguales
   matchPasswords(group: FormGroup): ValidationErrors | null {
     const password = group.get('hashed_password')?.value;
     const confirmPassword = group.get('confirm_password')?.value;
@@ -91,6 +92,7 @@ export class NewPasswordComponent {
     }
   }
 
+  // Verificacion del token enviado por email.
   verifyToken(){
     const token1= this.formularioToken.get('token1')?.value || '';
     const token2= this.formularioToken.get('token2')?.value || '';
@@ -116,6 +118,7 @@ export class NewPasswordComponent {
     })
   }
 
+  // Funcion para cambiar la contraseña
   changePassword(){
     const token1= this.formularioToken.get('token1')?.value || '';
     const token2= this.formularioToken.get('token2')?.value || '';
@@ -127,10 +130,6 @@ export class NewPasswordComponent {
     const newPassword = this.formularioContra.get('confirm_password')?.value;
     const token = token1 + token2 + token3 + token4 + token5 + token6;
     let dni: string;
-
-    
-
-
 
     this.userService.getUserIdByToken(Number (token)).subscribe({
       next: (id) =>{

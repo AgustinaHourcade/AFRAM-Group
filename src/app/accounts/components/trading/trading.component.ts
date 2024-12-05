@@ -2,15 +2,15 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { Cotizacion } from '@shared/dolar/interface/cotizacion';
+import { Account } from '@accounts/interface/account.interface';
 import { NavbarComponent } from "@shared/navbar/navbar.component";
 import { DolarService } from '@shared/dolar/service/dolar.service';
-import { Cotizacion } from '@shared/dolar/interface/cotizacion';
-import { DolarComponent } from "@shared/dolar/components/dolar.component";
-import { UserSessionService } from '@auth/services/user-session.service';
 import { AccountService } from '@accounts/services/account.service';
-import { Account } from '@accounts/interface/account.interface';
-import { TransactionService } from '@transactions/services/transaction.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { DolarComponent } from "@shared/dolar/components/dolar.component";
 import { Transaction } from '@transactions/interface/transaction.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
 
 @Component({
   selector: 'app-trading',
@@ -19,81 +19,63 @@ import { Transaction } from '@transactions/interface/transaction.interface';
   templateUrl: './trading.component.html',
   styleUrl: './trading.component.css'
 })
-
 export class TradingComponent implements OnInit {
-
+  //Inyección de dependencias
   private fb = inject(FormBuilder);
   private sessionService = inject(UserSessionService);
   private dolarService = inject(DolarService);
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
 
+  // Variables
   trading: string = '';
   accounts: Array<Account> = [];
-  dolar ?: Cotizacion;
-  id = this.sessionService.getUserId();
+  dolar?: Cotizacion;
+  id: number = this.sessionService.getUserId();
+  calculatedValueARSsell: number = 0;
+  calculatedValueARSbuy: number = 0;
 
-
-  ngOnInit(): void {
-    this.getAccounts()
-
-    this.dolarService.getDolarOficial().subscribe({
-      next: (cotizacion) => {
-        this.dolar = cotizacion
-        },
-        error: (e: Error)=>{
-          console.log(e.message)
-            }
-    })
-    
-  }
-
-getAccounts(){
-  this.accounts = [];
-  this.accountService.getAccountsByIdentifier(this.id).subscribe({
-    next: (accounts) => {
-      this.accounts = accounts
-    },
-    error: (e: Error)=>{
-      console.log(e.message);
-    }
-  })
-
-}
-
-calculatedValueARSsell: number = 0;
-calculatedValueARSbuy: number = 0;
-
-updateCalculatedARSsell(amount: string | undefined) {
-  const amountNum = parseFloat(amount as string);
-  if (!isNaN(amountNum) && this.dolar?.venta) {
-    this.calculatedValueARSsell = amountNum * Number(this.dolar.compra);
-  } else {
-    this.calculatedValueARSsell = 0;
-  }
-}
-
-updateCalculatedARSbuy(amount: string | undefined) {
-  const amountNum = parseFloat(amount as string);
-  if (!isNaN(amountNum) && this.dolar?.compra) {
-    this.calculatedValueARSbuy = amountNum * Number(this.dolar.venta);
-  } else {
-    this.calculatedValueARSbuy = 0;
-  }
-}
-
-resetValues(){
-  this.calculatedValueARSsell = 0;
-  this.calculatedValueARSbuy = 0;
-  setTimeout(() => this.formulario.reset(), 1000);
-}
-
-formulario = this.fb.nonNullable.group({
+  formulario = this.fb.nonNullable.group({
     'amount': ['', [Validators.required, Validators.max(10000), Validators.min(1)]],
     'source_account': ['', Validators.required],
     'destination_account': ['', Validators.required]
   })
+  
+  // Funciones
+  getAccounts(){
+    this.accounts = []; // ! BORRAR
+    this.accountService.getAccountsByIdentifier(this.id).subscribe({
+      next: (accounts) => {
+        this.accounts = accounts
+      },
+      error: (e: Error) => console.log(e.message)
+    })
+  }
 
+  
+  updateCalculatedARSsell(amount: string | undefined) {
+    const amountNum = parseFloat(amount as string);
+    if (!isNaN(amountNum) && this.dolar?.venta) {
+      this.calculatedValueARSsell = amountNum * Number(this.dolar.compra);
+    } else {
+      this.calculatedValueARSsell = 0;
+    }
+  }
+
+  updateCalculatedARSbuy(amount: string | undefined) {
+    const amountNum = parseFloat(amount as string);
+    if (!isNaN(amountNum) && this.dolar?.compra) {
+      this.calculatedValueARSbuy = amountNum * Number(this.dolar.venta);
+    } else {
+      this.calculatedValueARSbuy = 0;
+    }
+  }
+
+  resetValues(){
+    this.calculatedValueARSsell = 0;
+    this.calculatedValueARSbuy = 0;
+    setTimeout(() => this.formulario.reset(), 1000);
+  }
 
   buyUSD() {
     const source_account = this.formulario.get('source_account')?.value;
@@ -114,6 +96,7 @@ formulario = this.fb.nonNullable.group({
       destination_account_id: destination_account,
       transaction_type: 'exchange'
     }
+
     const descAmount = -1 * Number(transaction.amount);
 
     if(Number(transaction.amount)> Number(account?.balance)){
@@ -129,7 +112,7 @@ formulario = this.fb.nonNullable.group({
 
     Swal.fire({
       title: `¿Está seguro que desea comprar U$D ` + transactionUSD.amount + `?`,
-      text: `Se le debitaran $` + transaction.amount + ` de la cuenta seleccionada.`,
+      text: `Se le debitarán $` + transaction.amount + ` de la cuenta seleccionada.`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: '#00b4d8',
@@ -138,7 +121,6 @@ formulario = this.fb.nonNullable.group({
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-
         this.accountService.updateBalance(descAmount, Number(source_account)).subscribe({
           next: (response) => {
             this.accountService.updateBalance(transactionUSD.amount, Number(destination_account)).subscribe({
@@ -146,44 +128,41 @@ formulario = this.fb.nonNullable.group({
                 this.postTransaction(transaction);
                 this.postTransaction(transactionUSD);
                 Swal.fire({
-                  text: 'Operacion realizada correctamente.',
+                  text: 'Operacion realizada correctamente!',
                   icon: 'success',
                   confirmButtonText: 'Aceptar',
                   confirmButtonColor: '#00b4d8',
                 });
+
                 this.resetValues();
                 this.trading = '';
+
                 this.accountService.updateBalance(Number(transaction.amount), 1).subscribe({
                   next: ()=>{
-                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)');
-                  }, error : (err:Error)=>{
-                    console.log(err.message);
-                  }
+                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)'); // ! BORRAR
+                  }, 
+                  error : (err:Error) => console.log(err.message)
                 })
+
                 const descontarUSD = -1 * transactionUSD.amount;
+
                 this.accountService.updateBalance(descontarUSD, 2).subscribe({
-                  next: ()=>{
-                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');
-                  }, error : (err:Error)=>{
-                    console.log(err.message);
-                  }
+                  next: () => {
+                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');  // ! BORRAR
+                  }, 
+                  error : (err:Error) => console.log(err.message)
                 })
               },
-              error: (e: Error) => {
-                console.log(e.message);
-              }
+              error: (e: Error) => console.log(e.message)
             });
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         });
       }
     });
     setTimeout(() => {
       this.getAccounts();
     }, 2000);
-    
   }
 
   sellUSD() {
@@ -221,7 +200,7 @@ formulario = this.fb.nonNullable.group({
 
     Swal.fire({
       title: `¿Está seguro que desea vender U$D ` + amount + `?`,
-      text: `Se le acreditaran $` + transaction.amount + ` en la cuenta seleccionada.`,
+      text: `Se le acreditarán $` + transaction.amount + ` en la cuenta seleccionada.`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: '#00b4d8',
@@ -230,7 +209,6 @@ formulario = this.fb.nonNullable.group({
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-
         this.accountService.updateBalance(descAmount, Number(source_account)).subscribe({
           next: () => {
             this.accountService.updateBalance(transaction.amount, Number(destination_account)).subscribe({
@@ -243,32 +221,27 @@ formulario = this.fb.nonNullable.group({
                   confirmButtonText: 'Aceptar',
                   confirmButtonColor: '#00b4d8',
                 });
+
                 this.resetValues();
                 this.trading = '';
+
                 this.accountService.updateBalance(Number(transactionUSD.amount), 2).subscribe({
                   next: ()=>{
-                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');
-                  }, error : (err:Error)=>{
-                    console.log(err.message);
-                  }
+                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');  // ! BORRAR
+                  }, error : (err:Error) => console.log(err.message)
                 })
                 const descontarARS = -1 * transaction.amount;
                 this.accountService.updateBalance(descontarARS, 1).subscribe({
                   next: ()=>{
-                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)');
-                  }, error : (err:Error)=>{
-                    console.log(err.message);
-                  }
+                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)');  // ! BORRAR
+                  }, 
+                  error : (err:Error)=> console.log(err.message)
                 })
               },
-              error: (e: Error) => {
-                console.log(e.message);
-              }
+              error: (e: Error) => console.log(e.message)
             });
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)  
         });
       }
     });
@@ -277,8 +250,6 @@ formulario = this.fb.nonNullable.group({
     }, 2000);
     
   }
-
-
 
   postTransaction(transaction: any) {
   this.transactionService.postTransaction(transaction as Transaction).subscribe({
@@ -293,5 +264,16 @@ formulario = this.fb.nonNullable.group({
     error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
   });
 }
+
+  ngOnInit(): void {
+    this.getAccounts()
+
+    this.dolarService.getDolarOficial().subscribe({
+      next: (cotizacion) => {
+        this.dolar = cotizacion
+      },
+      error: (e: Error) => console.log(e.message)
+    })
+  }
 }
 

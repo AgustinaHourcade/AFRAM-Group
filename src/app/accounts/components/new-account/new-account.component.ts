@@ -14,20 +14,23 @@ import { NavbarComponent } from "@shared/navbar/navbar.component";
   styleUrl: './new-account.component.css'
 })
 export class NewAccountComponent {
+  // Inyección de dependencias
   private fb = inject(FormBuilder);
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
   private route = inject(Router)
   
-  user_id = this.userSessionService.getUserId();
-  flag : string ='';
+  // Variables
+  user_id: number = this.userSessionService.getUserId();
+  flag : string =''; // Bandera que indica el tipo de cuenta seleccionada
   
   formulario = this.fb.nonNullable.group({
-    account_type: ['', Validators.required],
-    currency: ['',Validators.required]
+    account_type: ['', Validators.required], // Tipo de cuenta obligatorio
+    currency: ['',Validators.required] // Divisa obligatoria
   })
 
-
+  // Funciones
+  // Generación de un CBU aleatorio de 22 dígitos
   generateRandomCBU() {
     let cbu = '';
     for (let i = 0; i < 22; i++) {
@@ -36,6 +39,7 @@ export class NewAccountComponent {
     return cbu;
   }
 
+  // Generación de un alias aleatorio de 14 caracteres
   generateRandomAlias() {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let alias = '';
@@ -46,6 +50,7 @@ export class NewAccountComponent {
   }
 
   createAccount() {
+    // Se arma el objeto de la nueva cuenta con valores del formulario y aleatorios para CBU y alias
     let cuenta = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
@@ -55,6 +60,7 @@ export class NewAccountComponent {
       currency: this.formulario.get('currency')?.value as string
     };
     
+    // Alerta de confirmación antes de crear la cuenta
     Swal.fire({
       title: `¿Está seguro que desea crear una nueva cuenta?`,
       icon: "warning",
@@ -67,6 +73,7 @@ export class NewAccountComponent {
       if (result.isConfirmed) {
         this.accountService.createAccount(cuenta).subscribe({
           next: (account) => {
+            // Notificación de éxito
             Swal.fire({
               title: "Cuenta creada correctamente!",
               icon: "success",
@@ -74,14 +81,13 @@ export class NewAccountComponent {
             });
             this.route.navigate(['/accounts'])
           },
-          error: (err: Error) => {
-            console.log(err.message);
-          }
+          error: (err: Error) => console.log(err.message)
         });
       }
     });
   }
 
+  // Función para manejar el cambio de tipo de cuenta
   onAccountTypeChange(): void {
     const accountType = this.formulario.get('account_type')?.value;
 
@@ -92,8 +98,6 @@ export class NewAccountComponent {
       this.flag = 'all';
     }
   }
-
-
 }
 
   

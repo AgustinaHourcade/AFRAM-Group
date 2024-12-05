@@ -261,6 +261,10 @@ small {
   font-size: 1rem;
 }
 
+.bi .bi-arrow-right{
+  display: none;
+} 
+
 @media (max-width: 1165px) {
   .nav-links {
     gap: 15px;
@@ -289,12 +293,25 @@ small {
     min-width: 100px;
   }
 
+  .account-menu:hover,
+  .fixed-terms-menu:hover,
+  .profile-menu:hover,
+  .loans-menu:hover,
+  .cards-menu:hover,
+  .transactions-menu:hover,
+  .submenu:hover {
+    display: flex;
+  }
+
   .submenu2 {
     min-width: 100px;
   }
 
   .notification-dropdown {
     width: 300px;
+  }
+  .bi .bi-arrow-right{
+    display: flex;
   }
 }
 
@@ -359,10 +376,16 @@ small {
   .buttons {
     flex-direction: column;
   }
+  .bi .bi-arrow-right{
+    display: flex;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
   .nav-links {
     flex-wrap: wrap;
+  }
+  .bi .bi-arrow-right{
+    display: flex;
   }
 }

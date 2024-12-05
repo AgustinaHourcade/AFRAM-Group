@@ -76,6 +76,7 @@ app-dolar {
   border: solid 1px var(--gray-2);
   display: block;
   overflow: hidden;
+  background-color: var(--white);
 }
 
 .dashboard-card:hover {
