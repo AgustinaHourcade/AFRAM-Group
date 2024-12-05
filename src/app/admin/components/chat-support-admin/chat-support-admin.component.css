@@ -85,7 +85,7 @@
 }
 
 .message-time {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--gray-1);
 }
 
@@ -98,9 +98,9 @@
 .message-input {
   flex: 1;
   padding: 10px;
-  font-size: 14px;
+  font-size: 0.875rem;
   border: 1px solid var(--gray-2);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   outline: none;
 }
 
@@ -141,15 +141,15 @@
 
   .message-content {
     max-width: 80%;
-    font-size: 14px;
+    /* font-size: 14px; */
   }
 
-  .message-time {
+  /* .message-time {
     font-size: 8px;
-  }
+  } */
 
   .message-input {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 }
 
@@ -165,11 +165,11 @@
   }
 
   .message-content {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .message-input {
     padding: 8px;
-    font-size: 12px;
+    /* font-size: 12px; */
   }
 }

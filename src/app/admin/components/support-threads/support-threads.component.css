@@ -34,12 +34,12 @@
 }
 
 .thread-date {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--gray-3);
 }
 
 .thread-item .bi-patch-exclamation {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--accent-color);
   position: absolute;
   top: 15px;

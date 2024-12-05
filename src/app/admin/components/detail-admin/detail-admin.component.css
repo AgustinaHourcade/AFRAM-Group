@@ -55,9 +55,9 @@
     padding: 15px;
   }
 
-  h2 {
+  /* h2 {
     font-size: 1.5rem;
-  }
+  } */
 
   .profile-card {
     padding: 15px;
@@ -79,9 +79,9 @@
 }
 
 @media (max-width: 480px) {
-  h2 {
+  /* h2 {
     font-size: 1.3rem;
-  }
+  } */
 
   .profile-card {
     padding: 10px;

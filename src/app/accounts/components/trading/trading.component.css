@@ -74,7 +74,7 @@ app-dolar {
   flex-direction: column;
   text-decoration: none;
   border: solid 1px var(--gray-2);
-  display: block;
+  /* display: block; */
   overflow: hidden;
   background-color: var(--white);
 }
@@ -108,9 +108,9 @@ app-dolar {
 
 @media screen and (max-width: 780px) {
 
-  .modal h2 {
+  /* .modal h2 {
     font-size: 1.5rem;
-  }
+  } */
 
   .modal input,
   .modal select {
@@ -118,25 +118,26 @@ app-dolar {
     font-size: 0.9rem;
   }
 
-  .modal button {
+  /* .modal button {
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-  }
+  } */
 }
 
 @media screen and (max-width: 550px) {
 
-  .dashboard-card .card-title {
-    font-size: 1.2rem;
+  .dashboard-card {
+    padding: 1rem;
+    width: 200px;
   }
 
-  .dashboard-card .card-icon {
+  /* .dashboard-card .card-icon {
     font-size: 1.2rem;
-  }
+  } */
 
-  .modal h2 {
+  /* .modal h2 {
     font-size: 1.2rem;
-  }
+  } */
 
   .modal input,
   .modal select {
@@ -144,8 +145,16 @@ app-dolar {
     font-size: 0.8rem;
   }
 
-  .modal button {
+  /* .modal button {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
+  } */
+}
+
+
+@media screen and (max-width: 480px) {
+  .dashboard-card {
+    padding: 0.5rem;
+    width: 180px;
   }
 }

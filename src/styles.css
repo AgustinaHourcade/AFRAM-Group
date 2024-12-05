@@ -17,7 +17,7 @@
   --gray-4: #212529; /* Gris oscuro para texto destacado */
   --cancel-button: #e63946; /* Rojo */
   --cancel-button-hover: #d62828; /* Rojo para hover */
-  --border-radius: 6px; /* Border radius */
+  --border-radius: 0.375rem; /* Border radius */
 
   --font-title: "Open Sans", sans-serif; /* Para títulos */ /* Para textos generales */
   --font-body: "Roboto", sans-serif; /* Para cuerpo de texto */
@@ -31,16 +31,17 @@
   box-sizing: border-box;
 }
 
-body{
-  background-color: var(--background-gray);
+html {
+  font-size: 16px; /* Base = 16px = 1rem */
 }
 
 h1 {
   font-family: var(--font-buttons);
-  font-weight: 300;
+  font-weight: 200;
   text-transform: uppercase;
   margin-bottom: 20px;
   text-align: center;
+  font-size: 3rem; /* 48px */
 }
 
 h2 {
@@ -48,39 +49,49 @@ h2 {
   font-weight: 300;
   text-transform: uppercase;
   color: var(--primary-color);
-  font-size: 2rem;
+  /* font-size: 2rem; */
   margin-bottom: 20px;
   text-align: center;
+  font-size: 2.25rem; /* 36px */
+
 }
 
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-family: var(--font-title);
+  font-size: 1.2rem; /* 19.2 */
 }
 
 body,
 p {
   font-family: var(--font-body);
+  font-size: 1rem; /* 16px */
+}
+
+small {
+  font-size: 0.875rem; /* 14px */
+}
+
+a {
+  font-size: 1rem; /* 16px */
+  text-decoration: none;
 }
 
 button {
   font-family: var(--font-buttons);
   background-color: var(--secondary-color);
-  border-radius: 6px;
+  border-radius: var(--border-radius);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
   color: var(--white);
-  font-size: 14px;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px var(--box-shadow-color);
+  font-size: 0.875rem;
+  padding: 0.625rem 1.25rem;
+  box-shadow: 0 0.125rem 0.25rem var(--box-shadow-color);
 }
 
 button:hover {
   background-color: var(--button-hover);
-  box-shadow: 0 3px 6px var(--box-shadow-color);
+  box-shadow: 0 0.1875 0.375rem var(--box-shadow-color);
 }
 
 button:disabled {
@@ -99,10 +110,10 @@ input,
 select {
   font-family: var(--font-menu-form);
   font-size: 1rem;
-  border: 1px solid var(--gray-2);
+  border: 0.0625rem solid var(--gray-2);
   color: var(--gray-3);
   border-radius: var(--border-radius);
-  margin-top: 8px;
+  margin-top: 0.5rem;
 }
 
 input::placeholder {
@@ -113,7 +124,7 @@ input:focus,
 select:focus {
   border-color: var(--accent-color);
   outline: none;
-  box-shadow: 0 0 8px var(--box-shadow-color);
+  box-shadow: 0 0 0.5rem var(--box-shadow-color);
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -124,4 +135,96 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"]::-ms-clear {
   display: none;
+}
+
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 2.5rem; /* 37.5px */
+  }
+
+  h2 {
+    font-size: 2rem; /* 30px */
+  }
+
+  h3 {
+    font-size: 1.75rem; /* 26.25px */
+  }
+
+  h4 {
+    font-size: 1.375rem; /* 20.625px */
+  }
+
+  p,
+  a {
+    font-size: 0.9375rem; /* 15px */
+  }
+
+  small {
+    font-size: 0.8125rem; /* 13px */
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem; /* 32px */
+  }
+
+  h2 {
+    font-size: 1.75rem; /* 28px */
+  }
+
+  h3 {
+    font-size: 1.5rem; /* 24px */
+  }
+
+  /* h4 {
+    font-size: 1.25rem; 
+  } */
+
+  p,
+  a {
+    font-size: 0.875rem; /* 14px */
+  }
+
+  small {
+    font-size: 0.75rem; /* 12px */
+  }
+
+  button {
+    font-size: 0.9rem; /* 14.4px */
+    padding: 0.5rem 1rem; /* 8px 16px */
+  }
+}
+
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem; /* 28px */
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.4;
+  }
+
+  p,
+  a {
+    font-size: 0.875rem; /* 14px */
+  }
+
+  small {
+    font-size: 0.75rem; /* 10.5px */
+  }
+
+  button {
+    font-size: 0.75rem; /* 12px */
+    padding: 0.4375rem 0.875rem; /* 7px 14px */
+  }
 }

@@ -63,7 +63,7 @@ select:focus + label,
 select:not([value=""]):not([value="undefined"]) + label {
   top: -8px;
   left: 8px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   padding: 0 4px;
 }
 
@@ -138,7 +138,7 @@ select.ng-invalid.ng-touched + label {
 
 .error-message {
   color: var(--cancel-button);
-  font-size: 12px;
+  font-size: 0.75rem;
   margin-top: 4px;
   display: flex;
   align-items: center;
@@ -202,15 +202,15 @@ select.ng-invalid.ng-touched + label {
 
   input,
   select {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
   .error-message {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
 
   .submit-button {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 }
 
@@ -230,7 +230,7 @@ select.ng-invalid.ng-touched + label {
   }
 
   .error-message {
-    font-size: 9px;
+    font-size: 0.5625rem;
   }
 }
 
@@ -242,11 +242,11 @@ select.ng-invalid.ng-touched + label {
 
   input,
   select {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .submit-button {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 }
 

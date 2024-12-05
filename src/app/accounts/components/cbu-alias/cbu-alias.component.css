@@ -27,7 +27,7 @@
 .name p,
 .dni p {
   margin: 0;
-  font-size: 17px;
+  /* font-size: 17px; */
   color: var(--gray-4);
 }
 
@@ -44,7 +44,7 @@
   padding: 8px;
   border: 1px solid var(--gray-1);
   border-radius: var(--border-radius);
-  font-size: 14px;
+  /* font-size: 14px; */
   margin-top: 5px;
 }
 
@@ -58,7 +58,7 @@
 button {
   width: 25%;
   padding: 10px;
-  font-size: 14px;
+  /* font-size: 14px; */
   display: flex;
   justify-content: center;
 }
@@ -94,12 +94,12 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 14px;
+  /* font-size: 14px; */
   cursor: pointer;
 }
 
 .no-print i {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 /* Responsividad */

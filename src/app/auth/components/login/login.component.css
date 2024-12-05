@@ -35,14 +35,14 @@ input {
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
   background: transparent;
-  height: 36px;
+  /* height: 36px; */
 }
 
 input:focus + label,
 label.filled {
   top: -10px;
   left: 5px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--accent-color);
 }
 
@@ -79,12 +79,12 @@ a {
   color: var(--cancel-button) !important;
   top: -10px;
   left: 5px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .error {
   color: var(--cancel-button);
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-top: -5px;
   margin-bottom: 10px;
   display: flex;

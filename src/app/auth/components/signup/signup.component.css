@@ -48,7 +48,7 @@ input:focus + label,
 label.filled {
   top: -10px;
   left: 5px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--accent-color);
 }
 
@@ -79,7 +79,7 @@ input:not(:focus) + label {
 
 .error-message {
   color: var(--cancel-button);
-  font-size: 11px;
+  font-size: 0.6875rem;
   margin-top: 3px;
   display: flex;
   align-items: center;
@@ -103,12 +103,12 @@ input:not(:focus) + label {
   color: var(--cancel-button) !important;
   top: -10px;
   left: 5px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .error {
   color: var(--cancel-button);
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-top: -5px;
   margin-bottom: 10px;
   display: flex;
@@ -168,12 +168,12 @@ input.ng-invalid.ng-touched + label {
   }
 
   input {
-    font-size: 13px;
+    font-size: 0.8125rem;
   }
 
-  .submit-button {
+  /* .submit-button {
     font-size: 13px;
-  }
+  } */
 }
 
 @media (max-width: 480px) {
@@ -182,7 +182,7 @@ input.ng-invalid.ng-touched + label {
     font-size: 12px;
   }
 
-  .submit-button {
+  /* .submit-button {
     font-size: 12px;
-  }
+  } */
 }

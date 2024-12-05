@@ -23,9 +23,9 @@ body {
   margin: 20px;
 }
 
-header h1 {
+/* header h1 {
   font-size: 2.5rem;
-}
+} */
 
 .intro {
   font-size: 1.2rem;
@@ -58,9 +58,9 @@ header h1 {
 
 /* Responsividad */
 @media (max-width: 1024px) {
-  header h1 {
+  /* header h1 {
     font-size: 2rem;
-  }
+  } */
 
   .container {
     padding: 1.5rem;
@@ -81,10 +81,10 @@ header h1 {
     padding: 1rem;
     margin: 10px;
   }
-
+/* 
   header h1 {
     font-size: 1.8rem;
-  }
+  } */
 
   .intro {
     font-size: 1rem;
@@ -101,9 +101,9 @@ header h1 {
     padding: 0.8rem;
   }
 
-  header h1 {
+  /* header h1 {
     font-size: 1.5rem;
-  }
+  } */
 
   .intro {
     font-size: 0.9rem;

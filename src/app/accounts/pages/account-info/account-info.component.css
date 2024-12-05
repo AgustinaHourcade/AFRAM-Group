@@ -40,14 +40,14 @@ input[type="month"] {
 }
 
 span {
-  font-size: 1rem;
+  /* font-size: 1rem; */
   color: var(--gray-3);
   display: block;
   text-align: center;
 }
 
 p {
-  font-size: 1rem;
+  /* font-size: 1rem; */
   color: var(--gray-3);
   padding: 20px;
   text-align: center;

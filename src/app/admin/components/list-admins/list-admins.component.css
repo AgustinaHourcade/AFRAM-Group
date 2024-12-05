@@ -66,7 +66,7 @@ tbody tr:hover {
 @media (max-width: 768px) {
   table {
     width: 100%;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   th,
@@ -83,15 +83,15 @@ tbody tr:hover {
     padding: 8px;
   }
 
-  .clear-button {
+  /* .clear-button {
     font-size: 14px;
     padding: 8px;
-  }
+  } */
 }
 
 @media (max-width: 550px) {
   table {
-    font-size: 12px;
+    font-size: 0.75rem;
     width: 100%;
   }
 
@@ -112,10 +112,10 @@ tbody tr:hover {
     padding: 6px;
   }
 
-  .clear-button {
+  /* .clear-button {
     padding: 6px 10px;
     font-size: 12px;
-  }
+  } */
 
   .details{
     padding: 8px;

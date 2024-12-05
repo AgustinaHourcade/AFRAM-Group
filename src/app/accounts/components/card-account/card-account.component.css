@@ -17,9 +17,9 @@
 }
 
 .card h3 {
-  font-family: var(--font-title);
+  /* font-family: var(--font-title); */
   color: var(--primary-color);
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   margin-bottom: 10px;
 }
 
@@ -29,14 +29,14 @@
 }
 
 .card .balance-number {
-  font-family: var(--font-title);
+  /* font-family: var(--font-title); */
   font-weight: bold;
   color: var(--secondary-color);
   margin-top: 10px;
 }
 
 span {
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 
 .amount {

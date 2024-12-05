@@ -46,8 +46,9 @@ img {
 .right-panel {
   width: 50%;
   display: grid;
-  grid-template-rows: 80px 430px 0.5fr;
+  grid-template-rows: 80px 430px 80px;
   justify-items: center;
+  align-self: center;
 }
 
 .form-container {
@@ -72,7 +73,7 @@ img {
   border: none;
   background-color: #00bcd4;
   color: white;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: bold;
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   cursor: pointer;
@@ -114,7 +115,7 @@ img {
   }
 
   .toggle, .toggle-2 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 }
 
@@ -137,9 +138,9 @@ img {
     padding: 15px; 
   } */
 
-  .toggle, .toggle-2 {
+  /* .toggle, .toggle-2 {
     font-size: 14px;
-  }
+  } */
 }
 
 /* Pantallas de hasta 550px */
@@ -160,7 +161,7 @@ img {
   } */
 
   .toggle, .toggle-2 {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   img {

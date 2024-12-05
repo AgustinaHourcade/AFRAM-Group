@@ -4,7 +4,7 @@ h2 {
 
 
 p {
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   text-align: center;
   margin-top: 30px;
   padding: 15px;
@@ -59,11 +59,11 @@ tr:hover {
 @media (max-width: 1024px) {
   h2 {
     margin: 15px 0;
-    font-size: 1.8rem;
+    /* font-size: 1.8rem; */
   }
 
   p {
-    font-size: 1.1rem;
+    /* font-size: 1.1rem; */
     width: 70%;
     padding: 12px;
     margin-top: 25px;
@@ -81,11 +81,11 @@ tr:hover {
 @media (max-width: 768px) {
   h2 {
     margin: 10px 0;
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
   }
 
   p {
-    font-size: 1rem;
+    /* font-size: 1rem; */
     width: 80%;
     padding: 10px;
     margin-top: 20px;
@@ -103,12 +103,12 @@ tr:hover {
 
 @media (max-width: 550px) {
   h2 {
-    font-size: 1.1rem; /* Reducir tamaño de fuente */
+    /* font-size: 1.1rem; Reducir tamaño de fuente */
     margin: 8px 0; /* Menos margen */
   }
 
   p {
-    font-size: 0.9rem; /* Reducir tamaño de fuente */
+    /* font-size: 0.9rem; Reducir tamaño de fuente */
     width: 90%; /* Ajustar el ancho al 90% */
     padding: 8px; /* Reducir padding */
     margin: 8px auto; /* Asegurar centrado */

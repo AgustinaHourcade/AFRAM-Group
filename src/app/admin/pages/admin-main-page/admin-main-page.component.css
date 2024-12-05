@@ -39,12 +39,12 @@
 
 .dashboard-card h2 {
   font-size: 1.5rem;
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
   margin-bottom: 0.75rem;
 }
 
 .dashboard-card p {
-  font-size: 1rem;
+  /* font-size: 1rem; */
   color: var(--gray-3);
   line-height: 1.4;
 }
@@ -68,9 +68,9 @@
     font-size: 1.4rem;
   }
 
-  .dashboard-card p {
+  /* .dashboard-card p {
     font-size: 0.9rem;
-  }
+  } */
 }
 
 @media (max-width: 768px) {
@@ -88,13 +88,13 @@
     font-size: 2rem;
   }
 
-  .card-title {
+  /* .card-title {
     font-size: 1.3rem;
   }
 
   .card-description {
     font-size: 0.85rem;
-  }
+  } */
 }
 
 @media (max-width: 550px) {
@@ -118,7 +118,7 @@
     font-size: 1.2rem;
   }
 
-  .dashboard-card p {
+  /* .dashboard-card p {
     font-size: 0.8rem;
-  }
+  } */
 }
