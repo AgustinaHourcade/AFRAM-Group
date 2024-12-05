@@ -8,8 +8,8 @@ export class FaqService {
   private topics: TopicItem[] = [
     {
       title: 'Cuenta y Seguridad',
-      icon: '🔒',
-      keywords: ['contraseña', 'clave', 'seguridad', 'usuario', 'personal', 'sospechosa', '2fa', 'autenticación'],
+      icon: 'bi-fingerprint',
+      keywords: ['contraseña', 'clave', 'seguridad', 'usuario', 'personal', 'sospechosa', '2fa', 'autenticación', 'acceso', 'cambio', 'perfil', 'recuperación'],
       faqs: [
         {
           question: '¿Cómo cambio mi contraseña?',
@@ -17,7 +17,7 @@ export class FaqService {
         },
         {
           question: '¿Qué hago si olvidé mi usuario o contraseña?',
-          answer: 'En la página de LogIn, haga clic en "¿Olvidó su contraseña?" y siga los pasos de recuperación.'
+          answer: 'En la página de LogIn, haga click en "¿Olvidó su contraseña?" y siga los pasos de recuperación.'
         },
         {
           question: '¿Cómo actualizo mi información personal (email, teléfono, etc.)?',
@@ -25,17 +25,14 @@ export class FaqService {
         },
         {
           question: '¿Qué debo hacer si detecto actividad sospechosa en mi cuenta?',
-          answer: 'Contacte inmediatamente a nuestro numero 2235123456 y reporte la actividad sospechosa.'
+          answer: 'Actualice su contraseña haciendo click en "Modificar contraseña" o dirijase a una de nuestras sucursales'
         }
       ]
     },
     {
-      title: 'Transferencias',
+      title: 'Transferencias', 
       icon: '💸',
-      keywords: ['transferencia', 'pago', 'límite', 'servicio', 'programar', 
-                  'futura', 'dinero', 'remitente', 'destinatario', 'saldo',
-                 'transacción', 'cuenta', 'banco', 'instantánea']
-,
+      keywords: ['transferencia', 'pago','servicio', 'programar', 'futura', 'envío', 'comprobante', 'operación', 'transferir', 'transaccion'],
       faqs: [
         {
           question: '¿Cómo realizo una transferencia a otra cuenta?',
@@ -52,67 +49,134 @@ export class FaqService {
         {
           question: '¿Como puedo descargar el comprobante de la transferencia?',
           answer: 'Vaya a la sección "Mis transferencias", seleccione "Ver comprobante" y luego "Descargar PDF"'
+        },
+        {
+          question: '¿Puedo programar una transferencia?',
+          answer: 'Vaya a la sección "Transferencias", seleccione la opcion "Programar transferencia", ingrese la fecha, luego ingrese el alias o cbu y el monto a transferir.'
         }
       ]
     },
     {
-      title: 'Tarjetas y Préstamos',
+      title: 'Tarjetas',
       icon: '💳',
-      keywords: ['tarjeta', 'crédito', 'débito', 'préstamo', 'robo', 'perdida', 'resumen'],
+    bi-credit-card-fillkeywords: ['tarjeta', 'crédito', 'débito', 'robo', 'perdida', 'límites', 'solicitar'],
       faqs: [
         {
           question: '¿Cómo solicito una tarjeta de crédito o débito?',
-          answer: 'Acceda a "Tarjetas" y seleccione "Solicitar nueva tarjeta".'
+          answer: 'Acceda a "Tarjetas", "Nueva tarjeta" y seleccione la cuenta y el tipo para soliciatarla.'
         },
         {
           question: '¿Cómo reporto una tarjeta perdida o robada?',
-          answer: 'Llame inmediatamente a nuestra línea de atención 24/7 o use la opción "Dar de baja tarjeta".'
+          answer: 'Acceda a "Soporte", cree una "Nueva consulta", elija el tema que corresponda y deje un mensaje con su problema.'
         },
         {
-          question: '¿Cómo consulto el estado de mis pagos de préstamo?',
-          answer: 'En "Préstamos", seleccione "Ver mis prestamos"  para ver el estado de los pagos.'
+          question: '¿Cómo doy de baja una tarjeta?',
+          answer: 'Acceda a "Tarjetas" y seleccione la opción "Dar de baja" que corresponda a la tarjeta extraviada.'        
+        },
+        {
+          question: '¿Donde veo mis tarjetas?',
+          answer: 'Puede ver todas sus tarjetas accediendo a "Tarjeta" e ingrese en la seccion "Mis tarjetas".'
         }
       ]
     },
     {
       title: 'Consultas de Saldo y Movimientos',
       icon: '📊',
-      keywords: ['saldo', 'movimiento', 'extracto', 'estado', 'cuenta', 'historial'],
+      keywords: ['saldo', 'movimiento', 'extracto', 'estado', 'cuenta', 'historial', 'consultar', 'ver'],
       faqs: [
         {
           question: '¿Cómo consulto el saldo de mi cuenta?',
           answer: 'El saldo se muestra en la página principal o en la sección "Mis cuentas".'
         },
         {
+          question: '¿Donde veo mis movimientos bancarios?',
+          answer: 'Acceda a la pagina principal en la seccion "Movimientos", y luego seleccione la cuenta correspondiente.'
+        },
+        {
           question: '¿Cómo veo el historial de mis movimientos bancarios?',
-          answer: 'En "Transferencias", seleccione su cuenta y luego "Ver transferencias".'
+          answer: 'En la seccion "Mis cuentas", luego seleccione ver datos y elija el mes que desee.'
+        },
+        {
+          question: '¿Cómo descargo historial de mis movimientos bancarios?',
+          answer: 'En la seccion "Mis cuentas", luego seleccione ver datos, elija el mes que desee y seleccione "Descargar resumen" .'
+        },
+        {
+          question: '¿Cómo veo un comprobante el transaccion?',
+          answer: 'Acceda a la pagina principal en la seccion "Movimientos", seleccione la cuenta correspondiente, elija el movimiento que desee y seleccione "Ver Comprobante"'
+        },
+        {
+          question: '¿Cómo veo un comprobante el transaccion?',
+          answer: 'Acceda a la pagina principal en la seccion "Movimientos", seleccione la cuenta correspondiente, elija el movimiento que desee, seleccione "Ver Comprobante" y elija "Descargar comprobante"'
         }
       ]
     },
     {
       title: 'Otros Servicios y Ayuda',
       icon: '❓',
-      keywords: ['ayuda', 'soporte', 'cajero', 'sucursal', 'contacto', 'horario'],
+      keywords: ['ayuda', 'soporte', 'cajero', 'sucursal', 'contacto', 'horario', 'atención', 'atencion', 'servicios', 'consultas', 'localizar'],
       faqs: [
         {
           question: '¿Cómo abro una nueva cuenta?',
           answer: 'Vaya a "Cuentas" y seleccione "Solicitar cuenta".'
         },
         {
-          question: '¿Dónde encuentro los cajeros automáticos más cercanos?',
-          answer: 'Use la opción "Localizar cajeros" en el menú principal para ver el mapa.'
+          question: '¿Cómo contacto al servicio de atención al cliente?',
+          answer: 'Puede iniciar una consulta en la sección "Soporte", nuestros asistentes le responderán a la brevedad.'
+        }
+      ]
+    },
+    {
+      title: 'Inversiones',
+      icon: '📈',
+      keywords: ['dólares', 'dolares', 'dólar', 'dolar', 'plazo fijo','préstamo', 'prestamo','vencimiento', 'interes', 'interés', 'compra', 'venta'],
+      faqs: [
+        {
+          question: '¿Cómo compro y vendo dólares?',
+          answer: 'Dirijase a la parte de "Inversiones", "Dólares" ahí va a poder seleccionar si desea "Comprar" o "Vender".'
         },
         {
-          question: '¿Cómo contacto al servicio de atención al cliente?',
-          answer: 'Puede llamar al 2235123456 las 24hs.'
+          question: '¿Cómo hago un plazo fijo?',
+          answer: 'Dirijase a la sección de "Soporte", ahí va a poder ver un listado de las consultas "Activas" y "Finalizadas".'
+        },
+        {
+          question: '¿Cómo veo un plazo fijo',
+          answer: 'El soporte está disponible las 24hs del día. Nuestros asistentes te responderán lo antes posible.'
+        },
+        {
+          question: '¿Cómo hago un prestamo?',
+          answer: 'El soporte está disponible las 24hs del día. Nuestros asistentes te responderán lo antes posible.'
+        },
+        {
+          question: '¿Cómo veo un prestamo?',
+          answer: 'El soporte está disponible las 24hs del día. Nuestros asistentes te responderán lo antes posible.'
+        },
+        {
+          question: '¿Cómo pago un prestamo?',
+          answer: 'El soporte está disponible las 24hs del día. Nuestros asistentes te responderán lo antes posible.'
+        }
+      ]
+    },
+    {
+      title: 'Canal de soporte',
+      icon: '❓',
+      keywords: ['ayuda', 'soporte', 'contacto', 'atención', 'atencion', 'consultas', 'errores', 'error'],
+      faqs: [
+        {
+          question: '¿Cómo contacto al servicio de atención al cliente? ',
+          answer: 'Puede iniciar una consulta en la sección "Soporte", nuestros asistentes le responderán a la brevedad.'
         },
         {
           question: '¿Cuáles son los horarios de atención de soporte?',
-          answer: 'El soporte está disponible 24/7 para emergencias y de 8:00 a 20:00 para consultas generales.'
+          answer: 'El soporte está disponible las 24hs del día. Nuestros asistentes te responderán lo antes posible.'
+        },
+        {
+          question: '¿Cómo puedo ver mis consultas?',
+          answer: 'Dirijase a la seccion de "Soporte", ahí va a poder ver un listado de las consultas "Activas" y "Finalizadas".'
         }
       ]
     }
   ];
+  
 
   getTopics(): TopicItem[] {
     return this.topics;

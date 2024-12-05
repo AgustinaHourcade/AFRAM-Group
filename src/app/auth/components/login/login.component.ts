@@ -86,7 +86,16 @@ export class LoginComponent {
                 next: (id) => {
                   this.id = id as number;
                   this.userSessionService.setUserId(Number(id));
-                  
+                  if(this.intentos > 0){
+                    this.userService.unblockUser(user.dni).subscribe({
+                      next: (flag) => {
+                        console.log("Cuenta desbloqueada con exito.");
+                      },
+                      error: (e:Error) => {
+                        console.log(e.message);
+                      }
+                    })
+                  }
                   this.userService.getUser(Number(id)).subscribe({
                     next: (user) => {
                   

@@ -19,7 +19,7 @@
     <li class="account-dropdown" [ngClass]="{'show-menu': activeMenu === 'account'}">
       <a class="dropdown-link" (click)="toggleMenu('account')">Cuentas</a>
       <ul class="account-menu">
-        <li><a routerLink="/accounts">Mis cuentas</a></li>
+        <li><a routerLink="/accounts" target="_self">Mis cuentas</a></li>
         <li><a routerLink="/accounts/new-account">Solicitar cuenta</a></li>
       </ul>
     </li>

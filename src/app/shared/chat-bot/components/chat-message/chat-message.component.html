@@ -13,7 +13,7 @@
         <button
         (click)="selectTopic(topic.title)"
         class="topic-button">
-        <span class="topic-icon">{{ topic.icon }}</span>
+        <span class="topic-icon"><i [class]="topic.icon"></i></span>
         {{ topic.title }}
       </button>
     }
