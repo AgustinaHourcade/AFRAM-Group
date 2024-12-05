@@ -21,8 +21,6 @@ Sigue estos pasos para configurar el proyecto en tu máquina:
 - git clone https://github.com/AgustinaHourcade/AFRAM-Group.git
 - cd AFRAM-group
 - npm install
-- npm i html2canvas
-- npm i jspdf
 
 Ejecuta ng serve para un servidor de desarrollo. Navega a http://localhost:4200/. La aplicación se recargará automáticamente si cambias alguno de los archivos fuente.
 
