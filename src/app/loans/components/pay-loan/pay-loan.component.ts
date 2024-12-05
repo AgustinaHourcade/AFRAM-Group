@@ -37,7 +37,7 @@ export class PayLoanComponent {
   }
 
   formulario = this.fb.nonNullable.group({
-    amount: [null, [Validators.required, Validators.min(0.001)]],
+    amount: [null, [Validators.required, Validators.min(1), Validators.pattern(/^\d*\.?\d{0,2}$/)]],
     account_id: [0, [Validators.required, Validators.min(1)]],
   });
 
@@ -158,5 +158,28 @@ export class PayLoanComponent {
       },
     });
   }
+
+  validateInteger(event: KeyboardEvent): void {
+    const inputElement = event.target as HTMLInputElement;
+
+    const cursorPosition = inputElement.selectionStart || 0;
+
+    if (event.key === 'Backspace' || event.key === 'Delete') {
+      return;
+    }
+
+    if (/[^0-9]/.test(event.key)) {
+      event.preventDefault();
+
+      const filteredValue = inputElement.value.replace(/[^0-9]/g, '');
+      inputElement.value = filteredValue;
+
+      const adjustment = cursorPosition - (inputElement.value.length - filteredValue.length);
+      inputElement.setSelectionRange(adjustment, adjustment);
+    }
+  }
+
+
+
 
 }

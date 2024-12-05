@@ -34,7 +34,7 @@ export class ListRatesComponent implements OnInit{
 
   formulario = this.fb.nonNullable.group({
     loan_interest_rate: ['', [Validators.required, Validators.min(0)]],
-    fixed_term_interest_rate: ['', [Validators.required, Validators.min(0)]]
+    fixed_term_interest_rate: ['', [Validators.required, Validators.min(0.0001)]]
   })
 
   newRate(){
@@ -72,14 +72,14 @@ export class ListRatesComponent implements OnInit{
     });
 
   }
-  showingBubble: string | null = null; 
+  showingBubble: string | null = null;
 
   showBubble(type: string) {
-    this.showingBubble = type; 
+    this.showingBubble = type;
   }
 
   hideBubble() {
-    this.showingBubble = null; 
+    this.showingBubble = null;
   }
 
 }

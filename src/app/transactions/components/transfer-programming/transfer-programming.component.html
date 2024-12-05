@@ -1,18 +1,18 @@
 <div class="page">
 @if (accounts.length === 0) {
-  <h2>Lo sentimos, no tiene cuentas disponibles para realizar una transferencia</h2>     
-}@else {  
+  <h2>Lo sentimos, no tiene cuentas disponibles para realizar una transferencia</h2>
+}@else {
   <div class="programming-container" [ngClass]="{'open': flag }">
     <h2>Programar Transferencia</h2>
     <form [formGroup]="dateForm">
       <label for="transaction_date">Fecha de transferencia:</label>
-      <input 
-        id="transaction_date" 
-        type="date" 
-        formControlName="transaction_date" 
-        [min]="minDate" 
-        [max]="maxDate" 
-        (keydown)="$event.preventDefault()" 
+      <input
+        id="transaction_date"
+        type="date"
+        formControlName="transaction_date"
+        [min]="minDate"
+        [max]="maxDate"
+        (keydown)="$event.preventDefault()"
       />
       <button class="dateButton" type="submit" (click)="showModalAndScroll()" [disabled]="!dateForm.valid"> Seleccionar
         fecha </button>
@@ -26,12 +26,12 @@
           <option value="cbu">CBU</option>
           <option value="alias">Alias</option>
         </select>
-        
+
         @if(newRecipientForm.get('searchType')?.value === 'cbu'){
           <input formControlName="accountSearch" placeholder="Ingrese CBU" type="text"/>
           <button class="search" type="submit" [disabled]="newRecipientForm.invalid">Buscar</button>
         }
-        
+
         @if(newRecipientForm.get('searchType')?.value === 'alias'){
           <input formControlName="accountSearch" placeholder="Ingrese Alias" type="text"/>
           <button class="search" type="submit" [disabled]="newRecipientForm.invalid" (click)="showModalAndScroll()">Buscar</button>
@@ -48,9 +48,11 @@
           <label for="cuentas">Seleccione una cuenta</label>
           <select name="cuentas" id="cuentas" formControlName="selectedAccountId">
             @for (item of accounts; track $index) {
-            <option [value]="item.id">
-              {{ item.id }} - {{ item.balance }}
-            </option>
+              @if(item.currency === 'ars'){
+                <option [value]="item.id">
+                  {{ item.id }} - {{ item.balance }}
+                </option>
+              }
             }
           </select>
 
@@ -58,8 +60,8 @@
           <input type="number" id="cantidad" formControlName="amountToTransfer" min="1" />
           <button type="button" (click)="realizarTransfer()">Continuar</button>
         }
-        
-        
+
+
       </form>
     </div>
     }

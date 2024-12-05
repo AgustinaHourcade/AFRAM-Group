@@ -14,7 +14,7 @@
     <label for="account_id">Seleccione una cuenta para pagar: </label>
     <select name="account_id" id="account_id" formControlName="account_id">
       @for (item of accounts; track $index) {
-        @if (!item.closing_date) {
+        @if (!item.closing_date && item.currency === 'ars') {
             <option [value]="item.id">
               {{ item.id }} - {{ item.balance }}
             </option>
@@ -34,6 +34,7 @@
       id="amount"
       type="number"
       formControlName="amount"
+      (keydown)="validateInteger($event)"
     />
     @if(formulario.controls['amount'].touched &&
     formulario.controls['amount'].getError('required')){

@@ -252,7 +252,19 @@ small {
   align-items: center;
 }
 
-.toggle-icon {
+.toggle-icon,.logout-container i {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.toggle i{
   font-size: 2rem;
   cursor: pointer;
 }
@@ -263,10 +275,28 @@ small {
 
 .bi .bi-arrow-right{
   display: none;
-} 
+}
 
 .dropdown-link i{
   display: none;
+}
+
+.action-all{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  color: var(--gray-4);
+  padding: 5px;
+}
+
+.action-all a,
+.action-all i{
+  color: var(--gray-4);
+}
+
+.action-all a:hover,
+.action-all i:hover{
+  color: var(--button-hover);
 }
 
 @media (max-width: 1165px) {

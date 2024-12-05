@@ -11,7 +11,7 @@
     }
   </button>
   <ul class="nav-links" [ngClass]="{'responsive': isResponsiveMenuVisible}">
-    
+
     <li>
       <a [routerLink]="['/list-admins']">Administradores</a>
     </li>
@@ -39,9 +39,9 @@
       <li><a [routerLink]="['/admin-profile']">Ver perfil</a></li>
       <li><a [routerLink]="['/update-password-admin']">Modificar contraseña</a></li>
     </ul>
-    
+
     </li>
-    
+
 
   <li>
     <div class="toggle-container">
@@ -50,11 +50,14 @@
   </li>
 
 
+  <li>
+    <div class="logout-container">
+      <i (click)="logout()" class="bi bi-box-arrow-right"></i>
+    </div>
+  </li>
 
-  <div class="buttons">
-    <li>
-      <button (click)="logout()">Cerrar sesión</button>
-    </li>
-  </div>
+  <!-- <div class="buttons"> -->
+
+  <!-- </div> -->
   </ul>
 </nav>

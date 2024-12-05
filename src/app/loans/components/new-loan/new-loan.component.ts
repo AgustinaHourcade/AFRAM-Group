@@ -91,9 +91,9 @@ export class NewLoanComponent implements OnInit {
           title: `¿Está seguro que desea solicitar el préstamo?`,
           text:
             'El monto que va a recibir es $' +
-            this.loan.amount +
+            Math.trunc(this.loan.amount) +
             ', debe devolver $' +
-            total +
+            Math.trunc(total) +
             ' el dia ' +
             this.formatearFecha() + '.',
           icon: 'warning',

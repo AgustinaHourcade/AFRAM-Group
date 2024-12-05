@@ -118,8 +118,31 @@ export class NavbarComponent implements OnInit{
     })
   }
 
+  markAllAsRead(user_id: number){
+    this.notificationsService.markAllAsRead(user_id).subscribe({
+      next: (flag)=>{
+        if(flag){
+          this.getNotification(user_id);
+        }
+      },
+      error: (e: Error) =>{
+        console.log(e.message);
+      }
+    })
+  }
+
   deleteNotification(id:number, user_id: number){
     this.notificationsService.deleteNotification(id).subscribe({
+      next:()=>{
+        this.getNotification(user_id);
+      },error:(err:Error)=>{
+        console.log(err.message);
+      }
+    })
+  }
+
+  deleteAllNotifications(user_id: number){
+    this.notificationsService.deleteAllNotifications(user_id).subscribe({
       next:()=>{
         this.getNotification(user_id);
       },error:(err:Error)=>{

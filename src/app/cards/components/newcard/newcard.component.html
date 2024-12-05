@@ -18,11 +18,13 @@
         }@else {
           <option value="" disabled selected>Seleccione una cuenta</option>
           @for (item of accounts; track $index) {
-          @if (item.account_type === 'Savings') {
+          @if(item.currency === 'ars'){
+            @if (item.account_type === 'Savings') {
               <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
-          }
-          @else if (item.account_type === 'Checking') {
+            }
+            @else if (item.account_type === 'Checking') {
               <option value="{{item.id}}">CC {{ item.id }}-{{ userId }}/2 </option>
+            }
           }
         }
       }

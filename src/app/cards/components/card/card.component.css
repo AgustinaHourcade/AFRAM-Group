@@ -245,6 +245,7 @@
 
 .terms p {
   color: var(--black);
+  font-size: 0.7rem;
 }
 
 h2 {
@@ -288,7 +289,7 @@ h2 {
 }
 
 .toggle-btn {
-  background-color: var(--white);
+  background-color: transparent;
   font-size: 1.75rem;
   border: none;
   padding: 0.5rem;

@@ -30,8 +30,8 @@ export class FaqService {
       ]
     },
     {
-      title: 'Transferencias', 
-      icon: '💸',
+      title: 'Transferencias',
+      icon: 'bi bi-arrow-left-right',
       keywords: ['transferencia', 'pago','servicio', 'programar', 'futura', 'envío', 'comprobante', 'operación', 'transferir', 'transaccion'],
       faqs: [
         {
@@ -58,8 +58,8 @@ export class FaqService {
     },
     {
       title: 'Tarjetas',
-      icon: '💳',
-    bi-credit-card-fillkeywords: ['tarjeta', 'crédito', 'débito', 'robo', 'perdida', 'límites', 'solicitar'],
+      icon: 'bi-credit-card-fill',
+      keywords: ['tarjeta', 'crédito', 'débito', 'robo', 'perdida', 'límites', 'solicitar'],
       faqs: [
         {
           question: '¿Cómo solicito una tarjeta de crédito o débito?',
@@ -71,7 +71,7 @@ export class FaqService {
         },
         {
           question: '¿Cómo doy de baja una tarjeta?',
-          answer: 'Acceda a "Tarjetas" y seleccione la opción "Dar de baja" que corresponda a la tarjeta extraviada.'        
+          answer: 'Acceda a "Tarjetas" y seleccione la opción "Dar de baja" que corresponda a la tarjeta extraviada.'
         },
         {
           question: '¿Donde veo mis tarjetas?',
@@ -81,7 +81,7 @@ export class FaqService {
     },
     {
       title: 'Consultas de Saldo y Movimientos',
-      icon: '📊',
+      icon: 'bi-bar-chart-line',
       keywords: ['saldo', 'movimiento', 'extracto', 'estado', 'cuenta', 'historial', 'consultar', 'ver'],
       faqs: [
         {
@@ -111,23 +111,8 @@ export class FaqService {
       ]
     },
     {
-      title: 'Otros Servicios y Ayuda',
-      icon: '❓',
-      keywords: ['ayuda', 'soporte', 'cajero', 'sucursal', 'contacto', 'horario', 'atención', 'atencion', 'servicios', 'consultas', 'localizar'],
-      faqs: [
-        {
-          question: '¿Cómo abro una nueva cuenta?',
-          answer: 'Vaya a "Cuentas" y seleccione "Solicitar cuenta".'
-        },
-        {
-          question: '¿Cómo contacto al servicio de atención al cliente?',
-          answer: 'Puede iniciar una consulta en la sección "Soporte", nuestros asistentes le responderán a la brevedad.'
-        }
-      ]
-    },
-    {
       title: 'Inversiones',
-      icon: '📈',
+      icon: 'bi-graph-up',
       keywords: ['dólares', 'dolares', 'dólar', 'dolar', 'plazo fijo','préstamo', 'prestamo','vencimiento', 'interes', 'interés', 'compra', 'venta'],
       faqs: [
         {
@@ -158,7 +143,7 @@ export class FaqService {
     },
     {
       title: 'Canal de soporte',
-      icon: '❓',
+      icon: 'bi-chat-text-fill',
       keywords: ['ayuda', 'soporte', 'contacto', 'atención', 'atencion', 'consultas', 'errores', 'error'],
       faqs: [
         {
@@ -174,9 +159,24 @@ export class FaqService {
           answer: 'Dirijase a la seccion de "Soporte", ahí va a poder ver un listado de las consultas "Activas" y "Finalizadas".'
         }
       ]
+    },
+    {
+      title: 'Otros Servicios y Ayuda',
+      icon: 'bi-question-square',
+      keywords: ['ayuda', 'soporte', 'cajero', 'sucursal', 'contacto', 'horario', 'atención', 'atencion', 'servicios', 'consultas', 'localizar'],
+      faqs: [
+        {
+          question: '¿Cómo abro una nueva cuenta?',
+          answer: 'Vaya a "Cuentas" y seleccione "Solicitar cuenta".'
+        },
+        {
+          question: '¿Cómo contacto al servicio de atención al cliente?',
+          answer: 'Puede iniciar una consulta en la sección "Soporte", nuestros asistentes le responderán a la brevedad.'
+        }
+      ]
     }
   ];
-  
+
 
   getTopics(): TopicItem[] {
     return this.topics;
@@ -189,7 +189,7 @@ export class FaqService {
 
   findTopicByKeyword(keyword: string): TopicItem | null {
     const normalizedKeyword = keyword.toLowerCase().trim();
-    return this.topics.find(topic => 
+    return this.topics.find(topic =>
       topic.keywords.some(k => normalizedKeyword.includes(k)) ||
       topic.title.toLowerCase().includes(normalizedKeyword)
     ) || null;
@@ -197,7 +197,7 @@ export class FaqService {
 
   findAnswer(question: string): string {
     for (const topic of this.topics) {
-      const faq = topic.faqs.find(f => 
+      const faq = topic.faqs.find(f =>
         f.question.toLowerCase() === question.toLowerCase()
       );
       if (faq) {
@@ -207,7 +207,7 @@ export class FaqService {
 
     const matchingTopic = this.findTopicByKeyword(question);
     if (matchingTopic) {
-      return `Parece que estás preguntando sobre ${matchingTopic.title}. Aquí tienes algunas preguntas frecuentes sobre este tema:`;
+      return `Si tenes dudas sobre ${matchingTopic.title}, aquí tienes algunas preguntas frecuentes sobre este tema:`;
     }
 
     return 'Por favor, seleccione una de las preguntas disponibles en el menú o intente reformular su pregunta.';

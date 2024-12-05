@@ -25,7 +25,7 @@ export class AccountsComponent {
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
-    
+
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts) => {
         this.accounts = accounts.filter(account => account.closing_date == null);
@@ -41,9 +41,9 @@ export class AccountsComponent {
 
     this.accountService.getAccountById(id).subscribe({
       next: (account) =>{
-        if(account.balance > 1){
+        if(account.balance >= 1){
           Swal.fire({
-            title: "El saldo de la cuenta a dar de baja debe ser 0.",
+            title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
             icon: "error"
           });
         }else{
@@ -74,7 +74,6 @@ export class AccountsComponent {
             }
           });
         }
-        
       },
       error: (error: Error) =>{
         console.log(error.message);

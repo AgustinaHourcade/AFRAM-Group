@@ -1,5 +1,5 @@
 .message {
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: var(--font-menu-form);
   margin: 8px;
   padding: 8px 12px;
   border-radius: var(--border-radius);
@@ -15,10 +15,10 @@
 }
 
 .user {
-  background-color: var(--extra-light-color); 
+  background-color: var(--extra-light-color);
   margin-left: auto;
   border-bottom-right-radius: 2px;
-  border-right: 4px solid var(--accent-color); 
+  border-right: 4px solid var(--accent-color);
 }
 
 .message-content {

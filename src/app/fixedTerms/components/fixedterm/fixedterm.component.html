@@ -13,8 +13,8 @@
       <label for="account_id">Seleccione una cuenta: </label>
       <select name="account_id" id="account_id" formControlName="account_id">
         @for (item of accounts; track $index) {
-          @if (!item.closing_date) {
-            <option [value]="item.id">{{ item.id }} - {{ item.balance }}</option>
+          @if (!item.closing_date && item.currency === 'ars') {
+            <option [value]="item.id">{{ item.id }} - {{ item.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</option>
           }
         }
       </select>
@@ -32,7 +32,7 @@
         }
       <div>
         @if(formulario.controls['invested_amount'].touched && formulario.controls['invested_amount'].getError('min')){
-          <p>El monto invertido debe ser mayor a 0.</p>
+          <p>El monto invertido debe ser mayor a 1.</p>
         }
       </div>
     </div>

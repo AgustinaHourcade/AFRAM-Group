@@ -2,7 +2,7 @@
 <div class="page">
 @if(accounts?.length == 0){
   <h2>Lo sentimos, no tiene cuentas disponibles para solicitar un préstamo</h2>
-}@else{ 
+}@else{
 <form [formGroup]="formulario" (ngSubmit)="createLoan()">
   <div>
     <div>
@@ -12,7 +12,7 @@
     <label for="account_id">Seleccione una cuenta:</label>
     <select name="account_id" id="account_id" formControlName="account_id">
       @for (item of accounts; track $index) {
-        @if (!item.closing_date) {
+        @if (!item.closing_date && item.currency === 'ars') {
           <option [value]="item.id">
               {{ item.id }} - {{ item.balance }}
             </option>

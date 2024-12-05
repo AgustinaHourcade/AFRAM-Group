@@ -147,6 +147,7 @@ export class MainPageComponent implements OnInit {
     this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
       next: () => {
         this.createFixedTermTransaction(item, amount);
+
       },
       error: (error: Error) => {
         console.error('Error marking fixed term as paid:', error);
@@ -182,7 +183,8 @@ export class MainPageComponent implements OnInit {
       user_id: this.userId
     }
 
-    this.postNotification(notification)
+    this.postNotification(notification);
+    setTimeout(() => window.location.reload(), 300)
   }
 
   private postNotification(notification: any){
@@ -426,9 +428,10 @@ async sendEmail(transaction: Transaction): Promise<void> {
 
     this.accountService.getAccountById(transaction.source_account_id).subscribe({
       next: (account) =>{
-        if (this.user?.email) {
-          this.emailService.sendTransferEmail(
-              this.user.email,
+        this.userService.getUser(account.id).subscribe({
+          next: (user) =>{
+            this.emailService.sendTransferEmail(
+              user.email as string,
               transaction.amount,
               account.user_id,
               destinationAccount.user_id
@@ -438,9 +441,12 @@ async sendEmail(transaction: Transaction): Promise<void> {
               error: (error: Error) =>
                 console.log('Error al enviar el correo:', error),
             });
-        } else {
-          console.log('No se encontró un correo para el usuario.');
-        }
+          },
+          error: (e: Error) => {
+            console.log(e.message);
+          }
+        })
+
       },error: (e: Error) =>{
         console.log(e.message);
       }

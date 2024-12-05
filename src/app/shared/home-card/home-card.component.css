@@ -221,10 +221,12 @@
   position: absolute;
   top: 150px;
   padding: 20px;
-  font-size: 0.625rem;
+  font-size: 0.4rem;
   text-align: justify;
 }
 
 .terms p {
   color: var(--black);
+  font-size: 0.7rem;
+
 }

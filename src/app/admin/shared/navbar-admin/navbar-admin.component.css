@@ -44,6 +44,8 @@ img {
 
 .nav-links li {
   position: relative;
+  padding: 10px;
+
 }
 
 .nav-links a {
@@ -128,6 +130,18 @@ img {
 
 .toggle-container span {
   font-size: 1rem;
+}
+
+
+.logout-container i {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

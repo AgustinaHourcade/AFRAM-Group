@@ -30,4 +30,13 @@ export class NotificationsService {
     return this.http.patch<boolean>(`${this.baseUrl}/read/`,{id})
   }
 
+  markAllAsRead(user_id : number) : Observable<boolean>{
+    return this.http.patch<boolean>(`${this.baseUrl}/read-all/`,{user_id})
+  }
+
+
+  deleteAllNotifications(user_id : number) : Observable<boolean>{
+    return this.http.delete<boolean>(`${this.baseUrl}/user/${user_id}`)
+  }
+
 }

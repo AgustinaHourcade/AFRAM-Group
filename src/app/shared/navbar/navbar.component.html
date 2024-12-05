@@ -106,37 +106,45 @@
           <div  class="no-notifications">
             <p>No tiene notificaciones</p>
           </div>
-        }
-
-        @for (notification of notifications; track $index) {
-
-          <div class="notification-item">
-            
-            <div class="notification-content">
-              <h5>{{ notification.title }}</h5>
-              <p>{{ notification.message }}</p>
-              <div class="notification-content-sub">
-                <div class="notification-actions">
-                <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
-                <div class="notifications-actions-sub">
-                  @if(notification.is_read === 'no'){
-                  <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
-                    <i class="bi bi-check-all"></i>
+        }@else {
+          <div class="action-all">
+            <a class="delete-all-notifications" (click)="deleteAllNotifications(id)">
+              <i class="bi bi-trash" ></i>
+            </a>
+            <a class="mark-all-as-read" (click)="markAllAsRead(id)">
+              <i class="bi bi-check-all"></i>
+            </a>
+        </div>
+          @for (notification of notifications; track $index) {
+            <div class="notification-item">
+              <div class="notification-content">
+                <h5>{{ notification.title }}</h5>
+                <p>{{ notification.message }}</p>
+                <div class="notification-content-sub">
+                  <div class="notification-actions">
+                  <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+                  <div class="notifications-actions-sub">
+                    @if(notification.is_read === 'no'){
+                    <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
+                      <i class="bi bi-check-all"></i>
+                    </a>
+                  }
+                  <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
+                    <i class="bi bi-trash"></i>
                   </a>
-                }
-                <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
-                  <i class="bi bi-trash"></i>
-                </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    }
+      }
+        }
+
+
     </div>
     </div>
 
-    <div class="buttons">
+    <!-- <div class="buttons"> -->
       @if (type === 'admin') {
         <li>
           <div class="toggle-container">
@@ -145,8 +153,12 @@
         </li>
       }
       <li>
-        <button (click)="logout()">Cerrar sesión</button>
+        <div class="logout-container">
+          <i (click)="logout()" class="bi bi-box-arrow-right"></i>
+        </div>
+
+
       </li>
-    </div>
+    <!-- </div> -->
   </ul>
 </nav>

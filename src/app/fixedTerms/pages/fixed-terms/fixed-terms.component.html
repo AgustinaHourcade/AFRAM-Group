@@ -21,8 +21,8 @@
           @if (ft.is_paid === 'no') {
             <tr>
               <td>{{ ft.account_id }}</td>
-              <td>${{ ft.invested_amount }}</td>
-              <td>${{ ft.interest_earned }}</td>
+              <td>{{ ft.invested_amount | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
+              <td>{{ ft.interest_earned | currency:'ARS':'symbol-narrow':'1.2-2' }}</td>
               <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
             </tr>
           }
@@ -49,8 +49,8 @@
         @if (ft.is_paid === 'yes') {
             <tr>
               <td>{{ ft.account_id }}</td>
-              <td>${{ ft.invested_amount }}</td>
-              <td>${{ ft.interest_earned }}</td>
+              <td>{{ ft.invested_amount  | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
+              <td>{{ ft.interest_earned  | currency:'ARS':'symbol-narrow':'1.2-2'}}</td>
               <td>{{ ft.expiration_date | date:'dd/MM/yyyy':'es-AR' }}</td>
             </tr>
           }

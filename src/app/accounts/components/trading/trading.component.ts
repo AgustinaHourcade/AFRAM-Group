@@ -40,7 +40,7 @@ export class TradingComponent implements OnInit {
     'source_account': ['', Validators.required],
     'destination_account': ['', Validators.required]
   })
-  
+
   // Funciones
   getAccounts(){
     this.accounts = []; // ! BORRAR
@@ -52,7 +52,7 @@ export class TradingComponent implements OnInit {
     })
   }
 
-  
+
   updateCalculatedARSsell(amount: string | undefined) {
     const amountNum = parseFloat(amount as string);
     if (!isNaN(amountNum) && this.dolar?.venta) {
@@ -74,7 +74,7 @@ export class TradingComponent implements OnInit {
   resetValues(){
     this.calculatedValueARSsell = 0;
     this.calculatedValueARSbuy = 0;
-    setTimeout(() => this.formulario.reset(), 1000);
+    setTimeout(() => this.formulario.reset(), 150);
   }
 
   buyUSD() {
@@ -140,7 +140,7 @@ export class TradingComponent implements OnInit {
                 this.accountService.updateBalance(Number(transaction.amount), 1).subscribe({
                   next: ()=>{
                     console.log('saldo actualizado en la cuenta 1 del banco (ARS)'); // ! BORRAR
-                  }, 
+                  },
                   error : (err:Error) => console.log(err.message)
                 })
 
@@ -149,7 +149,7 @@ export class TradingComponent implements OnInit {
                 this.accountService.updateBalance(descontarUSD, 2).subscribe({
                   next: () => {
                     console.log('saldo actualizado en la cuenta 2 del banco (USD)');  // ! BORRAR
-                  }, 
+                  },
                   error : (err:Error) => console.log(err.message)
                 })
               },
@@ -234,21 +234,21 @@ export class TradingComponent implements OnInit {
                 this.accountService.updateBalance(descontarARS, 1).subscribe({
                   next: ()=>{
                     console.log('saldo actualizado en la cuenta 1 del banco (ARS)');  // ! BORRAR
-                  }, 
+                  },
                   error : (err:Error)=> console.log(err.message)
                 })
               },
               error: (e: Error) => console.log(e.message)
             });
           },
-          error: (e: Error) => console.log(e.message)  
+          error: (e: Error) => console.log(e.message)
         });
       }
     });
     setTimeout(() => {
       this.getAccounts();
     }, 2000);
-    
+
   }
 
   postTransaction(transaction: any) {
