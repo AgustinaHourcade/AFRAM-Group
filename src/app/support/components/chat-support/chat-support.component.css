@@ -85,7 +85,7 @@
 }
 
 .message-time {
-  font-size: 10px;
+  font-size: 0.625rem;
   color: var(--gray-1);
 }
 
@@ -98,7 +98,7 @@
 .message-input {
   flex: 1;
   padding: 10px;
-  font-size: 14px;
+  font-size: 0.875rem;
   border: 1px solid var(--gray-2);
   border-radius: 8px;
   outline: none;
@@ -149,7 +149,7 @@
   }
 
   .message-input {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .finalizar-button {
@@ -184,9 +184,9 @@
     max-width: 60%;
   }
 
-  .message-input {
+  /* .message-input {
     font-size: 12px;
-  }
+  } */
 
   .volver-button {
     position: relative;
@@ -226,7 +226,7 @@
   }
 
   .message-input {
-    font-size: 10px;
+    font-size: 0.625ren;
   }
 
   .volver-button {
@@ -247,6 +247,6 @@
   }
 
   .message-time {
-    font-size: 8px;
+    font-size: 0.5rem;
   }
 }

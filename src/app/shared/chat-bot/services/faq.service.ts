@@ -30,9 +30,12 @@ export class FaqService {
       ]
     },
     {
-      title: 'Transferencias y Pagos',
+      title: 'Transferencias',
       icon: '💸',
-      keywords: ['transferencia', 'pago', 'límite', 'servicio', 'programar', 'futura'],
+      keywords: ['transferencia', 'pago', 'límite', 'servicio', 'programar', 
+                  'futura', 'dinero', 'remitente', 'destinatario', 'saldo',
+                 'transacción', 'cuenta', 'banco', 'instantánea']
+,
       faqs: [
         {
           question: '¿Cómo realizo una transferencia a otra cuenta?',

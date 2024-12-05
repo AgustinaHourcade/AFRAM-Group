@@ -31,23 +31,39 @@
         <li><a routerLink="/trading">Dólares</a></li>
 
         <li class="dropdown-fixedterms" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
-          <a class="dropdown-link" (click)="toggleMenu('fixedterms')">Plazo fijo<i class="bi bi-arrow-right"></i></a>
-          <ul class="submenu2">
-            <li><a routerLink="/fixed-terms">Mis plazos fijos </a></li>
-            <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
-          </ul>
+          <a class="dropdown-link" (click)="toggleSubmenu('fixedTerms', $event)">Plazo fijo
+            @if(isSubmenuOpen.fixedTerms){
+              <i class="bi bi-caret-down-fill"></i>
+            }@else {
+              <i class="bi bi-caret-right-fill"></i>
+            }
+
+          </a>
+          @if(isSubmenuOpen.fixedTerms){
+            <ul class="submenu2">
+              <li><a routerLink="/fixed-terms">Mis plazos fijos </a></li>
+              <li><a routerLink="/fixed-terms/new">Agregar plazo fijo</a></li>
+            </ul>
+          }
         </li>
 
         <li class="dropdown-loans" [ngClass]="{'show-menu': activeMenu === 'loans'}">
-          <a class="dropdown-link" (click)="toggleMenu('loans')">Préstamos</a>
-          <ul class="submenu2">
-            <li><a routerLink="/list-loan">Mis préstamos</a></li>
-            <li><a routerLink="/new-loan">Solicitar préstamo</a></li>
-          </ul>
+          <a class="dropdown-link" (click)="toggleSubmenu('loans', $event)">Préstamos
+            @if(isSubmenuOpen.loans){
+              <i class="bi bi-caret-down-fill"></i>
+            }@else {
+              <i class="bi bi-caret-right-fill"></i>
+            }
+          </a>
+          @if(isSubmenuOpen.loans){
+            <ul class="submenu2">
+              <li><a routerLink="/list-loan">Mis préstamos</a></li>
+              <li><a routerLink="/new-loan">Solicitar préstamo</a></li>
+            </ul>
+          }
         </li>
       </ul>
     </li>
-
 
     <li class="transactions-dropdown" [ngClass]="{'show-menu': activeMenu === 'transactions'}">
       <a class="dropdown-link" (click)="toggleMenu('transactions')">Transferencias</a>

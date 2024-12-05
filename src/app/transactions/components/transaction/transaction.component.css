@@ -16,12 +16,12 @@
 }
 
 .transaction-date {
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--gray-3);
 }
 
 .transaction-amount {
-  font-size: 22px; 
+  font-size: 1.375rem; 
   font-weight: bold;
 }
 
@@ -54,7 +54,7 @@
 .pdf-styles .transaction-amount {
   padding-bottom: 4px;
   border-bottom: 1px solid var(--gray-2);
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .pdf-styles .transaction-date {
@@ -76,16 +76,16 @@
   }
 
   .transaction-date {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .transaction-amount {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .transaction-in,
   .transaction-out {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 }
 
@@ -97,18 +97,18 @@
   }
 
   .transaction-date {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .transaction-amount {
-    font-size: 18px;
+    font-size: 1.125rem;
     text-align: center;
     width: 100%;
   }
 
   .transaction-in,
   .transaction-out {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
@@ -119,12 +119,12 @@
   }
 
   .transaction-date {
-    font-size: 10px;
+    font-size: 0.625rem;
   }
 
   .transaction-in,
   .transaction-out {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .pdf-styles {

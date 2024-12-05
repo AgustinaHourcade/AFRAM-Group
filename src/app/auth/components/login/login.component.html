@@ -36,9 +36,10 @@
       </button>
     </div>
 
-    @if (intentos>2) {
-      <div class="errorLabel"> <span> <i class="bi bi-exclamation-circle"> </i>Le queda un sólo intento para iniciar sesion.</span></div>
-    }
+    @if (intentos == 2) {
+        <div class="errorLabel"> <span> <i class="bi bi-exclamation-circle"> </i>Le queda un sólo intento para iniciar sesion.</span></div>
+      }
+    
     <button type="submit" class="submit-button" [disabled]="formulario.invalid">Iniciar sesión</button>
     <a routerLink="/recover-password" class="forgot-password">¿Olvidaste tu contraseña?</a>
   </form>

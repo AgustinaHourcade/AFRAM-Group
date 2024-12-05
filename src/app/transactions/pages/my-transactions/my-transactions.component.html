@@ -7,7 +7,7 @@
     <select id="accountSelect" (change)="onAccountSelect($event)">
       <option value="">Seleccione una cuenta</option>
       @for (account of accounts; track $index) {
-        @if(account.closing_date == null) {
+        @if(account.closing_date == null && account.currency === "ars") {
           <option [value]="account.id">
             @if (account.account_type == "Savings") {
               <h3>CA </h3>

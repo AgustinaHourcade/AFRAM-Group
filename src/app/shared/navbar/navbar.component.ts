@@ -149,5 +149,29 @@ toggleNavbar() {
   this.isNavbarOpen = !this.isNavbarOpen;
 }
 
+isSubmenuOpen = {
+  fixedTerms: false,
+  loans: false,
+};
+
+toggleSubmenu(menu: 'fixedTerms' | 'loans', event: Event) {
+  event.stopPropagation(); // Evita que el evento cierre el menú inmediatamente
+  // Alterna el estado del submenú seleccionado
+  this.isSubmenuOpen[menu] = !this.isSubmenuOpen[menu];
+
+  // Cierra los otros submenús
+  Object.keys(this.isSubmenuOpen).forEach((key) => {
+    if (key !== menu) {
+      this.isSubmenuOpen[key as 'fixedTerms' | 'loans'] = false;
+    }
+  });
+}
+
+@HostListener('document:click')
+closeAllSubmenus() {
+  // Cierra todos los submenús al hacer clic fuera
+  this.isSubmenuOpen.fixedTerms = false;
+  this.isSubmenuOpen.loans = false;
+}
 
 }

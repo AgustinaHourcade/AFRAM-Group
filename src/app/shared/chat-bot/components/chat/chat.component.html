@@ -1,11 +1,11 @@
 <div class="chat-widget" (click)="preventClose($event)">
   <button class="chat-button" (click)="toggleChat($event)">
-    💬
+    <i class="bi bi-chat-dots"></i>
   </button>
   
   <div class="chat-container" [class.active]="isOpen">
     <div class="chat-header">
-      <img src="https://img.freepik.com/vector-gratis/chatbot-mensaje-chat-vectorart_78370-4104.jpg" alt="Afrika Avatar" class="chat-avatar">
+      <img src="chatbot.png" alt="Afrika Avatar" class="chat-avatar">
       <span class="chat-name">Afrika</span>
     
     </div>

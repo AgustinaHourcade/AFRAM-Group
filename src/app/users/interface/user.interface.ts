@@ -10,6 +10,6 @@ export interface User{
     is_Active?: string,
     real_name?: string,
     reset_token?: number,
-    is_blocked?: string
+    login_attempts?: number
 }
 

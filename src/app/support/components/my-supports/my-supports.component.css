@@ -31,19 +31,19 @@
 }
 
 .thread-item h3 {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: bold;
   color: var(--gray-4);
   margin-bottom: 8px;
 }
 
 .thread-date {
-  font-size: 14px;
+  font-size:0.875rem;
   color: var(--gray-3);
 }
 
 .thread-item .bi-patch-exclamation {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: var(--accent-color);
   position: absolute;
   top: 15px;
@@ -97,7 +97,7 @@ textarea {
   padding: 12px;
   border-radius: var(--border-radius);
   border: 1px solid var(--gray-2);
-  font-size: 16px;
+  font-size: 1rem;
   color: var(--gray-4);
   background-color: var(--background-gray);
   box-sizing: border-box;
@@ -134,11 +134,11 @@ textarea:focus {
   }
 
   .thread-item h3 {
-    font-size: 18px; /* Ajustamos el tamaño de los títulos */
+    font-size: 1.125rem; /* Ajustamos el tamaño de los títulos */
   }
 
   .thread-date {
-    font-size: 12px; /* Reducimos el tamaño de la fecha */
+    font-size: 0.75rem; /* Reducimos el tamaño de la fecha */
   }
 
   .new-thread-button {
@@ -158,12 +158,12 @@ textarea:focus {
   }
   
   .thread-item h3 {
-    font-size: 16px; /* Ajustamos el tamaño de los títulos */
+    font-size: 1rem; /* Ajustamos el tamaño de los títulos */
   }
   
-  .thread-date {
-    font-size: 12px; /* Ajustamos la fecha */
-  }
+  /* .thread-date {
+    font-size: 12px; /* Ajustamos la fecha 
+  } */
   
   .thread-item {
     padding: 12px;
@@ -193,11 +193,11 @@ textarea:focus {
   }
   
   .thread-item h3 {
-    font-size: 14px; /* Ajustamos más el tamaño de los títulos */
+    font-size: 0.875rem; /* Ajustamos más el tamaño de los títulos */
   }
   
   .thread-date {
-    font-size: 11px; /* Reducimos más el tamaño de la fecha */
+    font-size: 0.6875rem; /* Reducimos más el tamaño de la fecha */
   }
   
   .thread-item {

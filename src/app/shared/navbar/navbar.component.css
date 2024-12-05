@@ -265,6 +265,10 @@ small {
   display: none;
 } 
 
+.dropdown-link i{
+  display: none;
+}
+
 @media (max-width: 1165px) {
   .nav-links {
     gap: 15px;
@@ -310,10 +314,47 @@ small {
   .notification-dropdown {
     width: 300px;
   }
-  .bi .bi-arrow-right{
+
+  .bi .bi-arrow-right {
     display: flex;
   }
+
+  /* Ajustes específicos para submenu2 en responsive */
+  .dropdown-fixedterms .submenu2,
+  .dropdown-loans .submenu2 {
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-top: 10px; /* Espaciado debajo del botón */
+    padding: 10px 0;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    min-width: 100%; /* Ocupa todo el ancho del contenedor padre */
+  }
+
+  .submenu2 {
+    display: block; /* Asegura que se muestre como bloque */
+  }
+
+  .submenu2 li{
+    background-color: var(--secondary-color);
+  }
+
+  .dropdown-fixedterms,
+.dropdown-loans {
+  position: relative;
 }
+
+.dropdown-fixedterms a,
+.dropdown-loans a {
+  cursor: pointer;
+}
+
+.dropdown-link i{
+  display: inline;
+}
+}
+
 
 @media (max-width: 1080px) {
   nav {

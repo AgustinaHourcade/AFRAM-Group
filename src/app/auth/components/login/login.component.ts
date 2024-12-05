@@ -7,6 +7,7 @@ import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
 import { Account } from '@accounts/interface/account.interface';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { EmailService } from '@email/service/email.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
+  private emailService = inject(EmailService);
 
   showPassword = false;
   id: number = 0;
@@ -27,8 +29,8 @@ export class LoginComponent {
   userLogin?: User;
   errorMessage = '';
   accounts!: Array<Account>;
-  intentos: number = 0;
-
+  intentos : number = 0;
+  
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
     this.showPassword = !this.showPassword;
@@ -78,7 +80,8 @@ export class LoginComponent {
         this.userService.getUser(id).subscribe({
           next: (user) => {
             this.user = user;
-            if(this.intentos<3 && this.user?.is_blocked === 'no'){
+            this.intentos = Number(user.login_attempts);
+            if(this.intentos < 3){
               this.userService.verifyUser(data).subscribe({
                 next: (id) => {
                   this.id = id as number;
@@ -117,56 +120,54 @@ export class LoginComponent {
                     console.log(e.message);
                   }
                 })
-        
                 },
                 error: (error: Error) => {
-                  this.intentos += 1;
+                  this.userService.blockUser(data.dni).subscribe({
+                    next: () => {
+                      this.intentos += 1;
+                      if(this.intentos == 3){
+                        Swal.fire({
+                          title: 'Intentos de inicio de sesión superados',
+                          text: 'Ha excedido el límite de intentos. Le hemos enviado un email a su cuenta con los pasos a seguir para restablecer la contraseña.',
+                          icon: 'error',
+                          confirmButtonText: 'Aceptar',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        confirmButtonColor: '#00b4d8'
+                      })
+                      this.emailService.sendRecoverEmail(this.user?.email as string).subscribe({
+                        next: () => {
+                        console.log("Mail enviado");
+                      },
+                      error: (e: Error) => {
+                        console.log(e.message);
+                      },
+                    })
+                    this.router.navigate(['/new-password']);
+                  }
+                    },
+                    error: (e:Error) => {
+                      console.log(e.message);
+                    }
+                  })
                   console.error('Error al verificar usuario:', error);
                   this.errorMessage =
                   'Usuario, DNI o contraseña incorrecta. Por favor, intenta de nuevo.';
                 },
               });
             }else{
-              if(this.user?.is_blocked === 'yes' ){
-                Swal.fire({
-                  title: 'Su cuenta esta bloqueada',
-                  text: 'Ha excedido el límite de intentos de inicio de sesion. Verifique el email asociado a su cuenta para restablecer la contraseña',
-                  icon: 'error',
-                  confirmButtonText: 'Aceptar',
-                  confirmButtonColor: '#00b4d8'
-        
-                })
-              }else{
-        
-                Swal.fire({
-                  title: 'Intentos de inicio de sesión superados',
-                  text: 'Ha excedido el límite de intentos. Le enviamos un email a su cuenta con los pasos a seguir para restablecer la contraseña.',
-                  icon: 'error',
-                  confirmButtonText: 'Aceptar',
-                  allowOutsideClick: false,
-                  allowEscapeKey: false,
-                  confirmButtonColor: '#00b4d8'
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    this.userService.blockUser(data.dni).subscribe({
-                      next: () => {
-                        console.log("Cuenta bloqueada con exito.");
-                        this.router.navigate(['new-password']);
-                      },
-                      error: (e:Error) => {
-                        Swal.fire({
-                          title: 'Para recuperar su cuenta dirijase a olvide mi contraseña ',
-                          icon: 'error',
-                          confirmButtonText: 'Aceptar',
-                          confirmButtonColor: '#00b4d8'
-                        })
-                      }
-                    })
-                  } 
-                })
-              }
+              Swal.fire({
+                title: 'Su cuenta esta bloqueada',
+                text: 'Ha excedido el límite de intentos. Revise su email y siga los pasos para restablecerla.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonColor: '#00b4d8'
+              })
+              this.router.navigate(['/new-password']);
             }
-
+            
           },
           error: (e: Error) => {
             console.log(e.message);

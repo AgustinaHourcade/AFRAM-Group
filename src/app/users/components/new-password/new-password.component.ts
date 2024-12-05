@@ -141,7 +141,7 @@ export class NewPasswordComponent {
             });
             this.userService.getUser(id).subscribe({
               next: (user) =>{
-                if(user.is_blocked === "yes"){
+                if(Number (user.login_attempts) >= 3){
                   this.userService.unblockUser(user.dni).subscribe({
                     next: (flag) => {
                       console.log("Cuenta desbloqueada con exito.");

@@ -21,18 +21,18 @@
 }
 
 .header h2 {
-  font-size: 18px;
+  font-size: 1.125rem;
   color: var(--primary-color);
   margin: 0;
 }
 
 .transaction-id {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--gray-3);
 }
 
 .content {
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--gray-4);
 }
 
@@ -57,7 +57,7 @@
 .footer {
   text-align: center;
   margin-top: 20px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--gray-4);
 }
 
@@ -86,11 +86,11 @@ button:last-of-type {
   }
 
   .header h2 {
-    font-size: 15px;
+    font-size: 0.9375;
   }
 
   .content {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .row {
@@ -119,11 +119,11 @@ button:last-of-type {
   }
 
   .header h2 {
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .content {
-    font-size: 11px;
+    font-size: 0.6875rem;
   }
 
   .row {
