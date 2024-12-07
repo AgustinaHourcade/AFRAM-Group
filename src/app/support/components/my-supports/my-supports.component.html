@@ -44,7 +44,7 @@
   </div>
 }@else {
   <div class="page">
-    <button (click)="new = false" class="volver-button">Volver</button>
+    <button (click)="new = false" class="volver-button"><i class="bi bi-caret-left"></i>Volver</button>
     <form [formGroup]="formulario" (ngSubmit)="postThread()">
       <h2>Nueva consulta</h2>
         <label for="support_subject">Seleccione el tema de su consulta:</label>

@@ -1,8 +1,14 @@
 <!-- ! LISTO -->
-@if (account.account_type==='Savings') {
-  <h2> Caja de ahorros - {{account.id}}/{{account.user_id}}</h2>
-}@else if (account.account_type==='Checking') {
-  <h2> Cuenta corriente - {{account.id}}/{{account.user_id}}</h2>
+@if (account.account_type == "Savings") {
+  @if (account.currency === 'ars'){
+      <h2>Caja de ahorro • {{ account.id }}-{{account.user_id}}/1</h2>
+  }@else if (account.currency === 'usd'){
+      <h2>Caja de ahorro U<span>$</span>S • {{ account.id }}-{{account.user_id}}/1</h2>
+    }
+ 
+} @else if (account.account_type == "Checking") {
+  <h2> Cuenta corriente • {{account.id}}/{{account.user_id}}</h2>
+
 }
 
 <div #pdfContent class="cbuAlias">
@@ -20,7 +26,7 @@
     } @else{
       <form [formGroup]="formulario">
         <div class="form-group">
-          <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field" />
+          <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field"/>
         </div>
       </form>
     }

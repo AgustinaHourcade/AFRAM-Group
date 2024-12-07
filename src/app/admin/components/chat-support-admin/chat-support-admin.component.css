@@ -40,7 +40,11 @@
 
 .message-content {
   max-width: 40%;
+  word-wrap: break-word; 
+  word-break: break-word;
+  white-space: pre-wrap; 
 }
+
 
 .message.admin-message .message-content {
   display: grid;

@@ -1,8 +1,8 @@
 @if(phone !== ''){
   @if (type === 'user') {
-    <button class="volver-button" [routerLink]="['/profile']">Volver</button>
+    <button class="volver-button" [routerLink]="['/profile']"><i class="bi bi-caret-left"></i>Volver</button>
   }@else {
-    <button class="volver-button" [routerLink]="['/admin-profile']">Volver</button>
+    <button class="volver-button" [routerLink]="['/admin-profile']"><i class="bi bi-caret-left"></i>Volver</button>
   }
 }
 <div class="page">

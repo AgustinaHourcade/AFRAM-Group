@@ -2,15 +2,15 @@
   <div class="header">
     <img src="/logo-fff.png" alt="Bank Logo"/>
     
-  @if(transaction.transaction_type == 'transfer'){
-    <h2>Comprobante de Transferencia</h2>
-  }@else if(transaction.transaction_type == 'loan'){
-    <h2>Comprobante de Préstamo</h2>
-  }@else if(transaction.transaction_type === 'fixed term'){
-    <h2>Comprobante de Plazo Fijo</h2>
-  }@else if(transaction.transaction_type === 'exchange'){
-    <h2>Comprobante de compra-venta de dolares</h2>
-  }
+    @if(transaction.transaction_type == 'transfer'){
+      <h2>Comprobante de Transferencia</h2>
+    }@else if(transaction.transaction_type == 'loan'){
+      <h2>Comprobante de Préstamo</h2>
+    }@else if(transaction.transaction_type === 'fixed term'){
+      <h2>Comprobante de Plazo Fijo</h2>
+    }@else if(transaction.transaction_type === 'exchange'){
+      <h2>Comprobante de compra-venta de dolares</h2>
+    }
 
     <p class="transaction-id">ID de Transacción {{ transaction.id }}</p>
   </div>
@@ -28,19 +28,20 @@
       <span>{{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}</span>
       }
     </div>
-    <div class="row">
+    <div class="row data">
       <label>Cuenta de Origen</label>
       <p>{{typeS}} {{ transaction.source_account_id}}-{{ id }}/1</p>
-      <p> {{nameS}} {{lastNameS}} </p>    </div>
-    <div class="row">
+      <p> {{nameS}} {{lastNameS}} </p>    
+    </div>
+    <div class="row data">
       <label>Cuenta de Destino</label>
       <p>{{typeD}} {{ transaction.destination_account_id}}-{{ id }}/1</p>
       <p> {{nameD}} {{lastNameD}} </p>
     </div>
-  </div>
-
-  <div class="footer">
-    <p>Gracias por confiar en nuestros servicios.</p>
+    
+    <div class="footer">
+      <p>Gracias por confiar en nuestros servicios.</p>
+    </div>
   </div>
 </div>
 <button (click)="onCancel()">Cancelar</button>

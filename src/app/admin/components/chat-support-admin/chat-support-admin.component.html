@@ -2,7 +2,7 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="botones">
     <div class="botones-container">
-        <button [routerLink]="['/admin-support']" class="volver-button">Volver</button>
+        <button [routerLink]="['/admin-support']" class="volver-button"><i class="bi bi-caret-left"></i>Volver</button>
         @if(thread?.support_status === 'open'){
             <button (click)="toggleThread()" class="finalizar-button">Finalizar chat</button>
         }

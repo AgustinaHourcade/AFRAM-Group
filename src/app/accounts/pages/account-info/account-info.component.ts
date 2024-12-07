@@ -123,7 +123,7 @@ export class AccountInfoComponent implements OnInit{
   }
 
   downloadAsPDF() {
-    this.isDownloading = true; 
+    this.isDownloading = true;
     if (!this.transactionComponent) {
       console.error('TransactionComponent no detectado');
       return;
@@ -132,15 +132,14 @@ export class AccountInfoComponent implements OnInit{
     const transactionElements = this.pdfContent.nativeElement.querySelectorAll('.transaction-card');
     transactionElements.forEach((transactionElement: HTMLElement) => {
       this.transactionComponent.applyPDFStyles(true, transactionElement);
-    });  
-
+    });
+  
     const element = this.pdfContent.nativeElement;
-
+  
     setTimeout(() => {
-
       const elementsToHide = element.querySelectorAll('.no-print');
       elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
-
+  
       html2canvas(element, {
         scale: 2,
       }).then((canvas) => {
@@ -152,74 +151,69 @@ export class AccountInfoComponent implements OnInit{
           putOnlyUsedFonts: true,
           floatPrecision: 16,
         });
-
+  
         const logoUrl = '/logo-fff.png';
         const logoImg = new Image();
         logoImg.src = logoUrl;
-
+  
         logoImg.onload = () => {
           const logoWidth = 2.5;
           const logoHeight = 1.25;
           const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
-          console.log(xPos + "cs");
           const yPos = 0.5;
           pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-
+  
           const imgWidth = 8.5;
           const pageHeight = 11;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
           let heightLeft = imgHeight;
           let position = 0;
-
+  
+          // Agrega la imagen del contenido PDF
           pdf.addImage(imgData, 'JPEG', 0, position + logoHeight + 0.5, imgWidth, imgHeight);
           heightLeft -= pageHeight;
-
+  
           while (heightLeft >= 0) {
             position = heightLeft - imgHeight;
             pdf.addPage();
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-
+  
           const monthYear = this.dateForm.get('monthYear')?.value;
-          const formattedDate = monthYear
-            ? monthYear.replace('-', '_')
-            : 'default_date';
-
-
-            const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
-
-            // Establecer tipo de fuente, tamaño y color negro
-            pdf.setFont('courier', 'normal');  // Fuente sin negrita para un estilo más limpio
-            pdf.setFontSize(12);  // Tamaño más grande para el encabezado
-            pdf.setTextColor(0, 0, 0);  // Color negro (RGB: 0, 0, 0)
-            
-            // Agregar el texto con márgenes adecuados
-            pdf.text(accountDetails, 0.5, 1); // Ajusté la posición para que se vea bien centrado
-            
-            const linePositionY = 1.6; // Coloca la línea 0.25 unidades más abajo que el texto
-
-            // Dibuja la línea horizontal debajo del texto
-            pdf.setDrawColor(0, 0, 0); // Negro
-            pdf.setLineWidth(0.01); // Grosor de la línea
-            pdf.line(0.5, linePositionY, pdf.internal.pageSize.getWidth() - 0.5, linePositionY); //
-            
-
-
+          const formattedDate = monthYear ? monthYear.replace('-', '_') : 'default_date';
+  
+          const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
+  
+          // Agregar detalles de la cuenta en la primera página, encima de otros elementos
+          pdf.setPage(1); // Asegurarse de trabajar en la primera página
+          const textMarginTop = logoHeight -0.3; // Posicionar debajo del logo
+          const lineMarginTop = textMarginTop + 0.6;
+  
+          pdf.setFont('courier', 'normal'); // Fuente limpia
+          pdf.setFontSize(12); // Tamaño mayor para el encabezado
+          pdf.setTextColor(0, 0, 0); // Color negro
+          pdf.text(accountDetails, 0.5, textMarginTop);
+  
+          // Dibujar la línea horizontal
+          pdf.setDrawColor(0, 0, 0); // Negro
+          pdf.setLineWidth(0.01);
+          pdf.line(0.5, lineMarginTop, pdf.internal.pageSize.getWidth() - 0.5, lineMarginTop);
+  
           pdf.save(`Resumen-${this.accountId}-${formattedDate}.pdf`);
-
+  
           const transactionElements = this.pdfContent.nativeElement.querySelectorAll('.transaction-card');
           transactionElements.forEach((transactionElement: HTMLElement) => {
             this.transactionComponent.applyPDFStyles(false, transactionElement);
-          });          
+          });
           elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
-
+  
           this.isDownloading = false;
         };
       });
-
     });
   }
+  
   
   
 }

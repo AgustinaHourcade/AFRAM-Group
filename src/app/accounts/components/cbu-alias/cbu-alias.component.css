@@ -27,7 +27,6 @@
 .name p,
 .dni p {
   margin: 0;
-  /* font-size: 17px; */
   color: var(--gray-4);
 }
 
@@ -37,15 +36,6 @@
 .dni p:first-child {
   font-weight: bold;
   color: var(--primary-color);
-}
-
-.alias-sub input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid var(--gray-1);
-  border-radius: var(--border-radius);
-  /* font-size: 14px; */
-  margin-top: 5px;
 }
 
 .buttons {
@@ -58,7 +48,6 @@
 button {
   width: 25%;
   padding: 10px;
-  /* font-size: 14px; */
   display: flex;
   justify-content: center;
 }
@@ -69,16 +58,15 @@ h2 {
 
 .input-field {
   width: 100%;
-  padding: 12px 5px;
+  padding: 3px;
   background-color: var(--white);
-  color: var(--gray-4);
+  color: var(--gray-3);
   box-sizing: border-box;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
 }
 
 .input-field::placeholder {
-  color: var(--gray-4);
+  color: var(--gray-3);
 }
 
 .cancel-button {
@@ -94,7 +82,6 @@ h2 {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  /* font-size: 14px; */
   cursor: pointer;
 }
 

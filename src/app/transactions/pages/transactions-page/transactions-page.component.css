@@ -29,6 +29,7 @@
   text-decoration: none;
   border: solid 1px var(--primary-color);
   display: block;
+  background-color: var(--white);
 }
 
 .dashboard-card:hover {

@@ -54,6 +54,10 @@
   font-weight: 500;
 }
 
+.data > :nth-child(3) {
+  text-align: end; 
+}
+
 .footer {
   text-align: center;
   margin-top: 20px;
@@ -96,6 +100,10 @@ button:last-of-type {
   .row {
     flex-wrap: wrap;
   }
+  
+  .data > :nth-child(3) {
+    text-align: start; 
+  }
 
   .row label,
   .row span {
@@ -110,10 +118,6 @@ button:last-of-type {
 }
 
 @media (max-width: 550px) {
-  .receipt {
-    display: none;
-  }
-
   .header img {
     width: 50px;
   }
@@ -142,7 +146,18 @@ button:last-of-type {
     margin: 8px 0;
   }
 
-  button:first-of-type {
+  /* button:first-of-type {
     display: none;
+  } */
+}
+
+
+@media (max-width: 480px) {
+  .header h2 {
+    font-size: 0.7rem;
+  }
+
+  .content {
+    font-size: 0.5rem;
   }
 }

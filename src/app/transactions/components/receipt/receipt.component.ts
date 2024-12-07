@@ -16,6 +16,7 @@ import { Account } from '@accounts/interface/account.interface';
   templateUrl: './receipt.component.html',
   styleUrl: './receipt.component.css'
 })
+
 export class ReceiptComponent implements OnInit{
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
 

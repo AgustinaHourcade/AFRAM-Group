@@ -34,7 +34,7 @@
     </div>
     }
   }@else if(flag){
-    <button class="go-back" (click)="flag = false">Volver</button>
+    <button class="go-back" (click)="flag = false"> <i class="bi bi-caret-left"></i>Volver</button>
     <h2>Nueva tasa de interes</h2>
     <div class="page">
       <form [formGroup]="formulario" (ngSubmit)="newRate()">

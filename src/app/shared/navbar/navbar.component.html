@@ -69,7 +69,7 @@
       <a class="dropdown-link" (click)="toggleMenu('transactions')">Transferencias</a>
       <ul class="transactions-menu">
         <li><a routerLink="/transfer">Transferir</a></li>
-        <li><a routerLink="/my-transactions">Mis transferencias</a></li>
+        <li><a routerLink="/my-transactions" target="_self">Mis transferencias</a></li>
       </ul>
     </li>
 
@@ -91,15 +91,14 @@
       </ul>
     </li>
 
+    <li>
     <div class="notification-container">
-
       <div class="notification-icon" [class.has-unread]="unreadNotifications.length > 0"
         [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
         [class.no-notifications]="notifications.length === 0" (click)="toggleNotificationsDropdown()"
         (click)="$event.stopPropagation()">
         <i class="bi" [class.bi-bell-fill]="notifications.length > 0" [class.bi-bell]="notifications.length === 0"></i>
       </div>
-
 
       <div class="notification-dropdown" [class.open]="isDropdownOpen">
         @if (notifications.length === 0) {
@@ -114,7 +113,7 @@
             <a class="mark-all-as-read" (click)="markAllAsRead(id)">
               <i class="bi bi-check-all"></i>
             </a>
-        </div>
+          </div>
           @for (notification of notifications; track $index) {
             <div class="notification-item">
               <div class="notification-content">
@@ -122,43 +121,39 @@
                 <p>{{ notification.message }}</p>
                 <div class="notification-content-sub">
                   <div class="notification-actions">
-                  <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
-                  <div class="notifications-actions-sub">
-                    @if(notification.is_read === 'no'){
-                    <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
-                      <i class="bi bi-check-all"></i>
-                    </a>
-                  }
-                  <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
-                    <i class="bi bi-trash"></i>
-                  </a>
+                    <small>{{ notification.created_at | date: 'dd/MM/yyyy' }}</small>
+                    <div class="notifications-actions-sub">
+                      @if(notification.is_read === 'no'){
+                        <a class="mark-as-read" (click)="markAsRead(notification.id, id)">
+                          <i class="bi bi-check-all"></i>
+                        </a>
+                      }
+                      <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
+                      <i class="bi bi-trash"></i>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      }
+          }
         }
-
-
     </div>
     </div>
-
+  </li>
     <!-- <div class="buttons"> -->
-      @if (type === 'admin') {
-        <li>
-          <div class="toggle-container">
-            <i (click)="changeType()" [ngClass]="'bi bi-toggle-on'" class="toggle-icon"></i>
-          </div>
-        </li>
-      }
-      <li>
-        <div class="logout-container">
-          <i (click)="logout()" class="bi bi-box-arrow-right"></i>
-        </div>
-
-
-      </li>
+  @if (type === 'admin') {
+    <li>
+      <!-- <div class="toggle-container"> -->
+        <i (click)="changeType()" [ngClass]="'bi bi-toggle-on'" class="icon"></i>
+      <!-- </div> -->
+    </li>
+  }
+  <li>
+    <!-- <div class="logout-container"> -->
+      <i (click)="logout()" class="bi bi-box-arrow-right icon" ></i>
     <!-- </div> -->
+  </li>
+<!-- </div> -->
   </ul>
 </nav>

@@ -1,6 +1,5 @@
 .transaction-card {
-  background-color: var(--background-gray);
-  border: 1px solid var(--gray-2);
+  background-color: var(--white);
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--box-shadow-color);
   padding: 16px;
@@ -9,6 +8,7 @@
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
   border: none;
+  margin-bottom: 5px;
 }
 
 .transaction-card:hover {
@@ -73,6 +73,7 @@
   .transaction-card {
     padding: 14px;
     gap: 12px;
+    grid-template-columns: none;     
   }
 
   .transaction-date {
@@ -94,6 +95,8 @@
   .transaction-card {
     padding: 12px;
     gap: 10px;
+  grid-template-columns: none;
+
   }
 
   .transaction-date {
@@ -116,6 +119,7 @@
   .transaction-card {
     padding: 10px;
     gap: 8px;
+    grid-template-columns: none;
   }
 
   .transaction-date {

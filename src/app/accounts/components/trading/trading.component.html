@@ -20,7 +20,7 @@
   @if (trading === 'compra'){
     <div class="page3">
       <div class="closeButton">
-        <button (click)="trading = ''" (click)="resetValues()">Volver</button>
+        <button (click)="trading = ''" (click)="resetValues()"><i class="bi bi-caret-left"></i> Volver</button>
       </div>
       <div class="modal">
         <h2>Compra de USD</h2>
@@ -67,7 +67,7 @@
     @if (trading === 'venta'){
       <div class="page3">
         <div class="closeButton">
-          <button (click)="trading = ''" (click)="resetValues()">Volver</button>
+          <button (click)="trading = ''" (click)="resetValues()"><i class="bi bi-caret-left"></i>Volver</button>
         </div>
         <div class="modal">
           <h2>Venta de USD</h2>
