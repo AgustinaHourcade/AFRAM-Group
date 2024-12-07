@@ -24,7 +24,6 @@ import { AccountService } from '@accounts/services/account.service';
   styleUrl: './cbu-alias.component.css',
 })
 export class CbuAliasComponent implements OnInit {
-  // ! LISTO
   // Inyección de dependencias
   private router = inject(ActivatedRoute);
   private userService = inject(UserService);
@@ -68,7 +67,7 @@ export class CbuAliasComponent implements OnInit {
         confirmButtonColor: '#00b4d8',
       });
     }
-    
+
     if (newAlias && newAlias.length < 5) {
       Swal.fire({
         title: 'La longitud mínima es de 5 caracteres.',
@@ -110,13 +109,13 @@ export class CbuAliasComponent implements OnInit {
   }
 
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
-  
+
   downloadAsPDF() {
     const element = this.pdfContent.nativeElement;
     const elementsToHide = element.querySelectorAll('.no-print');
     elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
     element.classList.add('pdf-only');
-    
+
     html2canvas(element, {
       scale: 4,
     }).then((canvas) => {
@@ -132,14 +131,14 @@ export class CbuAliasComponent implements OnInit {
       const logoUrl = '/logo-fff.png';
       const logoImg = new Image();
       logoImg.src = logoUrl;
-      
+
       logoImg.onload = () => {
         const logoWidth = 3.125;
         const logoHeight = 1.5625;
         const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
         const yPos = 0.5;
         pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-        
+
         const imgWidth = 8.5;
         const pageHeight = 11;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
@@ -155,11 +154,11 @@ export class CbuAliasComponent implements OnInit {
           pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-        
+
         pdf.save('cbu-alias.pdf');
       };
     });
-    
+
     elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
     element.classList.remove('pdf-only');
   }

@@ -1,6 +1,5 @@
-<!-- ! LISTO -->
 <div class="card" routerLink="/accounts/account/{{ account.id }}">
-    
+
     <!-- Condicional para tipo de cuenta: Caja de ahorro o Cuenta corriente -->
     @if (account.account_type == "Savings") {
         @if (account.currency === 'ars'){
@@ -10,7 +9,7 @@
             <h3>Caja de ahorro U<span>$</span>S</h3>
             <p>{{ account.id }}-{{ userId }}/1</p>
         }
-       
+
     } @else if (account.account_type == "Checking") {
         <h3>Cuenta corriente</h3>
         <p>{{ account.id }}-{{ userId }}/2</p>

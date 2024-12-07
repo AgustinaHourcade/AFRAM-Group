@@ -24,13 +24,14 @@ export class MyTransactionsComponent {
   userId: number = 0;
   pageSize = 4 ;
   currentPage = 1;
+  currentPagePending = 1;
   selectedAccountId!: number;
-  
+
   private changeDetector = inject(ChangeDetectorRef);
   private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private  transactionService = inject(TransactionService);
-  
+
 
   get totalPages(): number {
     return Math.ceil(this.transfers.length / this.pageSize);
@@ -47,6 +48,23 @@ export class MyTransactionsComponent {
       this.currentPage = page;
     }
   }
+
+  get totalPagesP(): number {
+    return Math.ceil(this.pendingTransfers.length / this.pageSize);
+  }
+
+  get paginatedTransactionsP() {
+    const startIndex = (this.currentPagePending - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.pendingTransfers.slice(startIndex, endIndex);
+  }
+
+  changePageP(page: number): void {
+    if (page >= 1 && page <= this.totalPagesP) {
+      this.currentPagePending = page;
+    }
+  }
+
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();

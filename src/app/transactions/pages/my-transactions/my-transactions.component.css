@@ -8,6 +8,10 @@
   box-shadow: 0px 4px 8px var(--box-shadow-color);
 }
 
+.transactions{
+  min-height: 420px;
+}
+
 .accounts-div{
   display: flex;
   flex-direction: column;

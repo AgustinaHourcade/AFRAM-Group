@@ -237,6 +237,10 @@ img {
   color: var(--gray-3);
 }
 
+.no-notifications p {
+  padding: 15px;
+}
+
 .hamburger {
   display: none;
 }
@@ -258,7 +262,7 @@ li > i {
   font-size: 2rem;
   cursor: pointer;
 }
-/* 
+/*
 .logout-container {
   display: flex;
   justify-content: center;
@@ -417,7 +421,7 @@ li > i {
     flex-wrap: nowrap;
   }
 
-   
+
 
   .nav-links.responsive {
     display: flex;

@@ -33,4 +33,12 @@ export class SupportService {
     return this.http.patch<boolean>(`${this.baseUrl}/status/${threadId}`, {newStatus});
   }
 
+  deleteThread(id : number) : Observable<boolean>{
+    return this.http.delete<boolean>(`${this.baseUrl}/${id}`);
+  }
+
+  deleteAllThreads(user_id: number) : Observable<boolean>{
+    return this.http.delete<boolean>(`${this.baseUrl}/user/${user_id}`);
+  }
+
 }

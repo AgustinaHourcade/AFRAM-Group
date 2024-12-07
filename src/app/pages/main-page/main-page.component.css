@@ -29,6 +29,7 @@ h2 {
 
 .transactions-container {
   flex-grow: 1;
+  min-height: 315px;
 }
 
 .card {

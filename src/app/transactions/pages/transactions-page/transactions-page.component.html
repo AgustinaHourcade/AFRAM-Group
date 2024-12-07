@@ -10,7 +10,7 @@
           <h2>Transferir</h2>
           <p>Transfiere a quien quieras ahora.</p>
         </a>
-        
+
         <a (click)="openAppTransferProgramming()" class="dashboard-card">
           <i class="bi bi-clock-history"></i>
           <h2>Programar transferencia</h2>
@@ -21,10 +21,10 @@
 }
 
 @if(appTransferModal){
-  <button (click)="closeAppTransferModal()"> Volver </button>
+  <button (click)="closeAppTransferModal()"><i class="bi bi-caret-left"></i> Volver </button>
   <app-transfer-modal></app-transfer-modal>
 }@else if (appTransferProgramming){
-    <button (click)="closeAppTransferProgramming()"> Volver </button>
+    <button (click)="closeAppTransferProgramming()"><i class="bi bi-caret-left"></i> Volver </button>
     <app-transfer-programming></app-transfer-programming>
 }
 </div>

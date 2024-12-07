@@ -12,9 +12,8 @@ import { UserSessionService } from '@auth/services/user-session.service';
   styleUrl: './card-account.component.css',
 })
 export class CardAccountComponent {
-  // LISTO
   // Inyección de dependencias
-  private userSessionService = inject(UserSessionService); 
+  private userSessionService = inject(UserSessionService);
 
   //Variables
   @Input()

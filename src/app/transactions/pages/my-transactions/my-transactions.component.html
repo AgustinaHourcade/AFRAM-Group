@@ -35,34 +35,53 @@
     </div>
   </div>
 
-  
-  <div class="pagination-wrapper">
-    <div class="pagination-controls">
-      @if(currentPage > 1){
-        <button class="pagination-button" (click)="changePage(currentPage - 1)">⬅ Anterior</button>
-      }
-      
-      <div class="page-buttons">
-        <button class="pagination-button" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage" (click)="changePage(i + 1)">{{ i + 1 }}</button>
-      </div>
+  @if(transfers.length > 4){
+    <div class="pagination-wrapper">
+      <div class="pagination-controls">
+        @if(currentPage > 1){
+          <button class="pagination-button" (click)="changePage(currentPage - 1)">⬅ Anterior</button>
+        }
 
-      @if(currentPage < totalPages){
-        <button class="pagination-button"  (click)="changePage(currentPage + 1)">Siguiente ➡</button>
-      }
+        <div class="page-buttons">
+          <button class="pagination-button" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage" (click)="changePage(i + 1)">{{ i + 1 }}</button>
+        </div>
+
+        @if(currentPage < totalPages){
+          <button class="pagination-button"  (click)="changePage(currentPage + 1)">Siguiente ➡</button>
+        }
+      </div>
     </div>
-  </div>
+  }
 } @else {
   <p class="aviso">No posee transacciones.</p>
 }
+
 @if (pendingTransfers.length > 0) {
 <div class="transactions">
   <h2>Transacciones pendientes</h2>
     <div class="transactions-page">
       <div class="transactions-container">
-          @for(transaction of pendingTransfers; track $index){
+          @for(transaction of paginatedTransactionsP; track $index){
             <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
           }
       </div>
     </div>
   </div>
+  @if(pendingTransfers.length > 4){
+    <div class="pagination-wrapper">
+      <div class="pagination-controls">
+        @if(currentPagePending > 1){
+          <button class="pagination-button" (click)="changePageP(currentPagePending - 1)">⬅ Anterior</button>
+        }
+
+        <div class="page-buttons">
+          <button class="pagination-button" *ngFor="let page of [].constructor(totalPagesP); let i = index" [class.active]="i + 1 === currentPagePending" (click)="changePageP(i + 1)">{{ i + 1 }}</button>
+        </div>
+
+        @if(currentPagePending < totalPagesP){
+          <button class="pagination-button"  (click)="changePageP(currentPagePending + 1)">Siguiente ➡</button>
+        }
+      </div>
+    </div>
+  }
   }

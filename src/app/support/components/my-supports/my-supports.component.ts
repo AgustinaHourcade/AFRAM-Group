@@ -93,5 +93,31 @@ export class MySupportsComponent implements OnInit{
     });
   }
 
-
+  deleteThread(event: MouseEvent, id: number) {
+    event.stopPropagation();  // Detener la propagación del evento
+    this.supportService.deleteThread(id).subscribe({
+      next: (flag) => {
+        console.log("Thread eliminado");
+        window.location.reload();
+      },
+      error: (e: Error) => {
+        console.log(e.message);
+      }
+    });
   }
+
+
+  deleteAllThreads(){
+    this.supportService.deleteAllThreads(Number(this.id)).subscribe({
+      next: (flag) => {
+        console.log("Thread eliminado");
+        window.location.reload();
+      },
+      error: (e: Error) => {
+        console.log(e.message);
+      }
+    })
+  }
+
+
+}

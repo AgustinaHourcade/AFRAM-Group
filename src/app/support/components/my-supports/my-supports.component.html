@@ -4,6 +4,7 @@
   <div class="new-thread-button">
     <button (click)="new = true">Nueva Consulta</button>
   </div>
+
   <div class="support-container">
     <h2>Consultas activas</h2>
 
@@ -11,36 +12,38 @@
       @if(activesThreads.length == 0){
         <h3>No hay consultas activas</h3>
       }@else {
-
         @for (item of activesThreads; track $index) {
-            <div class="thread-item active" [routerLink]="['/support-chat', item.id]">
-              <h3>{{ item.support_subject }}</h3>
-              <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
-              @if(!item.has_user_last_message){
-                <i class="bi bi-patch-exclamation"></i>
-              }
-
-            </div>
+          <div class="thread-item active" [routerLink]="['/support-chat', item.id]">
+            <h3>{{ item.support_subject }}</h3>
+            <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+            @if(!item.has_user_last_message){
+              <i class="bi bi-patch-exclamation"></i>
+            }
+          </div>
         }
       }
     </div>
 
-
     <h2>Consultas finalizadas</h2>
-
     @if (finishedThreads.length === 0) {
       <h3>No hay consultas finalizadas</h3>
-    }
+    }@else {
+    <a class="delete-thread" (click)="deleteAllThreads()">
+      <i class="bi bi-trash"></i>
+    </a>
 
     <div class="thread-list closed">
       @for (item of finishedThreads; track $index) {
-          <div class="thread-item closed" [routerLink]="['/support-chat', item.id]">
-            <h3>{{ item.support_subject }}</h3>
-            <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
-          </div>
+        <div class="thread-item closed" [routerLink]="['/support-chat', item.id]">
+          <h3>{{ item.support_subject }}</h3>
+          <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
+          <a class="delete-thread" (click)="deleteThread($event,item.id)">
+            <i class="bi bi-trash"></i>
+          </a>
+        </div>
       }
     </div>
-
+  }
   </div>
 }@else {
   <div class="page">
