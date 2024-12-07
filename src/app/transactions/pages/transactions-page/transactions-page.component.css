@@ -71,7 +71,9 @@
 }
 
 button {
-  margin: 20px;
+  position: absolute;
+  top: 7rem;
+  left: 2.5rem;
 }
 
 
