@@ -12,7 +12,8 @@ import { UserSessionService } from '@auth/services/user-session.service';
   styleUrl: './card-account.component.css',
 })
 export class CardAccountComponent {
-  // Inyección de dependencias
+
+  // Dependency injections
   private userSessionService = inject(UserSessionService);
 
   //Variables
@@ -25,12 +26,12 @@ export class CardAccountComponent {
   userId: number = this.userSessionService.getUserId();
   showBalance: boolean = false;
 
-  // Funciones
+  // Functions
   onNavigate() {
     this.navigateEvent.emit(String(this.account.id));
   }
 
-  // Alterna la visibilidad del balance
+  // Alter balance visibility
   toggleBalance(event: Event): void {
     event.stopPropagation();
     this.showBalance = !this.showBalance;

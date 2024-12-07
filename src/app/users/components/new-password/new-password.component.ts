@@ -14,6 +14,7 @@ import { NavbarHomeComponent } from "@shared/navbar-home/navbar-home.component";
   styleUrl: './new-password.component.css'
 })
 export class NewPasswordComponent {
+
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private route = inject(Router);
@@ -56,7 +57,6 @@ export class NewPasswordComponent {
       confirm_password: ['', [Validators.required]]
     }, { validators: this.matchPasswords }
   );
-
 
   moveFocus(event: any, nextInputId: string) {
     if (event.target.value.length === 1) {

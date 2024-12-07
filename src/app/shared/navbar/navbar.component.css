@@ -289,8 +289,9 @@ li > i {
 
 .action-all{
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   color: var(--gray-4);
   padding: 5px;
 }

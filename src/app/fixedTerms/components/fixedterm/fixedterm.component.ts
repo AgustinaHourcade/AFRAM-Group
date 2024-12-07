@@ -22,17 +22,18 @@ import { Transaction } from '@transactions/interface/transaction.interface';
   styleUrl: './fixedterm.component.css',
 })
 export class NewFixedtermComponent implements OnInit {
+
   rate!: InterestRates;
-  calculatedDate: Date | undefined;
-  accounts?: Array<Account>;
   account?: Account;
+  accounts?: Array<Account>;
+  calculatedDate: Date | undefined;
 
   private fb = inject(FormBuilder);
-  private fixedTermService = inject(FixedTermService);
   private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private interestService = inject(InterestRatesService);
+  private fixedTermService = inject(FixedTermService);
+  private userSessionService = inject(UserSessionService);
   private transactionService = inject(TransactionService);
 
   ngOnInit() {
@@ -64,10 +65,10 @@ export class NewFixedtermComponent implements OnInit {
   });
 
   createFixedTerm(): void {
+
     if (this.formulario.invalid) {
       return;
     }
-
 
     this.fixedTerm.invested_amount = this.formulario.get('invested_amount')?.value || 0;
     this.fixedTerm.account_id = this.formulario.get('account_id')?.value as number;
@@ -174,14 +175,14 @@ export class NewFixedtermComponent implements OnInit {
   }
 
 
-formatearFecha(){
-  const formattedDate = new Date(this.fixedTerm.expiration_date as string).toLocaleDateString('es-ES', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  });
-  return formattedDate;
-}
+  formatearFecha(){
+    const formattedDate = new Date(this.fixedTerm.expiration_date as string).toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+    return formattedDate;
+  }
 
   cargarCuentas() {
     const id = this.userSessionService.getUserId();

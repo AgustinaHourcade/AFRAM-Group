@@ -20,16 +20,17 @@ import { Transaction } from '@transactions/interface/transaction.interface';
   styleUrl: './pay-loan.component.css',
 })
 export class PayLoanComponent {
+
   private fb = inject(FormBuilder);
   private route = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
   private loanService = inject(LoanService);
-  private userSessionService = inject(UserSessionService);
+  private activatedRoute = inject(ActivatedRoute);
   private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
   private transactionService = inject(TransactionService);
-  accounts?: Array<Account>;
-  account?: Account;
   loan: any = {};
+  account?: Account;
+  accounts?: Array<Account>;
 
   ngOnInit() {
     this.cargarCuentas();

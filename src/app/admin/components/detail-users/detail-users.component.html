@@ -45,39 +45,44 @@
   </div>
 
   @if(flag){
-    <h2>Cuentas de {{user?.real_name}}</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Numero</th>
-          <th>Tipo</th>
-          <th>Fecha de apertura</th>
-          <th>Fondos</th>
-          <th>Activa</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (item of accounts; track $index) {
-            <tr class="tr">
-              <td>{{item.id}}</td>
-              <td>{{item.account_type}}</td>
-              <td>{{ formatearFecha(item.opening_date) }}</td>
-              <td>${{item.balance}}</td>
-              @if (!item.closing_date) {
-                <td>Si</td>
-                <div class="action-buttons action-buttons2">
-                  <button class="action-button" [routerLink]="['/list-transaction', item.id]">Movimientos</button>
-                  <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
-                </div>
-              }@else {
-                <td>No</td>
-                <td></td>
-              }
-            </tr>
-        }@empty {
-          <p>El usuario no tiene cuentas asociadas</p>
-        }
-      </tbody>
-    </table>
+    @if(accounts.length > 0){
+      <h2>Cuentas de {{user?.real_name}}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Fecha de apertura</th>
+            <th>Fondos</th>
+            <th>Activa</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of accounts; track $index) {
+              <tr class="tr">
+                <td>{{item.id}}</td>
+                <td>{{item.account_type}}</td>
+                <td>{{ formatearFecha(item.opening_date) }}</td>
+                <td>${{item.balance}}</td>
+                @if (!item.closing_date) {
+                  <td>Si</td>
+                  <td>
+                    <div class="action-buttons action-buttons2">
+                      <button class="action-button" [routerLink]="['/list-transaction', item.id]">Movimientos</button>
+                      <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
+                    </div>
+                  </td>
+                }@else {
+                  <td>No</td>
+                  <td></td>
+                }
+              </tr>
+          }
+        </tbody>
+      </table>
+    }@else {
+      <h3>El usuario no tiene cuentas asociadas</h3>
+    }
+    
   }

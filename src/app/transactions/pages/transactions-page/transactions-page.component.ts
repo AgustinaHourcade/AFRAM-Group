@@ -1,9 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { TransferModalComponent } from "@transactions/components/transfer-modal/transfer-modal.component";
 import { TransferProgrammingComponent } from "@transactions/components/transfer-programming/transfer-programming.component";
+import { AccountService } from '@accounts/services/account.service';
+import { Account } from '@accounts/interface/account.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-transactions-page',
@@ -12,12 +15,21 @@ import { TransferProgrammingComponent } from "@transactions/components/transfer-
   templateUrl: './transactions-page.component.html',
   styleUrl: './transactions-page.component.css'
 })
-export class TransactionsPageComponent{
+export class TransactionsPageComponent implements OnInit{
   isModalOpen = false;
   appTransferProgramming = false;
   appTransferModal = false;
+  accounts!: Array<Account>;
 
-  private router = inject(Router)
+  ngOnInit(): void {
+    this.cargarCuentas();
+  }
+
+  private router = inject(Router);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+
+  userId = this.userSessionService.getUserId();
 
   openModal() {
     this.isModalOpen = true;
@@ -42,4 +54,17 @@ export class TransactionsPageComponent{
   closeAppTransferModal(){
     this.appTransferModal = false;
   }
+
+  cargarCuentas() {
+    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
+      next: (accounts: Account[]) => {
+        this.accounts = accounts.filter(account => account.closing_date === null);
+      },
+      error: (error: Error) => {
+        console.error('Error fetching accounts:', error);
+      },
+    });
+  }
+
+  
 }

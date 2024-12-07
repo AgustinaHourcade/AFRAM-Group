@@ -2,10 +2,10 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { UserService } from '@users/services/user.service';
-import { NotificationsService } from '@notifications/service/notifications.service';
 import { Notification } from '@notifications/interface/notification';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { NotificationsService } from '@notifications/service/notifications.service';
 
 
 @Component({
@@ -17,34 +17,33 @@ import { Notification } from '@notifications/interface/notification';
 })
 export class NavbarComponent implements OnInit{
 
-
-  ngOnInit(): void {
-    this.getUserById();
-
-  }
-
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
   private notificationsService = inject(NotificationsService);
 
-  isResponsiveMenuVisible: boolean = false;
-  activeMenu: string | null = null;
   id : number = 0;
   type !: string;
+  activeMenu: string | null = null;
   notifications: Array<Notification> = [];
-  unreadNotifications: Array<Notification> = [];
   isDropdownOpen: boolean = false;
+  unreadNotifications: Array<Notification> = [];
+  selectedNotifications: number[] = [];
+  isResponsiveMenuVisible: boolean = false;
+
+  ngOnInit(): void {
+    this.getUserById();
+  }
 
  // Toggle para el menú responsive
   toggleMenu(menu?: string): void {
-  if (menu) {
-    this.activeMenu = this.activeMenu === menu ? null : menu;
-  } else {
-    this.isResponsiveMenuVisible = !this.isResponsiveMenuVisible;
-    this.activeMenu = null;
+    if (menu) {
+      this.activeMenu = this.activeMenu === menu ? null : menu;
+    } else {
+      this.isResponsiveMenuVisible = !this.isResponsiveMenuVisible;
+      this.activeMenu = null;
+    }
   }
-}
 
   logout(): void {    this.userSessionService.logOut();this.userSessionService.clearUserId();
     localStorage.clear();
@@ -52,7 +51,6 @@ export class NavbarComponent implements OnInit{
   }
 
   getUserById(){
-
     this.userService.getUser(this.userSessionService.getUserId()).subscribe({
       next: (user) => {
         this.type = user.user_type as string;
@@ -63,9 +61,9 @@ export class NavbarComponent implements OnInit{
         console.error('Error: ', error);
       }
     });
-
   }
 
+  // Cambiar de User a Admin y viceversa
   changeType(){
     let timerInterval: any;
     Swal.fire({
@@ -105,6 +103,7 @@ export class NavbarComponent implements OnInit{
     });
   }
 
+  // Mark a notification as read
   markAsRead(id:number, user_id: number){
     this.notificationsService.markAsRead(id).subscribe({
       next: (flag)=>{
@@ -118,6 +117,7 @@ export class NavbarComponent implements OnInit{
     })
   }
 
+  // Mark all notifications as read
   markAllAsRead(user_id: number){
     this.notificationsService.markAllAsRead(user_id).subscribe({
       next: (flag)=>{
@@ -131,6 +131,7 @@ export class NavbarComponent implements OnInit{
     })
   }
 
+  // Delete a notification
   deleteNotification(id:number, user_id: number){
     this.notificationsService.deleteNotification(id).subscribe({
       next:()=>{
@@ -141,6 +142,7 @@ export class NavbarComponent implements OnInit{
     })
   }
 
+  // Delete all notifications
   deleteAllNotifications(user_id: number){
     this.notificationsService.deleteAllNotifications(user_id).subscribe({
       next:()=>{
@@ -151,7 +153,7 @@ export class NavbarComponent implements OnInit{
     })
   }
 
-
+  // Open a notification in a new tab
   toggleNotificationsDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -168,33 +170,62 @@ export class NavbarComponent implements OnInit{
 
   isNavbarOpen = false;
 
-toggleNavbar() {
-  this.isNavbarOpen = !this.isNavbarOpen;
-}
+  toggleNavbar() {
+    this.isNavbarOpen = !this.isNavbarOpen;
+  }
 
-isSubmenuOpen = {
-  fixedTerms: false,
-  loans: false,
-};
+  isSubmenuOpen = {
+    fixedTerms: false,
+    loans: false,
+  };
 
-toggleSubmenu(menu: 'fixedTerms' | 'loans', event: Event) {
-  event.stopPropagation(); // Evita que el evento cierre el menú inmediatamente
-  // Alterna el estado del submenú seleccionado
-  this.isSubmenuOpen[menu] = !this.isSubmenuOpen[menu];
+  toggleSubmenu(menu: 'fixedTerms' | 'loans', event: Event) {
+    event.stopPropagation(); // Evita que el evento cierre el menú inmediatamente
+    // Alterna el estado del submenú seleccionado
+    this.isSubmenuOpen[menu] = !this.isSubmenuOpen[menu];
 
-  // Cierra los otros submenús
-  Object.keys(this.isSubmenuOpen).forEach((key) => {
-    if (key !== menu) {
-      this.isSubmenuOpen[key as 'fixedTerms' | 'loans'] = false;
+    // Cierra los otros submenús
+    Object.keys(this.isSubmenuOpen).forEach((key) => {
+      if (key !== menu) {
+        this.isSubmenuOpen[key as 'fixedTerms' | 'loans'] = false;
+      }
+    });
+  }
+
+  @HostListener('document:click')
+  closeAllSubmenus() {
+    // Cierra todos los submenús al hacer clic fuera
+    this.isSubmenuOpen.fixedTerms = false;
+    this.isSubmenuOpen.loans = false;
+  }
+
+  toggleNotificationSelection(notificationId: number) {
+    const index = this.selectedNotifications.indexOf(notificationId);
+    if (index === -1) {
+      this.selectedNotifications.push(notificationId);
+    } else {
+      this.selectedNotifications.splice(index, 1);
     }
-  });
-}
+  }
 
-@HostListener('document:click')
-closeAllSubmenus() {
-  // Cierra todos los submenús al hacer clic fuera
-  this.isSubmenuOpen.fixedTerms = false;
-  this.isSubmenuOpen.loans = false;
-}
+
+  deleteSelectedNotifications() {
+    this.selectedNotifications.forEach((notification) =>{
+      this.deleteNotification(notification, this.id)
+    })
+  }
+
+  // Function to mark selected notifications as read
+  markSelectedAsRead() {
+    this.notificationsService.markSelectedAsRead(this.selectedNotifications).subscribe(() => {
+      this.notifications.forEach((notification) => {
+        if (this.selectedNotifications.includes(notification.id)) {
+          notification.is_read = 'yes';
+        }
+      });
+      this.selectedNotifications = []; 
+    });
+  }
+  
 
 }

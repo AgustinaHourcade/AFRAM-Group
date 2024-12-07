@@ -16,14 +16,14 @@ import { Account } from '@accounts/interface/account.interface';
 })
 export class DetailUsersComponent implements OnInit{
 
-  private activatedRoute = inject(ActivatedRoute);
-  private userService = inject(UserService);
-  private accountService = inject(AccountService);
   private router = inject(Router)
+  private userService = inject(UserService);
+  private activatedRoute = inject(ActivatedRoute);
+  private accountService = inject(AccountService);
 
   user ?: User;
-  accounts: Array<Account> = [];
   flag = false;
+  accounts: Array<Account> = [];
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -41,6 +41,7 @@ export class DetailUsersComponent implements OnInit{
     })
   }
 
+  // Function to change the status user. (is_Active = yes || no)
   changeStatus() : void {
     let isActive = ''
     if(this.user?.is_Active === 'yes'){
@@ -76,10 +77,10 @@ export class DetailUsersComponent implements OnInit{
   }
 
   loadAccounts(){
+    this.flag = true;
     this.accountService.getAccountsByIdentifier(Number (this.user?.id)).subscribe({
       next: (accounts) =>{
         this.accounts = accounts;
-        this.flag = true;
         setTimeout(() => {
           this.scrollToBottom();
         }, 300);
@@ -99,6 +100,7 @@ export class DetailUsersComponent implements OnInit{
     return formattedDate;
   }
 
+  // Function to change the status acount.
   changeStatusAcount(id: number){
       this.accountService.deactivateAccount(id).subscribe({
         next: (data) => {
@@ -133,6 +135,7 @@ export class DetailUsersComponent implements OnInit{
       })
   }
 
+  // Function to change the rol user to admin
   changeAdminStatus() {
     Swal.fire({
       title: '¿Está seguro que desea dar el rol de administrador a ' + this.user?.real_name + ' ' + this.user?.last_name + '?',

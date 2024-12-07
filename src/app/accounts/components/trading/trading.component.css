@@ -7,6 +7,20 @@ app-dolar {
   max-width: 300px;
 }
 
+.aviso {
+  color: var(--gray-3);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--extra-light-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .page {
   display: flex;
   justify-content: center;

@@ -6,7 +6,7 @@
       <h3>No hay consultas activas</h3>
     }@else {
       <div class="thread-list active">
-          @for (item of activesThreads; track $index) {
+          @for (item of paginatedActivesThreads; track $index) {
             <div class="thread-item active" [routerLink]="['/admin-support-chat', item.id]">
               <h3>{{ item.support_subject }}</h3>
               <p class="thread-date">Creada el: {{ item.created_at | date: 'dd/MM/yyyy' }}</p>
@@ -18,12 +18,30 @@
       </div>
     }
 
+    @if(activesThreads.length > 4){
+      <div class="pagination-wrapper">
+        <div class="pagination-controls">
+          @if(currentPageActive > 1){
+            <button class="pagination-button" (click)="changePageActive(currentPageActive - 1)">⬅ Anterior</button>
+          }
+  
+          <div class="page-buttons">
+            <button class="pagination-button" *ngFor="let page of [].constructor(totalPagesActives); let i = index" [class.active]="i + 1 === currentPageActive" (click)="changePageActive(i + 1)">{{ i + 1 }}</button>
+          </div>
+  
+          @if(currentPageActive < totalPagesActives){
+            <button class="pagination-button"  (click)="changePageActive(currentPageActive + 1)">Siguiente ➡</button>
+          }
+        </div>
+      </div>
+    }
+
     <h2>Consultas finalizadas</h2>
     @if (finishedThreads.length === 0) {
       <h3>No hay consultas finalizadas</h3>
     }@else {
       <div class="thread-list closed">
-        @for (item of finishedThreads; track $index) {
+        @for (item of paginatedThreadsFinished; track $index) {
           @if(item.support_status === 'closed'){
             <div class="thread-item closed" [routerLink]="['/admin-support-chat', item.id]">
               <h3>{{ item.support_subject }}</h3>
@@ -32,6 +50,25 @@
           }
         }
       </div>
+      @if(finishedThreads.length > 4){
+        <div class="pagination-wrapper">
+          <div class="pagination-controls">
+            @if(currentPageFinished > 1){
+              <button class="pagination-button" (click)="changePageFinished(currentPageFinished - 1)">⬅ Anterior</button>
+            }
+    
+            <div class="page-buttons">
+              <button class="pagination-button" *ngFor="let page of [].constructor(totalPagesFinished); let i = index" [class.active]="i + 1 === currentPageFinished" (click)="changePageFinished(i + 1)">{{ i + 1 }}</button>
+            </div>
+    
+            @if(currentPageFinished < totalPagesFinished){
+              <button class="pagination-button"  (click)="changePageFinished(currentPageFinished + 1)">Siguiente ➡</button>
+            }
+          </div>
+        </div>
+      }
+  
+
     }
   </div>
 </div>

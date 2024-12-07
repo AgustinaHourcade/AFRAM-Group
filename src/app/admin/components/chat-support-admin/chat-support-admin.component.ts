@@ -21,20 +21,19 @@ import { NotificationsService } from '@notifications/service/notifications.servi
 })
 export class ChatSupportAdminComponent implements OnInit{
 
-  private activatedRoute = inject(ActivatedRoute);
-  // private accountService = inject(AccountService);
-  private notificationService = inject(NotificationsService);
-  private messageService = inject(MessageService);
-  private supportService = inject(SupportService);
-  private userService = inject(UserService);
   private fb = inject(FormBuilder);
   private route = inject(Router);
+  private userService = inject(UserService);
+  private activatedRoute = inject(ActivatedRoute);
+  private messageService = inject(MessageService);
+  private supportService = inject(SupportService);
+  private notificationService = inject(NotificationsService);
 
-  messages: Array<Message> = [];
-  user ?: User;
-  thread ?: Thread;
   id ?: number;
+  user ?: User;
   flag = false;
+  thread ?: Thread;
+  messages: Array<Message> = [];
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -92,6 +91,7 @@ export class ChatSupportAdminComponent implements OnInit{
     message: ['', Validators.required]
   })
 
+  // Function to post a thread message
   postThread() {
     const message = this.formulario.get('message')?.value;
     this.messageService.postMessage(Number (this.id), 'support', message as string).subscribe({
@@ -130,6 +130,7 @@ export class ChatSupportAdminComponent implements OnInit{
     })
   }
 
+  // Function to send a notification
   sendNotification() {
     if(this.flag) return;
 

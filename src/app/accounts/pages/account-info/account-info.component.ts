@@ -13,7 +13,6 @@ import { TransactionService } from '@transactions/services/transaction.service';
 import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
 import { UserSessionService } from '@auth/services/user-session.service';
 
-
 @Component({
   selector: 'app-account-info',
   standalone: true,
@@ -21,23 +20,24 @@ import { UserSessionService } from '@auth/services/user-session.service';
   templateUrl: './account-info.component.html',
   styleUrl: './account-info.component.css'
 })
+
 export class AccountInfoComponent implements OnInit{
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
   @ViewChild(TransactionComponent) transactionComponent!: TransactionComponent;
 
-  transactions: Array<Transaction> = [];
-  filteredTransactions: Array<Transaction> = [];
+  today: Date = new Date();
   accountId!: number;
   openingDate!: Date;
-  today: Date = new Date();
-  isLastDayOfMonth: boolean = false;
+  transactions: Array<Transaction> = [];
   isDownloading = false;
+  isLastDayOfMonth: boolean = false;
+  filteredTransactions: Array<Transaction> = [];
   
   private fb = inject(FormBuilder);
-  private transactionService = inject(TransactionService);
-  private accountService = inject(AccountService);
-  private userSessionService = inject(UserSessionService);
   private router = inject(ActivatedRoute);
+  private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
+  private userSessionService = inject(UserSessionService);
   
   dateForm = this.fb.nonNullable.group({
     monthYear: ['']
@@ -104,6 +104,7 @@ export class AccountInfoComponent implements OnInit{
       );
     });
   }
+  
   updateLastDayCheck() { 
     const selectedDate = this.dateForm.get('monthYear')?.value;
     if (!selectedDate) return;
@@ -115,7 +116,6 @@ export class AccountInfoComponent implements OnInit{
     this.isLastDayOfMonth = lastDay <= currentDate;
   }
   
-
   nextAvailableDate(monthYear: string | null): Date | null {
     if (!monthYear) return null;
     const [year, month] = monthYear.split('-').map(Number);
@@ -169,7 +169,7 @@ export class AccountInfoComponent implements OnInit{
           let heightLeft = imgHeight;
           let position = 0;
   
-          // Agrega la imagen del contenido PDF
+          // Add image of PDF content
           pdf.addImage(imgData, 'JPEG', 0, position + logoHeight + 0.5, imgWidth, imgHeight);
           heightLeft -= pageHeight;
   
@@ -185,18 +185,17 @@ export class AccountInfoComponent implements OnInit{
   
           const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
   
-          // Agregar detalles de la cuenta en la primera página, encima de otros elementos
-          pdf.setPage(1); // Asegurarse de trabajar en la primera página
-          const textMarginTop = logoHeight -0.3; // Posicionar debajo del logo
+          // Add account details on the first page, above other elements
+          pdf.setPage(1); 
+          const textMarginTop = logoHeight -0.3; 
           const lineMarginTop = textMarginTop + 0.6;
   
-          pdf.setFont('courier', 'normal'); // Fuente limpia
-          pdf.setFontSize(12); // Tamaño mayor para el encabezado
-          pdf.setTextColor(0, 0, 0); // Color negro
+          pdf.setFont('courier', 'normal');
+          pdf.setFontSize(12);
+          pdf.setTextColor(0, 0, 0); 
           pdf.text(accountDetails, 0.5, textMarginTop);
-  
-          // Dibujar la línea horizontal
-          pdf.setDrawColor(0, 0, 0); // Negro
+
+          pdf.setDrawColor(0, 0, 0);
           pdf.setLineWidth(0.01);
           pdf.line(0.5, lineMarginTop, pdf.internal.pageSize.getWidth() - 0.5, lineMarginTop);
   

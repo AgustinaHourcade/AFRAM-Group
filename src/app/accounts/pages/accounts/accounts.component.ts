@@ -15,13 +15,17 @@ import { Account } from '@accounts/interface/account.interface';
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.css'
 })
-export class AccountsComponent {
-  private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
-  private accountService = inject(AccountService);
 
-  accounts: Array<Account> = [];
+export class AccountsComponent {
+
+  // Dependency injections
+  private router = inject(Router);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+
+  // Variables
   userId: number = 0;
+  accounts: Array<Account> = [];
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
@@ -37,6 +41,7 @@ export class AccountsComponent {
 
   }
 
+  // Funtion to cancel a bank account
   darBaja(id: number ){
 
     this.accountService.getAccountById(id).subscribe({

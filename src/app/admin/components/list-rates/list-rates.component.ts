@@ -15,11 +15,12 @@ import { InterestRates } from '@interestRates/interface/interest-rates.interface
 })
 export class ListRatesComponent implements OnInit{
 
-  private rateService = inject(InterestRatesService);
   private fb = inject(FormBuilder);
-  // private route = inject(Router);
-  rates: Array<InterestRates> = [];
+  private rateService = inject(InterestRatesService);
+
+  rates : Array<InterestRates> = [];
   flag = false;
+  showingBubble: string | null = null;
 
   ngOnInit(): void {
     this.rateService.getRates().subscribe({
@@ -37,6 +38,7 @@ export class ListRatesComponent implements OnInit{
     fixed_term_interest_rate: ['', [Validators.required, Validators.min(0.0001)]]
   })
 
+  // Funtion to generate a new rate
   newRate(){
     const loan_interest_rate = this.formulario.get('loan_interest_rate')?.value;
     const fixed_term_interest_rate = this.formulario.get('fixed_term_interest_rate')?.value;
@@ -72,7 +74,6 @@ export class ListRatesComponent implements OnInit{
     });
 
   }
-  showingBubble: string | null = null;
 
   showBubble(type: string) {
     this.showingBubble = type;
@@ -80,6 +81,6 @@ export class ListRatesComponent implements OnInit{
 
   hideBubble() {
     this.showingBubble = null;
-  }
+  }
 
 }

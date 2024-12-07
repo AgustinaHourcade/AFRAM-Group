@@ -22,13 +22,13 @@ export class UpdatePasswordComponent implements OnInit {
 
   id: number = 0;
   user !: User;
+  type ?: string;
+  hasNumber: boolean = false;
   showPassword1 = false;
   showPassword2 = false;
   showPassword3 = false;
   hasUpperCase: boolean = false;
-  hasNumber: boolean = false;
   isLongEnough: boolean = false;
-  type ?: string;
 
   ngOnInit(): void {
     this.id = this.userSessionService.getUserId();
@@ -43,7 +43,7 @@ export class UpdatePasswordComponent implements OnInit {
     }, { validators: this.matchPasswords }
   );
 
-
+  // Function to validate the password
   validatePassword() {
     const password = this.formularioContra.get('hashed_password')?.value || '';
 
@@ -52,16 +52,19 @@ export class UpdatePasswordComponent implements OnInit {
     this.isLongEnough = password.length >= 8;
   }
 
+  // Funtion to see the password
   togglePasswordVisibility1(input: HTMLInputElement) {
     input.type = this.showPassword1 ? 'password' : 'text';
     this.showPassword1 = !this.showPassword1;
   }
 
+  // Funtion to see the password
   togglePasswordVisibility2(input: HTMLInputElement) {
     input.type = this.showPassword2 ? 'password' : 'text';
     this.showPassword2 = !this.showPassword2;
   }
 
+  // Funtion to see the password
   togglePasswordVisibility3(input: HTMLInputElement) {
     input.type = this.showPassword3 ? 'password' : 'text';
     this.showPassword3 = !this.showPassword3;
@@ -77,6 +80,7 @@ export class UpdatePasswordComponent implements OnInit {
     return valid ? null : { passwordStrength: true };
   }
 
+  // Function to validate if both passwords are the same
   matchPasswords(group: FormGroup): ValidationErrors | null {
     const password = group.get('hashed_password')?.value;
     const confirmPassword = group.get('confirm_password')?.value;
@@ -84,6 +88,7 @@ export class UpdatePasswordComponent implements OnInit {
     return password === confirmPassword ? null : { matchPasswords: true };
   }
 
+  // Funtion to upgrade password
   updatePassword() {
     if (this.formularioContra.invalid)
       return;

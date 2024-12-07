@@ -14,9 +14,10 @@ import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.co
 })
 export class DetailAdminComponent implements OnInit{
 
-  private activatedRoute = inject(ActivatedRoute);
-  private userService = inject(UserService);
   private router = inject(Router)
+  private userService = inject(UserService);
+  private activatedRoute = inject(ActivatedRoute);
+
   admin ?: User;
 
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class DetailAdminComponent implements OnInit{
     })
   }
 
+  // Function to change admin status (active/inactive)
   changeStatus() : void {
     let isActive = ''
     if(this.admin?.is_Active === 'yes'){
@@ -69,6 +71,7 @@ export class DetailAdminComponent implements OnInit{
     })
   }
 
+  // Funtion to change rol admin to user
   changeAdminStatus() {
     Swal.fire({
       title: '¿Está seguro que desea quitar el rol de administrador a ' + this.admin?.real_name + ' ' + this.admin?.last_name + '?',

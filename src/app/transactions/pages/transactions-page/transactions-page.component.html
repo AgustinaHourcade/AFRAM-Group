@@ -1,30 +1,37 @@
 <!-- LISTO -->
 <app-navbar></app-navbar>
 <div class="page">
+@if (accounts.length === 0) {
+  <h2> Lo sentimos, no tiene cuentas disponibles para realizar una transferencia </h2>
+}@else { 
+    @if(!appTransferModal && !appTransferProgramming){
+      <div class="dashboard">
+        <div class="dashboard-grid">
+          <a (click)="openAppTransferModal()" class="dashboard-card">
+            <i class="bi bi-cash-stack"></i>
+            <h2>Transferir</h2>
+            <p>Transfiere a quien quieras ahora.</p>
+          </a>
 
-  @if(!appTransferModal && !appTransferProgramming){
-    <div class="dashboard">
-      <div class="dashboard-grid">
-        <a (click)="openAppTransferModal()" class="dashboard-card">
-          <i class="bi bi-cash-stack"></i>
-          <h2>Transferir</h2>
-          <p>Transfiere a quien quieras ahora.</p>
-        </a>
-
-        <a (click)="openAppTransferProgramming()" class="dashboard-card">
-          <i class="bi bi-clock-history"></i>
-          <h2>Programar transferencia</h2>
-          <p>Programa tus transferencias para realizarlas mas adelante.</p>
-        </a>
+          <a (click)="openAppTransferProgramming()" class="dashboard-card">
+            <i class="bi bi-clock-history"></i>
+            <h2>Programar transferencia</h2>
+            <p>Programa tus transferencias para realizarlas mas adelante.</p>
+          </a>
+        </div>
       </div>
-    </div>
-}
-
-@if(appTransferModal){
-  <button (click)="closeAppTransferModal()"><i class="bi bi-caret-left"></i> Volver </button>
-  <app-transfer-modal></app-transfer-modal>
-}@else if (appTransferProgramming){
-    <button (click)="closeAppTransferProgramming()"><i class="bi bi-caret-left"></i> Volver </button>
-    <app-transfer-programming></app-transfer-programming>
-}
+    } 
+    @else if(appTransferModal){
+      <button (click)="closeAppTransferModal()">
+        <i class="bi bi-caret-left"></i> Volver
+      </button>
+      <app-transfer-modal></app-transfer-modal>
+    }
+    @else if (appTransferProgramming){
+      <button (click)="closeAppTransferProgramming()">
+        <i class="bi bi-caret-left"></i> Volver
+      </button>
+      <app-transfer-programming></app-transfer-programming>
+    } 
+  }
 </div>

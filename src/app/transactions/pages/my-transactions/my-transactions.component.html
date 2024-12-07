@@ -1,5 +1,8 @@
 <!-- LISTO -->
 <app-navbar></app-navbar>
+@if (accounts.length === 0) {
+  <h2> Lo sentimos, no tiene cuentas disponibles  </h2>
+}@else { 
 <div class="accounts">
   <h2>Cuenta</h2>
   <div class="accounts-div">
@@ -85,3 +88,4 @@
     </div>
   }
   }
+}

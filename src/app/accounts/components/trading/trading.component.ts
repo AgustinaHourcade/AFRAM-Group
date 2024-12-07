@@ -20,20 +20,21 @@ import { TransactionService } from '@transactions/services/transaction.service';
   styleUrl: './trading.component.css'
 })
 export class TradingComponent implements OnInit {
-  //Inyección de dependencias
+
+  // Depencency injections
   private fb = inject(FormBuilder);
-  private sessionService = inject(UserSessionService);
   private dolarService = inject(DolarService);
+  private sessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
 
   // Variables
+  id: number = this.sessionService.getUserId();
+  dolar?: Cotizacion;
   trading: string = '';
   accounts: Array<Account> = [];
-  dolar?: Cotizacion;
-  id: number = this.sessionService.getUserId();
-  calculatedValueARSsell: number = 0;
   calculatedValueARSbuy: number = 0;
+  calculatedValueARSsell: number = 0;
 
   formulario = this.fb.nonNullable.group({
     'amount': ['', [Validators.required, Validators.max(10000), Validators.min(1)]],
@@ -41,17 +42,15 @@ export class TradingComponent implements OnInit {
     'destination_account': ['', Validators.required]
   })
 
-  // Funciones
+  // Functions
   getAccounts(){
-    this.accounts = []; // ! BORRAR
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
       next: (accounts) => {
-        this.accounts = accounts
+        this.accounts = accounts.filter(account => account.closing_date == null);
       },
       error: (e: Error) => console.log(e.message)
     })
   }
-
 
   updateCalculatedARSsell(amount: string | undefined) {
     const amountNum = parseFloat(amount as string);

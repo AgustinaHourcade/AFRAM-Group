@@ -17,7 +17,7 @@ export class AuthPageComponent {
   
   isLoginActive = true;
 
-  // Función para alternar entre los formularios de inicio de sesión y registro
+  // Feature to toggle between login and registration forms
   toggleForm(formType: string) {
     this.isLoginActive = (formType === 'login');
   }
@@ -26,16 +26,4 @@ export class AuthPageComponent {
     this.userSessionService.clearUserId();
   }
 
-  // COPIADO DEL REPOSITORIO
-  // const container = document.getElementById('container');
-  // const registerBtn = document.getElementById('register');
-  // const loginBtn = document.getElementById('login');
-
-  // registerBtn.addEventListener('click', () => {
-  //   container.classList.add("active");
-  // });
-
-  // loginBtn.addEventListener('click', () => {
-  //     container.classList.remove("active");
-  // });
 }

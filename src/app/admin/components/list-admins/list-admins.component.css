@@ -41,9 +41,9 @@ tbody tr:hover {
   align-items: center;
   margin-bottom: 15px;
   padding: 8px;
-  background-color: var(--background-gray);
+  /* background-color: var(--background-gray); */
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px var(--box-shadow-color);
+  /* box-shadow: 0 2px 4px var(--box-shadow-color); */
   max-width: 600px;
   margin: 0 auto;
 }
@@ -52,6 +52,7 @@ tbody tr:hover {
   width: 35%;
   padding: 10px;
   border-radius: var(--border-radius);
+  margin-top: 0;
 }
 
 .clear-button {

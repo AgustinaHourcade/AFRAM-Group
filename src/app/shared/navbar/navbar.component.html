@@ -95,7 +95,8 @@
     <div class="notification-container">
       <div class="notification-icon" [class.has-unread]="unreadNotifications.length > 0"
         [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
-        [class.no-notifications]="notifications.length === 0" (click)="toggleNotificationsDropdown()"
+        [class.no-notifications]="notifications.length === 0" 
+        (click)="toggleNotificationsDropdown()"
         (click)="$event.stopPropagation()">
         <i class="bi" [class.bi-bell-fill]="notifications.length > 0" [class.bi-bell]="notifications.length === 0"></i>
       </div>
@@ -107,14 +108,22 @@
           </div>
         }@else {
           <div class="action-all">
+            <a class="mark-selected-as-read" (click)="markSelectedAsRead()">
+              <i class="bi bi-check-all"></i> Marcar como leídas
+            </a>
+            <a class="delete-selected-notifications"  (click)="deleteSelectedNotifications()">
+              <i class="bi bi-trash"></i> Borrar seleccionadas
+            </a>
             <a class="delete-all-notifications" (click)="deleteAllNotifications(id)">
-              <i class="bi bi-trash" ></i>
+              <i class="bi bi-trash"></i> Borrar todas
             </a>
             <a class="mark-all-as-read" (click)="markAllAsRead(id)">
-              <i class="bi bi-check-all"></i>
+              <i class="bi bi-check-all"></i> Marcar todas como leídas
             </a>
           </div>
           @for (notification of notifications; track $index) {
+            <input type="checkbox" [value]="notification.id" 
+            (change)="toggleNotificationSelection(notification.id)" />
             <div class="notification-item">
               <div class="notification-content">
                 <h5>{{ notification.title }}</h5>
@@ -129,7 +138,7 @@
                         </a>
                       }
                       <a class="delete-notification" (click)="deleteNotification(notification.id, id)">
-                      <i class="bi bi-trash"></i>
+                        <i class="bi bi-trash"></i>
                       </a>
                     </div>
                   </div>

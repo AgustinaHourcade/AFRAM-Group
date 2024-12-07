@@ -13,18 +13,18 @@ import Swal from 'sweetalert2';
   styleUrl: './navbar-admin.component.css'
 })
 export class NavbarAdminComponent implements OnInit {
+
+  type !: string;
   activeMenu: string | null = null;
   isResponsiveMenuVisible: boolean = false;
-  type !: string;
 
   private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
+  private userSessionService = inject(UserSessionService);
 
   ngOnInit(): void {
     this.getUserById();
   }
-
 
   logout(): void {
     this.userSessionService.logOut();
@@ -43,8 +43,6 @@ export class NavbarAdminComponent implements OnInit {
       }
     });
   }
-
-
 
   changeType(){
     let timerInterval: any;
@@ -71,7 +69,7 @@ export class NavbarAdminComponent implements OnInit {
     });
   }
 
-  // Toggle para el menú responsive
+  // Toggle for responsive menu
   toggleMenu(menu?: string): void {
     if (menu) {
       this.activeMenu = this.activeMenu === menu ? null : menu;

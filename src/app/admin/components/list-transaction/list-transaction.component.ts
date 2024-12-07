@@ -16,19 +16,18 @@ import { AccountService } from '@accounts/services/account.service';
 })
 export class ListTransactionComponent implements OnInit{
 
-  destinatario: string = '';
-  flag: boolean = false;
-  transactions : Array<Transaction> = [];
-  id: number = 0;
+  id : number = 0;
+  flag : boolean = false;
   coming = false;
   pageSize = 4 ;
   currentPage = 1;
+  destinatario : string = '';
+  transactions : Array<Transaction> = [];
 
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-  // private userSessionService = inject(UserSessionService);
-  private transactionService = inject(TransactionService);
   private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -44,8 +43,7 @@ export class ListTransactionComponent implements OnInit{
             console.log(e.message);
           }
         })
-    }
-
+  }
 
   toggleFlag(): void {
     this.flag = !this.flag;
@@ -54,15 +52,6 @@ export class ListTransactionComponent implements OnInit{
   onCancel(): void {
     this.flag = false;
   }
-
-  // isIncoming(sourceId: number): boolean {
-  //   if(sourceId === this.id){
-  //     this.coming = false;
-  //     return false
-  //   }
-  //   this.coming = true;
-  //   return true;
-  // }
 
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);

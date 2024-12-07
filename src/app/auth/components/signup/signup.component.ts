@@ -19,13 +19,21 @@ import { Address } from '@addresses/interface/address.interface';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent{
+
   account!: Account;
-  showPassword1 = false;
-  showPassword2 = false;
-  hasUpperCase: boolean = false;
   hasNumber: boolean = false;
+  hasUpperCase: boolean = false;
   isLongEnough: boolean = false;
   passwordForm: FormGroup;
+  showPassword1 = false;
+  showPassword2 = false;
+  
+  private fb = inject(FormBuilder);
+  private route = inject(Router);
+  private userService = inject(UserService);
+  private sesionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private addressService = inject(AddressService);
 
   passwordValidation = {
     containsNumber: false,
@@ -39,14 +47,6 @@ export class SignupComponent{
       event.preventDefault();
     }
   }
-
-  
-  private fb = inject(FormBuilder);
-  private sesionService = inject(UserSessionService);
-  private userService = inject(UserService);
-  private accountService = inject(AccountService);
-  private addressService = inject(AddressService);
-  private route = inject(Router);
 
   formulario = this.fb.group(
     {
@@ -83,6 +83,7 @@ export class SignupComponent{
       return null;
     };
   }
+  
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 

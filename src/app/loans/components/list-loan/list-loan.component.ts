@@ -18,14 +18,13 @@ import { LoanService } from '@loans/service/loan.service';
 export class ListLoanComponent {
 
   loans: Array<Loan> = [];  
-  expiredLoans: Array<Loan> = [];
-  accounts: Array<Account> = [];
   userId: number = 0;
+  accounts: Array<Account> = [];
+  expiredLoans: Array<Loan> = [];
 
   private loanService = inject(LoanService);
-  // private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
   
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();

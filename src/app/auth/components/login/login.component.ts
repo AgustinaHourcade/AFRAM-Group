@@ -17,19 +17,20 @@ import { EmailService } from '@email/service/email.service';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  private fb = inject(FormBuilder);
-  private userService = inject(UserService);
-  private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
-  private emailService = inject(EmailService);
 
-  showPassword = false;
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private emailService = inject(EmailService);
+  private userSessionService = inject(UserSessionService);
+
   id: number = 0;
   user?: User;
-  userLogin?: User;
-  errorMessage = '';
   accounts!: Array<Account>;
   intentos : number = 0;
+  userLogin?: User;
+  showPassword = false;
+  errorMessage = '';
   
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';

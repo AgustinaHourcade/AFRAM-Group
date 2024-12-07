@@ -17,15 +17,16 @@ import { NavbarComponent } from '@shared/navbar/navbar.component';
   styleUrl: './fixed-terms.component.css',
 })
 export class FixedTermsComponent implements OnInit {
+
+  userId: number = 0;
+  accounts: Array<Account> = [];
   fixedTerms: Array<FixedTerm> = [];
   expiredFixedTerms: Array<FixedTerm> = [];
-  accounts: Array<Account> = [];
-  userId: number = 0;
 
-  private fixedTermService = inject(FixedTermService);
   private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
+  private fixedTermService = inject(FixedTermService);
+  private userSessionService = inject(UserSessionService);
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();

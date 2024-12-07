@@ -15,16 +15,14 @@ import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.co
 export class SupportThreadsComponent implements OnInit{
 
   private supportService = inject(SupportService);
-  // private messageService = inject(MessageService);
-  // private sessionService = inject(UserSessionService);
-  // private fb = inject(FormBuilder);
-  // private routes = inject(Router);
 
-
+  new = false;
   threads : Array<Thread> = [];
   activesThreads: Array<Thread> = [];
   finishedThreads: Array<Thread> = [];
-  new = false;
+  pageSize = 4 ;
+  currentPageActive = 1;
+  currentPageFinished = 1;
 
   ngOnInit(): void {
       this.supportService.getAllThreads().subscribe({
@@ -48,8 +46,37 @@ export class SupportThreadsComponent implements OnInit{
     });
   }
 
+  get totalPagesActives(): number {
+    return Math.ceil(this.activesThreads.length / this.pageSize);
+  }
 
+  get paginatedActivesThreads() {
+    const startIndex = (this.currentPageActive - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.activesThreads.slice(startIndex, endIndex);
+  }
 
+  changePageActive(page: number): void {
+    if (page >= 1 && page <= this.totalPagesActives) {
+      this.currentPageActive = page;
+    }
+  }
+
+  get totalPagesFinished(): number {
+    return Math.ceil(this.finishedThreads.length / this.pageSize);
+  }
+
+  get paginatedThreadsFinished() {
+    const startIndex = (this.currentPageFinished - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.finishedThreads.slice(startIndex, endIndex);
+  }
+
+  changePageFinished(page: number): void {
+    if (page >= 1 && page <= this.totalPagesFinished) {
+      this.currentPageFinished = page;
+    }
+  }
 
   }
 

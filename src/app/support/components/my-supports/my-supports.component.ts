@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -23,17 +23,20 @@ export class MySupportsComponent implements OnInit{
   private messageService = inject(MessageService);
   private sessionService = inject(UserSessionService);
   private fb = inject(FormBuilder);
-  private routes = inject(Router);
-  id ?: number;
 
-  threads : Array<Thread> = [];
-  activesThreads: Array<Thread> = [];
-  finishedThreads: Array<Thread> = [];
+
+  id : number = this.sessionService.getUserId();
   new = false;
+  threads : Array<Thread> = [];
+  selectedAccountId !: number;
+  activesThreads : Array<Thread> = [];
+  finishedThreads : Array<Thread> = [];
+  pageSize = 4 ;
+  currentPageActive = 1;
+  currentPageFinished = 1;
+  
 
   ngOnInit(): void {
-      this.id = this.sessionService.getUserId();
-
       this.supportService.getThreadsByUserId(this.id).subscribe({
         next: (threads) =>{
           this.threads = threads;
@@ -43,6 +46,38 @@ export class MySupportsComponent implements OnInit{
           console.log(e.message);
         }
       })
+  }
+
+  get totalPagesActives(): number {
+    return Math.ceil(this.activesThreads.length / this.pageSize);
+  }
+
+  get paginatedActivesThreads() {
+    const startIndex = (this.currentPageActive - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.activesThreads.slice(startIndex, endIndex);
+  }
+
+  changePageActive(page: number): void {
+    if (page >= 1 && page <= this.totalPagesActives) {
+      this.currentPageActive = page;
+    }
+  }
+
+  get totalPagesFinished(): number {
+    return Math.ceil(this.finishedThreads.length / this.pageSize);
+  }
+
+  get paginatedThreadsFinished() {
+    const startIndex = (this.currentPageFinished - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    return this.finishedThreads.slice(startIndex, endIndex);
+  }
+
+  changePageFinished(page: number): void {
+    if (page >= 1 && page <= this.totalPagesFinished) {
+      this.currentPageFinished = page;
+    }
   }
 
   loadThreads(){
@@ -60,6 +95,7 @@ export class MySupportsComponent implements OnInit{
     message: ['', Validators.required]
   })
 
+  // Function to post a new thread
   postThread() {
     const support_subject = this.formulario.get('support_subject')?.value;
     const message = this.formulario.get('message')?.value;
@@ -93,6 +129,7 @@ export class MySupportsComponent implements OnInit{
     });
   }
 
+  // Function to delete a thread
   deleteThread(event: MouseEvent, id: number) {
     event.stopPropagation();  // Detener la propagación del evento
     this.supportService.deleteThread(id).subscribe({
@@ -106,7 +143,7 @@ export class MySupportsComponent implements OnInit{
     });
   }
 
-
+  // Funtion to delete all threads
   deleteAllThreads(){
     this.supportService.deleteAllThreads(Number(this.id)).subscribe({
       next: (flag) => {

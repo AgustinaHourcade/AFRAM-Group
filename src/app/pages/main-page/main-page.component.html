@@ -52,31 +52,35 @@
 
   <div class="transactions">
     <h2>Movimientos</h2>
-    <div class="accounts">
-      <div class="accounts-div">
-        <label for="accountSelect"></label>
-        <select id="accountSelect" (change)="onAccountSelect($event)">
-          <option value="">Seleccione una cuenta</option>
-          @for (account of accounts; track $index) {
-            @if(account.closing_date == null) {
-              <option [value]="account.id">
-                @if (account.account_type == "Savings") {
-                  <h3>CA </h3>
-                  @if (account.currency === 'usd') {
-                    <p>{{ account.id }}-{{userId }}/1--U$S {{account.balance |  number:'1.2-2'}}</p>
-                  }@else {
-                    <p>{{ account.id }}-{{userId }}/1--{{account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
+    @if(activeAccounts.length == 0){
+      <p class="aviso">No posee cuentas activas</p>
+    }@else {
+       <div class="accounts">
+        <div class="accounts-div">
+          <label for="accountSelect"></label>
+          <select id="accountSelect" (change)="onAccountSelect($event)">
+            <option value="">Seleccione una cuenta</option>
+            @for (account of accounts; track $index) {
+              @if(account.closing_date == null) {
+                <option [value]="account.id">
+                  @if (account.account_type == "Savings") {
+                    <h3>CA </h3>
+                    @if (account.currency === 'usd') {
+                      <p>{{ account.id }}-{{userId }}/1--U$S {{account.balance |  number:'1.2-2'}}</p>
+                    }@else {
+                      <p>{{ account.id }}-{{userId }}/1--{{account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
+                    }
+                  } @else if (account.account_type == "Checking") {
+                    <h3>CC </h3>
+                    <p>{{ account.id }}-{{ userId }}/2--{{account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
                   }
-                } @else if (account.account_type == "Checking") {
-                  <h3>CC </h3>
-                  <p>{{ account.id }}-{{ userId }}/2--{{account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
-                }
-              </option>
+                </option>
+              }
             }
-          }
-        </select>
+          </select>
+        </div>
       </div>
-    </div>
+    
 
     @if (paginatedTransactions.length == 0) {
       <p class="aviso">No hay movimientos para mostrar</p>
@@ -106,7 +110,8 @@
         }
         </div>
     }
-  </div>
+  }
+</div>
 
   <div class="dolar">
     <h2 class="section-title">Cotización</h2>

@@ -1,6 +1,10 @@
 <!-- LISTO -->
 <app-navbar></app-navbar>
 <div class="page">
+@if(accounts?.length === 0){
+  <h2>No posee cuentas para solicitar una tarjeta</h2>
+}@else{
+
   <div class="card-content">
     <h2>Solicitar Tarjeta</h2>
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
@@ -10,31 +14,32 @@
         <option value="credit">Tarjeta de Crédito</option>
         <option value="debit">Tarjeta de Débito</option>
       </select>
-
+      
       <label for="account">Cuenta Asociada</label>
       <select id="account" class="input-field" formControlName="account">
         @if (accounts?.length === 0) {
-            <option value="" disabled select>No posee cuentas</option>
+          <option value="" disabled select>No posee cuentas</option>
         }@else {
           <option value="" disabled selected>Seleccione una cuenta</option>
           @for (item of accounts; track $index) {
-          @if(item.currency === 'ars'){
-            @if (item.account_type === 'Savings') {
-              <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
-            }
-            @else if (item.account_type === 'Checking') {
-              <option value="{{item.id}}">CC {{ item.id }}-{{ userId }}/2 </option>
+            @if(item.currency === 'ars'){
+              @if (item.account_type === 'Savings') {
+                <option value="{{item.id}}">CA {{ item.id }}-{{ userId }}/1 </option>
+              }
+              @else if (item.account_type === 'Checking') {
+                <option value="{{item.id}}">CC {{ item.id }}-{{ userId }}/2 </option>
+              }
             }
           }
         }
-      }
       </select>
-
+      
       <div class="button-container">
         <button type="submit" [disabled]="formulario.invalid">Solicitar</button>
         <button type="button" routerLink="/cards">Cancelar</button>
       </div>
     </form>
   </div>
+}
 </div>
 

@@ -20,19 +20,20 @@ import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.co
   styleUrl: './new-admin.component.css'
 })
 export class NewAdminComponent {
+
   account!: Account;
+  hasNumber: boolean = false;
+  hasUpperCase: boolean = false;
+  isLongEnough: boolean = false;
   showPassword1 = false;
   showPassword2 = false;
-  hasUpperCase: boolean = false;
-  hasNumber: boolean = false;
-  isLongEnough: boolean = false;
 
   private fb = inject(FormBuilder);
-  private sesionService = inject(UserSessionService);
+  private route = inject(Router);
   private userService = inject(UserService);
+  private sesionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private addressService = inject(AddressService);
-  private route = inject(Router);
 
   preventNumbers(event: KeyboardEvent): void {
     const regex = /[0-9]/;
@@ -40,7 +41,6 @@ export class NewAdminComponent {
       event.preventDefault();
     }
   }
-
 
   formulario = this.fb.group(
     {
@@ -80,6 +80,7 @@ export class NewAdminComponent {
       return null;
     };
   }
+
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 
@@ -144,6 +145,7 @@ export class NewAdminComponent {
     });
   }
 
+  // Funtion to create a new admin or user
   agregarAdmin(user: User) {
   let tipo: string;
 

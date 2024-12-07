@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
@@ -24,23 +18,24 @@ import { AccountService } from '@accounts/services/account.service';
   styleUrl: './cbu-alias.component.css',
 })
 export class CbuAliasComponent implements OnInit {
-  // Inyección de dependencias
+
+  // Dependency injections
+  private fb = inject(FormBuilder);
   private router = inject(ActivatedRoute);
   private userService = inject(UserService);
   private accountService = inject(AccountService);
-  private fb = inject(FormBuilder);
 
   // Variables
-  account!: Account;
   user!: User;
+  account!: Account;
   isEditing: boolean = false;
 
-  // Formulario reactivo para modificar alias
+  // Reactive form to modify aliases
   formulario = this.fb.nonNullable.group({
     newAlias: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5)]],
   });
 
-  // Funciones
+  // Functions
   toggleEditing() {
     this.isEditing = !this.isEditing;
   }
@@ -48,7 +43,7 @@ export class CbuAliasComponent implements OnInit {
   modifyAlias() {
     const newAlias = this.formulario.get('newAlias')?.value;
 
-    // Validaciones del alias
+    // Alias validators
     if (this.account.alias === newAlias) {
       Swal.fire({
         title: 'El alias ingresado es idéntico al actual.',

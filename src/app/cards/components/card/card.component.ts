@@ -18,14 +18,15 @@ import { AccountService } from '@accounts/services/account.service';
   styleUrl: './card.component.css',
 })
 export class CardComponent implements OnInit {
-  private sesionService = inject(UserSessionService);
+
   private cardService = inject(CardService);
+  private sesionService = inject(UserSessionService);
   private accountService = inject(AccountService);
 
-  borrar = false;
   cards!: Array<any>;
-  accounts!: Array<Account>;
+  borrar = false;
   userId = this.sesionService.getUserId();
+  accounts!: Array<Account>;
   activeCards: Array<any> = [];
   showNumbers: boolean= false;
 
@@ -155,7 +156,6 @@ export class CardComponent implements OnInit {
   }
 
   toggleVisibility(card: any): void {
-    // event.stopPropagation();
     card.showNumbers = !card.showNumbers;
   }
 

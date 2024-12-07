@@ -21,10 +21,11 @@ import { Transaction } from '@transactions/interface/transaction.interface';
   styleUrl: './new-loan.component.css',
 })
 export class NewLoanComponent implements OnInit {
+
   rate!: InterestRates;
-  calculatedDate: Date | undefined;
-  accounts?: Array<Account>;
   account?: Account;
+  accounts?: Array<Account>;
+  calculatedDate: Date | undefined;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -73,7 +74,6 @@ export class NewLoanComponent implements OnInit {
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#00b4d8'
       });
-      // ! podemos agregar el link al mapa
     }else{
     this.accountService.getAccountById(this.loan.account_id).subscribe({
       next: (account) => {

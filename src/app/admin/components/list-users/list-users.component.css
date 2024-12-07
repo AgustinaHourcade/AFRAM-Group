@@ -25,8 +25,8 @@ td {
   border-bottom: 1px solid var(--gray-2);
 }
 
-tbody tr:last-child td {
-  border-bottom: none;
+tr:last-child {
+  width: 50px;
 }
 
 tbody tr:hover {
@@ -40,9 +40,9 @@ tbody tr:hover {
   align-items: center;
   margin-bottom: 15px;
   padding: 8px;
-  background-color: var(--background-gray);
+  /* background-color: var(--white); */
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px var(--box-shadow-color);
+  /* box-shadow: 0 2px 4px var(--box-shadow-color); */
   max-width: 600px;
   margin: 0 auto;
 }
@@ -51,6 +51,7 @@ tbody tr:hover {
   width: 35%;
   padding: 10px;
   border-radius: var(--border-radius);
+  margin-top: 0;
 }
 
 .clear-button {

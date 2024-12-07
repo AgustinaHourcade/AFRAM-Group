@@ -14,8 +14,10 @@ import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.co
   styleUrl: './list-users.component.css',
 })
 export class ListUsersComponent implements OnInit {
-  private userService = inject(UserService);
+
   private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+
   clients: Array<User> = [];
   clientsFilter: Array<User> = [];
 
@@ -63,7 +65,6 @@ export class ListUsersComponent implements OnInit {
     });
   }
   
-
   onClearFilter() {
     this.filterForm.reset();
     this.clientsFilter = [...this.clients];

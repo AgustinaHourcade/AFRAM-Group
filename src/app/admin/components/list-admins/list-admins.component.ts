@@ -14,8 +14,9 @@ import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.co
 })
 export class ListAdminsComponent implements OnInit {
 
-  private userService = inject(UserService);
   private fb = inject(FormBuilder);
+  private userService = inject(UserService);
+  
   admins: Array<User> = [];
   adminsFilter: Array<User> = [];
 

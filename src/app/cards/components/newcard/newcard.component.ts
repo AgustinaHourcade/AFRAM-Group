@@ -19,16 +19,17 @@ import { CardService } from '@cards/service/card.service';
   styleUrl: './newcard.component.css',
 })
 export class NewcardComponent implements OnInit {
-  userId !: number;
+
   user !: User;
+  userId !: number;
   accounts?: Array<Account>;
 
-  private userSessionService = inject(UserSessionService);
-  private userService = inject(UserService);
-  private accountService = inject(AccountService);
-  private cardService = inject(CardService);
-  private route = inject(Router);
   private fb = inject(FormBuilder);
+  private route = inject(Router);
+  private userService = inject(UserService);
+  private cardService = inject(CardService);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
 
   formulario = this.fb.nonNullable.group({
     cardType: ['', Validators.required],
@@ -63,6 +64,7 @@ export class NewcardComponent implements OnInit {
     });
   }
 
+  // Funtion to generate a new card
   newCard(): void {
     Swal.fire({
       title: 'Selecciona Tipo de Tarjeta y Cuenta.',
@@ -118,6 +120,7 @@ export class NewcardComponent implements OnInit {
     });
   }
 
+  // Funtion to generate the number card
   generarNumeroTarjeta(): string {
     const sufijoAleatorio = Math.floor(Math.random() * 100000000); 
     const numeroBase = '44101400'; 
@@ -145,7 +148,6 @@ export class NewcardComponent implements OnInit {
       return;
     }
   
-    
     const cardType = this.formulario.get('cardType')?.value as string;
     const account = this.formulario.get('account')?.value as number;
   
