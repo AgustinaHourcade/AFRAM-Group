@@ -229,8 +229,15 @@ export class TransferProgrammingComponent implements OnInit {
           });
         },
         error: () => {
+          Swal.fire({
+            text: 'Cuenta no encontrada.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#00b4d8'
+          });
           this.errorMessage = 'Cuenta no encontrada.';
           this.account = null;
+          this.flag = false;
         },
       });
     } else if (searchType === 'alias') {
@@ -272,6 +279,7 @@ export class TransferProgrammingComponent implements OnInit {
           });
           this.errorMessage = 'Error al buscar la cuenta.';
           this.account = null;
+          this.flag = false;
         },
       });
     }
