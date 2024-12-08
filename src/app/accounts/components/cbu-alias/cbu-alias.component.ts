@@ -1,14 +1,14 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import html2canvas from 'html2canvas';
-import { switchMap } from 'rxjs';
-import jsPDF from 'jspdf';
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { User } from '@users/interface/user.interface';
-import { UserService } from '@users/services/user.service';
 import { Account } from '@accounts/interface/account.interface';
+import { switchMap } from 'rxjs';
+import { UserService } from '@users/services/user.service';
+import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '@accounts/services/account.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-cbu-alias',

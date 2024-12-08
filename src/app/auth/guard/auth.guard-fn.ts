@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { UserSessionService } from '../services/user-session.service';
-import { Router } from '@angular/router';
 
 export const authGuardFn = () => {
   const authService = inject(UserSessionService);

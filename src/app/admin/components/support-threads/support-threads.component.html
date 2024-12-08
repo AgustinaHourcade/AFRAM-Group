@@ -22,15 +22,15 @@
       <div class="pagination-wrapper">
         <div class="pagination-controls">
           @if(currentPageActive > 1){
-            <button class="pagination-button" (click)="changePageActive(currentPageActive - 1)">⬅ Anterior</button>
+            <button class="pagination-button" (click)="changePageActive(currentPageActive - 1)"><i class="bi bi-arrow-left"></i> Anterior</button>
           }
-  
+
           <div class="page-buttons">
             <button class="pagination-button" *ngFor="let page of [].constructor(totalPagesActives); let i = index" [class.active]="i + 1 === currentPageActive" (click)="changePageActive(i + 1)">{{ i + 1 }}</button>
           </div>
-  
+
           @if(currentPageActive < totalPagesActives){
-            <button class="pagination-button"  (click)="changePageActive(currentPageActive + 1)">Siguiente ➡</button>
+            <button class="pagination-button"  (click)="changePageActive(currentPageActive + 1)">Siguiente <i class="bi bi-arrow-right"></i></button>
           }
         </div>
       </div>
@@ -56,18 +56,18 @@
             @if(currentPageFinished > 1){
               <button class="pagination-button" (click)="changePageFinished(currentPageFinished - 1)">⬅ Anterior</button>
             }
-    
+
             <div class="page-buttons">
               <button class="pagination-button" *ngFor="let page of [].constructor(totalPagesFinished); let i = index" [class.active]="i + 1 === currentPageFinished" (click)="changePageFinished(i + 1)">{{ i + 1 }}</button>
             </div>
-    
+
             @if(currentPageFinished < totalPagesFinished){
               <button class="pagination-button"  (click)="changePageFinished(currentPageFinished + 1)">Siguiente ➡</button>
             }
           </div>
         </div>
       }
-  
+
 
     }
   </div>

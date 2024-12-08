@@ -1,9 +1,9 @@
-import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Message, FaqItem, TopicItem } from '@shared/chat-bot/interface/chat.interface';
 import { FaqService } from '@shared/chat-bot/services/faq.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ChatMessageComponent } from '@shared/chat-bot/components/chat-message/chat-message.component';
+import { Message, FaqItem, TopicItem } from '@shared/chat-bot/interface/chat.interface';
+import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-chat',
@@ -15,11 +15,11 @@ import { ChatMessageComponent } from '@shared/chat-bot/components/chat-message/c
 export class ChatComponent {
   @ViewChild('chatMessages') private messagesContainer!: ElementRef;
 
+  topics: TopicItem[];
+  isOpen = false;
   messages: Message[] = [];
   currentMessage = '';
-  topics: TopicItem[];
   currentTopicFaqs: FaqItem[] = [];
-  isOpen = false;
 
   constructor(private faqService: FaqService) {
     this.topics = this.faqService.getTopics();

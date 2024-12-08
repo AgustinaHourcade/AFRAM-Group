@@ -1,18 +1,18 @@
-import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule,} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { FixedTerm } from '@fixedTerms/interface/fixed-term';
-import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { AccountService } from '@accounts/services/account.service';
 import { Account } from '@accounts/interface/account.interface';
-import { InterestRatesService } from '@interestRates/service/interest-rates.service';
-import { InterestRates } from '@interestRates/interface/interest-rates.interface';
-import { TransactionService } from '@transactions/services/transaction.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
 import { Transaction } from '@transactions/interface/transaction.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { InterestRates } from '@interestRates/interface/interest-rates.interface';
+import { InterestRatesService } from '@interestRates/service/interest-rates.service';
 
 @Component({
   selector: 'app-fixedterm',
@@ -22,12 +22,6 @@ import { Transaction } from '@transactions/interface/transaction.interface';
   styleUrl: './fixedterm.component.css',
 })
 export class NewFixedtermComponent implements OnInit {
-
-  rate!: InterestRates;
-  account?: Account;
-  accounts?: Array<Account>;
-  calculatedDate: Date | undefined;
-
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private accountService = inject(AccountService);
@@ -35,6 +29,11 @@ export class NewFixedtermComponent implements OnInit {
   private fixedTermService = inject(FixedTermService);
   private userSessionService = inject(UserSessionService);
   private transactionService = inject(TransactionService);
+
+  rate!: InterestRates;
+  account?: Account;
+  accounts?: Array<Account>;
+  calculatedDate: Date | undefined;
 
   ngOnInit() {
     this.cargarCuentas();

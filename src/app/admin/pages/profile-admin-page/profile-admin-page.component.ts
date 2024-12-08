@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProfileComponent } from '../../../users/components/profile/profile.component';
+import { ProfileComponent } from '@users/components/profile/profile.component';
 import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
 
 @Component({

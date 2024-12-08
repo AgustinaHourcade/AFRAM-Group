@@ -1,8 +1,8 @@
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '@users/services/user.service';
 import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
 
 @Component({
@@ -16,7 +16,7 @@ export class ListAdminsComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
-  
+
   admins: Array<User> = [];
   adminsFilter: Array<User> = [];
 
@@ -49,12 +49,12 @@ export class ListAdminsComponent implements OnInit {
   applyFilter() {
     const dni = this.filterForm.get('dni')?.value?.toString().trim();
     const lastName = this.filterForm.get('lastName')?.value?.trim();
-  
+
     if (!dni && !lastName) {
       this.adminsFilter = [...this.admins];
       return;
     }
-  
+
     this.adminsFilter = this.admins.filter((admin) => {
       const matchesDni = dni ? admin.dni.includes(dni) : true;
       const matchesLastName = lastName

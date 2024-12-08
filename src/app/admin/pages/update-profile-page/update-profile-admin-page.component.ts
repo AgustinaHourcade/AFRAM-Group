@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UpdateProfileComponent } from '../../../users/components/update-profile/update-profile.component';
 import { NavbarAdminComponent } from '../../shared/navbar-admin/navbar-admin.component';
+import { UpdateProfileComponent } from '@users/components/update-profile/update-profile.component';
 
 @Component({
   selector: 'app-update-profile-admin-page',

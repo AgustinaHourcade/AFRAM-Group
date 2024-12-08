@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { Account } from '@accounts/interface/account.interface';
-import { AccountService } from '@accounts/services/account.service';
-import { Address } from '@addresses/interface/address.interface';
-import { AddressService } from '@addresses/service/address.service';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
+import { Account } from '@accounts/interface/account.interface';
+import { Address } from '@addresses/interface/address.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { AddressService } from '@addresses/service/address.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
 
 @Component({
@@ -20,6 +20,12 @@ import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.co
   styleUrl: './new-admin.component.css'
 })
 export class NewAdminComponent {
+  private fb = inject(FormBuilder);
+  private route = inject(Router);
+  private userService = inject(UserService);
+  private sesionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private addressService = inject(AddressService);
 
   account!: Account;
   hasNumber: boolean = false;
@@ -27,13 +33,6 @@ export class NewAdminComponent {
   isLongEnough: boolean = false;
   showPassword1 = false;
   showPassword2 = false;
-
-  private fb = inject(FormBuilder);
-  private route = inject(Router);
-  private userService = inject(UserService);
-  private sesionService = inject(UserSessionService);
-  private accountService = inject(AccountService);
-  private addressService = inject(AddressService);
 
   preventNumbers(event: KeyboardEvent): void {
     const regex = /[0-9]/;
@@ -84,9 +83,9 @@ export class NewAdminComponent {
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 
-    this.hasUpperCase = /[A-Z]/.test(password); 
-    this.hasNumber = /\d/.test(password); 
-    this.isLongEnough = password.length >= 8; 
+    this.hasUpperCase = /[A-Z]/.test(password);
+    this.hasNumber = /\d/.test(password);
+    this.isLongEnough = password.length >= 8;
   }
 
   togglePasswordVisibility(input: HTMLInputElement) {

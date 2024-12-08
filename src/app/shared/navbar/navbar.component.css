@@ -78,7 +78,8 @@ img {
 .nav-links li:hover > .loans-menu,
 .nav-links li:hover > .cards-menu,
 .nav-links li:hover > .transactions-menu,
-.nav-links li:hover > .submenu2 {
+.nav-links li:hover > .submenu2
+{
   display: block;
 }
 
@@ -130,21 +131,166 @@ img {
   background-color: var(--button-hover);
 }
 
+.action-all {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white);
+  padding: 10px;
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+}
+
+.action-all a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 8px 12px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  color: var(--gray-4);
+}
+
+.action-all a:hover{
+  transform: scale(1.05);
+}
+
+.action-all a i {
+  font-size: 1.2rem;
+  color: var(--gray-4);
+
+}
+
+
 .notification-container {
   position: relative;
+  z-index: 1000;
 }
 
 .notification-icon i {
   color: white;
   cursor: pointer;
-  font-size: 1.5rem;
-  transition: transform 0.2s ease;
+  font-size: 1.8rem;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.notification-icon:hover i {
+  transform: scale(1.2);
+  color: var(--button-hover);
+  text-align: center;
+}
+
+.notification-icon.has-unread {
+  animation: shake-bell 0.6s ease-in-out infinite;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--gray-2);
+  border-radius: 8px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  width: 280px;
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
+  z-index: 10;
+  animation: fade-in 0.3s ease-out;
+}
+
+.notification-dropdown.open {
+  display: block;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.notification-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--gray-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: background-color 0.2s ease;
+  padding-left: 5px;
+}
+
+
+.notification-content h5 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--gray-4);
+  font-weight: bold;
+}
+
+.notification-content p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: var(--gray-3);
+  line-height: 1.4;
+}
+
+.notification-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.notification-actions a {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--gray-3);
+  margin-left: 10px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 5px;
+}
+
+.notification-actions a:hover {
+  color: var(--button-hover);
+  transform: scale(1.1);
+}
+
+.notifications-actions-sub, .action-all-sub{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.no-notifications {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--gray-3);
+  /* padding: 20px; */
+}
+
+.no-notifications p {
+  padding: 15px;
+  font-size: 0.95rem;
+  color: var(--gray-4);
 }
 
 .notification-icon.has-unread {
   animation: rotate-bell-infinite 1s ease-in-out infinite;
 }
-
 
 @keyframes rotate-bell-infinite {
   0% {
@@ -164,82 +310,6 @@ img {
   }
 }
 
-.notification-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: var(--white);
-  border: 1px solid var(--gray-2);
-  border-radius: var(--border-radius);
-  box-shadow: 0px 4px 6px var(--box-shadow-color);
-  width: 250px;
-  max-height: 400px;
-  overflow-y: auto;
-  display: none;
-  z-index: 10;
-}
-
-.notification-dropdown.open {
-  display: block;
-}
-
-.notification-item {
-  padding: 10px;
-  border-bottom: 1px solid var(--gray-2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.notification-content h5 {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--gray-3);
-}
-
-.notification-content p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--gray-4);
-}
-
-.notification-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.notification-actions-sub {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.notification-actions a {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: var(--gray-3);
-  margin-left: 10px;
-  transition: color 0.2s ease;
-  padding: 5px;
-}
-
-.notification-actions a:hover {
-  color: var(--button-hover);
-}
-
-.no-notifications {
-  /* padding: 15px; */
-  text-align: center;
-  font-size: 1rem;
-  color: var(--gray-3);
-}
-
-.no-notifications p {
-  padding: 15px;
-}
 
 .hamburger {
   display: none;
@@ -250,34 +320,11 @@ small {
   padding: 5px;
 }
 
-/* .toggle-container {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
-
 .notification-icon i,
 li > i {
   font-size: 2rem;
   cursor: pointer;
 }
-/*
-.logout-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-
-/* .toggle i{
-  font-size: 2rem;
-  cursor: pointer;
-}
-
-.toggle-container span {
-  font-size: 1rem;
-} */
 
 .bi .bi-arrow-right{
   display: none;
@@ -287,23 +334,22 @@ li > i {
   display: none;
 }
 
-.action-all{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  color: var(--gray-4);
-  padding: 5px;
+.read-notification {
+  background-color: var(--gray-2);
 }
 
-.action-all a,
-.action-all i{
-  color: var(--gray-4);
+.unread-notification {
+  border-left: 5px solid var(--primary-color);
 }
 
-.action-all a:hover,
-.action-all i:hover{
-  color: var(--button-hover);
+.notification-item > :first-child {
+  align-self: center;
+  margin-right: 10px;
+  margin-top: 0;
+}
+
+input{
+  margin-top: 0;
 }
 
 @media (max-width: 1165px) {
@@ -356,21 +402,20 @@ li > i {
     display: flex;
   }
 
-  /* Ajustes específicos para submenu2 en responsive */
   .dropdown-fixedterms .submenu2,
   .dropdown-loans .submenu2 {
     position: relative;
     top: 0;
     left: 0;
-    margin-top: 10px; /* Espaciado debajo del botón */
+    margin-top: 10px;
     padding: 10px 0;
     background-color: var(--primary-color);
     border-radius: var(--border-radius);
-    min-width: 100%; /* Ocupa todo el ancho del contenedor padre */
+    min-width: 100%;
   }
 
   .submenu2 {
-    display: block; /* Asegura que se muestre como bloque */
+    display: block;
   }
 
   .submenu2 li{
@@ -454,10 +499,10 @@ li > i {
     left: 50%;
   }
 
-  /* .buttons {
-    flex-direction: column;
-  } */
   .bi .bi-arrow-right{
     display: flex;
   }
+
+
+
 }

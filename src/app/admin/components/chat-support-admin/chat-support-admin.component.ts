@@ -1,16 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
-import { Message, Thread } from '@support/interface/thread';
-import { MessageService } from '@support/service/messages.service';
-import { SupportService } from '@support/service/support.service';
 import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
+import { Message, Thread } from '@support/interface/thread';
+import { SupportService } from '@support/service/support.service';
+import { MessageService } from '@support/service/messages.service';
 import { AccountService } from '@accounts/services/account.service';
 import { NotificationsService } from '@notifications/service/notifications.service';
+import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
 
 @Component({
   selector: 'app-chat-support-admin',
@@ -71,12 +71,12 @@ export class ChatSupportAdminComponent implements OnInit{
       }
     })
   }
-  
+
   loadMessages(){
     this.messageService.getMessages(Number(this.id)).subscribe({
       next: (messages) => {
         this.messages = messages;
-        
+
         setTimeout(() => {
           this.scrollToBottom();
         }, 100);

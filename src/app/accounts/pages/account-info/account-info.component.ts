@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { switchMap } from 'rxjs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { CbuAliasComponent } from '@accounts/components/cbu-alias/cbu-alias.component';
-import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { Transaction } from '@transactions/interface/transaction.interface';
 import { TransactionService } from '@transactions/services/transaction.service';
+import { CbuAliasComponent } from '@accounts/components/cbu-alias/cbu-alias.component';
 import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
-import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-account-info',
@@ -25,6 +25,12 @@ export class AccountInfoComponent implements OnInit{
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
   @ViewChild(TransactionComponent) transactionComponent!: TransactionComponent;
 
+  private fb = inject(FormBuilder);
+  private router = inject(ActivatedRoute);
+  private accountService = inject(AccountService);
+  private transactionService = inject(TransactionService);
+  private userSessionService = inject(UserSessionService);
+
   today: Date = new Date();
   accountId!: number;
   openingDate!: Date;
@@ -32,13 +38,7 @@ export class AccountInfoComponent implements OnInit{
   isDownloading = false;
   isLastDayOfMonth: boolean = false;
   filteredTransactions: Array<Transaction> = [];
-  
-  private fb = inject(FormBuilder);
-  private router = inject(ActivatedRoute);
-  private accountService = inject(AccountService);
-  private transactionService = inject(TransactionService);
-  private userSessionService = inject(UserSessionService);
-  
+
   dateForm = this.fb.nonNullable.group({
     monthYear: ['']
   });
@@ -94,8 +94,8 @@ export class AccountInfoComponent implements OnInit{
     }
 
     const [year, month] = selectedDate.split('-').map(Number);
-    const startDate = new Date(year, month - 1, 1); 
-    const endDate = new Date(year, month, 0); 
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 0);
 
     this.filteredTransactions = this.transactions.filter((transaction) => {
       const transactionDate = new Date(transaction.transaction_date);
@@ -104,22 +104,22 @@ export class AccountInfoComponent implements OnInit{
       );
     });
   }
-  
-  updateLastDayCheck() { 
+
+  updateLastDayCheck() {
     const selectedDate = this.dateForm.get('monthYear')?.value;
     if (!selectedDate) return;
-  
+
     const [year, month] = selectedDate.split('-').map(Number);
-    const lastDay = new Date(year, month, 0); 
-    const currentDate = new Date(); 
-  
+    const lastDay = new Date(year, month, 0);
+    const currentDate = new Date();
+
     this.isLastDayOfMonth = lastDay <= currentDate;
   }
-  
+
   nextAvailableDate(monthYear: string | null): Date | null {
     if (!monthYear) return null;
     const [year, month] = monthYear.split('-').map(Number);
-    return new Date(year, month, 0); 
+    return new Date(year, month, 0);
   }
 
   downloadAsPDF() {
@@ -128,18 +128,18 @@ export class AccountInfoComponent implements OnInit{
       console.error('TransactionComponent no detectado');
       return;
     }
-  
+
     const transactionElements = this.pdfContent.nativeElement.querySelectorAll('.transaction-card');
     transactionElements.forEach((transactionElement: HTMLElement) => {
       this.transactionComponent.applyPDFStyles(true, transactionElement);
     });
-  
+
     const element = this.pdfContent.nativeElement;
-  
+
     setTimeout(() => {
       const elementsToHide = element.querySelectorAll('.no-print');
       elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'none'));
-  
+
       html2canvas(element, {
         scale: 2,
       }).then((canvas) => {
@@ -151,68 +151,68 @@ export class AccountInfoComponent implements OnInit{
           putOnlyUsedFonts: true,
           floatPrecision: 16,
         });
-  
+
         const logoUrl = '/logo-fff.png';
         const logoImg = new Image();
         logoImg.src = logoUrl;
-  
+
         logoImg.onload = () => {
           const logoWidth = 2.5;
           const logoHeight = 1.25;
           const xPos = pdf.internal.pageSize.getWidth() - logoWidth - 0.5;
           const yPos = 0.5;
           pdf.addImage(logoImg, 'JPEG', xPos, yPos, logoWidth, logoHeight);
-  
+
           const imgWidth = 8.5;
           const pageHeight = 11;
           const imgHeight = (canvas.height * imgWidth) / canvas.width;
           let heightLeft = imgHeight;
           let position = 0;
-  
+
           // Add image of PDF content
           pdf.addImage(imgData, 'JPEG', 0, position + logoHeight + 0.5, imgWidth, imgHeight);
           heightLeft -= pageHeight;
-  
+
           while (heightLeft >= 0) {
             position = heightLeft - imgHeight;
             pdf.addPage();
             pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-  
+
           const monthYear = this.dateForm.get('monthYear')?.value;
           const formattedDate = monthYear ? monthYear.replace('-', '_') : 'default_date';
-  
+
           const accountDetails = `Resumen de cuenta\nCuenta ${this.accountId} - ${this.userSessionService.getUserId()}\nPeriodo: ${monthYear}`;
-  
+
           // Add account details on the first page, above other elements
-          pdf.setPage(1); 
-          const textMarginTop = logoHeight -0.3; 
+          pdf.setPage(1);
+          const textMarginTop = logoHeight -0.3;
           const lineMarginTop = textMarginTop + 0.6;
-  
+
           pdf.setFont('courier', 'normal');
           pdf.setFontSize(12);
-          pdf.setTextColor(0, 0, 0); 
+          pdf.setTextColor(0, 0, 0);
           pdf.text(accountDetails, 0.5, textMarginTop);
 
           pdf.setDrawColor(0, 0, 0);
           pdf.setLineWidth(0.01);
           pdf.line(0.5, lineMarginTop, pdf.internal.pageSize.getWidth() - 0.5, lineMarginTop);
-  
+
           pdf.save(`Resumen-${this.accountId}-${formattedDate}.pdf`);
-  
+
           const transactionElements = this.pdfContent.nativeElement.querySelectorAll('.transaction-card');
           transactionElements.forEach((transactionElement: HTMLElement) => {
             this.transactionComponent.applyPDFStyles(false, transactionElement);
           });
           elementsToHide.forEach((el: HTMLElement) => (el.style.display = 'inline'));
-  
+
           this.isDownloading = false;
         };
       });
     });
   }
-  
-  
-  
+
+
+
 }

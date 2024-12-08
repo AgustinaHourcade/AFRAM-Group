@@ -1,8 +1,8 @@
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { UserService } from '@users/services/user.service';
 import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
 
 
@@ -50,12 +50,12 @@ export class ListUsersComponent implements OnInit {
   applyFilter() {
     const dni = this.filterForm.get('dni')?.value?.toString().trim();
     const lastName = this.filterForm.get('lastName')?.value?.trim();
-  
+
     if (!dni && !lastName) {
       this.clientsFilter = [...this.clients];
       return;
     }
-  
+
     this.clientsFilter = this.clients.filter((client) => {
       const matchesDni = dni ? client.dni.includes(dni) : true;
       const matchesLastName = lastName
@@ -64,7 +64,7 @@ export class ListUsersComponent implements OnInit {
       return matchesDni && matchesLastName;
     });
   }
-  
+
   onClearFilter() {
     this.filterForm.reset();
     this.clientsFilter = [...this.clients];

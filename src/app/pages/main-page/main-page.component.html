@@ -80,7 +80,7 @@
           </select>
         </div>
       </div>
-    
+
 
     @if (paginatedTransactions.length == 0) {
       <p class="aviso">No hay movimientos para mostrar</p>
@@ -96,14 +96,14 @@
           <div class="pagination-wrapper">
             <div class="pagination-controls">
               @if(currentPage > 1){
-                <button class="pagination-button" (click)="changePage(currentPage - 1)">⬅ Anterior</button>
+                <button class="pagination-button" (click)="changePage(currentPage - 1)"><i class="bi bi-arrow-left"></i> Anterior</button>
               }
               <div class="page-buttons">
                 <button class="pagination-button" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage" (click)="changePage(i + 1)">{{ i + 1 }}</button>
               </div>
 
               @if(currentPage < totalPages){
-                <button class="pagination-button" (click)="changePage(currentPage + 1)">Siguiente ➡</button>
+                <button class="pagination-button" (click)="changePage(currentPage + 1)">Siguiente <i class="bi bi-arrow-right"></i></button>
               }
             </div>
           </div>

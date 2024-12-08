@@ -8,9 +8,12 @@
 }
 
 .thread-list {
-  /* margin-bottom: 30px; */
   min-height: 360px;
 }
+
+/* .thread-list.closed {
+  min-height: 464px;
+} */
 
 .thread-item {
   background-color: var(--white);
@@ -18,7 +21,7 @@
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
-  box-shadow: 0 1px 4px var(--box-shadow-color);
+  box-shadow: 0 2px 6px var(--box-shadow-color);
   transition: background-color 0.3s;
   position: relative;
 }
@@ -28,7 +31,15 @@
 }
 
 .thread-item.closed {
+  display: flex;
+  justify-content: space-between;
   border-left: 5px solid var(--light-color);
+}
+
+.thread-item.closed .finished {
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }
 
 .thread-item h3 {
@@ -58,8 +69,7 @@
 
 .new-thread-button {
   text-align: end;
-  margin-top: 20px;
-  margin-right: 5%;
+  margin: 20px;
 }
 
 .page {
@@ -171,6 +181,29 @@ textarea:focus {
   gap: 5px;
 }
 
+.bi-trash{
+  align-items: end;
+  font-size: 1.25rem;
+}
+
+.finished{
+  display: flex;
+  flex-direction: column;
+}
+
+a.delete-thread{
+  cursor: pointer;
+  text-align: end;
+}
+
+.delete-all{
+  padding: 15px;
+}
+
+a.delete-thread:hover{
+  color: var(--cancel-button-hover);
+}
+
 /* Responsividad */
 
 @media (max-width: 1024px) {
@@ -193,31 +226,32 @@ textarea:focus {
   .new-thread-button {
     text-align: center;
   }
-  
+
 }
 
 @media (max-width: 768px) {
   .support-container {
-    max-width: 100%;
+    max-width: 90%;
     padding: 15px;
   }
-  
+
   .thread-list {
-    height: auto;
+    min-height: 312px;
   }
+
 
   form {
     width: 90%;
   }
-  
+
   .thread-item h3 {
     font-size: 1rem; /* Ajustamos el tamaño de los títulos */
   }
-  
+
   /* .thread-date {
-    font-size: 12px; /* Ajustamos la fecha 
+    font-size: 12px; /* Ajustamos la fecha
   } */
-  
+
   .thread-item {
     padding: 12px;
   }
@@ -225,7 +259,7 @@ textarea:focus {
   .submit-button button {
     padding: 14px;
   }
-  
+
   .volver-button {
     margin-left: 2%;
   }
@@ -239,31 +273,35 @@ textarea:focus {
   .support-container {
     padding: 10px;
   }
-  
+
+  .thread-list {
+    min-height: 280px;
+  }
+
   form {
     width: 95%;
   }
-  
+
   .thread-item h3 {
     font-size: 0.875rem; /* Ajustamos más el tamaño de los títulos */
   }
-  
+
   .thread-date {
     font-size: 0.6875rem; /* Reducimos más el tamaño de la fecha */
   }
-  
+
   .thread-item {
     padding: 10px;
   }
-  
+
   .submit-button button {
     padding: 12px;
   }
-  
+
   .volver-button {
     margin-left: 0;
   }
-  
+
   .new-thread-button {
     text-align: center;
   }

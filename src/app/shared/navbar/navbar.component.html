@@ -1,5 +1,3 @@
-<!-- CAMBIAR NG IF CUANDO REVISEMOS CSS -->
-
 <nav class="navbar">
   <a routerLink="/main">
     <img src="/logo-navbar.png" alt="Logo del Banco" />
@@ -31,7 +29,7 @@
         <li><a routerLink="/trading">Dólares</a></li>
 
         <li class="dropdown-fixedterms" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
-          <a class="dropdown-link" (click)="toggleSubmenu('fixedTerms', $event)">Plazo fijo
+          <a class="dropdown-link" (mouseenter)="toggleSubmenu('fixedTerms', $event)">Plazo fijo
             @if(isSubmenuOpen.fixedTerms){
               <i class="bi bi-caret-down-fill"></i>
             }@else {
@@ -92,39 +90,50 @@
     </li>
 
     <li>
-    <div class="notification-container">
-      <div class="notification-icon" [class.has-unread]="unreadNotifications.length > 0"
-        [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
-        [class.no-notifications]="notifications.length === 0" 
-        (click)="toggleNotificationsDropdown()"
-        (click)="$event.stopPropagation()">
-        <i class="bi" [class.bi-bell-fill]="notifications.length > 0" [class.bi-bell]="notifications.length === 0"></i>
-      </div>
+      <div class="notification-container">
+          <div class="notification-icon"
+              [class.has-unread]="unreadNotifications.length > 0"
+              [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
+              [class.no-notifications]="notifications.length === 0"
+              (click)="toggleNotificationsDropdown()"
+              (click)="$event.stopPropagation()">
+            <i class="bi"
+              [class.bi-bell-fill]="notifications.length > 0"
+              [class.bi-bell]="notifications.length === 0"
+              [class.rotate-bell-infinite]="unreadNotifications.length > 0"></i>
+          </div>
 
       <div class="notification-dropdown" [class.open]="isDropdownOpen">
         @if (notifications.length === 0) {
-          <div  class="no-notifications">
+          <div class="no-notifications">
             <p>No tiene notificaciones</p>
           </div>
         }@else {
           <div class="action-all">
+            <input
+            type="checkbox"
+            [checked]="isAllSelected"
+            (change)="toggleSelectAll()"
+          />
+          <div  class="action-all-sub">
             <a class="mark-selected-as-read" (click)="markSelectedAsRead()">
-              <i class="bi bi-check-all"></i> Marcar como leídas
+              <i class="bi bi-check-all"></i>
             </a>
-            <a class="delete-selected-notifications"  (click)="deleteSelectedNotifications()">
-              <i class="bi bi-trash"></i> Borrar seleccionadas
-            </a>
-            <a class="delete-all-notifications" (click)="deleteAllNotifications(id)">
-              <i class="bi bi-trash"></i> Borrar todas
-            </a>
-            <a class="mark-all-as-read" (click)="markAllAsRead(id)">
-              <i class="bi bi-check-all"></i> Marcar todas como leídas
+
+            <a class="delete-notification" (click)="deleteSelectedNotifications()">
+              <i class="bi bi-trash"></i>
             </a>
           </div>
+          </div>
           @for (notification of notifications; track $index) {
-            <input type="checkbox" [value]="notification.id" 
-            (change)="toggleNotificationSelection(notification.id)" />
-            <div class="notification-item">
+            <div class="notification-item"
+            [ngClass]="{'read-notification': notification.is_read === 'yes', 'unread-notification': notification.is_read === 'no'}"
+            >
+              <input
+                type="checkbox"
+                [checked]="selectedNotifications.includes(notification.id)"
+                (change)="toggleNotificationSelection(notification.id)"
+              />
               <div class="notification-content">
                 <h5>{{ notification.title }}</h5>
                 <p>{{ notification.message }}</p>

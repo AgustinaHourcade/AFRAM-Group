@@ -1,15 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { User } from '@users/interface/user.interface';
+import { CardService } from '@cards/service/card.service';
 import { UserService } from '@users/services/user.service';
 import { Account } from '@accounts/interface/account.interface';
-import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { CardService } from '@cards/service/card.service';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-newcard',
@@ -19,11 +19,6 @@ import { CardService } from '@cards/service/card.service';
   styleUrl: './newcard.component.css',
 })
 export class NewcardComponent implements OnInit {
-
-  user !: User;
-  userId !: number;
-  accounts?: Array<Account>;
-
   private fb = inject(FormBuilder);
   private route = inject(Router);
   private userService = inject(UserService);
@@ -31,13 +26,17 @@ export class NewcardComponent implements OnInit {
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
 
+  user !: User;
+  userId !: number;
+  accounts?: Array<Account>;
+
   formulario = this.fb.nonNullable.group({
     cardType: ['', Validators.required],
     account: [0, Validators.required],
   });
 
   ngOnInit(): void {
-    this.userId = this.userSessionService.getUserId(); 
+    this.userId = this.userSessionService.getUserId();
     this.loadUserData();
     this.loadAccounts();
   }
@@ -122,19 +121,19 @@ export class NewcardComponent implements OnInit {
 
   // Funtion to generate the number card
   generarNumeroTarjeta(): string {
-    const sufijoAleatorio = Math.floor(Math.random() * 100000000); 
-    const numeroBase = '44101400'; 
-    return `${numeroBase}${sufijoAleatorio.toString().padStart(8, '0')}`; 
+    const sufijoAleatorio = Math.floor(Math.random() * 100000000);
+    const numeroBase = '44101400';
+    return `${numeroBase}${sufijoAleatorio.toString().padStart(8, '0')}`;
   }
 
   generarCVV(): number {
-    return Math.floor(100 + Math.random() * 900); 
+    return Math.floor(100 + Math.random() * 900);
   }
 
   generarFechaExpiracion(): string {
-    const fechaOriginal = new Date(); 
-    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5); 
-    return fechaOriginal.toISOString().split('T')[0]; 
+    const fechaOriginal = new Date();
+    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5);
+    return fechaOriginal.toISOString().split('T')[0];
   }
 
   onSubmit(): void {
@@ -147,11 +146,11 @@ export class NewcardComponent implements OnInit {
       });
       return;
     }
-  
+
     const cardType = this.formulario.get('cardType')?.value as string;
     const account = this.formulario.get('account')?.value as number;
-  
+
     this.createCard(cardType, account);
   }
-  
+
 }

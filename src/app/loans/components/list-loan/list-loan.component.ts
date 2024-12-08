@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Account } from '@accounts/interface/account.interface';
-import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { RouterLink } from '@angular/router';
 import { Loan } from '@loans/interface/loan';
 import { LoanService } from '@loans/service/loan.service';
+import { Account } from '@accounts/interface/account.interface';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-list-loan',
@@ -17,7 +17,7 @@ import { LoanService } from '@loans/service/loan.service';
 })
 export class ListLoanComponent {
 
-  loans: Array<Loan> = [];  
+  loans: Array<Loan> = [];
   userId: number = 0;
   accounts: Array<Account> = [];
   expiredLoans: Array<Loan> = [];
@@ -25,12 +25,12 @@ export class ListLoanComponent {
   private loanService = inject(LoanService);
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
-  
+
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
     this.loadAccounts();
   }
-  
+
   loadAccounts(){
     this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
       next: (accounts) => {
@@ -38,11 +38,11 @@ export class ListLoanComponent {
         for (let account of this.accounts) {
           this.loanService.getLoanByAccountId(account.id).subscribe({
             next: (loans: Loan[]) => {
-              const today = new Date(); 
-              
+              const today = new Date();
+
               loans.forEach(loan => {
                 if (loan.paid !== loan.return_amount && new Date(loan.expiration_date) > today) {
-                  this.loans.push(loan); 
+                  this.loans.push(loan);
                 } else if (loan.paid === loan.return_amount || new Date(loan.expiration_date) <= today) {
                   this.expiredLoans.push(loan);
                 }

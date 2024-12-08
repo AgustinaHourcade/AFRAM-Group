@@ -1,16 +1,16 @@
-import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Loan } from '@loans/interface/loan';
+import { LoanService } from '@loans/service/loan.service';
 import { Account } from '@accounts/interface/account.interface';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { AccountService } from '@accounts/services/account.service';
 import { UserSessionService } from '@auth/services/user-session.service';
-import { LoanService } from '@loans/service/loan.service';
-import { Loan } from '@loans/interface/loan';
-import { TransactionService } from '@transactions/services/transaction.service';
 import { Transaction } from '@transactions/interface/transaction.interface';
+import { TransactionService } from '@transactions/services/transaction.service';
 
 @Component({
   selector: 'app-pay-loan',

@@ -5,9 +5,9 @@ import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
+import { EmailService } from '@email/service/email.service';
 import { Account } from '@accounts/interface/account.interface';
 import { UserSessionService } from '@auth/services/user-session.service';
-import { EmailService } from '@email/service/email.service';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +31,7 @@ export class LoginComponent {
   userLogin?: User;
   showPassword = false;
   errorMessage = '';
-  
+
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
     this.showPassword = !this.showPassword;
@@ -63,7 +63,7 @@ export class LoginComponent {
       },
       error: (e: Error) => {
         console.log(e.message);
-      }    
+      }
     })
 
     this.admitirCliente();
@@ -99,7 +99,7 @@ export class LoginComponent {
                   }
                   this.userService.getUser(Number(id)).subscribe({
                     next: (user) => {
-                  
+
                       this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
                       if (user.user_type === 'admin') {
                         Swal.fire({
@@ -177,7 +177,7 @@ export class LoginComponent {
               })
               this.router.navigate(['/new-password']);
             }
-            
+
           },
           error: (e: Error) => {
             console.log(e.message);
@@ -186,8 +186,8 @@ export class LoginComponent {
       },
       error: (e: Error) => {
         console.log(e.message);
-      }    
+      }
     })
-    
+
   }
 }

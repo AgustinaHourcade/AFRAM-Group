@@ -1,24 +1,24 @@
+import { Card } from '@cards/interface/card';
+import { User } from '@users/interface/user.interface';
+import { Account } from '@accounts/interface/account.interface';
+import { FixedTerm } from '@fixedTerms/interface/fixed-term';
+import { RouterLink } from '@angular/router';
+import { Transaction } from '@transactions/interface/transaction.interface';
+import { CardService } from '@cards/service/card.service';
+import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
+import { EmailService } from '@email/service/email.service';
+import { AccountService } from '@accounts/services/account.service';
+import { DolarComponent } from "@shared/dolar/components/dolar.component";
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
+import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { NotificationsService } from '@notifications/service/notifications.service';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Observable, catchError, firstValueFrom, forkJoin, of } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { DolarComponent } from "@shared/dolar/components/dolar.component";
-import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
-import { AccountService } from '@accounts/services/account.service';
-import { Account } from '@accounts/interface/account.interface';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
-import { TransactionService } from '@transactions/services/transaction.service';
-import { Transaction } from '@transactions/interface/transaction.interface';
-import { Card } from '@cards/interface/card';
-import { CardService } from '@cards/service/card.service';
-import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
-import { FixedTerm } from '@fixedTerms/interface/fixed-term';
-import { NotificationsService } from '@notifications/service/notifications.service';
-import { RouterLink } from '@angular/router';
-import { EmailService } from '@email/service/email.service';
-import { UserService } from '@users/services/user.service';
-import { User } from '@users/interface/user.interface';
 
 @Component({
   selector: 'app-main-page',
@@ -29,30 +29,30 @@ import { User } from '@users/interface/user.interface';
 })
 
 export class MainPageComponent implements OnInit {
-  accounts: Account[] = [];
-  transactions: Array<Transaction> = [];
-  allTransactions: Array<Transaction> = [];
-  cards: Array<Card> = [];
-  fixedTerms: Array<FixedTerm> = [];
-  userId: number = 0;
-  showActions = false;
-  activeCards: Array<Card> = [];
-  activeAccounts: Array<Account> = [];
-  pageSize = 4 ;
-  currentPage = 1;
-  selectedAccountId !: number;
-  user !: User;
 
-
-  private changeDetector = inject(ChangeDetectorRef);
-  private userSessionService = inject(UserSessionService);
-  private accountService = inject(AccountService);
-  private transactionService = inject(TransactionService);
   private cardService = inject(CardService);
-  private fixedTermService = inject(FixedTermService);
-  private notificationService = inject(NotificationsService);
-  private emailService = inject(EmailService);
   private userService = inject(UserService);
+  private emailService = inject(EmailService);
+  private accountService = inject(AccountService);
+  private changeDetector = inject(ChangeDetectorRef);
+  private fixedTermService = inject(FixedTermService);
+  private userSessionService = inject(UserSessionService);
+  private transactionService = inject(TransactionService);
+  private notificationService = inject(NotificationsService);
+
+  user!: User;
+  cards: Array<Card> = [];
+  userId: number = 0;
+  accounts: Account[] = [];
+  pageSize: number = 4 ;
+  fixedTerms: Array<FixedTerm> = [];
+  activeCards: Array<Card> = [];
+  showActions: boolean = false;
+  currentPage: number = 1;
+  transactions: Array<Transaction> = [];
+  activeAccounts: Array<Account> = [];
+  allTransactions: Array<Transaction> = [];
+  selectedAccountId!: number;
 
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);
@@ -399,7 +399,7 @@ private sendTransferDestinationNotification(id: number) {
     next: (account) =>{
         const notification = {
           title: 'Transferencia acreditada!',
-          message: 'Se le acredito una transferencia, puede ver el detalle en la seccion "Mis transferenc"',
+          message: 'Se le acreditó una transferencia, puede ver el detalle en la seccion "Mis transferencias"',
           user_id: account.user_id
         }
 
@@ -438,18 +438,13 @@ async sendEmail(transaction: Transaction): Promise<void> {
             )
             .subscribe({
               next: () => console.log('Correo de notificación enviado'),
-              error: (error: Error) =>
-                console.log('Error al enviar el correo:', error),
+              error: (error: Error) => console.log('Error al enviar el correo:', error),
             });
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         })
 
-      },error: (e: Error) =>{
-        console.log(e.message);
-      }
+      },error: (e: Error) => console.log(e.message)
     })
 
 
@@ -459,13 +454,9 @@ async sendEmail(transaction: Transaction): Promise<void> {
 }
 
 async getUserByAccountId(accountId: number): Promise<void> {
-
   try {
-
     const account = await firstValueFrom(this.accountService.getAccountById(accountId));
-
     this.user = await firstValueFrom(this.userService.getUser(account.user_id));
-
   } catch (error) {
     console.error('Error en getUserByAccountId:', error);
     throw error;

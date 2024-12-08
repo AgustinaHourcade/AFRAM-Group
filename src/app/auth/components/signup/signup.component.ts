@@ -1,15 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
-import { AccountService } from '@accounts/services/account.service';
 import { Account } from '@accounts/interface/account.interface';
-import { AddressService } from '@addresses/service/address.service';
 import { Address } from '@addresses/interface/address.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { AddressService } from '@addresses/service/address.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-signup',
@@ -19,6 +19,12 @@ import { Address } from '@addresses/interface/address.interface';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent{
+  private fb = inject(FormBuilder);
+  private route = inject(Router);
+  private userService = inject(UserService);
+  private sesionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+  private addressService = inject(AddressService);
 
   account!: Account;
   hasNumber: boolean = false;
@@ -27,13 +33,6 @@ export class SignupComponent{
   passwordForm: FormGroup;
   showPassword1 = false;
   showPassword2 = false;
-  
-  private fb = inject(FormBuilder);
-  private route = inject(Router);
-  private userService = inject(UserService);
-  private sesionService = inject(UserSessionService);
-  private accountService = inject(AccountService);
-  private addressService = inject(AddressService);
 
   passwordValidation = {
     containsNumber: false,
@@ -83,7 +82,7 @@ export class SignupComponent{
       return null;
     };
   }
-  
+
   validatePassword() {
     const password = this.formulario.get('hashed_password')?.value || '';
 

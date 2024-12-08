@@ -19,7 +19,7 @@
         </div>
       </div>
     }
-    
+
     @if (trading === 'compra'){
       <div class="page3">
         <div class="closeButton">
@@ -35,6 +35,9 @@
             }@else if (calculatedValueARSbuy > 0) {
               <p>Equivalente en ARS: <strong>{{ calculatedValueARSbuy | number: '1.2-2'}}</strong></p>
             }
+            @if(formulario.controls['amount'].getError('min')){
+              <span class="alert-amount">El monto mínimo de compra es de USD $1</span>
+            }
             <label for="source_account">Cuenta de origen</label>
             <select id="source_account" formControlName="source_account">
               @for (account of accounts; track $index) {
@@ -49,7 +52,7 @@
                 }
               }
             </select>
-            
+
             <label for="destination_account">Cuenta de destino</label>
             <select name="destination_account" formControlName="destination_account">Cuenta de destino
               @for (account of accounts; track $index) {
@@ -60,13 +63,13 @@
                 }
               }
             </select>
-            
+
             <button type="submit" [disabled]="formulario.invalid">Comprar</button>
           </form>
         </div>
       </div>
     }
-    
+
     @if (trading === 'venta'){
       <div class="page3">
         <div class="closeButton">
@@ -78,9 +81,12 @@
             <label for="amount">Cantidad a vender</label>
             <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en USD" (input)="updateCalculatedARSsell(formulario.get('amount')?.value)" />
             @if(formulario.controls['amount'].getError('max')){
-              <span class="alert-amount">El monto maximo de compra es de USD $10.000</span>
+              <span class="alert-amount">El monto máximo de compra es de USD $10.000</span>
             }@else if(calculatedValueARSsell > 0){
               <p>Equivalente en ARS: <strong>{{ calculatedValueARSsell | number: '1.2-2'}}</strong></p>
+            }
+            @if(formulario.controls['amount'].getError('min')){
+              <span class="alert-amount">El monto mínimo de venta es de USD $1</span>
             }
             <label for="source_account">Cuenta de origen</label>
             <select id="source_account" formControlName="source_account">
@@ -92,7 +98,7 @@
                 }
               }
             </select>
-            
+
             <label for="destination_account">Cuenta de destino</label>
             <select id="destination_account" formControlName="destination_account">
               @for (account of accounts; track $index) {
@@ -107,7 +113,7 @@
                 }
               }
             </select>
-            
+
             <button type="submit" [disabled]="formulario.invalid">Vender</button>
           </form>
         </div>

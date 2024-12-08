@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { UserSessionService } from '../../../auth/services/user-session.service';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../users/services/user.service';
 import Swal from 'sweetalert2';
+import { UserService } from '@users/services/user.service';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-navbar-admin',
@@ -14,13 +14,14 @@ import Swal from 'sweetalert2';
 })
 export class NavbarAdminComponent implements OnInit {
 
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private userSessionService = inject(UserSessionService);
+
   type !: string;
   activeMenu: string | null = null;
   isResponsiveMenuVisible: boolean = false;
 
-  private router = inject(Router);
-  private userService = inject(UserService);
-  private userSessionService = inject(UserSessionService);
 
   ngOnInit(): void {
     this.getUserById();
@@ -30,7 +31,30 @@ export class NavbarAdminComponent implements OnInit {
     this.userSessionService.logOut();
     this.userSessionService.clearUserId();
     localStorage.clear();
-    this.router.navigate(['/home']);
+
+    let timerInterval: any;
+
+    Swal.fire({
+      title: "Sesión cerrada correctamente!",
+      html: "Gracias por confiar en AFRAM Group.",
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup()?.querySelector("b");
+        if (timer) {
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);}
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   getUserById(){

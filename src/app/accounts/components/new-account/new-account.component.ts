@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { NavbarComponent } from "@shared/navbar/navbar.component";
+import { Component, inject } from '@angular/core';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-account',
@@ -14,17 +14,17 @@ import { NavbarComponent } from "@shared/navbar/navbar.component";
   styleUrl: './new-account.component.css'
 })
 export class NewAccountComponent {
-  
+
   // Dependency injections
   private fb = inject(FormBuilder);
   private route = inject(Router)
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
-  
+
   // Variables
   flag : string =''; // Flag indicating the type of account selected
   user_id: number = this.userSessionService.getUserId();
-  
+
   formulario = this.fb.nonNullable.group({
     account_type: ['', Validators.required],
     currency: ['',Validators.required]
@@ -61,7 +61,7 @@ export class NewAccountComponent {
       overdraft_limit: 0,
       currency: this.formulario.get('currency')?.value as string
     };
-    
+
     // Alert confirmation before the account has been created
     Swal.fire({
       title: `¿Está seguro que desea crear una nueva cuenta?`,
@@ -95,11 +95,10 @@ export class NewAccountComponent {
 
     if (accountType === 'Checking') {
       this.flag = 'ars'
-      this.formulario.get('currency')?.setValue('ars'); 
+      this.formulario.get('currency')?.setValue('ars');
     } else if (accountType === 'Savings') {
       this.flag = 'all';
     }
   }
 }
 
-  

@@ -14,7 +14,7 @@ import { SignupComponent } from '@auth/components/signup/signup.component';
 export class AuthPageComponent {
   //  ! LISTO
   private userSessionService = inject(UserSessionService);
-  
+
   isLoginActive = true;
 
   // Feature to toggle between login and registration forms

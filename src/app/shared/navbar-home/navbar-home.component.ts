@@ -1,6 +1,6 @@
-import { Component, HostListener, Input } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterModule } from '@angular/router';
+import { Component, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-navbar-home',

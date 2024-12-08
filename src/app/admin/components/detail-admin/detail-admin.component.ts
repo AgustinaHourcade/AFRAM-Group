@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { UserService } from '@users/services/user.service';
 import { User } from '@users/interface/user.interface';
+import { UserService } from '@users/services/user.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
 
 @Component({

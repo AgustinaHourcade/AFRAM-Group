@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Thread } from '@support/interface/thread';
 import { SupportService } from '@support/service/support.service';
 import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";

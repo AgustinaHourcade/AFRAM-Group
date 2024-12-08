@@ -1,11 +1,11 @@
-import { Component, HostListener, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserService } from '@users/services/user.service';
 import { Notification } from '@notifications/interface/notification';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { NotificationsService } from '@notifications/service/notifications.service';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 
 
 @Component({
@@ -18,8 +18,8 @@ import { NotificationsService } from '@notifications/service/notifications.servi
 export class NavbarComponent implements OnInit{
 
   private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
+  private userSessionService = inject(UserSessionService);
   private notificationsService = inject(NotificationsService);
 
   id : number = 0;
@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit{
     this.getUserById();
   }
 
- // Toggle para el menú responsive
+  // Toggle para el menú responsive
   toggleMenu(menu?: string): void {
     if (menu) {
       this.activeMenu = this.activeMenu === menu ? null : menu;
@@ -45,9 +45,34 @@ export class NavbarComponent implements OnInit{
     }
   }
 
-  logout(): void {    this.userSessionService.logOut();this.userSessionService.clearUserId();
+  logout(): void {
+    this.userSessionService.logOut();
+    this.userSessionService.clearUserId();
     localStorage.clear();
-    this.router.navigate(['/home']);
+
+    let timerInterval: any;
+
+    Swal.fire({
+      title: "Sesión cerrada correctamente!",
+      html: "Gracias por confiar en AFRAM Group.",
+      timer: 1500,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup()?.querySelector("b");
+        if (timer) {
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);}
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   getUserById(){
@@ -102,6 +127,28 @@ export class NavbarComponent implements OnInit{
       },
     });
   }
+
+  // Agrega esta propiedad para determinar si todas las notificaciones están seleccionadas
+get isAllSelected(): boolean {
+  return (
+    this.notifications.length > 0 &&
+    this.selectedNotifications.length === this.notifications.length
+  );
+}
+
+// Método para alternar la selección de todas las notificaciones
+toggleSelectAll(): void {
+  if (this.isAllSelected) {
+    // Desmarcar todas
+    this.selectedNotifications = [];
+  } else {
+    // Seleccionar todas
+    this.selectedNotifications = this.notifications.map(
+      (notification) => notification.id
+    );
+  }
+}
+
 
   // Mark a notification as read
   markAsRead(id:number, user_id: number){
@@ -213,6 +260,7 @@ export class NavbarComponent implements OnInit{
     this.selectedNotifications.forEach((notification) =>{
       this.deleteNotification(notification, this.id)
     })
+
   }
 
   // Function to mark selected notifications as read
@@ -223,9 +271,10 @@ export class NavbarComponent implements OnInit{
           notification.is_read = 'yes';
         }
       });
-      this.selectedNotifications = []; 
+      this.selectedNotifications = [];
+      this.getNotification(this.id);
     });
   }
-  
+
 
 }

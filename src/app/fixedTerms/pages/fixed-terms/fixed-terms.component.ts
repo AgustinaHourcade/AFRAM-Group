@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { FixedTerm } from '@fixedTerms/interface/fixed-term';
-import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
 import { Account } from '@accounts/interface/account.interface';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { AccountService } from '@accounts/services/account.service';
 import { UserSessionService } from '@auth/services/user-session.service';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
 
 @Component({
   selector: 'app-fixed-terms',

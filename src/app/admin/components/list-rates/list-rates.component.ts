@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { InterestRates } from '@interestRates/interface/interest-rates.interface';
 import { InterestRatesService } from '@interestRates/service/interest-rates.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
-import { InterestRates } from '@interestRates/interface/interest-rates.interface';
 
 @Component({
   selector: 'app-list-rates',
@@ -18,8 +18,8 @@ export class ListRatesComponent implements OnInit{
   private fb = inject(FormBuilder);
   private rateService = inject(InterestRatesService);
 
-  rates : Array<InterestRates> = [];
   flag = false;
+  rates : Array<InterestRates> = [];
   showingBubble: string | null = null;
 
   ngOnInit(): void {
