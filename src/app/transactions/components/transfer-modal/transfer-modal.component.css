@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 180px);
+  /* height: calc(100vh - 180px); */
   /* background-color: var(--background-gray); */
 }
 
@@ -32,9 +32,9 @@
   text-align: center;
 }
 
-.modal.open{
+/* .modal.open{
   margin-top: 19%;
-}
+} */
 
 
 #cantidad {

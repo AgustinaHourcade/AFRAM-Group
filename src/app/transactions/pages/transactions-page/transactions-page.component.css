@@ -1,8 +1,8 @@
 /* ! LISTO */
 .page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  /* justify-content: center;
+  align-items: center; */
   height: calc(100vh - 82px);
 }
 
@@ -71,9 +71,7 @@
 }
 
 button {
-  position: absolute;
-  top: 7rem;
-  left: 2.5rem;
+  margin: 20px;
 }
 
 
