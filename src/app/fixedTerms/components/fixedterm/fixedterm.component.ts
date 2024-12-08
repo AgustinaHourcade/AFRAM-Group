@@ -32,7 +32,7 @@ export class NewFixedtermComponent implements OnInit {
 
   rate!: InterestRates;
   account?: Account;
-  accounts?: Array<Account>;
+  accounts: Array<Account> = [];
   calculatedDate: Date | undefined;
 
   ngOnInit() {

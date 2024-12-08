@@ -1,7 +1,8 @@
-<!-- LISTO -->
 <app-navbar></app-navbar>
 @if (accounts.length === 0) {
-  <h2> Lo sentimos, no tiene cuentas disponibles  </h2>
+  <div class="warning-message">
+    <p>Lo sentimos, no posee cuentas disponibles.</p>
+  </div>
 }@else { 
 <div class="accounts">
   <h2>Cuenta</h2>
@@ -56,8 +57,9 @@
     </div>
   }
 } @else {
-  <p class="aviso">No posee transacciones.</p>
-}
+  <div class="warning-message">
+    <p>No posee transacciones.</p>
+  </div>}
 
 @if (pendingTransfers.length > 0) {
 <div class="transactions">

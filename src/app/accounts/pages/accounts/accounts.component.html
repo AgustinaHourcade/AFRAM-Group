@@ -1,8 +1,12 @@
-<!--  ! LISTO -->
 <app-navbar></app-navbar>
 
 @if (accounts.length === 0) {
-  <h2 class="not-found">No posee cuentas</h2>
+  <div class="warning-message">
+    <p>Lo sentimos, no posee cuentas activas en este momento.</p>
+  </div>
+  <div class="buttonDiv">
+    <button routerLink="/accounts/new-account">Solicitar cuenta</button>
+  </div>
 }@else {
 <h2 class="title">Mis cuentas</h2>
   <div class="accounts-container">

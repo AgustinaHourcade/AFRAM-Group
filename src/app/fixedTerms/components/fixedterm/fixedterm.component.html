@@ -1,8 +1,10 @@
 <!-- listo -->
 <app-navbar></app-navbar>
 <div class="page">
-  @if(accounts?.length == 0){
-    <h2>Lo sentimos, no tiene cuentas disponibles para realizar un plazo fijo</h2>
+  @if(accounts.length == 0){
+    <div class="warning-message">
+      <p>Lo sentimos, no posee cuentas disponibles para realizar un plazo fijo</p>
+    </div>
   }@else{
   <form [formGroup]="formulario" (ngSubmit)="createFixedTerm()">
     <div>
@@ -20,7 +22,7 @@
       </select>
 
       @if(formulario.controls['account_id'].touched && formulario.controls['account_id'].getError('required')){
-        <p>El ID de cuenta es obligatorio.</p>
+        <p class="error">El ID de cuenta es obligatorio.</p>
       }
     </div>
 
@@ -28,11 +30,11 @@
       <label for="invested_amount">Monto a invertir:</label>
       <input id="invested_amount" type="number" formControlName="invested_amount" />
         @if(formulario.controls['invested_amount'].touched && formulario.controls['invested_amount'].getError('required')){
-          <p>El monto invertido es obligatorio.</p>
+          <p class="error">El monto invertido es obligatorio.</p>
         }
       <div>
         @if(formulario.controls['invested_amount'].touched && formulario.controls['invested_amount'].getError('min')){
-          <p>El monto invertido debe ser mayor a 1.</p>
+          <p class="error">El monto invertido debe ser mayor a 1.</p>
         }
       </div>
     </div>

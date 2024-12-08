@@ -8,7 +8,6 @@ import { UserService } from '@users/services/user.service';
 import { Message, Thread } from '@support/interface/thread';
 import { SupportService } from '@support/service/support.service';
 import { MessageService } from '@support/service/messages.service';
-import { AccountService } from '@accounts/services/account.service';
 import { NotificationsService } from '@notifications/service/notifications.service';
 import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
 

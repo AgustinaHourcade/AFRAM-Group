@@ -1,7 +1,9 @@
 <app-navbar></app-navbar>
 <div class="page">
-@if(accounts?.length == 0){
-  <h2>Lo sentimos, no tiene cuentas disponibles para solicitar un préstamo</h2>
+@if(accounts.length == 0){
+  <div class="warning-message">
+    <p>Lo sentimos, no posee cuentas disponibles para solicitar un préstamo.</p>
+  </div>
 }@else{
 <form [formGroup]="formulario" (ngSubmit)="createLoan()">
   <div>
@@ -22,7 +24,7 @@
 
     @if(formulario.controls['account_id'].touched &&
     formulario.controls['account_id'].getError('required')){
-    <p>El ID de cuenta es obligatorio.</p>
+    <p class="error">El ID de cuenta es obligatorio.</p>
     }
   </div>
 
@@ -35,12 +37,12 @@
     />
     @if(formulario.controls['amount'].touched &&
     formulario.controls['amount'].getError('required')){
-    <p>El monto invertido es obligatorio.</p>
+    <p class="error">El monto invertido es obligatorio.</p>
     }
     <div>
       @if(formulario.controls['amount'].touched &&
       formulario.controls['amount'].getError('min')){
-      <p>El monto invertido debe ser mayor a 0.</p>
+      <p class="error">El monto invertido debe ser mayor a 0.</p>
       }
     </div>
   </div>

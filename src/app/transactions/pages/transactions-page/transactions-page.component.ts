@@ -19,7 +19,7 @@ export class TransactionsPageComponent implements OnInit{
   isModalOpen = false;
   appTransferProgramming = false;
   appTransferModal = false;
-  accounts!: Array<Account>;
+  accounts: Array<Account> = [];
 
   ngOnInit(): void {
     this.cargarCuentas();

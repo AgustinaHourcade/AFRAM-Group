@@ -24,7 +24,7 @@ export class NewLoanComponent implements OnInit {
 
   rate!: InterestRates;
   account?: Account;
-  accounts?: Array<Account>;
+  accounts: Array<Account> = [];
   calculatedDate: Date | undefined;
 
   private fb = inject(FormBuilder);

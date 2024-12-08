@@ -28,7 +28,7 @@ export class NewcardComponent implements OnInit {
 
   user !: User;
   userId !: number;
-  accounts?: Array<Account>;
+  accounts: Array<Account> = [];
 
   formulario = this.fb.nonNullable.group({
     cardType: ['', Validators.required],

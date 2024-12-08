@@ -1,9 +1,10 @@
-<!-- LISTO -->
 <app-navbar-admin></app-navbar-admin>
 <div class="page">
   <button class="go-back" (click)="goBack()" ><i class="bi bi-caret-left"></i>Volver</button>
   @if (transactions.length ===0) {
-      <h2>No posee transacciones</h2>
+    <div class="warning-message">
+      <p>La cuenta no posee transacciones</p>
+    </div>
   }@else {
       <div class="transactions">
       <h2>Movimientos</h2>

@@ -29,7 +29,7 @@ input {
   margin-bottom: 15px;
 }
 
-p {
+.error {
   color: var(--cancel-button);
   font-size: 0.875rem;
 }

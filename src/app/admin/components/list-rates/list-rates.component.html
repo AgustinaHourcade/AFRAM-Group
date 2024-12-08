@@ -3,7 +3,9 @@
 <div class="page1">
   @if(!flag){
     @if(rates.length === 0){
-    <h2>No hay tasas de interes disponibles</h2>
+      <div class="warning-message">
+        <p>No hay tasas de interés disponibles</p>
+      </div>
     <button class="new" (click)="flag = false"><i class="bi bi-plus-circle"></i></button>
     }
     @else{

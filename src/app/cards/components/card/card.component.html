@@ -1,7 +1,8 @@
-<!--  ! LISTO -->
 <app-navbar></app-navbar>
 @if(activeCards.length === 0){
-  <h2>No posee tarjetas</h2>
+  <div class="warning-message">
+    <p>No posee tarjetas</p>
+  </div>
   <div class="buttonDiv">
     <button routerLink="/newcard">Solicitar tarjeta</button>
   </div>

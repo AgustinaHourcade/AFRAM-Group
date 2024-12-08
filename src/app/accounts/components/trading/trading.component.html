@@ -4,8 +4,12 @@
 }
 <div class="page">
   @if(accounts.length == 0){
-    <p class="aviso">No posee cuentas activas</p>
-  }@else {
+    @if(accounts.length == 0){
+      <div class="warning-message">
+        <p>Lo sentimos, no posee cuentas disponibles para comprar o vender divisas.</p>
+      </div>
+    }
+      }@else {
 
     @if (trading === '') {
       <div class="page2">

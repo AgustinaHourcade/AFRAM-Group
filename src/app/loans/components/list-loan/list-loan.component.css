@@ -2,20 +2,6 @@ h2 {
   margin: 20px 0;
 }
 
-
-p {
-  /* font-size: 1.2rem; */
-  text-align: center;
-  margin-top: 30px;
-  padding: 15px;
-  background-color: var(--extra-light-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0px 4px 6px var(--box-shadow-color);
-  width: 60%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .tableDiv {
   display: flex;
   justify-content: center;
@@ -62,13 +48,6 @@ tr:hover {
     /* font-size: 1.8rem; */
   }
 
-  p {
-    /* font-size: 1.1rem; */
-    width: 70%;
-    padding: 12px;
-    margin-top: 25px;
-  }
-
   table {
     width: 95%;
   }
@@ -82,13 +61,6 @@ tr:hover {
   h2 {
     margin: 10px 0;
     /* font-size: 1.5rem; */
-  }
-
-  p {
-    /* font-size: 1rem; */
-    width: 80%;
-    padding: 10px;
-    margin-top: 20px;
   }
 
   table {
@@ -105,13 +77,6 @@ tr:hover {
   h2 {
     /* font-size: 1.1rem; Reducir tamaño de fuente */
     margin: 8px 0; /* Menos margen */
-  }
-
-  p {
-    /* font-size: 0.9rem; Reducir tamaño de fuente */
-    width: 90%; /* Ajustar el ancho al 90% */
-    padding: 8px; /* Reducir padding */
-    margin: 8px auto; /* Asegurar centrado */
   }
 
   table {

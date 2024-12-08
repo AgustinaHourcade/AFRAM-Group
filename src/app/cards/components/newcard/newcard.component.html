@@ -1,8 +1,9 @@
-<!-- LISTO -->
 <app-navbar></app-navbar>
 <div class="page">
-@if(accounts?.length === 0){
-  <h2>No posee cuentas para solicitar una tarjeta</h2>
+@if(accounts.length === 0){
+  <div class="warning-message">
+    <p>Lo sentimos, no posee cuentas disponibles para solicitar una tarjeta.</p>
+  </div>
 }@else{
 
   <div class="card-content">
@@ -17,7 +18,7 @@
       
       <label for="account">Cuenta Asociada</label>
       <select id="account" class="input-field" formControlName="account">
-        @if (accounts?.length === 0) {
+        @if (accounts.length === 0) {
           <option value="" disabled select>No posee cuentas</option>
         }@else {
           <option value="" disabled selected>Seleccione una cuenta</option>

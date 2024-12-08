@@ -1,4 +1,3 @@
-<!-- CAMBIAR NG IF CUANDO REVISEMOS CSS -->
 <div class="message" [ngClass]="{'bot': message.isBot, 'user': !message.isBot}">
   @if (!message.isFaqList && !message.isTopicList) {
     <div class="message-content">

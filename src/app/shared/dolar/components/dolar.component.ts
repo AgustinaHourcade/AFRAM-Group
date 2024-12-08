@@ -11,7 +11,6 @@ import { Component, inject, OnInit } from '@angular/core';
   styleUrl: './dolar.component.css',
 })
 export class DolarComponent implements OnInit {
-  // ! LISTO
   private dolarService = inject(DolarService);
   dolar?: Cotizacion;
 
