@@ -31,6 +31,24 @@ export class CardComponent implements OnInit {
   showNumbers: boolean= false;
 
   ngOnInit(): void {
+    this.getCards();
+    this.getAccounts();
+
+  }
+
+  getAccounts(){
+    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
+      next: (accounts: Account[]) => {
+        this.accounts = accounts;
+      },
+      error: (error: Error) => {
+        console.error('Error fetching accounts:', error);
+      },
+    });
+  }
+
+  getCards(){
+    this.activeCards = [];
     this.cardService.getCardsById(this.userId).subscribe({
       next: (cards) => {
         this.cards = cards;
@@ -49,16 +67,6 @@ export class CardComponent implements OnInit {
         console.log(e.message);
       },
     });
-
-    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts;
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
-    });
-
   }
 
   deactivate(card_id: number) {
@@ -71,7 +79,7 @@ export class CardComponent implements OnInit {
           confirmButtonText: 'Aceptar',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.reload();
+            this.getCards();
           }
         });
         },

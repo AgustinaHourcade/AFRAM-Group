@@ -201,19 +201,25 @@ toggleSelectAll(): void {
   }
 
   // Open a notification in a new tab
-  toggleNotificationsDropdown(): void {
+  toggleNotificationsDropdown(event: MouseEvent): void {
+    event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
   @HostListener('document:click', ['$event'])
-  closeDropdown(event: Event): void {
-    const target = event.target as HTMLElement;
+closeDropdown(event: Event): void {
+  const target = event.target as HTMLElement;
+  console.log('Document click detected');
 
-    // Cierra el desplegable si el clic no está dentro del componente
-    if (!target.closest('.notification-dropdown') && this.isDropdownOpen) {
-      this.isDropdownOpen = false;
-    }
+  // Busca tanto en la campana como en el contenedor de notificaciones
+  const isInsideNotification =
+    target.closest('.notification-icon') || target.closest('.notification-dropdown');
+
+  if (!isInsideNotification && this.isDropdownOpen) {
+    this.isDropdownOpen = false;
   }
+}
+
 
   isNavbarOpen = false;
 

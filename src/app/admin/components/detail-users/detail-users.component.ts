@@ -123,7 +123,7 @@ export class DetailUsersComponent implements OnInit{
                 confirmButtonColor: '#00b4d8'
               }).then((result) => {
                 if (result.isConfirmed) {
-                  window.location.reload();
+                  this.loadAccounts();
                 }
             });
           }

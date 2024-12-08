@@ -204,6 +204,13 @@ a.delete-thread:hover{
   color: var(--cancel-button-hover);
 }
 
+.char-counter {
+  text-align: end; 
+  font-size: 0.9rem;
+  color: var(--gray-3);
+  margin-top: 5px;
+}
+
 /* Responsividad */
 
 @media (max-width: 1024px) {

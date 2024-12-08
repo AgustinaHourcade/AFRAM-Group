@@ -34,18 +34,18 @@ export class MySupportsComponent implements OnInit{
   pageSize = 4 ;
   currentPageActive = 1;
   currentPageFinished = 1;
+  currentCharacters = 0;
   
 
   ngOnInit(): void {
-      this.supportService.getThreadsByUserId(this.id).subscribe({
-        next: (threads) =>{
-          this.threads = threads;
-          this.loadThreads();
-        },
-        error: (e: Error) =>{
-          console.log(e.message);
-        }
-      })
+    this.loadThreads();
+    this.trackCharacterCount();
+  }
+
+  trackCharacterCount(): void {
+    this.formulario.get('message')?.valueChanges.subscribe((value: string) => {
+      this.currentCharacters = value ? value.length : 0;
+    });
   }
 
   get totalPagesActives(): number {
@@ -81,18 +81,28 @@ export class MySupportsComponent implements OnInit{
   }
 
   loadThreads(){
-    this.threads.forEach(thread => {
-      if (thread.support_status === 'open') {
-        this.activesThreads.push(thread);
-      } else if (thread.support_status === 'closed') {
-        this.finishedThreads.push(thread);
+    this.activesThreads = [];
+    this.finishedThreads = [];
+    this.supportService.getThreadsByUserId(this.id).subscribe({
+      next: (threads) =>{
+        this.threads = threads;
+        this.threads.forEach(thread => {
+          if (thread.support_status === 'open') {
+            this.activesThreads.push(thread);
+          } else if (thread.support_status === 'closed') {
+            this.finishedThreads.push(thread);
+          }
+        });
+      },
+      error: (e: Error) =>{
+        console.log(e.message);
       }
-    });
+    })
   }
 
   formulario = this.fb.nonNullable.group({
     support_subject: ['',Validators.required],
-    message: ['', Validators.required]
+    message: ['',[Validators.required, Validators.maxLength(140)]]
   })
 
   // Function to post a new thread
@@ -113,7 +123,8 @@ export class MySupportsComponent implements OnInit{
                 confirmButtonColor: '#00b4d8'
               }).then((result) => {
                 if (result.isConfirmed) {
-                  window.location.reload();
+                  this.loadThreads();
+                  this.new = false;
                 }
               });
             }
@@ -135,7 +146,7 @@ export class MySupportsComponent implements OnInit{
     this.supportService.deleteThread(id).subscribe({
       next: (flag) => {
         console.log("Thread eliminado");
-        window.location.reload();
+        this.loadThreads()
       },
       error: (e: Error) => {
         console.log(e.message);
@@ -148,7 +159,7 @@ export class MySupportsComponent implements OnInit{
     this.supportService.deleteAllThreads(Number(this.id)).subscribe({
       next: (flag) => {
         console.log("Thread eliminado");
-        window.location.reload();
+        this.loadThreads();
       },
       error: (e: Error) => {
         console.log(e.message);

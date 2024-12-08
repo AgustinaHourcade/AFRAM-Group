@@ -80,6 +80,7 @@ export class MainPageComponent implements OnInit {
 
 
   private getAccounts() {
+    this.activeAccounts = [];
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = [];
@@ -302,13 +303,14 @@ export class MainPageComponent implements OnInit {
               if(account.balance < item.amount){
                 this.deleteTransfer(Number(item.id));
                 this.sendNotificationFail(account.user_id);
-                setTimeout(() => window.location.reload(), 300)
+                this.getAccounts();
                 return;
               }
               this.processTransferProgramming(item);
               this.sendEmail(item);
               this.markTransferProgrammingAsPaid(item);
-              setTimeout(() => window.location.reload(), 300)
+              this.getAccounts();
+
             }
           });
         },

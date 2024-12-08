@@ -29,7 +29,7 @@
         <li><a routerLink="/trading">Dólares</a></li>
 
         <li class="dropdown-fixedterms" [ngClass]="{'show-menu': activeMenu === 'fixedterms'}">
-          <a class="dropdown-link" (mouseenter)="toggleSubmenu('fixedTerms', $event)">Plazo fijo
+          <a class="dropdown-link" (click)="toggleSubmenu('fixedTerms', $event)">Plazo fijo
             @if(isSubmenuOpen.fixedTerms){
               <i class="bi bi-caret-down-fill"></i>
             }@else {
@@ -95,8 +95,8 @@
               [class.has-unread]="unreadNotifications.length > 0"
               [class.has-notifications]="unreadNotifications.length === 0 && notifications.length > 0"
               [class.no-notifications]="notifications.length === 0"
-              (click)="toggleNotificationsDropdown()"
-              (click)="$event.stopPropagation()">
+              (click)="toggleNotificationsDropdown($event)"
+              >
             <i class="bi"
               [class.bi-bell-fill]="notifications.length > 0"
               [class.bi-bell]="notifications.length === 0"

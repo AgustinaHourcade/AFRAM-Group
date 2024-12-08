@@ -23,6 +23,10 @@ export class ListRatesComponent implements OnInit{
   showingBubble: string | null = null;
 
   ngOnInit(): void {
+    this.getRates();
+  }
+
+  getRates(){
     this.rateService.getRates().subscribe({
       next: (rates) =>{
         this.rates = rates;
@@ -62,12 +66,13 @@ export class ListRatesComponent implements OnInit{
               confirmButtonText: 'Aceptar',
               confirmButtonColor: '#00b4d8'
             })
+            this.getRates();
           },
           error: (e: Error) =>{
             console.log(e.message);
           }
         })
-        window.location.reload();
+        this.flag = false;
       } else {
         this.flag = false;
       }

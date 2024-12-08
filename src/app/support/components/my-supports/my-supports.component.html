@@ -109,6 +109,9 @@
 
         <label for="message">Mensaje</label>
         <textarea type="text" id="message" formControlName="message" placeholder="Explique brevemente su consulta"></textarea>
+        <div class="char-counter">
+          {{ currentCharacters }}/140
+        </div>
         <div class="submit-button">
           <button type="submit" [disabled]="formulario.invalid">Enviar</button>
         </div>
