@@ -70,6 +70,17 @@ export class MainPageComponent implements OnInit {
     }
   }
 
+  openedTransactionId: number | undefined = undefined;
+
+toggleReceipt(transactionId: number|undefined): void {
+  // Si ya hay un recibo abierto y es el mismo, lo cerramos
+  this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
+}
+
+isReceiptOpen(transactionId: number|undefined): boolean {
+  return this.openedTransactionId === transactionId;
+}
+
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
     this.getAccounts();

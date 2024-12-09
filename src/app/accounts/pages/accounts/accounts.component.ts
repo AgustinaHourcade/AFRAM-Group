@@ -1,11 +1,11 @@
-import { Router, RouterModule } from '@angular/router';
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { Account } from '@accounts/interface/account.interface';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Component, inject } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Router, RouterModule } from '@angular/router';
 import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
 
 @Component({

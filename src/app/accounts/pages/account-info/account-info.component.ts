@@ -1,17 +1,16 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { Subject, switchMap, takeUntil } from 'rxjs';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import html2canvas from 'html2canvas';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { Transaction } from '@transactions/interface/transaction.interface';
-import { TransactionService } from '@transactions/services/transaction.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { CbuAliasComponent } from '@accounts/components/cbu-alias/cbu-alias.component';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionService } from '@transactions/services/transaction.service';
 import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Transaction } from '@transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-account-info',
@@ -31,7 +30,7 @@ export class AccountInfoComponent implements OnInit{
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
   private userSessionService = inject(UserSessionService);
-  private destroy$ = new Subject<void>();
+
 
   today: Date = new Date();
   accountId!: number;

@@ -28,10 +28,10 @@ export class ChatSupportAdminComponent implements OnInit{
   private supportService = inject(SupportService);
   private notificationService = inject(NotificationsService);
 
-  id ?: number;
-  user ?: User;
+  id?: number;
+  user?: User;
   flag = false;
-  thread ?: Thread;
+  thread?: Thread;
   messages: Array<Message> = [];
 
   ngOnInit(): void {

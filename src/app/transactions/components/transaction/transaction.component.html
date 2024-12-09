@@ -27,11 +27,12 @@
     } {{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2' }}
   </p>
 
-  @if (!flag && !isDownloading) {
+  @if (!isOpen && !isDownloading) {
     <button (click)="toggleFlag()">Ver comprobante</button>
   }
-
-  @if(flag){
-    <app-receipt [transaction]="transaction" (cancel)="onCancel()"></app-receipt>
+  
+  @if (isOpen) {
+    <app-receipt [transaction]="transaction" (cancel)="toggleFlag()"></app-receipt>
   }
+  
 </div>

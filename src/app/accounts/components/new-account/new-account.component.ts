@@ -22,7 +22,7 @@ export class NewAccountComponent {
   private userSessionService = inject(UserSessionService);
 
   // Variables
-  flag : string =''; // Flag indicating the type of account selected
+  flag: string =''; // Flag indicating the type of account selected
   user_id: number = this.userSessionService.getUserId();
 
   formulario = this.fb.nonNullable.group({

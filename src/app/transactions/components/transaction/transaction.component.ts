@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Transaction } from '@transactions/interface/transaction.interface';
 import { ReceiptComponent } from '@transactions/components//receipt/receipt.component';
@@ -29,13 +29,13 @@ export class TransactionComponent  implements OnInit{
     this.getUserAccounts();
   }
 
+  @Input() isOpen: boolean = false;
+  @Output() toggle = new EventEmitter<void>();
+  
   toggleFlag(): void {
-    this.flag = !this.flag;
+    this.toggle.emit(); // Notifica al padre
   }
-
-  onCancel(): void {
-    this.flag = false;
-  }
+  
   getUserAccounts(): void {
     this.id = Number(this.userSessionService.getUserId());
 

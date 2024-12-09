@@ -87,10 +87,15 @@
     }@else {
       <div class="transactions-page">
         <div class="transactions-container">
-          @for(transaction of paginatedTransactions; track $index){
-            <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
-          }
-        </div>
+              @for(transaction of paginatedTransactions; track $index) {
+                <app-transaction 
+                  [transaction]="transaction" 
+                  [selectedAccountId]="selectedAccountId" 
+                  [isOpen]="isReceiptOpen(transaction.id)" 
+                  (toggle)="toggleReceipt(transaction.id)">
+                </app-transaction>
+              }
+            </div>
 
         @if(transactions.length > 4){
           <div class="pagination-wrapper">
