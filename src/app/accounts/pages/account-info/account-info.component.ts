@@ -1,17 +1,17 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { switchMap } from 'rxjs';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
+import html2canvas from 'html2canvas';
+import { switchMap } from 'rxjs';
 import { Transaction } from '@transactions/interface/transaction.interface';
-import { TransactionService } from '@transactions/services/transaction.service';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { CbuAliasComponent } from '@accounts/components/cbu-alias/cbu-alias.component';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionService } from '@transactions/services/transaction.service';
 import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-account-info',

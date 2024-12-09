@@ -1,16 +1,16 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-import { Cotizacion } from '@shared/dolar/interface/cotizacion';
 import { Account } from '@accounts/interface/account.interface';
-import { NavbarComponent } from "@shared/navbar/navbar.component";
-import { DolarService } from '@shared/dolar/service/dolar.service';
-import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { DolarComponent } from "@shared/dolar/components/dolar.component";
+import { Cotizacion } from '@shared/dolar/interface/cotizacion';
 import { Transaction } from '@transactions/interface/transaction.interface';
+import { CommonModule } from '@angular/common';
+import { DolarService } from '@shared/dolar/service/dolar.service';
+import { NavbarComponent } from "@shared/navbar/navbar.component";
+import { AccountService } from '@accounts/services/account.service';
+import { DolarComponent } from "@shared/dolar/components/dolar.component";
 import { TransactionService } from '@transactions/services/transaction.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-trading',

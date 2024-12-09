@@ -1,15 +1,15 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
-import { Message, Thread } from '@support/interface/thread';
+import { CommonModule } from '@angular/common';
 import { SupportService } from '@support/service/support.service';
 import { MessageService } from '@support/service/messages.service';
+import { Message, Thread } from '@support/interface/thread';
 import { NotificationsService } from '@notifications/service/notifications.service';
 import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-support-admin',
@@ -28,10 +28,10 @@ export class ChatSupportAdminComponent implements OnInit{
   private supportService = inject(SupportService);
   private notificationService = inject(NotificationsService);
 
-  id ?: number;
-  user ?: User;
+  id?: number;
+  user?: User;
   flag = false;
-  thread ?: Thread;
+  thread?: Thread;
   messages: Array<Message> = [];
 
   ngOnInit(): void {
