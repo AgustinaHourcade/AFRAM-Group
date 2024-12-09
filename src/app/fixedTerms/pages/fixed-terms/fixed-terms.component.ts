@@ -36,7 +36,7 @@ export class FixedTermsComponent implements OnInit {
   loadAccounts(){
     this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
       next: (accounts) => {
-        this.accounts = accounts;
+        this.accounts = accounts.filter(account => account.closing_date == null);
         for (let account of this.accounts) {
           if(!account.closing_date){
 

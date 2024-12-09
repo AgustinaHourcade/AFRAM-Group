@@ -1,8 +1,8 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { switchMap } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
@@ -26,10 +26,12 @@ export class AccountInfoComponent implements OnInit{
   @ViewChild(TransactionComponent) transactionComponent!: TransactionComponent;
 
   private fb = inject(FormBuilder);
-  private router = inject(ActivatedRoute);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
   private userSessionService = inject(UserSessionService);
+  private destroy$ = new Subject<void>();
 
   today: Date = new Date();
   accountId!: number;
@@ -43,28 +45,37 @@ export class AccountInfoComponent implements OnInit{
     monthYear: ['']
   });
 
-  ngOnInit() {
-    this.router.paramMap
-      .pipe(
-        switchMap((params) => {
-          return this.accountService.getAccountById(Number(params.get('id')));
-        })
-      )
-      .subscribe((account) => {
-        this.accountId = account.id;
-        this.openingDate = new Date(account.opening_date);
-        this.setDefaultMonthYear();
-        this.loadTransactions();
+  ngOnInit(): void {
+    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.accountId) {
+      this.accountService.getAccountById(this.accountId).subscribe(
+        (account) => {
+          // Verifica si el usuario tiene acceso
+          const userId = this.userSessionService.getUserId();
+          if (account.user_id !== userId) {
+            console.log("no tiene acceso")
+            this.router.navigate(['access-denied']); // Redirige si no tiene acceso
+          } else {
+            this.accountId = account.id;
+            this.openingDate = new Date(account.opening_date);
+            this.setDefaultMonthYear();
+            this.loadTransactions();
+          }
+        },
+        (error) => {
+          console.error('Error al cargar la cuenta:', error);
+        }
+      );
+      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+        this.filterTransactions();
       });
-
-    this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
-      this.filterTransactions();
-    });
-    this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+        this.updateLastDayCheck();
+      });
+  
       this.updateLastDayCheck();
-    });
-
-    this.updateLastDayCheck();
+    }
   }
 
   setDefaultMonthYear() {

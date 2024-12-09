@@ -266,24 +266,25 @@ export class TransferModalComponent implements OnInit {
             this.accountService.getAccountById(transaction.destination_account_id).subscribe({
               next: (account) =>{
                 destinationAccount = account
+                this.emailService.sendTransferEmail(
+                    this.user.email as string,
+                    this.montoTransferencia!,
+                    selectedAccount.user_id,
+                    destinationAccount.user_id
+                ).subscribe({
+                    next: () => {
+                      console.log('Correo de notificación enviado')
+                    }, 
+                      error: (error: Error) => {
+                        console.log('Error al enviar el correo:', error)
+                      }
+                  });
               },error: (e: Error) =>{
                 console.log(e.message);
               }
             })
 
-            if (this.user.email) {
-              this.emailService
-                .sendTransferEmail(
-                  this.user.email,
-                  this.montoTransferencia!,
-                  selectedAccount.user_id,
-                  destinationAccount.user_id
-                )
-                .subscribe({
-                  next: () => console.log('Correo de notificación enviado'),
-                  error: (error: Error) => console.log('Error al enviar el correo:', error),
-                });
-            }
+            
           },
           error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
         });

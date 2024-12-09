@@ -188,11 +188,12 @@ export class SignupComponent{
     let accounts : Array<Account> = [];
     this.userService.postUser(user).subscribe({
       next: (response) => {
-        this.sesionService.setUserId(response);
-        account = this.createAccount(response);
+        this.sesionService.setUserId(response.id);
+        account = this.createAccount(response.id);
         accounts.push(account);
-        this.createAddress(response);
-        this.sesionService.logIn(response, 'user', accounts);
+        this.createAddress(response.id);
+        this.sesionService.logIn(response.id, 'user', accounts);
+        this.sesionService.setToken(response.token);
         this.route.navigate(['update-profile/']);
       },
       error: (error: Error) => {

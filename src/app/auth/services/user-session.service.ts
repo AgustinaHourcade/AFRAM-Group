@@ -12,12 +12,21 @@ export class UserSessionService {
   private readonly ACCOUNTS_KEY = 'accounts';
   private inactivityTimeout: any;
   private readonly INACTIVITY_LIMIT = 600000;
+  private readonly USER_TOKEN = 'userToken';
   private route = inject(Router);
 
   estoyLogeado: boolean = false;
 
   constructor() {
     this.initializeInactivityListener();
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem(this.USER_TOKEN, token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.USER_TOKEN); // Devuelve el token almacenado o null si no existe
   }
 
   // User ID

@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Card } from '../interface/card';
 import { Observable } from 'rxjs';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +11,28 @@ export class CardService {
   constructor() {}
 
   private http = inject(HttpClient);
-  private urlBase = 'http://localhost:3000/cards/';
+  private userSessionService = inject(UserSessionService);  // Inyectamos el UserSessionService
+  private urlBase = 'http://localhost:3000/cards';
+
+  // Función para obtener los headers con token y userId
+  private getHeaders(): HttpHeaders {
+    const token = this.userSessionService.getToken();
+    const userId = this.userSessionService.getUserId();
+
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'User-Id': userId,
+    });
+  }
 
   getCards(): Observable<Card[]> {
-    return this.http.get<Card[]>(this.urlBase);
+    const headers = this.getHeaders();
+    return this.http.get<Card[]>(this.urlBase, { headers });
   }
 
   getCardsById(user_id: number): Observable<Card[]> {
-    return this.http.get<Card[]>(`${this.urlBase}user/${user_id}`);
+    const headers = this.getHeaders();
+    return this.http.get<Card[]>(`${this.urlBase}/user/${user_id}`, { headers });
   }
 
   createCard(card: {
@@ -28,10 +43,12 @@ export class CardService {
     user_id: number;
     account_id: number | undefined;
   }): Observable<boolean> {
-    return this.http.post<boolean>(this.urlBase, card);
+    const headers = this.getHeaders();
+    return this.http.post<boolean>(this.urlBase, card, { headers });
   }
 
   disableCard(card_id: number): Observable<boolean> {
-    return this.http.put<boolean>(`${this.urlBase}deactivate`, { card_id });
+    const headers = this.getHeaders();
+    return this.http.put<boolean>(`${this.urlBase}/deactivate`, { card_id }, { headers });
   }
 }

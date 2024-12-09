@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
+import { Observable } from 'rxjs';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { Notification } from '../interface/notification';
 
 @Injectable({
@@ -8,34 +9,54 @@ import { Notification } from '../interface/notification';
 })
 export class NotificationsService {
 
-  private http = inject(HttpClient)
+  private http = inject(HttpClient);
+  private userSessionService = inject(UserSessionService);  // Inyectamos el UserSessionService
+
   private baseUrl = 'http://localhost:3000/notification';
 
-  getNotificationsById(id: number) : Observable<Notification[]>{
-    return this.http.get<Notification[]>(`${this.baseUrl}/user/${id}`);
+  // Función para obtener los headers con token y userId
+  private getHeaders(): HttpHeaders {
+    const token = this.userSessionService.getToken();
+    const userId = this.userSessionService.getUserId();
+
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'User-Id': userId,
+    });
   }
 
-  postNotification(notification: Notification) : Observable<number>{
-    return this.http.post<number>(`${this.baseUrl}`,notification)
+  getNotificationsById(id: number): Observable<Notification[]> {
+    const headers = this.getHeaders();
+    return this.http.get<Notification[]>(`${this.baseUrl}/user/${id}`, { headers });
   }
 
-  markAsRead(id : number) : Observable<boolean>{
-    return this.http.patch<boolean>(`${this.baseUrl}/read/`,{id})
+  postNotification(notification: Notification): Observable<number> {
+    const headers = this.getHeaders();
+    return this.http.post<number>(`${this.baseUrl}`, notification, { headers });
   }
 
-  markAllAsRead(user_id : number) : Observable<boolean>{
-    return this.http.patch<boolean>(`${this.baseUrl}/read-all/`,{user_id})
+  markAsRead(id: number): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.patch<boolean>(`${this.baseUrl}/read/`, { id }, { headers });
+  }
+
+  markAllAsRead(user_id: number): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.patch<boolean>(`${this.baseUrl}/read-all/`, { user_id }, { headers });
   }
 
   markSelectedAsRead(notificationIds: number[]): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/read-selected`, { ids: notificationIds });
+    const headers = this.getHeaders();
+    return this.http.patch(`${this.baseUrl}/read-selected`, { ids: notificationIds }, { headers });
   }
 
-  deleteNotification(id : number) : Observable<boolean>{
-    return this.http.delete<boolean>(`${this.baseUrl}/${id}`)
+  deleteNotification(id: number): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.delete<boolean>(`${this.baseUrl}/${id}`, { headers });
   }
 
-  deleteAllNotifications(user_id : number) : Observable<boolean>{
-    return this.http.delete<boolean>(`${this.baseUrl}/user/${user_id}`)
+  deleteAllNotifications(user_id: number): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.delete<boolean>(`${this.baseUrl}/user/${user_id}`, { headers });
   }
 }

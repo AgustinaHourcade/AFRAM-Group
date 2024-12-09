@@ -5,10 +5,11 @@ import { User } from '@users/interface/user.interface';
 import { Account } from '@accounts/interface/account.interface';
 import { switchMap } from 'rxjs';
 import { UserService } from '@users/services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@accounts/services/account.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-cbu-alias',
@@ -21,13 +22,16 @@ export class CbuAliasComponent implements OnInit {
 
   // Dependency injections
   private fb = inject(FormBuilder);
-  private router = inject(ActivatedRoute);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private userService = inject(UserService);
+  private userSessionService = inject(UserSessionService)
   private accountService = inject(AccountService);
 
   // Variables
   user!: User;
   account!: Account;
+  accountId!: number;
   isEditing: boolean = false;
 
   // Reactive form to modify aliases
@@ -185,19 +189,30 @@ export class CbuAliasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.router.paramMap.pipe(
-        switchMap((params) => {
-          return this.accountService.getAccountById(Number(params.get('id')));
-        })
-      )
-      .subscribe((account) => {
-        this.account = account;
-        this.userService.getUser(this.account.user_id).subscribe({
-          next: (user) => {
-            this.user = user;
-          },
-          error: (error: Error) => console.log(error)
-        });
-      });
+    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.accountId) {
+      this.accountService.getAccountById(this.accountId).subscribe(
+        (account) => {
+          // Verifica si el usuario tiene acceso
+          const userId = this.userSessionService.getUserId();
+          if (account.user_id !== userId) {
+            console.log("no tiene acceso")
+            this.router.navigate(['access-denied']); // Redirige si no tiene acceso
+          } else {
+            this.account = account;
+            this.userService.getUser(this.account.user_id).subscribe({
+              next: (user) => {
+                this.user = user;
+              },
+              error: (error: Error) => console.log(error)
+            });
+          }
+        },
+        (error) => {
+          console.error('Error al cargar la cuenta:', error);
+        }
+      );
+    }
   }
 }

@@ -11,7 +11,9 @@
 
   <div class="div-sub">
     @if(isLastDayOfMonth){
-      <button (click)="downloadAsPDF()">Descargar resumen {{ dateForm.value.monthYear | date:'MM/yyyy':'es-AR'}}</button>
+      @if(filteredTransactions.length > 0){
+        <button (click)="downloadAsPDF()">Descargar resumen {{ dateForm.value.monthYear | date:'MM/yyyy':'es-AR'}}</button>
+      }
     }@else{
       <span>Resumen disponible el {{ nextAvailableDate(dateForm.value.monthYear ?? null) | date: 'dd/MM/yyyy':'es-AR' }}</span>
     }

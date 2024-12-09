@@ -31,6 +31,7 @@ export class LoginComponent {
   userLogin?: User;
   showPassword = false;
   errorMessage = '';
+  token = '';
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
@@ -84,9 +85,12 @@ export class LoginComponent {
             this.intentos = Number(user.login_attempts);
             if(this.intentos < 3){
               this.userService.verifyUser(data).subscribe({
-                next: (id) => {
-                  this.id = id as number;
-                  this.userSessionService.setUserId(Number(id));
+                next: (response) => {
+                  this.id = response.id; 
+                  this.token = response.token; 
+
+                  this.userSessionService.setUserId(this.id); // Guarda el ID en el servicio
+                  this.userSessionService.setToken(this.token);
                   if(this.intentos > 0){
                     this.userService.unblockUser(user.dni).subscribe({
                       next: (flag) => {

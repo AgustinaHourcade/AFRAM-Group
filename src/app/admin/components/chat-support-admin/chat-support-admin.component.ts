@@ -1,15 +1,15 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
 import { UserService } from '@users/services/user.service';
-import { Message, Thread } from '@support/interface/thread';
+import { CommonModule } from '@angular/common';
 import { SupportService } from '@support/service/support.service';
 import { MessageService } from '@support/service/messages.service';
+import { Message, Thread } from '@support/interface/thread';
 import { NotificationsService } from '@notifications/service/notifications.service';
 import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-chat-support-admin',
@@ -21,7 +21,7 @@ import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.co
 export class ChatSupportAdminComponent implements OnInit{
 
   private fb = inject(FormBuilder);
-  private route = inject(Router);
+  private router = inject(Router);
   private userService = inject(UserService);
   private activatedRoute = inject(ActivatedRoute);
   private messageService = inject(MessageService);
@@ -118,7 +118,7 @@ export class ChatSupportAdminComponent implements OnInit{
           icon: 'success',
         }).then((result) => {
           if (result.isConfirmed) {
-            this.route.navigate(['admin-support']);
+            this.router.navigate(['admin-support']);
           }
         })
       }

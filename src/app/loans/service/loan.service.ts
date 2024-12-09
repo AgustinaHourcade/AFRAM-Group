@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { Loan } from '../interface/loan';
 
 @Injectable({
@@ -8,29 +9,44 @@ import { Loan } from '../interface/loan';
 })
 export class LoanService {
 
-  constructor() { }
+  private http = inject(HttpClient);
+  private userSessionService = inject(UserSessionService);  // Inyectamos el UserSessionService
 
   private baseUrl = 'http://localhost:3000/loans';
-  private http = inject(HttpClient)
 
+  // Función para obtener los headers con token y userId
+  private getHeaders(): HttpHeaders {
+    const token = this.userSessionService.getToken();
+    const userId = this.userSessionService.getUserId();
 
-  createLoan(loan: Loan): Observable<boolean>{
-    return this.http.post<boolean>(`${this.baseUrl}`, loan);
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'User-Id': userId,
+    });
   }
 
-  getLoans() : Observable<Loan[]>{
-    return this.http.get<Loan[]>(`${this.baseUrl}`);
+  createLoan(loan: Loan): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.post<boolean>(`${this.baseUrl}`, loan, { headers });
   }
 
-  getLoanById(id: number) : Observable<Loan>{
-    return this.http.get<Loan>(`${this.baseUrl}/${id}`);
+  getLoans(): Observable<Loan[]> {
+    const headers = this.getHeaders();
+    return this.http.get<Loan[]>(`${this.baseUrl}`, { headers });
   }
 
-  getLoanByAccountId(id: number) : Observable<Loan[]>{
-    return this.http.get<Loan[]>(`${this.baseUrl}/account/${id}`);
+  getLoanById(id: number): Observable<Loan> {
+    const headers = this.getHeaders();
+    return this.http.get<Loan>(`${this.baseUrl}/${id}`, { headers });
   }
 
-  updatePaid(id: number, amount :number) : Observable<boolean>{
-    return this.http.patch<boolean>(`${this.baseUrl}/update-paid/${id}`, {amount});
+  getLoanByAccountId(id: number): Observable<Loan[]> {
+    const headers = this.getHeaders();
+    return this.http.get<Loan[]>(`${this.baseUrl}/account/${id}`, { headers });
+  }
+
+  updatePaid(id: number, amount: number): Observable<boolean> {
+    const headers = this.getHeaders();
+    return this.http.patch<boolean>(`${this.baseUrl}/update-paid/${id}`, { amount }, { headers });
   }
 }

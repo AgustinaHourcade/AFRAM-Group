@@ -50,7 +50,7 @@ export const routes: Routes = [
     {path: 'recover-password', component: RecoverPasswordComponent, title: 'Recuperar contraseña | AFRAM Group'},
     {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     // Access Denied Route
-    {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group', canActivate: [authGuardFnlogOut]},
+    {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group'},
     // User Routes
     {path: 'main', component: MainPageComponent, title: 'Inicio | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts', component: AccountsComponent,title: 'Cuentas | AFRAM Group', canActivate: [authGuardFn]},
