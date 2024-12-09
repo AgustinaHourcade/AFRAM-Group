@@ -40,3 +40,7 @@ form select {
 form button {
   width: 100%;
 }
+
+select{
+  margin-top: 0;
+}

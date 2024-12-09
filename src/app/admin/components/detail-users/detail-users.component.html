@@ -52,8 +52,7 @@
             <th>Número</th>
             <th>Tipo</th>
             <th>Fecha de apertura</th>
-            <th>Fondos</th>
-            <th>Activa</th>
+            <th>Fecha de cierre</th>
             <th></th>
           </tr>
         </thead>
@@ -63,9 +62,8 @@
                 <td>{{item.id}}</td>
                 <td>{{item.account_type}}</td>
                 <td>{{ formatearFecha(item.opening_date) }}</td>
-                <td>${{item.balance}}</td>
                 @if (!item.closing_date) {
-                  <td>Si</td>
+                  <td>-</td>
                   <td>
                     <div class="action-buttons action-buttons2">
                       <button class="action-button" [routerLink]="['/list-transaction', item.id]">Movimientos</button>
@@ -73,8 +71,7 @@
                     </div>
                   </td>
                 }@else {
-                  <td>No</td>
-                  <td></td>
+                  <td>{{ formatearFecha(item.closing_date) }}</td>
                 }
               </tr>
           }

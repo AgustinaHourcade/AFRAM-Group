@@ -301,3 +301,13 @@ h2 {
 .toggle-btn i {
   color: inherit;
 }
+
+@media(max-width: 660px){
+  .cardsDiv-card {
+    flex-direction: column;
+  }
+  
+  .card {
+    width: 360px;
+  }
+}

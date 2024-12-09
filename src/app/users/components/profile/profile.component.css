@@ -59,7 +59,7 @@ td:last-child {
   }
 
   td:first-child {
-    width: 120px;
+    width: 140px;
   }
 
   td:last-child {
@@ -76,9 +76,9 @@ td:last-child {
     width: 100%;
   }
 
-  td:first-child {
+  /* td:first-child {
     width: 100px;
-  }
+  } */
 
   td:last-child {
     width: calc(100% - 110px);
@@ -98,9 +98,9 @@ td:last-child {
     width: 100%;
   }
 
-  td:first-child {
+  /* td:first-child {
     width: 80px;
-  }
+  } */
 
   td:last-child {
     width: calc(100% - 90px);

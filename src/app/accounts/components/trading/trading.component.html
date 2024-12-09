@@ -3,13 +3,13 @@
   <app-dolar></app-dolar>
 }
 <div class="page">
-  @if(accounts.length == 0){
-    @if(accounts.length == 0){
+
+    @if(accounts.length == 0 || accountsUSD.length === 0){
       <div class="warning-message">
         <p>Lo sentimos, no posee cuentas disponibles para comprar o vender divisas.</p>
       </div>
     }
-      }@else {
+    @else {
 
     @if (trading === '') {
       <div class="page2">

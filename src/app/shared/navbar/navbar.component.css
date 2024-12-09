@@ -496,7 +496,7 @@ input{
   .notification-dropdown {
     width: 350px;
     max-height: 300px;
-    left: 50%;
+    left: -65px;
   }
 
   .bi .bi-arrow-right{

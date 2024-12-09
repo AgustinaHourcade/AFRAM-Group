@@ -10,8 +10,8 @@ form {
   padding: 20px;
   border-radius: var(--border-radius);
   box-shadow: 0 4px 12px var(--box-shadow-color);
-  width: 100%;
-  max-width: 600px;
+  max-width: 90%;
+  width: 600px;
 }
 
 h3 {
@@ -25,6 +25,7 @@ select, input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
+  margin-top: 0;
 }
 
 .error {

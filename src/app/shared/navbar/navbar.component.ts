@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { NotificationsService } from '@notifications/service/notifications.service';
-import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
 
 @Component({
@@ -31,8 +31,19 @@ export class NavbarComponent implements OnInit{
   selectedNotifications: number[] = [];
   isResponsiveMenuVisible: boolean = false;
 
+
+
   ngOnInit(): void {
     this.getUserById();
+  }
+
+   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+    this.renderer.listen('document', 'click', (event: Event) => {
+      const targetElement = event.target as HTMLElement;
+      if (!this.elementRef.nativeElement.contains(targetElement)) {
+        this.isDropdownOpen = false;
+      }
+    });
   }
 
   // Toggle para el menú responsive

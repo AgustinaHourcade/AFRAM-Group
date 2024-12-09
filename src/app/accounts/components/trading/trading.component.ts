@@ -33,6 +33,7 @@ export class TradingComponent implements OnInit {
   dolar?: Cotizacion;
   trading: string = '';
   accounts: Array<Account> = [];
+  accountsUSD: Array<Account> = [];
   calculatedValueARSbuy: number = 0;
   calculatedValueARSsell: number = 0;
 
@@ -47,6 +48,7 @@ export class TradingComponent implements OnInit {
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
       next: (accounts) => {
         this.accounts = accounts.filter(account => account.closing_date == null);
+        this.accountsUSD = this.accounts.filter(account => account.currency == 'usd');
       },
       error: (e: Error) => console.log(e.message)
     })
