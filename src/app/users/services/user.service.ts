@@ -14,14 +14,19 @@ export class UserService {
   // URL base para todas las operaciones relacionadas con usuarios.
   private baseUrl = 'http://localhost:3000/users';
 
+  private getHeaders(): HttpHeaders {
+    const token = this.userSessionService.getToken();
+    const userId = this.userSessionService.getUserId();
+
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'User-Id': userId,
+    });
+  }
+
   // Obtiene todos los usuarios registrados en el sistema.
   getUsers(): Observable<User[]> {
-    const token = this.userSessionService.getToken();
-    const id = this.userSessionService.getUserId();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,  // Incluye el token en los headers
-      'user-id': `${id}` // Incluye el ID del usuario en los headers
-    });
+    const headers = this.getHeaders();
 
     return this.http.get<User[]>(`${this.baseUrl}/`, { headers });
   }
@@ -43,22 +48,14 @@ export class UserService {
 
   // Registra un nuevo usuario con información completa adicional.
   postCompleteUser(usuario: User): Observable<number> {
-    const token = this.userSessionService.getToken();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,  // Incluye el token en los headers
-    });
+    const headers = this.getHeaders();
 
     return this.http.post<number>(`${this.baseUrl}/register-complete`, usuario, { headers });
   }
 
   // Actualiza información de un usuario basado en su ID.
   updateUser(datos: { phone: number, email: string }, id: number): Observable<User> {
-    const token = this.userSessionService.getToken();
-    const idUsuario = this.userSessionService.getUserId();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,  // Incluye el token en los headers
-      'user-id': `${idUsuario}` // Incluye el ID del usuario en los headers
-    });
+    const headers = this.getHeaders();
 
     return this.http.put<User>(`${this.baseUrl}/update/${id}`, datos, { headers });
   }
@@ -70,12 +67,7 @@ export class UserService {
 
   // Cambia la contraseña de un usuario, requiriendo su contraseña actual.
   changePassword(id: number, datos: { currentPassword: string | undefined, newPassword: string | undefined }): Observable<boolean> {
-    const token = this.userSessionService.getToken();
-    const idUsuario = this.userSessionService.getUserId();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,  // Incluye el token en los headers
-      'user-id': `${idUsuario}` // Incluye el ID del usuario en los headers
-    });
+    const headers = this.getHeaders();
 
     return this.http.put<boolean>(`${this.baseUrl}/change-password/${id}`, datos, { headers });
   }
@@ -97,24 +89,14 @@ export class UserService {
 
   // Cambia el estado de actividad de un usuario (activo/inactivo).
   changeStatus(id: number, isActive: string): Observable<boolean> {
-    const token = this.userSessionService.getToken();
-    const idUsuario = this.userSessionService.getUserId();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,  // Incluye el token en los headers
-      'user-id': `${idUsuario}` // Incluye el ID del usuario en los headers
-    });
+    const headers = this.getHeaders();
 
     return this.http.post<boolean>(`${this.baseUrl}/toggle-user-status/${id}`, { isActive }, { headers });
   }
 
   // Cambia el rol del administrador (por ejemplo, usuario normal a administrador).
   changeAdminStatus(id: number, userType: string): Observable<boolean> {
-    const token = this.userSessionService.getToken();
-    const idUsuario = this.userSessionService.getUserId();
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,  // Incluye el token en los headers
-      'user-id': `${idUsuario}` // Incluye el ID del usuario en los headers
-    });
+    const headers = this.getHeaders();
 
     return this.http.post<boolean>(`${this.baseUrl}/toggle-admin-status/${id}`, { userType }, { headers });
   }

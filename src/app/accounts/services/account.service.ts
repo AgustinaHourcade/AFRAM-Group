@@ -61,8 +61,7 @@ export class AccountService {
     overdraft_limit: number;
     currency: string;
   }): Observable<number> {
-    const headers = this.getHeaders();
-    return this.http.post<number>(`${this.baseUrl}`, account, { headers });
+    return this.http.post<number>(`${this.baseUrl}`, account);
   }
 
   updateBalance(amount: number, id: number): Observable<boolean> {

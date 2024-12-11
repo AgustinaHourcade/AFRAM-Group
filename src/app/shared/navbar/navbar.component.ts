@@ -61,26 +61,16 @@ export class NavbarComponent implements OnInit{
     this.userSessionService.clearUserId();
     localStorage.clear();
 
-    let timerInterval: any;
-
     Swal.fire({
-      title: "Sesión cerrada correctamente!",
-      html: "Gracias por confiar en AFRAM Group.",
-      timer: 1500,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        const timer = Swal.getPopup()?.querySelector("b");
-        if (timer) {
-        timerInterval = setInterval(() => {
-          timer.textContent = `${Swal.getTimerLeft()}`;
-        }, 100);}
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      }
+      title: "¿Estás seguro de que desea cerrar sesión?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#00b4d8",
+      cancelButtonColor: "#e63946",
+      confirmButtonText: "Cerrar sesión",
+      cancelButtonText: "Cancelar"
     }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
+      if (result.isConfirmed) {
         this.router.navigate(['/home']);
       }
     });

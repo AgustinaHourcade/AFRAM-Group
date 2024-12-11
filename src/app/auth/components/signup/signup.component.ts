@@ -188,7 +188,7 @@ export class SignupComponent{
     let accounts : Array<Account> = [];
     this.userService.postUser(user).subscribe({
       next: (response) => {
-        this.sesionService.setUserId(response.id);
+        this.sesionService.setUserId(Number(response.id));
         account = this.createAccount(response.id);
         accounts.push(account);
         this.createAddress(response.id);

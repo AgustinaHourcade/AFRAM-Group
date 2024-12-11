@@ -40,6 +40,7 @@ import { ChatSupportComponent } from './support/components/chat-support/chat-sup
 import { SupportThreadsComponent } from './admin/components/support-threads/support-threads.component';
 import { ChatSupportAdminComponent } from './admin/components/chat-support-admin/chat-support-admin.component';
 import { TradingComponent } from './accounts/components/trading/trading.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 
 export const routes: Routes = [
@@ -51,6 +52,8 @@ export const routes: Routes = [
     {path: 'new-password', component: NewPasswordComponent, title: 'Restablecer contraseña | AFRAM Group'},
     // Access Denied Route
     {path: 'access-denied', component: AccessDeniedComponent, title: 'Acceso denegado | AFRAM Group'},
+    // Not found Route
+    {path: 'not-found', component: NotFoundComponent, title: 'Not Found | AFRAM Group'},
     // User Routes
     {path: 'main', component: MainPageComponent, title: 'Inicio | AFRAM Group', canActivate: [authGuardFn]},
     {path: 'accounts', component: AccountsComponent,title: 'Cuentas | AFRAM Group', canActivate: [authGuardFn]},

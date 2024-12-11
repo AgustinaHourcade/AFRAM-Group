@@ -48,13 +48,19 @@ export class AccountInfoComponent implements OnInit{
     this.accountId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.accountId) {
-      this.accountService.getAccountById(this.accountId).subscribe(
-        (account) => {
-          // Verifica si el usuario tiene acceso
+      this.accountService.getAccountById(this.accountId).subscribe({
+        next: (account) => {
+          if (!account || !account.user_id) {
+            console.error('Cuenta no encontrada o respuesta inválida');
+          this.router.navigate(['/not-found']);
+            return;
+          }
+          
+  
           const userId = this.userSessionService.getUserId();
           if (account.user_id !== userId) {
-            console.log("no tiene acceso")
-            this.router.navigate(['access-denied']); // Redirige si no tiene acceso
+            console.log("No tiene acceso");
+            this.router.navigate(['/access-denied']); // Redirige si el usuario no tiene acceso
           } else {
             this.accountId = account.id;
             this.openingDate = new Date(account.opening_date);
@@ -62,10 +68,13 @@ export class AccountInfoComponent implements OnInit{
             this.loadTransactions();
           }
         },
-        (error) => {
+        error: (error) => {
           console.error('Error al cargar la cuenta:', error);
-        }
+          this.router.navigate(['/not-found']);
+        }}
       );
+
+
       this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
         this.filterTransactions();
       });
