@@ -4,15 +4,16 @@
 }
 <div class="page">
 
-    @if(accounts.length == 0 || accountsUSD.length === 0){
-      <div class="warning-message">
-        <p>Lo sentimos, no posee cuentas disponibles para comprar o vender divisas.</p>
-      </div>
-    }
-    @else {
-
+  <!-- Display warning message if no accounts available -->
+  @if(accounts.length == 0 || accountsUSD.length === 0){
+    <div class="warning-message">
+      <p>Lo sentimos, no posee cuentas disponibles para comprar o vender divisas.</p>
+    </div>
+  }
+  @else {
+    <!-- Main trading options -->
     @if (trading === '') {
-      <div class="page2">
+      <div class="page-cards">
         <div class="dashboard-card" (click)="trading = 'compra'">
           <h2 class="card-title">Compra</h2>
           <p class="card-icon"><i class="bi bi-currency-dollar"></i></p>
@@ -24,24 +25,26 @@
       </div>
     }
 
+    <!-- Buy USD Section -->
     @if (trading === 'compra'){
-      <div class="page3">
-        <div class="closeButton">
+      <div class="page-exchange">
+        <!-- <div class="closeButton"> -->
           <button (click)="trading = ''" (click)="resetValues()"><i class="bi bi-caret-left"></i> Volver</button>
-        </div>
+        <!-- </div> -->
         <div class="modal">
           <h2>Compra de USD</h2>
-          <form [formGroup]="formulario" (ngSubmit)="buyUSD()">
+          <form [formGroup]="form" (ngSubmit)="buyUSD()">
             <label for="amount">Cantidad a comprar</label>
-            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en ARS" (input)="updateCalculatedARSbuy(formulario.get('amount')?.value)" />
-            @if(formulario.controls['amount'].getError('max')){
-              <span class="alert-amount">El monto máximo de compra es de USD $10.000</span>
+            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en ARS" (input)="updateCalculatedARSbuy(form.get('amount')?.value)" />
+            @if(form.controls['amount'].getError('max')){
+              <span class="error">El monto máximo de compra es de USD $10.000</span>
             }@else if (calculatedValueARSbuy > 0) {
               <p>Equivalente en ARS: <strong>{{ calculatedValueARSbuy | number: '1.2-2'}}</strong></p>
             }
-            @if(formulario.controls['amount'].getError('min')){
-              <span class="alert-amount">El monto mínimo de compra es de USD $1</span>
+            @if(form.controls['amount'].getError('min')){
+              <span class="error">El monto mínimo de compra es de USD $1</span>
             }
+            <!-- Source account selection -->
             <label for="source_account">Cuenta de origen</label>
             <select id="source_account" formControlName="source_account">
               @for (account of accounts; track $index) {
@@ -57,6 +60,7 @@
               }
             </select>
 
+            <!-- Destination account selection -->
             <label for="destination_account">Cuenta de destino</label>
             <select name="destination_account" formControlName="destination_account">Cuenta de destino
               @for (account of accounts; track $index) {
@@ -68,30 +72,32 @@
               }
             </select>
 
-            <button type="submit" [disabled]="formulario.invalid">Comprar</button>
+            <button type="submit" [disabled]="form.invalid">Comprar</button>
           </form>
         </div>
       </div>
     }
 
+    <!-- Sell USD Section -->
     @if (trading === 'venta'){
-      <div class="page3">
-        <div class="closeButton">
+      <div class="page-exchange">
+        <!-- <div class="closeButton"> -->
           <button (click)="trading = ''" (click)="resetValues()"><i class="bi bi-caret-left"></i>Volver</button>
-        </div>
+        <!-- </div> -->
         <div class="modal">
           <h2>Venta de USD</h2>
-          <form [formGroup]="formulario" (ngSubmit)="sellUSD()">
+          <form [formGroup]="form" (ngSubmit)="sellUSD()">
             <label for="amount">Cantidad a vender</label>
-            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en USD" (input)="updateCalculatedARSsell(formulario.get('amount')?.value)" />
-            @if(formulario.controls['amount'].getError('max')){
-              <span class="alert-amount">El monto máximo de compra es de USD $10.000</span>
+            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en USD" (input)="updateCalculatedARSsell(form.get('amount')?.value)" />
+            @if(form.controls['amount'].getError('max')){
+              <span class="error">El monto máximo de venta es de USD $10.000</span>
             }@else if(calculatedValueARSsell > 0){
               <p>Equivalente en ARS: <strong>{{ calculatedValueARSsell | number: '1.2-2'}}</strong></p>
             }
-            @if(formulario.controls['amount'].getError('min')){
-              <span class="alert-amount">El monto mínimo de venta es de USD $1</span>
+            @if(form.controls['amount'].getError('min')){
+              <span class="error">El monto mínimo de venta es de USD $1</span>
             }
+            <!-- Source account selection -->
             <label for="source_account">Cuenta de origen</label>
             <select id="source_account" formControlName="source_account">
               @for (account of accounts; track $index) {
@@ -103,6 +109,7 @@
               }
             </select>
 
+            <!-- Destination account selection -->
             <label for="destination_account">Cuenta de destino</label>
             <select id="destination_account" formControlName="destination_account">
               @for (account of accounts; track $index) {
@@ -118,7 +125,7 @@
               }
             </select>
 
-            <button type="submit" [disabled]="formulario.invalid">Vender</button>
+            <button type="submit" [disabled]="form.invalid">Vender</button>
           </form>
         </div>
       </div>

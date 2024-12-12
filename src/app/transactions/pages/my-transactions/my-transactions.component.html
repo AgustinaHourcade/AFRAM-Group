@@ -33,7 +33,12 @@
     <div class="transactions-page">
       <div class="transactions-container">
         @for(transaction of paginatedTransactions; track $index){
-          <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
+          <app-transaction 
+                            [transaction]="transaction" 
+                            [selectedAccountId]="selectedAccountId"    
+                            [isOpen]="isReceiptOpen(transaction.id)" 
+                            (toggle)="toggleReceipt(transaction.id)"
+          ></app-transaction>
         }
       </div>
     </div>
@@ -67,7 +72,12 @@
     <div class="transactions-page">
       <div class="transactions-container">
           @for(transaction of paginatedTransactionsP; track $index){
-            <app-transaction [transaction]="transaction" [selectedAccountId]="selectedAccountId"></app-transaction>
+            <app-transaction 
+            [transaction]="transaction" 
+            [selectedAccountId]="selectedAccountId"    
+            [isOpen]="isReceiptOpen(transaction.id)" 
+            (toggle)="toggleReceipt(transaction.id)"
+            ></app-transaction>
           }
       </div>
     </div>

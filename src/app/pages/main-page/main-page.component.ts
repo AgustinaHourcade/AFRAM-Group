@@ -19,6 +19,7 @@ import { TransactionComponent } from '@transactions/components/transaction/trans
 import { NotificationsService } from '@notifications/service/notifications.service';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Observable, catchError, firstValueFrom, forkJoin, of } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-main-page',
@@ -44,7 +45,7 @@ export class MainPageComponent implements OnInit {
   cards: Array<Card> = [];
   userId: number = 0;
   accounts: Account[] = [];
-  pageSize: number = 4 ;
+  pageSize: number = 4;
   fixedTerms: Array<FixedTerm> = [];
   activeCards: Array<Card> = [];
   showActions: boolean = false;
@@ -72,14 +73,13 @@ export class MainPageComponent implements OnInit {
 
   openedTransactionId: number | undefined = undefined;
 
-toggleReceipt(transactionId: number|undefined): void {
-  // Si ya hay un recibo abierto y es el mismo, lo cerramos
-  this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
-}
+  toggleReceipt(transactionId: number | undefined): void {
+    this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
+  }
 
-isReceiptOpen(transactionId: number|undefined): boolean {
-  return this.openedTransactionId === transactionId;
-}
+  isReceiptOpen(transactionId: number | undefined): boolean {
+    return this.openedTransactionId === transactionId;
+  }
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
@@ -142,9 +142,9 @@ isReceiptOpen(transactionId: number|undefined): boolean {
         }
         const descontar = -1 * amount;
         this.accountService.updateBalance(descontar, 1).subscribe({
-          next: ()=>{
+          next: () => {
             console.log('saldo actualizado en la cuenta 1 del banco');
-          }, error : (err:Error)=>{
+          }, error: (err: Error) => {
             console.log(err.message);
           }
         })
@@ -199,20 +199,20 @@ isReceiptOpen(transactionId: number|undefined): boolean {
     setTimeout(() => window.location.reload(), 300)
   }
 
-  private postNotification(notification: any){
+  private postNotification(notification: any) {
     this.notificationService.postNotification(notification).subscribe({
-      next: (flag) =>{
-        if(flag){
+      next: (flag) => {
+        if (flag) {
           console.log('Notificacion enviada');
         }
       },
-      error: (e: Error)=>{
+      error: (e: Error) => {
         console.log(e.message);
       }
     })
   }
 
-  private getCards(){
+  private getCards() {
     this.cardService.getCardsById(this.userId).subscribe({
       next: (cards) => {
         this.cards = cards;
@@ -221,6 +221,7 @@ isReceiptOpen(transactionId: number|undefined): boolean {
             this.activeCards.push(card);
           }
         });
+        this.expiredCards();
       },
       error: (error: Error) => {
         console.log(error.message);
@@ -291,7 +292,7 @@ isReceiptOpen(transactionId: number|undefined): boolean {
 
 
   private verifyTransferProgramming() {
-    let account : Account;
+    let account: Account;
     this.activeAccounts.forEach((account) => {
       this.loadTransactions(account.id).subscribe({
         next: (transactions) => {
@@ -299,19 +300,19 @@ isReceiptOpen(transactionId: number|undefined): boolean {
           transactions.forEach((transaction) => {
             if (!this.allTransactions.some((t) => t.id === transaction.id)) {
               this.allTransactions.push(transaction);
-          }
-        })
+            }
+          })
           this.allTransactions.forEach((item) => {
             if (item.is_paid === 'no' && this.compareDateWithNow(item.transaction_date.toString())) {
               this.accountService.getAccountById(item.source_account_id).subscribe({
-                next: (account) =>{
+                next: (account) => {
                   account = account
                 },
-                error: (e: Error)=>{
+                error: (e: Error) => {
                   console.log(e.message);
                 }
               })
-              if(account.balance < item.amount){
+              if (account.balance < item.amount) {
                 this.deleteTransfer(Number(item.id));
                 this.sendNotificationFail(account.user_id);
                 this.getAccounts();
@@ -332,19 +333,19 @@ isReceiptOpen(transactionId: number|undefined): boolean {
     });
   }
 
-  deleteTransfer(id: number){
+  deleteTransfer(id: number) {
     this.transactionService.deleteTransaction(id).subscribe({
-      next: (flag) =>{
-          console.log('Transferencia eliminada por falta de saldo');
+      next: (flag) => {
+        console.log('Transferencia eliminada por falta de saldo');
       },
-      error: (e: Error)=>{
-          console.log(e.message);
+      error: (e: Error) => {
+        console.log(e.message);
       }
     })
   }
 
 
-  sendNotificationFail(id: number){
+  sendNotificationFail(id: number) {
     const notification = {
       title: 'No pudo realizarse una transferencia programada!',
       message: 'No tiene suficiente saldo, por favor revise su cuenta',
@@ -375,24 +376,24 @@ isReceiptOpen(transactionId: number|undefined): boolean {
   }
 
 
-private markTransferProgrammingAsPaid(item: Transaction) {
-  this.transactionService.setPayTransferProgramming(Number(item.id)).subscribe({
-    next: () => {
-      this.sendTransferSourceNotification(item.source_account_id)
+  private markTransferProgrammingAsPaid(item: Transaction) {
+    this.transactionService.setPayTransferProgramming(Number(item.id)).subscribe({
+      next: () => {
+        this.sendTransferSourceNotification(item.source_account_id)
 
-      this.sendTransferDestinationNotification(item.destination_account_id)
+        this.sendTransferDestinationNotification(item.destination_account_id)
 
-      this.getAccounts();
-    },
-    error: (error: Error) => {
-      console.error('Error al marcar la transferencia como pagada:', error);
-    },
-  });
-}
+        this.getAccounts();
+      },
+      error: (error: Error) => {
+        console.error('Error al marcar la transferencia como pagada:', error);
+      },
+    });
+  }
 
-private sendTransferSourceNotification(id: number) {
-  this.accountService.getAccountById(id).subscribe({
-    next: (account) =>{
+  private sendTransferSourceNotification(id: number) {
+    this.accountService.getAccountById(id).subscribe({
+      next: (account) => {
         const notification = {
           title: 'Se realizo una transferencia programada!',
           message: 'Se le debito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
@@ -400,16 +401,16 @@ private sendTransferSourceNotification(id: number) {
         }
 
         this.postNotification(notification)
-    },
-    error: (e: Error)=>{
-      console.log(e.message);
-    }
-  })
-}
+      },
+      error: (e: Error) => {
+        console.log(e.message);
+      }
+    })
+  }
 
-private sendTransferDestinationNotification(id: number) {
-  this.accountService.getAccountById(id).subscribe({
-    next: (account) =>{
+  private sendTransferDestinationNotification(id: number) {
+    this.accountService.getAccountById(id).subscribe({
+      next: (account) => {
         const notification = {
           title: 'Transferencia acreditada!',
           message: 'Se le acreditó una transferencia, puede ver el detalle en la seccion "Mis transferencias"',
@@ -417,63 +418,127 @@ private sendTransferDestinationNotification(id: number) {
         }
 
         this.postNotification(notification)
-    },
-    error: (e: Error)=>{
-      console.log(e.message);
-    }
-  })
-}
-
-async sendEmail(transaction: Transaction): Promise<void> {
-  let destinationAccount !: Account;
-
-
-  try {
-    await this.getUserByAccountId(transaction.destination_account_id);
-
-    this.accountService.getAccountById(transaction.destination_account_id).subscribe({
-      next: (account) =>{
-        destinationAccount = account
-      },error: (e: Error) =>{
+      },
+      error: (e: Error) => {
         console.log(e.message);
       }
     })
+  }
 
-    this.accountService.getAccountById(transaction.source_account_id).subscribe({
-      next: (account) =>{
-        this.userService.getUser(account.id).subscribe({
-          next: (user) =>{
-            this.emailService.sendTransferEmail(
-              user.email as string,
-              transaction.amount,
-              account.user_id,
-              destinationAccount.user_id
-            )
-            .subscribe({
-              next: () => console.log('Correo de notificación enviado'),
-              error: (error: Error) => console.log('Error al enviar el correo:', error),
+  async sendEmail(transaction: Transaction): Promise<void> {
+    let destinationAccount !: Account;
+
+
+    try {
+      await this.getUserByAccountId(transaction.destination_account_id);
+
+      this.accountService.getAccountById(transaction.destination_account_id).subscribe({
+        next: (account) => {
+          destinationAccount = account
+        }, error: (e: Error) => {
+          console.log(e.message);
+        }
+      })
+
+      this.accountService.getAccountById(transaction.source_account_id).subscribe({
+        next: (account) => {
+          this.userService.getUser(account.id).subscribe({
+            next: (user) => {
+              this.emailService.sendTransferEmail(
+                user.email as string,
+                transaction.amount,
+                account.user_id,
+                destinationAccount.user_id
+              )
+                .subscribe({
+                  next: () => console.log('Correo de notificación enviado'),
+                  error: (error: Error) => console.log('Error al enviar el correo:', error),
+                });
+            },
+            error: (e: Error) => console.log(e.message)
+          })
+
+        }, error: (e: Error) => console.log(e.message)
+      })
+
+
+    } catch (error) {
+      console.error('Error en sendEmail:', error);
+    }
+  }
+
+  async getUserByAccountId(accountId: number): Promise<void> {
+    try {
+      const account = await firstValueFrom(this.accountService.getAccountById(accountId));
+      this.user = await firstValueFrom(this.userService.getUser(account.user_id));
+    } catch (error) {
+      console.error('Error en getUserByAccountId:', error);
+      throw error;
+    }
+  }
+
+  async expiredCards() {
+    let now = Date.now();
+    for (let card of this.cards) {
+      const expirationDate = new Date(card.expiration_date);
+      if (Number(expirationDate) < now && card.is_Active === 'yes') {
+        const userDecision = await Swal.fire({
+          title: `La tarjeta ${card.card_number} venció el ${expirationDate.toLocaleDateString()}.
+          ¿Desea extenderla por 5 años?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#00b4d8',
+          cancelButtonColor: "#e63946",
+          confirmButtonText: 'Aceptar',
+          cancelButtonText: 'Cancelar',
+        });
+  
+        if (userDecision.isConfirmed) {
+          try {
+            const newCard = {
+              card_number: card.card_number,
+              expiration_date: this.generarFechaExpiracion(),
+              cvv: card.cvv,
+              card_type: card.card_type,
+              user_id: card.user_id,
+              account_id: card.account_id
+            };
+  
+            // Crea una nueva tarjeta
+            await this.cardService.createCard(newCard).toPromise();
+  
+            // Desactiva la tarjeta anterior
+            await this.cardService.disableCard(card.card_id).toPromise();
+  
+            await Swal.fire({
+              title: 'Tarjeta extendida!',
+              text: `La nueva fecha de expiración es el ${newCard.expiration_date}.`,
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
             });
-          },
-          error: (e: Error) => console.log(e.message)
-        })
-
-      },error: (e: Error) => console.log(e.message)
-    })
-
-
-  } catch (error) {
-    console.error('Error en sendEmail:', error);
+          } catch (err: any) {
+            console.error(`Error al procesar la tarjeta ${card.card_number}: ${err.message}`);
+            Swal.fire({
+              title: 'Error',
+              text: `No se pudo extender la tarjeta ${card.card_number}.`,
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#e63946',
+            });
+          }
+          this.getCards();
+        } else {
+           this.cardService.disableCard(card.card_id).toPromise();
+           this.getCards();
+        }
+      }
+    }
   }
-}
-
-async getUserByAccountId(accountId: number): Promise<void> {
-  try {
-    const account = await firstValueFrom(this.accountService.getAccountById(accountId));
-    this.user = await firstValueFrom(this.userService.getUser(account.user_id));
-  } catch (error) {
-    console.error('Error en getUserByAccountId:', error);
-    throw error;
+  
+  generarFechaExpiracion(): string {
+    const fechaOriginal = new Date();
+    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5);
+    return fechaOriginal.toISOString().split('T')[0];
   }
-}
 
 }

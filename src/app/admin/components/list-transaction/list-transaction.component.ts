@@ -14,15 +14,15 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   templateUrl: './list-transaction.component.html',
   styleUrl: './list-transaction.component.css'
 })
-export class ListTransactionComponent implements OnInit{
+export class ListTransactionComponent implements OnInit {
 
-  id : number = 0;
-  flag : boolean = false;
+  id: number = 0;
+  flag: boolean = false;
   coming = false;
-  pageSize = 4 ;
+  pageSize = 4;
   currentPage = 1;
-  destinatario : string = '';
-  transactions : Array<Transaction> = [];
+  destinatario: string = '';
+  transactions: Array<Transaction> = [];
 
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
@@ -32,17 +32,21 @@ export class ListTransactionComponent implements OnInit{
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
-        this.id = Number (params.get('id'));
-            this.transactionService.getTransactionsByAccountId(this.id).subscribe({
-              next: (transactions) =>{
-                this.transactions = transactions;
-              }
-            })
+        this.id = Number(params.get('id'));
+        this.transactionService.getTransactionsByAccountId(this.id).subscribe({
+          next: (transactions) => {
+            this.transactions = transactions;
           },
-          error: (e: Error) =>{
-            console.log(e.message);
+          error: (e: Error) => {
+            this.router.navigate(['/not-found']);
+            console.error('Error al cargar transacciones:', e);
           }
         })
+      },
+      error: (e: Error) => {
+        this.router.navigate(['/not-found']);
+        console.error('Error al cargar transacciones:', e);      }
+    })
   }
 
   toggleFlag(): void {
@@ -69,13 +73,13 @@ export class ListTransactionComponent implements OnInit{
     }
   }
 
-  goBack(){
-    this.accountService.getAccountById(Number(this.id)).subscribe({
-      next: (account) => {
-        this.router.navigate(['/detail-user/' + account.id])
-      },error: (err:Error)=>{
-        console.log(err.message);
-      }
-    })
+  openedTransactionId: number | undefined = undefined;
+
+  toggleReceipt(transactionId: number|undefined): void {
+    this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
+  }
+  
+  isReceiptOpen(transactionId: number|undefined): boolean {
+    return this.openedTransactionId === transactionId;
   }
 }

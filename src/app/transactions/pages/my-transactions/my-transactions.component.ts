@@ -116,4 +116,14 @@ export class MyTransactionsComponent {
     });
   }
 
+  openedTransactionId: number | undefined = undefined;
+
+  toggleReceipt(transactionId: number|undefined): void {
+    this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
+  }
+  
+  isReceiptOpen(transactionId: number|undefined): boolean {
+    return this.openedTransactionId === transactionId;
+  }
+
 }

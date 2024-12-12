@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from '@support/service/messages.service';
 import { Message, Thread } from '@support/interface/thread';
 import { SupportService } from '@support/service/support.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-chat-support',
@@ -15,10 +16,11 @@ import { NavbarComponent } from '@shared/navbar/navbar.component';
   styleUrl: './chat-support.component.css'
 })
 export class ChatSupportComponent implements OnInit{
-
+  private userSessionService = inject(UserSessionService);
   private activatedRoute = inject(ActivatedRoute);
   private messageService = inject(MessageService);
   private supportService = inject(SupportService);
+  private router = inject(Router);
   private fb = inject(FormBuilder);
 
   messages: Array<Message> = [];
@@ -41,11 +43,17 @@ export class ChatSupportComponent implements OnInit{
   loadThread(){
     this.supportService.getThreadById(Number (this.id)).subscribe({
       next: (thread: Thread) => {
-        this.thread = thread;
+        const userId = this.userSessionService.getUserId();
+        if (thread.user_id !== userId) {
+          console.log("No tiene acceso");
+          this.router.navigate(['/access-denied']); // Redirige si el usuario no tiene acceso
+        } else {
+          this.thread = thread;
+        }
       },
       error: (e: Error) =>{
-        console.log(e.message);
-      }
+        this.router.navigate(['/not-found']);
+        console.log('Error al cargar la cuenta:', e);      }
     })
   }
 

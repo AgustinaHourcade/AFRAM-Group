@@ -13,10 +13,11 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 10px
 }
 
 .app-card-account-container {
-  margin: 20px;
+  /* margin: 20px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,8 +27,12 @@
 .app-card-account-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 15px;
+  /* gap: 15px; */
   width: 100%;
+}
+
+button {
+  width: 40%;
 }
 
 .view-button {
@@ -43,6 +48,3 @@
   background-color: var(--cancel-button-hover);
 }
 
-button {
-  width: 40%;
-}

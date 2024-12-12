@@ -34,8 +34,8 @@ export class DetailUsersComponent implements OnInit{
             this.user = user;
           },
           error: (e :Error) =>{
-            console.error(e.message);
-          }
+            this.router.navigate(['/not-found']);
+            console.error('Error al cargar usuario:', e);           }
         })
       }
     })

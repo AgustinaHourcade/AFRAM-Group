@@ -37,13 +37,15 @@ export class TradingComponent implements OnInit {
   calculatedValueARSbuy: number = 0;
   calculatedValueARSsell: number = 0;
 
-  formulario = this.fb.nonNullable.group({
+  // Reactive form for trading operations
+  form = this.fb.nonNullable.group({
     'amount': ['', [Validators.required, Validators.max(10000), Validators.min(1)]],
     'source_account': ['', Validators.required],
     'destination_account': ['', Validators.required]
   })
 
   // Functions
+  // Fetch accounts from the service
   getAccounts(){
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
       next: (accounts) => {
@@ -54,6 +56,7 @@ export class TradingComponent implements OnInit {
     })
   }
 
+  // Update calculated ARS value for selling
   updateCalculatedARSsell(amount: string | undefined) {
     const amountNum = parseFloat(amount as string);
     if (!isNaN(amountNum) && this.dolar?.venta) {
@@ -63,36 +66,39 @@ export class TradingComponent implements OnInit {
     }
   }
 
+  // Update calculated ARS value for buying
   updateCalculatedARSbuy(amount: string | undefined) {
     const amountNum = parseFloat(amount as string);
     if (!isNaN(amountNum) && this.dolar?.compra) {
-      this.calculatedValueARSbuy = amountNum * Number(this.dolar.venta);
+      this.calculatedValueARSbuy = amountNum * Number(this.dolar.compra);
     } else {
       this.calculatedValueARSbuy = 0;
     }
   }
 
+  // Reset form and calculated values
   resetValues(){
     this.calculatedValueARSsell = 0;
     this.calculatedValueARSbuy = 0;
-    setTimeout(() => this.formulario.reset(), 150);
+    setTimeout(() => this.form.reset(), 150);
   }
 
+  // Execute buy USD operation
   buyUSD() {
-    const source_account = this.formulario.get('source_account')?.value;
-    const destination_account = this.formulario.get('destination_account')?.value;
+    const source_account = this.form.get('source_account')?.value;
+    const destination_account = this.form.get('destination_account')?.value;
 
     const account = this.accounts.find(acc => acc.id === Number(source_account));
 
     const transaction = {
-      amount: Number(this.formulario.get('amount')?.value) * Number(this.dolar?.venta),
+      amount: Number(this.form.get('amount')?.value) * Number(this.dolar?.venta),
       source_account_id: source_account,
       destination_account_id: 1,
       transaction_type: 'exchange'
     }
 
     const transactionUSD = {
-      amount: Number(this.formulario.get('amount')?.value),
+      amount: Number(this.form.get('amount')?.value),
       source_account_id: 2,
       destination_account_id: destination_account,
       transaction_type: 'exchange'
@@ -107,7 +113,7 @@ export class TradingComponent implements OnInit {
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#00b4d8',
       });
-      this.formulario.reset();
+      this.form.reset();
       return;
     }
 
@@ -123,9 +129,9 @@ export class TradingComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.accountService.updateBalance(descAmount, Number(source_account)).subscribe({
-          next: (response) => {
+          next: () => {
             this.accountService.updateBalance(transactionUSD.amount, Number(destination_account)).subscribe({
-              next: (response) => {
+              next: () => {
                 this.postTransaction(transaction);
                 this.postTransaction(transactionUSD);
                 Swal.fire({
@@ -139,19 +145,15 @@ export class TradingComponent implements OnInit {
                 this.trading = '';
 
                 this.accountService.updateBalance(Number(transaction.amount), 1).subscribe({
-                  next: ()=>{
-                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)'); // ! BORRAR
-                  },
+                  next: ()=>{},
                   error : (err:Error) => console.log(err.message)
                 })
 
                 const descontarUSD = -1 * transactionUSD.amount;
 
                 this.accountService.updateBalance(descontarUSD, 2).subscribe({
-                  next: () => {
-                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');  // ! BORRAR
-                  },
-                  error : (err:Error) => console.log(err.message)
+                  next: () => {},
+                  error : (e: Error) => console.log(e.message)
                 })
               },
               error: (e: Error) => console.log(e.message)
@@ -166,15 +168,16 @@ export class TradingComponent implements OnInit {
     }, 2000);
   }
 
+  // Execute sell USD operation
   sellUSD() {
-    const amount = this.formulario.get('amount')?.value;
-    const source_account = this.formulario.get('source_account')?.value;
-    const destination_account = this.formulario.get('destination_account')?.value;
+    const amount = this.form.get('amount')?.value;
+    const source_account = this.form.get('source_account')?.value;
+    const destination_account = this.form.get('destination_account')?.value;
 
     const account = this.accounts.find(acc => acc.id === Number(source_account));
 
     const transactionUSD = {
-      amount: this.formulario.get('amount')?.value,
+      amount: this.form.get('amount')?.value,
       source_account_id: source_account,
       destination_account_id: 2,
       transaction_type: 'exchange'
@@ -227,16 +230,13 @@ export class TradingComponent implements OnInit {
                 this.trading = '';
 
                 this.accountService.updateBalance(Number(transactionUSD.amount), 2).subscribe({
-                  next: ()=>{
-                    console.log('saldo actualizado en la cuenta 2 del banco (USD)');  // ! BORRAR
-                  }, error : (err:Error) => console.log(err.message)
+                  next: ()=>{}, 
+                  error : (err:Error) => console.log(err.message)
                 })
                 const descontarARS = -1 * transaction.amount;
                 this.accountService.updateBalance(descontarARS, 1).subscribe({
-                  next: ()=>{
-                    console.log('saldo actualizado en la cuenta 1 del banco (ARS)');  // ! BORRAR
-                  },
-                  error : (err:Error)=> console.log(err.message)
+                  next: ()=>{},
+                  error : (e: Error)=> console.log(e.message)
                 })
               },
               error: (e: Error) => console.log(e.message)
@@ -249,9 +249,9 @@ export class TradingComponent implements OnInit {
     setTimeout(() => {
       this.getAccounts();
     }, 2000);
-
   }
 
+  // Post transaction
   postTransaction(transaction: any) {
   this.transactionService.postTransaction(transaction as Transaction).subscribe({
     next: () => {

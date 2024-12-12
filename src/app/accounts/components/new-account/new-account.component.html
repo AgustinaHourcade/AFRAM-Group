@@ -2,23 +2,25 @@
 <div class="page">
     <div class="page-sub">
         <h2>Crear cuenta</h2>
-        <!-- Formulario para crear cuenta -->
-        <form [formGroup]="formulario" (ngSubmit)="createAccount()">
+        <!-- Form to create a new account -->
+        <form [formGroup]="form" (ngSubmit)="createAccount()">
+            <!-- Dropdown to select account type -->
             <label for="account_type">Seleccione el tipo de cuenta</label>
             <select formControlName="account_type" id="account_type" (change)="onAccountTypeChange()">
                 <option value="Checking">Cuenta corriente</option>
                 <option value="Savings">Caja de ahorros</option>
             </select>
+            <!-- Dropdown to select currency type -->
             <label for="currency">Seleccione el tipo de divisa</label>
             <select formControlName="currency" id="currency">
                 <option value="ars">ARS</option>
-                <!-- Se agrega la opción 'USD' solo si el flag es 'all'/el tipo de cuenta es Caja de ahorro -->
+                <!-- Add 'USD' option only if the flag is 'all' -->
                 @if (flag === 'all') {
                     <option value="usd">U$S</option>
                 }
             </select>
-            <!-- Botón deshabilitado si el formulario es inválido -->
-            <button type="submit" [disabled]="formulario.invalid">Crear cuenta</button>
+            <!-- Button to submit the form, disabled if form is invalid -->
+            <button type="submit" [disabled]="form.invalid">Crear cuenta</button>
         </form>
     </div>
 </div>

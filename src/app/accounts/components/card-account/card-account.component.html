@@ -1,6 +1,7 @@
+<!-- Card container with routing link to account details -->
 <div class="card" routerLink="/accounts/account/{{ account.id }}">
 
-    <!-- Condicional para tipo de cuenta: Caja de ahorro o Cuenta corriente -->
+    <!-- Conditional based on account type and currency -->
     @if (account.account_type == "Savings") {
         @if (account.currency === 'ars'){
             <h3>Caja de ahorro</h3>
@@ -15,7 +16,7 @@
         <p>{{ account.id }}-{{ userId }}/2</p>
     }
 
-    <!-- Sección para mostrar el balance de la cuenta -->
+    <!-- Balance display with toggle functionality -->
     <div class="amount">
         @if (showBalance) {
             @if (account.currency === 'ars'){
@@ -27,7 +28,7 @@
             <p class="balance-number">******</p>
         }
 
-        <!-- Botón para alternar visibilidad del balance -->
+        <!-- Toggle button to show/hide balance -->
         <button type="button" class="toggle-btn"  (click)="toggleBalance($event)"><i [class]="showBalance ? 'bi bi-eye' : 'bi bi-eye-slash'"></i></button>
     </div>
 </div>

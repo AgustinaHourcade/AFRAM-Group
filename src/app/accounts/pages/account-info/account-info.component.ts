@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Transaction } from '@transactions/interface/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
@@ -10,7 +11,6 @@ import { TransactionComponent } from '@transactions/components/transaction/trans
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { Transaction } from '@transactions/interface/transaction.interface';
 
 @Component({
   selector: 'app-account-info',
@@ -24,6 +24,7 @@ export class AccountInfoComponent implements OnInit{
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
   @ViewChild(TransactionComponent) transactionComponent!: TransactionComponent;
 
+  // Dependency Injections
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -31,61 +32,23 @@ export class AccountInfoComponent implements OnInit{
   private transactionService = inject(TransactionService);
   private userSessionService = inject(UserSessionService);
 
-
+  // Variables
   today: Date = new Date();
   accountId!: number;
   openingDate!: Date;
   transactions: Array<Transaction> = [];
-  isDownloading = false;
+  isDownloading: boolean = false;
   isLastDayOfMonth: boolean = false;
+  openedTransactionId: number | undefined = undefined;
   filteredTransactions: Array<Transaction> = [];
 
+  // Reactive form for date selection
   dateForm = this.fb.nonNullable.group({
     monthYear: ['']
   });
 
-  ngOnInit(): void {
-    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (this.accountId) {
-      this.accountService.getAccountById(this.accountId).subscribe({
-        next: (account) => {
-          if (!account || !account.user_id) {
-            console.error('Cuenta no encontrada o respuesta inválida');
-          this.router.navigate(['/not-found']);
-            return;
-          }
-          
-  
-          const userId = this.userSessionService.getUserId();
-          if (account.user_id !== userId) {
-            console.log("No tiene acceso");
-            this.router.navigate(['/access-denied']); // Redirige si el usuario no tiene acceso
-          } else {
-            this.accountId = account.id;
-            this.openingDate = new Date(account.opening_date);
-            this.setDefaultMonthYear();
-            this.loadTransactions();
-          }
-        },
-        error: (error) => {
-          console.error('Error al cargar la cuenta:', error);
-          this.router.navigate(['/not-found']);
-        }}
-      );
-
-
-      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
-        this.filterTransactions();
-      });
-      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
-        this.updateLastDayCheck();
-      });
-  
-      this.updateLastDayCheck();
-    }
-  }
-
+  // Functions
+  // Set default month and year to the current date
   setDefaultMonthYear() {
     const currentMonthYear = `${this.today.getFullYear()}-${String(
       this.today.getMonth() + 1
@@ -94,6 +57,7 @@ export class AccountInfoComponent implements OnInit{
     this.updateLastDayCheck();
   }
 
+  // Load transactions for the account
   loadTransactions() {
     this.transactionService.getTransactionsByAccountId(this.accountId).subscribe({
       next: (data) => {
@@ -104,6 +68,7 @@ export class AccountInfoComponent implements OnInit{
     });
   }
 
+  // Filter transactions based on selected date
   filterTransactions() {
     const selectedDate = this.dateForm.get('monthYear')?.value;
 
@@ -124,6 +89,7 @@ export class AccountInfoComponent implements OnInit{
     });
   }
 
+  // Check if today is the last day of the selected month
   updateLastDayCheck() {
     const selectedDate = this.dateForm.get('monthYear')?.value;
     if (!selectedDate) return;
@@ -135,12 +101,14 @@ export class AccountInfoComponent implements OnInit{
     this.isLastDayOfMonth = lastDay <= currentDate;
   }
 
+  // Get the next available date for the summary
   nextAvailableDate(monthYear: string | null): Date | null {
     if (!monthYear) return null;
     const [year, month] = monthYear.split('-').map(Number);
     return new Date(year, month, 0);
   }
 
+  // Download the transactions summary as PDF
   downloadAsPDF() {
     this.isDownloading = true;
     if (!this.transactionComponent) {
@@ -232,6 +200,48 @@ export class AccountInfoComponent implements OnInit{
     });
   }
 
+  // Toggles the openedTransactionId between the provided transactionId and undefined
+  toggleReceipt(transactionId: number|undefined): void {
+    this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
+  }
 
+  // Checks if the given transactionId matches the currently opened transaction
+  isReceiptOpen(transactionId: number|undefined): boolean {
+    return this.openedTransactionId === transactionId;
+  }
 
+  ngOnInit(): void {
+    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.accountId) {
+      this.accountService.getAccountById(this.accountId).subscribe({
+        next: (account) => {      
+          const userId = this.userSessionService.getUserId();
+          // Verify if user has access to the account
+          if (account.user_id !== userId) {
+            this.router.navigate(['/access-denied']); 
+          } else {
+            this.accountId = account.id;
+            this.openingDate = new Date(account.opening_date);
+            this.setDefaultMonthYear();
+            this.loadTransactions();
+          }
+        },
+        error: (error) => {
+          this.router.navigate(['/not-found']);
+        }}
+      );
+
+      // Subscribe to date changes
+      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+        this.filterTransactions();
+      });
+      
+      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+        this.updateLastDayCheck();
+      });
+
+      this.updateLastDayCheck();
+    }
+  }
 }

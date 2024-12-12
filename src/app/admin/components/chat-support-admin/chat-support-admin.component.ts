@@ -66,8 +66,8 @@ export class ChatSupportAdminComponent implements OnInit{
         this.loadUser(thread.user_id);
       },
       error: (e: Error) =>{
-        console.log(e.message);
-      }
+        this.router.navigate(['/not-found']);
+        console.log('Error al cargar la cuenta:', e);        }
     })
   }
 

@@ -61,7 +61,6 @@ export class CardComponent implements OnInit {
             }));
           }
         });
-        this.expiredCard();
       },
       error: (e: Error) => {
         console.log(e.message);
@@ -105,63 +104,7 @@ export class CardComponent implements OnInit {
     });
   }
 
-  expiredCard(){
-    let now = Date.now();
-    for(let card of this.cards){
-      const expirationDate = new Date(card.expiration_date)
-      if(Number(expirationDate) < now && card.is_Active=='yes'){
-        Swal.fire({
-          title: `La tarjeta ${card.card_number} venció el ${expirationDate.toLocaleDateString()}.
-          ¿Desea extenderla por 5 años?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#00b4d8',
-          cancelButtonColor: "#e63946",
-          confirmButtonText: 'Aceptar',
-          cancelButtonText: 'Cancelar',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            const newCard = {
-              card_number: card.card_number,
-              expiration_date: this.generarFechaExpiracion(),
-              cvv: card.cvv,
-              card_type: card.card_type,
-              user_id: card.user_id,
-              account_id: card.account_id
-            };
-            this.cardService.createCard(newCard).subscribe({
-            next:()=>{
-              this.cardService.disableCard(card.card_id).subscribe({
-              next: ()=>{
-              Swal.fire({
-              title: 'Tarjeta extendida!',
-              text: `La nueva fecha de expiracion es el ${newCard.expiration_date}.`,
-              confirmButtonText: 'Aceptar',
-              confirmButtonColor: '#00b4d8'
-            });
-              }, error: (err:Error)=>{
-                console.log(err.message);
-              }
-              })
-            },
-            error:(err :Error) =>{
-              console.log(err.message);
-            }
-            })
-          } else {
-            console.log("El usuario no desea extender la tarjeta.");
-          }
-        });
-      }
-    }
-
-  }
-
-  generarFechaExpiracion(): string {
-    const fechaOriginal = new Date();
-    fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5);
-    return fechaOriginal.toISOString().split('T')[0];
-  }
+ 
 
   toggleVisibility(card: any): void {
     card.showNumbers = !card.showNumbers;

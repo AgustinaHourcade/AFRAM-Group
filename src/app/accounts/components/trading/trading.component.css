@@ -7,40 +7,71 @@ app-dolar {
   max-width: 300px;
 }
 
-.aviso {
-  color: var(--gray-3);
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 20px;
-  padding: 15px;
-  background-color: var(--extra-light-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0px 4px 6px var(--box-shadow-color);
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .page {
   display: flex;
   justify-content: center;
-  flex-direction: row;
-  gap: 80px;
+  /* flex-direction: row;
+  gap: 80px; */
   align-items: center;
   height: calc(100vh - 79.75px);
 }
 
-.page2 {
+.page-cards {
   display: flex;
-  justify-content: center;
-  flex-direction: row;
+  /* justify-content: center;
+  flex-direction: row; */
   gap: 15px;
-  align-items: center;
+  /* align-items: center; */
 }
 
-.page3 {
+.dashboard-card {
+  height: 180px;
+  width: 250px;
+  border-radius: var(--border-radius);
+  padding: 3rem;
+  box-shadow: 0 4px 6px var(--box-shadow-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; */
+  /* text-decoration: none; */
+  border: solid 1px var(--gray-2);
+  /* display: block; */
+  /* overflow: hidden; */
+  background-color: var(--white);
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px var(--box-shadow-color);
+  background-color: var(--extra-light-color);
+}
+
+.dashboard-card p {
+  text-align: center;
+}
+
+.card-title,
+.card-icon {
+  font-size: 1.5rem;
+  /* text-align: center; */
+  color: var(--gray-4);
+}
+
+/* {
+  font-size: 1.5rem;
+  color: var(--gray-4);
+  margin-bottom: 0.75rem;
+} */
+.page-exchange {
   width: 100%;
   height: calc(100vh - 82px);
+}
+
+.page-exchange > button {
+  margin: 20px;
 }
 
 .modal {
@@ -50,7 +81,7 @@ app-dolar {
   background-color: var(--white);
   box-shadow: 0 4px 20px var(--box-shadow-color);
   border-radius: var(--border-radius);
-  margin: 2rem auto;
+  margin: 0 auto;
 }
 
 .modal form {
@@ -73,58 +104,11 @@ app-dolar {
   text-align: center;
 }
 
-.dashboard-card {
-  height: 180px;
-  width: 250px;
-  border-radius: var(--border-radius);
-  padding: 3rem;
-  box-shadow: 0 4px 6px var(--box-shadow-color);
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-decoration: none;
-  border: solid 1px var(--gray-2);
-  /* display: block; */
-  overflow: hidden;
-  background-color: var(--white);
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px var(--box-shadow-color);
-  background-color: var(--extra-light-color);
-}
-
-.dashboard-card p {
- text-align: center;
-}
-
-.card-icon {
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.card-title {
-  font-size: 1.5rem;
-  color: var(--gray-4);
-  margin-bottom: 0.75rem;
-}
-
-.closeButton {
-  padding: 20px;
-  z-index: 10;
-}
-
-.alert-amount{
+.error {
   color: var(--cancel-button);
 }
 
-
 @media screen and (max-width: 780px) {
-
   /* .modal h2 {
     font-size: 1.5rem;
   } */
@@ -142,7 +126,6 @@ app-dolar {
 }
 
 @media screen and (max-width: 550px) {
-
   .dashboard-card {
     padding: 1rem;
     width: 200px;
@@ -167,7 +150,6 @@ app-dolar {
     font-size: 0.8rem;
   } */
 }
-
 
 @media screen and (max-width: 480px) {
   .dashboard-card {

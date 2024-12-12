@@ -28,14 +28,15 @@ export class PayLoanComponent {
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
   private transactionService = inject(TransactionService);
+
   loan: any = {};
   account?: Account;
   accounts?: Array<Account>;
 
   ngOnInit() {
     this.cargarCuentas();
-    this.cargarPrestamo();
   }
+
 
   formulario = this.fb.nonNullable.group({
     amount: [null, [Validators.required, Validators.min(1), Validators.pattern(/^\d*\.?\d{0,2}$/)]],
@@ -43,16 +44,22 @@ export class PayLoanComponent {
   });
 
   cargarPrestamo() {
+    console.log("accounts en cargar prestamo" + this.accounts);
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
-
         this.loanService.getLoanById(Number(id)).subscribe({
           next: (loan: Loan) => {
-            this.loan = loan;
+            if (!this.accounts?.some(account => account.id === loan.account_id)) {
+              console.log("No tiene acceso");
+              this.route.navigate(['/access-denied']);
+            } else {
+              this.loan = loan;
+            }
           },
           error: (e: Error) => {
-            console.log(e.message);
+            this.route.navigate(['/not-found']);
+            console.log('Error al cargar la cuenta:', e);
           },
         });
       },
@@ -91,54 +98,54 @@ export class PayLoanComponent {
             }).then((result) => {
               if (result.isConfirmed) {
                 this.accountService.updateBalance(descontar, account_id).subscribe({
-                    next: () => {
-                      this.loanService.updatePaid(this.loan?.id as number, amount).subscribe({
+                  next: () => {
+                    this.loanService.updatePaid(this.loan?.id as number, amount).subscribe({
+                      next: () => {
+                        Swal.fire({
+                          title: 'Préstamo pagado correctamente!',
+                          icon: 'success',
+                          confirmButtonText: 'Aceptar',
+                          confirmButtonColor: '#00b4d8'
+                        });
+                        this.accountService.updateBalance(amount, 1).subscribe({
                           next: () => {
-                            Swal.fire({
-                              title: 'Préstamo pagado correctamente!',
-                              icon: 'success',
-                              confirmButtonText: 'Aceptar',
-                              confirmButtonColor: '#00b4d8'
-                            });
-                            this.accountService.updateBalance(amount, 1).subscribe({
-                              next: ()=>{
-                                console.log('saldo actualizado en la cuenta 1 del banco');
-                              }, error : (err:Error)=>{
-                                console.log(err.message);
-                              }
-                            })
-                            const transaction = {
-                              amount: amount,
-                              source_account_id: this.loan.account_id,
-                              destination_account_id: 1,
-                              transaction_type: 'loan'
-                            }
-                            this.transactionService.postTransaction(transaction as Transaction).subscribe({
-                              next: (transactionId) => {
-                                console.log(transactionId);
-                              },
-                              error: (error: Error) => {
-                                console.log(error.message);
-                              },
-                            })
-                            this.route.navigate(['/list-loan']);
+                            console.log('saldo actualizado en la cuenta 1 del banco');
+                          }, error: (err: Error) => {
+                            console.log(err.message);
+                          }
+                        })
+                        const transaction = {
+                          amount: amount,
+                          source_account_id: this.loan.account_id,
+                          destination_account_id: 1,
+                          transaction_type: 'loan'
+                        }
+                        this.transactionService.postTransaction(transaction as Transaction).subscribe({
+                          next: (transactionId) => {
+                            console.log(transactionId);
                           },
                           error: (error: Error) => {
                             console.log(error.message);
                           },
-                        });
-                    },
-                  });
+                        })
+                        this.route.navigate(['/list-loan']);
+                      },
+                      error: (error: Error) => {
+                        console.log(error.message);
+                      },
+                    });
+                  },
+                });
               }
             });
-          }else{
+          } else {
             console.log(account.balance);
-              Swal.fire({
-                text: 'No tiene suficiente dinero en la cuenta.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar',
-                confirmButtonColor: '#00b4d8'
-              });
+            Swal.fire({
+              text: 'No tiene suficiente dinero en la cuenta.',
+              icon: 'error',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8'
+            });
           }
         },
         error: (error: Error) => {
@@ -153,6 +160,9 @@ export class PayLoanComponent {
     this.accountService.getAccountsByIdentifier(id).subscribe({
       next: (accounts) => {
         this.accounts = accounts;
+        console.log("accounts en cargar cuentas" + this.accounts);
+        this.cargarPrestamo();
+
       },
       error: (e: Error) => {
         console.log(e.message);

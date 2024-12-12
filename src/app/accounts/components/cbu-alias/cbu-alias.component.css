@@ -1,3 +1,7 @@
+h2 {
+  margin-top: 20px;
+}
+
 .cbuAlias {
   width: 80%;
   max-width: 650px;
@@ -7,7 +11,7 @@
   border-radius: var(--border-radius);
   box-shadow: 0 4px 8px var(--box-shadow-color);
   background-color: var(--white);
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .cbu,
@@ -37,6 +41,20 @@
   color: var(--primary-color);
 }
 
+.input-field {
+  /* width: 100%; */
+  padding: 3px;
+  /* background-color: var(--white); */
+  color: var(--gray-3);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin: 0;
+}
+
+.input-field::placeholder {
+  color: var(--gray-3);
+}
+
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -51,23 +69,6 @@ button {
   justify-content: center;
 }
 
-h2 {
-  margin-top: 20px;
-}
-
-.input-field {
-  width: 100%;
-  padding: 3px;
-  background-color: var(--white);
-  color: var(--gray-3);
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.input-field::placeholder {
-  color: var(--gray-3);
-}
-
 .cancel-button {
   background-color: var(--cancel-button);
 }
@@ -76,7 +77,6 @@ h2 {
   background-color: var(--cancel-button-hover);
 }
 
-/* Estilo para los elementos que no deben imprimirse */
 .no-print {
   display: inline-flex;
   align-items: center;
@@ -88,10 +88,9 @@ h2 {
   font-size: 1rem;
 }
 
-/* Responsividad */
 @media (max-width: 768px) {
   .buttons {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
     align-items: center;

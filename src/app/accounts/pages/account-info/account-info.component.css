@@ -1,25 +1,17 @@
 .container {
   width: 90%;
   margin: 20px auto;
-  padding: 20px;
+  /* padding: 20px; */
   color: var(--gray-4);
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-
-.div-sub {
-  width: 100%;
-}
-
-.div-sub button {
-  margin-bottom: 10px;
+  justify-content: center; */
 }
 
 h2 {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   gap: 10px;
 }
@@ -27,7 +19,7 @@ h2 {
 form {
   display: inline-flex;
   align-items: center;
-  margin: 0;
+  /* margin: 0; */
 }
 
 input[type="month"] {
@@ -38,19 +30,28 @@ input[type="month"] {
   margin: 0;
 }
 
-span {
-  color: var(--gray-3);
-  display: block;
-  text-align: center;
+.div-sub {
+  width: 100%;
 }
 
-p {
+.div-sub button {
+  margin-bottom: 10px;
+}
+
+span, p {
+  /* color: var(--gray-3); */
+  display: block;
+  text-align: center;
+  margin: 20px;
+}
+
+/* p {
   color: var(--gray-3);
   padding: 20px;
   text-align: center;
-}
+} */
 
-@media (max-width: 840px) {
+/* @media (max-width: 840px) {
   .buttons {
     display: flex;
     flex-direction: column;
@@ -62,4 +63,4 @@ p {
   .buttons button {
     width: 100%;
   }
-}
+} */

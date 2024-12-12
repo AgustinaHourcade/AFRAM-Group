@@ -36,7 +36,7 @@ h2 {
   width: 300px;
   border-radius: var(--border-radius);
   padding: 20px;
-  color: var(--white);
+  /* color: var(--white); */
   box-shadow: 0 4px 8px var(--box-shadow-color);
   display: grid;
   grid-template-rows: auto auto auto;
@@ -86,16 +86,20 @@ h2 {
   justify-content: space-between;
   align-items: center;
   font-size: 0.9em;
-  color: var(--white);
+  /* color: var(--white); */
   margin-bottom: 10px;
 }
 
 .card-number {
   letter-spacing: 2px;
+  /* color: var(--white); */
+
 }
 
 .expiry-date {
   margin-left: 5px;
+  /* color: var(--white); */
+
 }
 
 .pagination-wrapper {

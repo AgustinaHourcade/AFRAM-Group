@@ -28,30 +28,32 @@ export class AccountsComponent {
   accounts: Array<Account> = [];
 
   ngOnInit(): void {
+    // Get the user ID from session
     this.userId = this.userSessionService.getUserId();
 
+    // Fetch accounts associated with the user ID
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts) => {
+        // Filter active accounts
         this.accounts = accounts.filter(account => account.closing_date == null);
       },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      }
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
-
   }
 
-  // Funtion to cancel a bank account
-  darBaja(id: number ){
+  // Function to deactivate a bank account
+  deactivateAccount(id: number){
 
     this.accountService.getAccountById(id).subscribe({
       next: (account) =>{
+        // Show error if account balance is greater than or equal to $1
         if(account.balance >= 1){
           Swal.fire({
             title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
             icon: "error"
           });
         }else{
+          // Confirm deactivation
           Swal.fire({
             title: `¿Está seguro que desea dar de baja la cuenta?`,
             icon: "warning",
@@ -72,17 +74,13 @@ export class AccountsComponent {
                   }
                   this.router.navigate(['/main']);
                 },
-                error: (err: Error) => {
-                  console.log(err.message);
-                }
+                error: (err: Error) => console.log(err.message)
               });
             }
           });
         }
       },
-      error: (error: Error) =>{
-        console.log(error.message);
-      }
+      error: (error: Error) => console.log(error.message)
     })
   }
 }

@@ -3,7 +3,6 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { User } from '@users/interface/user.interface';
 import { Account } from '@accounts/interface/account.interface';
-import { switchMap } from 'rxjs';
 import { UserService } from '@users/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@accounts/services/account.service';
@@ -34,18 +33,20 @@ export class CbuAliasComponent implements OnInit {
   accountId!: number;
   isEditing: boolean = false;
 
-  // Reactive form to modify aliases
-  formulario = this.fb.nonNullable.group({
+  // Reactive form to modify alias
+  form = this.fb.nonNullable.group({
     newAlias: ['', [Validators.required, Validators.maxLength(15), Validators.minLength(5)]],
   });
 
   // Functions
+  // Toggle edit mode
   toggleEditing() {
     this.isEditing = !this.isEditing;
   }
 
+  // Modify account alias
   modifyAlias() {
-    const newAlias = this.formulario.get('newAlias')?.value;
+    const newAlias = this.form.get('newAlias')?.value;
 
     // Alias validators
     if (this.account.alias === newAlias) {
@@ -76,15 +77,12 @@ export class CbuAliasComponent implements OnInit {
       });
     }
 
-    if (this.formulario.invalid) return;
+    if (this.form.invalid) return;
 
     if (newAlias) {
       this.accountService.modifyAlias(this.account.id, newAlias).subscribe({
-        next: (value) => {
-
-          if (value) console.log('Modificado correctamente');   // ! BORRAR
-
-          this.account.alias = this.formulario.get('newAlias')?.value as string;
+        next: () => {
+          this.account.alias = this.form.get('newAlias')?.value as string;
           this.isEditing = false;
           Swal.fire({
             title: 'Alias modificado correctamente!',
@@ -93,7 +91,7 @@ export class CbuAliasComponent implements OnInit {
             confirmButtonColor: '#00b4d8',
           });
         },
-        error: (err) => {
+        error: () => {
           Swal.fire({
             title: 'Error al modificar el alias',
             text: 'El alias elegido ya está en uso.',
@@ -101,12 +99,12 @@ export class CbuAliasComponent implements OnInit {
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#00b4d8',
           });
-          console.error('Error al modificar alias:', err.message); // ! BORRAR
         },
       });
     }
   }
 
+  // Download content as PDF
   @ViewChild('pdfContent', { static: false }) pdfContent!: ElementRef;
 
   downloadAsPDF() {
@@ -162,6 +160,7 @@ export class CbuAliasComponent implements OnInit {
     element.classList.remove('pdf-only');
   }
 
+  // Copy data to clipboard
   copyToClipboard() {
     const text = `
       CBU: ${this.account.cbu}
@@ -192,13 +191,13 @@ export class CbuAliasComponent implements OnInit {
     this.accountId = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.accountId) {
-      this.accountService.getAccountById(this.accountId).subscribe(
-        (account) => {
-          // Verifica si el usuario tiene acceso
+      this.accountService.getAccountById(this.accountId).subscribe({
+        next: (account) => {
+          // Verify user access to account
           const userId = this.userSessionService.getUserId();
           if (account.user_id !== userId) {
-            console.log("no tiene acceso")
-            this.router.navigate(['access-denied']); // Redirige si no tiene acceso
+            // Redirect if user does not have access
+            this.router.navigate(['access-denied']); 
           } else {
             this.account = account;
             this.userService.getUser(this.account.user_id).subscribe({
@@ -209,9 +208,8 @@ export class CbuAliasComponent implements OnInit {
             });
           }
         },
-        (error) => {
-          console.error('Error al cargar la cuenta:', error);
-        }
+        // Log error if fetching account fails
+        error: (error) => console.error('Error al cargar la cuenta:', error)   }     
       );
     }
   }

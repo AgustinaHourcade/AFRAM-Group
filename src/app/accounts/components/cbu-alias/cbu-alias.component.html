@@ -1,3 +1,4 @@
+<!-- Conditional based on account type and currency -->
 @if (account.account_type == "Savings") {
   @if (account.currency === 'ars'){
       <h2>Caja de ahorro • {{ account.id }}-{{account.user_id}}/1</h2>
@@ -10,20 +11,19 @@
 
 }
 
+<!-- Display CBU, alias, and other details -->
 <div #pdfContent class="cbuAlias">
   <div class="cbu">
     <p>CBU</p>
     <p>{{ account.cbu }}</p>
   </div>
 
-  <!-- Sección para mostrar y editar el Alias -->
   <div class="alias">
     <p>Alias</p>
-    <!-- Muestra el Alias o el formulario de edición según el estado de isEditing -->
     @if (!isEditing){
       <p>{{ account.alias }}</p>
     } @else{
-      <form [formGroup]="formulario">
+      <form [formGroup]="form">
         <div class="form-group">
           <input type="text" formControlName="newAlias" placeholder="Nuevo Alias" class="input-field"/>
         </div>
@@ -41,11 +41,11 @@
     <p>{{ user.dni }}</p>
   </div>
 
+  <!-- Buttons for copying data, downloading PDF, and modifying alias -->
   <div class="buttons">
     <button (click)="copyToClipboard()" class="no-print">Copiar datos <i class="bi bi-copy"></i></button>
     <button (click)="downloadAsPDF()" class="no-print">Descargar <i class="bi bi-download"></i></button>
     <button class="no-print" (click)="isEditing ? modifyAlias() : toggleEditing()">{{ isEditing ? "Guardar" : "Modificar alias" }}<i class="bi bi-pencil-square"></i></button>
-    <!-- Botón de cancelar, solo visible en modo edición -->
     @if (isEditing) {
       <button class="no-print cancel-button" (click)="toggleEditing()">Cancelar</button>
     }

@@ -1,5 +1,6 @@
 <app-navbar></app-navbar>
 
+<!-- Display a warning message if no active accounts are available -->
 @if (accounts.length === 0) {
   <div class="warning-message">
     <p>Lo sentimos, no posee cuentas activas en este momento.</p>
@@ -8,20 +9,21 @@
     <button routerLink="/accounts/new-account">Solicitar cuenta</button>
   </div>
 }@else {
-<h2 class="title">Mis cuentas</h2>
+  <h2 class="title">Mis cuentas</h2>
   <div class="accounts-container">
+    <!-- Iterate over active accounts and display each one -->
     @for (account of accounts; track $index) {
-    @if (!account.closing_date) {
-      <div class="app-card-account-container">
-        <app-card-account [account]="account"></app-card-account>
-        <div class="app-card-account-buttons">
-          <button class="view-button" routerLink="/accounts/account/{{account.id}}">Ver datos</button>
-          <button class="deactivate-button" (click)="darBaja(account.id)">Dar de baja</button>
+      @if (!account.closing_date) {
+        <div class="app-card-account-container">
+          <app-card-account [account]="account"></app-card-account>
+          <div class="app-card-account-buttons">
+            <button class="view-button" routerLink="/accounts/account/{{account.id}}">Ver datos</button>
+            <button class="deactivate-button" (click)="deactivateAccount(account.id)">Dar de baja</button>
+          </div>
         </div>
-      </div>
+      }
     }
-  }
-</div>
+  </div>
 }
 
 

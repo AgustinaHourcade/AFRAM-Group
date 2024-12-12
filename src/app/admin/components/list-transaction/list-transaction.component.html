@@ -1,6 +1,6 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="page">
-  <button class="go-back" (click)="goBack()" ><i class="bi bi-caret-left"></i>Volver</button>
+  <button class="go-back" [routerLink]="['/detail-user', id]" ><i class="bi bi-caret-left"></i>Volver</button>
   @if (transactions.length ===0) {
     <div class="warning-message">
       <p>La cuenta no posee transacciones</p>
@@ -11,7 +11,11 @@
       <div class="transactions-page">
         <div class="transactions-container">
           @for(transaction of paginatedTransactions; track $index){
-            <app-transaction [transaction]="transaction" [selectedAccountId]="id"></app-transaction>
+            <app-transaction [transaction]="transaction" 
+                              [selectedAccountId]="id"
+                              [isOpen]="isReceiptOpen(transaction.id)" 
+                              (toggle)="toggleReceipt(transaction.id)"
+            ></app-transaction>
           }
         </div>
 

@@ -1,29 +1,39 @@
-<!--  ! LISTO -->
 <app-navbar></app-navbar>
 <app-cbu-alias></app-cbu-alias>
 
 <div class="container">
   <h2>Movimientos de
+    <!-- Form to select month and year -->
     <form [formGroup]="dateForm">
       <input id="monthYear" type="month" formControlName="monthYear" [min]="openingDate ? (openingDate | date: 'yyyy-MM') : ''" [max]="today ? (today | date: 'yyyy-MM') : ''" />
     </form>
   </h2>
 
   <div class="div-sub">
+    <!-- Check if it's the last day of the month -->
     @if(isLastDayOfMonth){
       @if(filteredTransactions.length > 0){
         <button (click)="downloadAsPDF()">Descargar resumen {{ dateForm.value.monthYear | date:'MM/yyyy':'es-AR'}}</button>
       }
     }@else{
+      <!-- If not the last day, show the next available date for summary -->
       <span>Resumen disponible el {{ nextAvailableDate(dateForm.value.monthYear ?? null) | date: 'dd/MM/yyyy':'es-AR' }}</span>
     }
 
+    <!-- Transactions list -->
     <div #pdfContent class="transactions">
       @for(transaction of filteredTransactions; track $index){
         @if(transaction.is_paid === 'yes'){
-          <app-transaction [transaction]="transaction" [selectedAccountId]="accountId" [isDownloading]="isDownloading"></app-transaction>
+          <app-transaction 
+            [transaction]="transaction" 
+            [selectedAccountId]="accountId" 
+            [isDownloading]="isDownloading"
+            [isOpen]="isReceiptOpen(transaction.id)" 
+            (toggle)="toggleReceipt(transaction.id)"
+        ></app-transaction>
         }
       }@empty {
+        <!-- Show message if no transactions are found -->
         <p>No hay transacciones para el mes seleccionado.</p>
       }
     </div>

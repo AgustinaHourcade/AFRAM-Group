@@ -25,7 +25,8 @@ export class NewAccountComponent {
   flag: string =''; // Flag indicating the type of account selected
   user_id: number = this.userSessionService.getUserId();
 
-  formulario = this.fb.nonNullable.group({
+  // Reactive form for creating an account
+  form = this.fb.nonNullable.group({
     account_type: ['', Validators.required],
     currency: ['',Validators.required]
   })
@@ -52,14 +53,14 @@ export class NewAccountComponent {
   }
 
   createAccount() {
-    // The new account object is assembled with values ​​from the form and random values ​​for CBU and aliases
-    let cuenta = {
+    // The new account object is assembled with values ​​from the form and random values ​​for CBU and alias
+    let account = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
-      account_type: this.formulario.get('account_type')?.value as string,
+      account_type: this.form.get('account_type')?.value as string,
       user_id: this.user_id,
       overdraft_limit: 0,
-      currency: this.formulario.get('currency')?.value as string
+      currency: this.form.get('currency')?.value as string
     };
 
     // Alert confirmation before the account has been created
@@ -73,9 +74,8 @@ export class NewAccountComponent {
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.accountService.createAccount(cuenta).subscribe({
-          next: (account) => {
-            // Notificación de éxito
+        this.accountService.createAccount(account).subscribe({
+          next: () => {
             Swal.fire({
               title: "Cuenta creada correctamente!",
               icon: "success",
@@ -91,11 +91,11 @@ export class NewAccountComponent {
 
   // Function to handle account type change
   onAccountTypeChange(): void {
-    const accountType = this.formulario.get('account_type')?.value;
+    const accountType = this.form.get('account_type')?.value;
 
     if (accountType === 'Checking') {
       this.flag = 'ars'
-      this.formulario.get('currency')?.setValue('ars');
+      this.form.get('currency')?.setValue('ars');
     } else if (accountType === 'Savings') {
       this.flag = 'all';
     }
