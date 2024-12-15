@@ -11,10 +11,11 @@
       <div class="transactions-page">
         <div class="transactions-container">
           @for(transaction of paginatedTransactions; track $index){
-            <app-transaction [transaction]="transaction" 
-                              [selectedAccountId]="id"
-                              [isOpen]="isReceiptOpen(transaction.id)" 
-                              (toggle)="toggleReceipt(transaction.id)"
+            <app-transaction 
+            [transaction]="transaction" 
+            [selectedAccountId]="id"
+            [isOpen]="isReceiptOpen(transaction.id)" 
+            (toggle)="toggleReceipt(transaction.id)"
             ></app-transaction>
           }
         </div>

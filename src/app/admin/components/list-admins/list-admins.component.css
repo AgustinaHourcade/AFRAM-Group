@@ -4,43 +4,13 @@
   width: 100vw;
 }
 
-table {
-  width: 80%;
-  margin: 20px auto;
-  border-collapse: collapse;
-  background-color: var(--white);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  box-shadow: 0 4px 6px var(--box-shadow-color);
-}
-
-thead {
-  background-color: var(--primary-color);
-  color: var(--white);
-}
-
-th,
-td {
-  padding: 15px;
-  text-align: left;
-  border-bottom: 1px solid var(--gray-2);
-}
-
-tbody tr:last-child td {
-  border-bottom: none;
-}
-
-tbody tr:hover {
-  background-color: var(--background-gray);
-}
-
 .filter-bar {
   display: flex;
   justify-content: center;
   gap: 10px;
-  align-items: center;
-  margin-bottom: 15px;
-  padding: 8px;
+  /* align-items: center; */
+  /* margin-bottom: 15px; */
+  /* padding: 8px; */
   /* background-color: var(--background-gray); */
   border-radius: var(--border-radius);
   /* box-shadow: 0 2px 4px var(--box-shadow-color); */
@@ -63,10 +33,39 @@ tbody tr:hover {
   background-color: var(--cancel-button-hover);
 }
 
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 6px var(--box-shadow-color);
+}
+
+thead {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+th,
+td {
+  padding: 15px;
+  /* text-align: left; */
+  border-bottom: 1px solid var(--gray-2);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: var(--background-gray);
+}
 
 @media (max-width: 768px) {
   table {
-    width: 100%;
+    width: 90%;
     font-size: 0.875rem;
   }
 
@@ -76,7 +75,9 @@ tbody tr:hover {
   }
 
   .filter-bar {
-    padding: 8px;
+    /* padding: 8px; */
+    width: 90%;
+    padding: 0;
   }
 
   .filter-input {
@@ -93,7 +94,7 @@ tbody tr:hover {
 @media (max-width: 550px) {
   table {
     font-size: 0.75rem;
-    width: 100%;
+    /* width: 100%; */
   }
 
   th,
@@ -118,7 +119,7 @@ tbody tr:hover {
     font-size: 12px;
   } */
 
-  .details{
+  .details {
     padding: 8px;
   }
 }

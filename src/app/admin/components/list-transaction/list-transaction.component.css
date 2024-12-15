@@ -3,22 +3,26 @@
   min-height: calc(100vh - 82px);
 }
 
-.transactions {
-  padding: 15px;
+.go-back {
+  margin: 20px;
 }
 
-.transactions-container {
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 315px;
-}
+/* .transactions {
+  padding: 15px;
+} */
 
 .transactions-page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+}
+
+.transactions-container {
+  /* margin-bottom: 10px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 315px;
 }
 
 .pagination-wrapper {
@@ -64,16 +68,12 @@
   font-weight: bold;
 }
 
-.go-back {
-  margin: 20px;
-}
-
-app-transaction{
+app-transaction {
   width: 70%;
 }
 
-@media (max-width: 1100px){
-  .transactions-container{
+@media (max-width: 1100px) {
+  .transactions-container {
     min-height: 312px;
   }
 
@@ -84,7 +84,7 @@ app-transaction{
 
 @media (max-width: 1024px) {
   .transactions-container {
-    padding: 10px;
+    /* padding: 10px; */
     min-height: 688px;
   }
 
@@ -99,7 +99,7 @@ app-transaction{
 
   .go-back {
     margin: 15px;
-    padding: 8px 12px;
+    /* padding: 8px 12px; */
   }
 }
 
@@ -109,10 +109,9 @@ app-transaction{
   }
 }
 
-
 @media (max-width: 768px) {
   .transactions-container {
-    padding: 8px;
+    /* padding: 8px; */
     min-height: 600px;
   }
 
@@ -135,7 +134,7 @@ app-transaction{
 
 @media (max-width: 480px) {
   .transactions-container {
-    padding: 8px;
+    /* padding: 8px; */
     min-height: 528px;
   }
 
@@ -152,4 +151,3 @@ app-transaction{
     padding: 5px 8px;
   }
 }
-

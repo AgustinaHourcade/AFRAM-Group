@@ -1,17 +1,28 @@
 .page {
   width: 100%;
-  margin: 20px auto;
-  padding: 15px;
-  border: none
+  /* margin: 20px auto; */
+  padding: 0 25px;
+  /* border: none */
 }
 
 form {
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   width: 100%;
+}
+
+.error {
+  color: var(--cancel-button);
+  font-size: 0.875rem;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
 }
 
 .input-container {
@@ -32,9 +43,9 @@ label {
 input {
   width: 100%;
   padding: 8px 32px 8px 10px;
-  outline: none;
+  /* outline: none; */
   transition: border-color 0.3s, box-shadow 0.3s;
-  background: transparent;
+  /* background: transparent; */
   /* height: 36px; */
 }
 
@@ -50,6 +61,18 @@ input:not(:focus) + label {
   color: var(--gray-1);
 }
 
+.errorInput {
+  border: 1px solid var(--cancel-button);
+  box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
+}
+
+.errorLabel {
+  color: var(--cancel-button) !important;
+  /* top: -10px;
+  left: 5px;
+  font-size: 0.75rem; */
+}
+
 .toggle-btn {
   position: absolute;
   right: 8px;
@@ -58,9 +81,9 @@ input:not(:focus) + label {
   color: var(--gray-3);
   background: none;
   padding: 4px;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
   transition: color 0.3s;
   box-shadow: none;
 }
@@ -70,40 +93,22 @@ a {
   color: var(--primary-color);
 }
 
-.errorInput {
-  border: 1px solid var(--cancel-button);
-  box-shadow: 0 0 5px rgba(255, 77, 77, 0.5);
-}
-
-.errorLabel {
-  color: var(--cancel-button) !important;
-  top: -10px;
-  left: 5px;
-  font-size: 0.75rem;
-}
-
-.error {
-  color: var(--cancel-button);
-  font-size: 0.875rem;
-  margin-top: -5px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.error i {
+/* .error i {
   font-size: 1rem;
   color: var(--cancel-button);
-}
+} */
 
 .submit-button {
-  width: 80%;
-  padding: 8px 16px;
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  width: 100%;
+  /* padding: 8px 16px; */
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
   transition: background 0.3s, transform 0.2s;
-  margin-top: 8px;
-  height: 36px;
+  /* margin-top: 8px; */
+  /* height: 36px; */
 }
 
 .submit-button:hover {
@@ -115,15 +120,14 @@ a {
   box-shadow: 0 2px 4px var(--box-shadow-color);
 }
 
-.submit-button:disabled {
-  background: #ccc; 
-  cursor: not-allowed; 
-  box-shadow: none; 
-}
+/* .submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+} */
 
-
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .page {
     width: 100%;
   }
-}
+} */

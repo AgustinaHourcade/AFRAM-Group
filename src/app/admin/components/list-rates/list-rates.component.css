@@ -3,6 +3,24 @@
   margin: 20px 0;
 }
 
+.new {
+  font-size: 1.5rem;
+  /* margin-left: auto; */
+  background: none;
+  color: var(--secondary-color);
+  /* padding: 10px 15px; */
+  /* display: inline-flex;
+  align-items: center;
+  justify-content: center; */
+  /* border-radius: 50%; */
+  position: relative;
+}
+
+.new:hover {
+  transform: rotate(180deg);
+  transform-origin: center center;
+}
+
 .required {
   color: var(--cancel-button);
 }
@@ -45,31 +63,27 @@ tr:hover {
 }
 
 table tbody tr:first-child {
-  background-color: var(--light-color); 
+  background-color: var(--light-color);
 }
 
-
-.new {
-  font-size: 1.5rem;
-  margin-left: auto;
-  background: none;
-  color: var(--secondary-color);
-  padding: 10px 15px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  position: relative;
-}
-
-.new:hover {
-  transform: rotate(180deg);
-  transform-origin: center center;
+.go-back {
+  margin-left: 20px;
 }
 
 .page {
-  margin: 20px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--white);
+  width: 90%;
+  max-width: 600px;
+  border-radius: var(--border-radius);
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
 }
+
+/* form {
+  width: 100%;
+  margin: 0 auto;
+} */
 
 .form-group {
   margin-bottom: 15px;
@@ -83,7 +97,7 @@ table tbody tr:first-child {
 input {
   width: 100%;
   padding: 10px;
-  border-radius: var(--border-radius);
+  /* border-radius: var(--border-radius); */
 }
 
 .error-message {
@@ -92,18 +106,10 @@ input {
 }
 
 .submit-button {
-  display: grid;
+  /* display: grid;
   align-items: center;
-  justify-content: center;
-}
-
-form {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.go-back {
-  margin: 20px;
+  justify-content: center; */
+  width: 100%;
 }
 
 .chat-bubble {
@@ -134,13 +140,13 @@ form {
 }
 
 @media (max-width: 850px) {
-  form {
+  /* form {
     width: 80%;
-  }
+  } */
 
-  .page1 {
+  /* .page1 {
     margin: 15px 0;
-  }
+  } */
 
   .chat-bubble {
     position: relative;
@@ -157,16 +163,16 @@ form {
 }
 
 @media (max-width: 480px) {
-  form {
+  /* form {
     width: 90%;
-  }
+  } */
 
   th {
     font-weight: 400;
     font-size: 0.875rem;
   }
 
-  .page1 {
+  /* .page1 {
     margin: 10px 0;
-  }
+  } */
 }

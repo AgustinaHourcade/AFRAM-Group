@@ -1,23 +1,23 @@
-.page {
+/* .page {
   display: flex;
   align-items: center;
   justify-content: center;
   padding-top: 20px;
-}
+} */
 
-.page2 {
+.page {
   max-width: 600px;
   width: 90%;
-  margin: 50px auto;
+  margin: 20px auto;
   padding: 20px;
   background-color: var(--white);
   border-radius: var(--border-radius);
   box-shadow: 0px 4px 8px var(--box-shadow-color);
 }
 
-h2 {
+/* h2 {
   margin-top: 20px;
-}
+} */
 
 form {
   display: flex;
@@ -50,14 +50,14 @@ input,
 select {
   width: 100%;
   padding: 8px 32px 8px 10px;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
-  background: transparent;
-  height: 36px;
+  /* background: transparent; */
+  /* height: 36px; */
 }
 
-input:focus + label,
+/* input:focus + label,
 input:not(:placeholder-shown) + label,
 select:focus + label,
 select:not([value=""]):not([value="undefined"]) + label {
@@ -70,7 +70,7 @@ select:not([value=""]):not([value="undefined"]) + label {
 input:not(:focus) + label,
 select:not(:focus):not([value=""]):not([value="undefined"]) + label {
   color: #aaa;
-}
+} */
 
 input.ng-invalid.ng-touched,
 select.ng-invalid.ng-touched {
@@ -78,10 +78,10 @@ select.ng-invalid.ng-touched {
   box-shadow: 0 0 4px var(--cancel-button-hover);
 }
 
-input.ng-invalid.ng-touched + label,
+/* input.ng-invalid.ng-touched + label,
 select.ng-invalid.ng-touched + label {
   color: var(--cancel-button);
-}
+} */
 
 .select-wrapper {
   position: relative;
@@ -96,7 +96,7 @@ select.ng-invalid.ng-touched + label {
 
 .select-arrow {
   position: absolute;
-  top: 50%;
+  top: 58%;
   right: 10px;
   transform: translateY(-50%) rotate(130deg);
   width: 10px;
@@ -123,7 +123,7 @@ select.ng-invalid.ng-touched + label {
   align-items: center;
   justify-content: center;
   box-shadow: none;
-  top: 50%;
+  top: 58%;
   transform: translateY(-50%);
   transition: color 0.3s;
   }
@@ -152,23 +152,23 @@ select.ng-invalid.ng-touched + label {
 
 .submit-button {
   width: 100%;
-  padding: 8px 16px;
-  box-shadow: 0 2px 4px var(--box-shadow-color);
-  margin-top: 8px;
-  height: 36px;
+  /* padding: 8px 16px;
+  box-shadow: 0 2px 4px var(--box-shadow-color); */
+  /* margin-top: 8px; */
+  /* height: 36px; */
 }
 
-.submit-button:hover {
+/* .submit-button:hover {
   box-shadow: 0 3px 6px var(--box-shadow-color);
 }
 
 .submit-button:active {
   transform: scale(0.98);
   box-shadow: 0 2px 4px var(--box-shadow-color);
-}
+} */
 
 @media (max-width: 1024px) {
-  .page2 {
+  .page {
     padding: 15px;
   }
 
@@ -182,7 +182,7 @@ select.ng-invalid.ng-touched + label {
 }
 
 @media (max-width: 768px) {
-  .page {
+  /* .page {
     margin: 15px;
   }
 
@@ -190,11 +190,11 @@ select.ng-invalid.ng-touched + label {
     width: 90%;
     margin: 40px auto;
     padding: 15px;
-  }
+  } */
 
-  form {
+  /* form {
     gap: 15px;
-  }
+  } */
 
   input {
     padding: 10px 25px 10px 12px;
@@ -215,11 +215,11 @@ select.ng-invalid.ng-touched + label {
 }
 
 @media (max-width: 550px) {
-  .page2 {
+  /* .page2 {
     width: 90%;
     margin: 30px auto;
     padding: 10px;
-  }
+  } */
 
   form {
     gap: 10px;
@@ -235,10 +235,10 @@ select.ng-invalid.ng-touched + label {
 }
 
 @media (max-width: 480px) {
-  .page {
+  /* .page {
     margin: 10px;
     padding: 12px;
-  }
+  } */
 
   input,
   select {

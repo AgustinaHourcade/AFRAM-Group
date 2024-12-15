@@ -1,15 +1,15 @@
 <app-navbar-admin></app-navbar-admin>
-<div class="botones">
-    <div class="botones-container">
-        <button [routerLink]="['/admin-support']" class="volver-button"><i class="bi bi-caret-left"></i>Volver</button>
+<div class="buttons">
+    <div class="buttons-container">
+        <button [routerLink]="['/admin-support']" class="back-button"><i class="bi bi-caret-left"></i>Volver</button>
         @if(thread?.support_status === 'open'){
-            <button (click)="toggleThread()" class="finalizar-button">Finalizar chat</button>
+            <button (click)="toggleThread()" class="end-button">Finalizar chat</button>
         }
     </div>
 </div>
 <div class="page">
     <div class="chat">
-        <h3 class="user"><i class="bi bi-person"></i>{{user?.real_name}} {{user?.last_name}}</h3>
+        <h3 class="user"><i class="bi bi-person"></i> {{user?.real_name}} {{user?.last_name}}</h3>
         <div class="chat-container">
             <div class="messages-container">
                 @for (message of messages; track $index) {

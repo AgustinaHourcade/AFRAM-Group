@@ -1,13 +1,13 @@
 <app-navbar-admin></app-navbar-admin>
-<div class="page">
-  <div class="page2">
+<!-- <div class="page"> -->
+  <div class="page">
     <h2 class="title">Registrar nuevo usuario</h2>
     <form [formGroup]="formulario" (ngSubmit)="addUsuario()">
       <div class="form-group">
         <label for="real_name">Nombre <span class="required">*</span></label>
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper"> -->
           <input type="text" id="real_name" formControlName="real_name" placeholder=" " (keydown)="preventNumbers($event)"/>
-        </div>
+        <!-- </div> -->
         @if (formulario.controls['real_name'].getError('required') && formulario.controls['real_name'].touched) {
         <span class="error-message">Campo requerido</span>
         }
@@ -18,9 +18,9 @@
 
       <div class="form-group">
         <label for="last_name">Apellido <span class="required">*</span></label>
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper"> -->
           <input type="text" id="last_name" formControlName="last_name" placeholder=" " (keydown)="preventNumbers($event)"/>
-        </div>
+        <!-- </div> -->
         @if (formulario.controls['last_name'].getError('required') && formulario.controls['last_name'].touched) {
         <span class="error-message">Campo requerido</span>
         }
@@ -31,9 +31,9 @@
 
       <div class="form-group">
         <label for="name-user">Usuario <span class="required">*</span></label>
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper"> -->
           <input type="text" id="name-user" formControlName="name_user" placeholder=" " />
-        </div>
+        <!-- </div> -->
         @if (formulario.controls['name_user'].getError('required') && formulario.controls['name_user'].touched) {
         <span class="error-message">Campo requerido</span>
         }
@@ -44,9 +44,9 @@
 
       <div class="form-group">
         <label for="dni">DNI <span class="required">*</span></label>
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper"> -->
           <input type="number" id="dni" formControlName="dni" placeholder=" " />
-        </div>
+        <!-- </div> -->
         @if (formulario.controls['dni'].touched && formulario.controls['dni'].getError('required')) {
         <span class="error-message">Campo requerido</span>
         }
@@ -60,9 +60,9 @@
 
       <div class="form-group">
         <label for="email">Email <span class="required">*</span></label>
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper"> -->
           <input type="email" id="email" formControlName="email" placeholder=" " />
-        </div>
+        <!-- </div> -->
         @if (formulario.controls['email'].getError('required') &&
         formulario.controls['email'].touched) {
         <span class="error-message"> Campo requerido </span>
@@ -71,9 +71,9 @@
 
       <div class="form-group">
         <label for="phone">Teléfono <span class="required">*</span></label>
-        <div class="input-wrapper">
+        <!-- <div class="input-wrapper"> -->
           <input type="number" id="phone" formControlName="phone" placeholder=" " />
-        </div>
+        <!-- </div> -->
         @if (formulario.controls['phone'].getError('required') &&
         formulario.controls['phone'].touched) {
         <span class="error-message"> Campo requerido. </span>
@@ -144,4 +144,4 @@
       <button type="submit" class="submit-button" [disabled]="formulario.invalid">Registrarse</button>
     </form>
   </div>
-</div>
+<!-- </div> -->

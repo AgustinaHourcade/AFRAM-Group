@@ -1,9 +1,13 @@
+.go-back {
+  margin: 20px;
+}
+
 .profile-container {
-  text-align: center;
-  width: 100%;
+  /* text-align: center;
+  width: 100%; */
   max-width: 500px;
   margin: auto;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .profile-card {
@@ -26,33 +30,29 @@
   color: var(--primary-color);
 }
 
-.field-value {
+/* .field-value {
   color: var(--gray-3);
-}
+} */
 
-.botones-admin {
+.admin-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  /* align-items: center;
+  gap: 10px; */
 }
 
-.action-button.baja {
+.action-button.deactivate {
   background-color: var(--cancel-button);
 }
 
-.action-button.baja:hover {
+.action-button.deactivate:hover {
   background-color: var(--cancel-button-hover);
 }
 
-.go-back {
-  margin: 20px;
-}
-
 @media (max-width: 768px) {
-  .profile-container {
+  /* .profile-container {
     padding: 15px;
-  }
+  } */
 
   /* h2 {
     font-size: 1.5rem;
@@ -64,16 +64,23 @@
 
   .profile-field {
     flex-direction: column;
-    align-items: flex-start;
-    margin: 10px 0;
+    /* align-items: flex-start;
+    margin: 10px 0; */
+    row-gap: 5px;
   }
 
-  .field-label {
+  /* .field-label {
     font-size: 1rem;
   }
 
   .field-value {
     font-size: 1rem;
+  } */
+}
+
+@media (max-width: 550px) {
+  .profile-container{
+    width: 90%;
   }
 }
 

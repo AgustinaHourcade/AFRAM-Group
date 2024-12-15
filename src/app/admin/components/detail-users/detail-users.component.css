@@ -1,11 +1,18 @@
 /* ! LISTO */
+.go-back {
+  margin: 20px;
+}
 
 .profile-container {
-  text-align: center;
-  width: 100%;
+  /* text-align: center;
+  width: 100%; */
   max-width: 800px;
   margin: auto;
-  padding: 20px;
+  /* padding: 20px; */
+}
+
+h2 {
+  margin-top: 20px;
 }
 
 .profile-card {
@@ -28,15 +35,15 @@
   color: var(--primary-color);
 }
 
-.field-value {
+/* .field-value {
   color: var(--gray-3);
-}
+} */
 
 .action-buttons {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  /* align-items: center;
+  gap: 10px; */
 }
 
 .action-button.admin {
@@ -47,11 +54,11 @@
   background-color: #f48c06;
 }
 
-.action-button.baja {
+.action-button.delete {
   background-color: var(--cancel-button);
 }
 
-.action-button.baja:hover {
+.action-button.delete:hover {
   background-color: var(--cancel-button-hover);
 }
 
@@ -87,7 +94,7 @@ tbody tr:hover {
 
 th {
   text-transform: uppercase;
-  font-size: 0.875;
+  /* font-size: 0.875; */
   letter-spacing: 1px;
 }
 
@@ -95,26 +102,20 @@ td {
   color: var(--gray-3);
 }
 
-
-
 td:nth-child(4) {
   text-align: center;
 }
 
-.go-back {
-  margin: 20px;
-}
-
-h3{
+/* h3 {
   text-align: center;
-}
+} */
 
 @media (max-width: 1024px) {
-  .profile-container {
+  /* .profile-container {
     padding: 15px;
-  }
+  } */
 
-  .profile-card {
+  /* .profile-card {
     padding: 15px;
   }
 
@@ -126,7 +127,7 @@ h3{
 
   .field-label {
     margin-bottom: 1rem;
-  }
+  } */
 
   table {
     width: 95%;
@@ -137,21 +138,21 @@ h3{
     font-size: 0.8125rem;
     padding: 5px;
   }
-
 }
 
 @media (max-width: 768px) {
-
   .profile-card {
-    padding: 10px;
+    padding: 15px;
   }
 
   .profile-field {
-    margin: 8px 0;
+    flex-direction: column;
+    row-gap: 5px;
+    /* margin: 8px 0; */
   }
-  table {
+  /* table {
     margin: 10px auto;
-  }
+  } */
 
   th,
   td {
@@ -162,29 +163,31 @@ h3{
   .action-buttons2 {
     display: flex;
     flex-direction: column;
+    row-gap: 5px;
   }
- 
-  .action-buttons2 button{
+
+  .action-buttons2 button {
+    width: 90%;
+  }
+}
+
+@media (max-width: 550px) {
+  .profile-container {
     width: 90%;
   }
 }
 
 @media (max-width: 480px) {
-  h2 {
-    margin-bottom: 15px;
-  }
-
-  .profile-container {
+  /* .profile-container {
     padding: 0 10px;
-  }
+  } */
 
   .profile-card {
     padding: 10px;
   }
 
   .profile-field {
-    flex-direction: column;
-    align-items: flex-start;
+    margin: 8px 0;
   }
 
   table {
@@ -201,5 +204,3 @@ h3{
     font-size: 10px;
   } */
 }
-
-

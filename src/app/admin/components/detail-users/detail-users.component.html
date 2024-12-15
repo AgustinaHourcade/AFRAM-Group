@@ -30,13 +30,13 @@
       <div class="action-buttons">
           <button class="action-button" (click)="loadAccounts()" >Ver Cuentas</button>
           @if(user?.is_Active === 'yes'){
-              <button class="action-button baja" (click)="changeStatus()">Dar de baja</button>
+              <button class="action-button delete" (click)="changeStatus()">Dar de baja</button>
               @if(user?.user_type !== 'admin'){
                 <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
               }
           }@else {
             <div>
-              <button class="action-button alta" (click)="changeStatus()">Dar de alta</button>
+              <button class="action-button newAdmin" (click)="changeStatus()">Dar de alta</button>
             </div>
           }
       </div>
@@ -67,7 +67,7 @@
                   <td>
                     <div class="action-buttons action-buttons2">
                       <button class="action-button" [routerLink]="['/list-transaction', item.id]">Movimientos</button>
-                      <button class="action-button baja" (click)="changeStatusAcount(item.id)">Dar de baja</button>
+                      <button class="action-button delete" (click)="changeStatusAcount(item.id)">Dar de baja</button>
                     </div>
                   </td>
                 }@else {

@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 82px);
+  height: calc(100vh - 68px);
 }
 
 .dashboard-grid {
@@ -19,9 +19,9 @@
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
   text-align: center;
-  text-decoration: none;
+  /* text-decoration: none; */
   border: solid 1px var(--primary-color);
-  display: block;
+  /* display: block; */
   background-color: var(--white);
 }
 
