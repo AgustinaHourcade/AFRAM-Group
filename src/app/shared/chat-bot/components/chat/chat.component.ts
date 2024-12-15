@@ -15,8 +15,8 @@ import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 export class ChatComponent {
   @ViewChild('chatMessages') private messagesContainer!: ElementRef;
 
-  topics: TopicItem[];
   isOpen = false;
+  topics: TopicItem[];
   messages: Message[] = [];
   currentMessage = '';
   currentTopicFaqs: FaqItem[] = [];

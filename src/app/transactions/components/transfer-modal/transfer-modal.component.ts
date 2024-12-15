@@ -1,17 +1,17 @@
-import { Component, EventEmitter, inject, Output, OnInit, Input } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import { Account } from '@accounts/interface/account.interface';
-import { AccountService } from '@accounts/services/account.service';
 import { User } from '@users/interface/user.interface';
+import { Router} from '@angular/router';
+import { Account } from '@accounts/interface/account.interface';
 import { UserService } from '@users/services/user.service';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { TransactionService } from '@transactions/services/transaction.service';
 import { Transaction } from '@transactions/interface/transaction.interface';
 import { EmailService } from '@email/service/email.service';
+import { CommonModule } from '@angular/common';
+import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionService } from '@transactions/services/transaction.service';
 import { NotificationsService } from '@notifications/service/notifications.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, inject, Output, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-transfer-modal',
@@ -25,26 +25,26 @@ export class TransferModalComponent implements OnInit {
   @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
   @Input() data: any;
   @Output() transactionConfirmed = new EventEmitter<Transaction>();
-  transactionData !: Transaction;
-  confirmar = false;
-  account: any = null;
-  flag: boolean = false;
-  errorMessage: string = '';
-  user!: User;
-  userDestino !: User;
-  accounts!: Array<Account>;
   id !: number;
+  flag: boolean = false;
+  user !: User;
   origen!: Account;
+  account: any = null;
+  accounts !: Array<Account>;
+  confirmar = false;
+  userDestino !: User;
+  errorMessage: string = '';
+  transactionData !: Transaction;
 
-  private router = inject(Router);
-  private userSessionService = inject(UserSessionService);
-  private userService = inject(UserService);
-  private accountService = inject(AccountService);
-  private transactionService = inject(TransactionService);
-  private emailService = inject(EmailService);
-  private notificationService = inject(NotificationsService);
-  private montoTransferencia: number | null | undefined = 0
   private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private emailService = inject(EmailService);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+  private transactionService = inject(TransactionService);
+  private montoTransferencia: number | null | undefined = 0
+  private notificationService = inject(NotificationsService);
 
   userId = this.userSessionService.getUserId();
 

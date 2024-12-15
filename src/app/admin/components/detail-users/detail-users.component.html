@@ -1,8 +1,10 @@
 <app-navbar-admin></app-navbar-admin>
+<!-- Navigation button to return to the user list -->
 <button class="go-back" routerLink="/list-users" ><i class="bi bi-caret-left"></i>Volver</button>
 <div class="profile-container">
     <h2>Información Personal</h2>
     <div class="profile-card">
+      <!-- Display user personal information -->
       <div class="profile-field">
         <span class="field-label">Nombre:</span>
         <span class="field-value">{{ user?.real_name }}</span>
@@ -27,14 +29,18 @@
         <span class="field-label">Email:</span>
         <span class="field-value">{{ user?.email }}</span>
       </div>
+
+      <!-- Action buttons for user management -->
       <div class="action-buttons">
           <button class="action-button" (click)="loadAccounts()" >Ver Cuentas</button>
           @if(user?.is_Active === 'yes'){
               <button class="action-button delete" (click)="changeStatus()">Dar de baja</button>
+              <!-- Promote user to admin if not already an admin -->
               @if(user?.user_type !== 'admin'){
                 <button class="action-button admin" (click)="changeAdminStatus()">Hacer admin</button>
               }
           }@else {
+            <!-- Reactivate user -->
             <div>
               <button class="action-button newAdmin" (click)="changeStatus()">Dar de alta</button>
             </div>
@@ -44,6 +50,7 @@
   </div>
 
   @if(flag){
+    <!-- Display user accounts if any exist -->
     @if(accounts.length > 0){
       <h2>Cuentas de {{user?.real_name}}</h2>
       <table>
@@ -57,6 +64,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Loop through user accounts and display details -->
           @for (item of accounts; track $index) {
               <tr class="tr">
                 <td>{{item.id}}</td>
@@ -65,6 +73,7 @@
                 @if (!item.closing_date) {
                   <td>-</td>
                   <td>
+                    <!-- Account action buttons -->
                     <div class="action-buttons action-buttons2">
                       <button class="action-button" [routerLink]="['/list-transaction', item.id]">Movimientos</button>
                       <button class="action-button delete" (click)="changeStatusAcount(item.id)">Dar de baja</button>
@@ -78,6 +87,7 @@
         </tbody>
       </table>
     }@else {
+      <!-- Display message if user has no accounts -->
       <div class="warning-message">
         <p>El usuario no tiene cuentas asociadas</p>
       </div>

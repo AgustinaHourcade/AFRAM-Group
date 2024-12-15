@@ -4,11 +4,11 @@ import html2canvas from 'html2canvas';
 import { User } from '@users/interface/user.interface';
 import { Account } from '@accounts/interface/account.interface';
 import { UserService } from '@users/services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '@accounts/services/account.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
-import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-cbu-alias',

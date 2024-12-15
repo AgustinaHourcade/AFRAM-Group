@@ -1,8 +1,8 @@
-import { Transaction } from './../interface/transaction.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Transaction } from './../interface/transaction.interface';
+import { inject, Injectable } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,6 @@ import { UserSessionService } from '@auth/services/user-session.service';
 export class TransactionService {
   private http = inject(HttpClient);
   private userSessionService = inject(UserSessionService); // Inyectamos el UserSessionService
-
   private baseUrl = 'http://localhost:3000/transactions';
 
   // Función para obtener los headers con token y userId

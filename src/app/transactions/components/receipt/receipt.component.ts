@@ -1,12 +1,12 @@
-import { Component, ElementRef, ViewChild, Input, OnInit, inject, EventEmitter, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import { UserSessionService } from '@auth/services/user-session.service';
+import html2canvas from 'html2canvas';
+import { Account } from '@accounts/interface/account.interface';
 import { Transaction } from '@transactions/interface/transaction.interface';
 import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
-import { Account } from '@accounts/interface/account.interface';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, ElementRef, ViewChild, Input, OnInit, inject, EventEmitter, Output } from '@angular/core';
 
 
 @Component({
@@ -22,18 +22,18 @@ export class ReceiptComponent implements OnInit{
 
   @Input()
   transaction!: Transaction;
-
-  private userSessionService = inject(UserSessionService);
+  
   private userService = inject(UserService);
   private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
 
   id: number = this.userSessionService.getUserId();
   nameS: string | undefined ;
-  lastNameS!: string| undefined ;
   nameD: string | undefined ;
-  lastNameD!: string| undefined ;
   typeS!: string | undefined;
   typeD!: string | undefined;
+  lastNameS!: string | undefined ;
+  lastNameD!: string | undefined ;
 
   ngOnInit(): void {
     this.getUserById(this.id)

@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { Thread } from '@support/interface/thread';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { SupportService } from '@support/service/support.service';
 import { NavbarAdminComponent } from "@admin/shared/navbar-admin/navbar-admin.component";
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-support-threads',
@@ -18,9 +18,9 @@ export class SupportThreadsComponent implements OnInit{
 
   new = false;
   threads : Array<Thread> = [];
+  pageSize = 4 ;
   activesThreads: Array<Thread> = [];
   finishedThreads: Array<Thread> = [];
-  pageSize = 4 ;
   currentPageActive = 1;
   currentPageFinished = 1;
 

@@ -1,13 +1,13 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
-import { UserService } from '@users/services/user.service';
-import { EmailService } from '@email/service/email.service';
 import { Account } from '@accounts/interface/account.interface';
+import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
+import { EmailService } from '@email/service/email.service';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -26,12 +26,12 @@ export class LoginComponent {
 
   id: number = 0;
   user?: User;
-  accounts!: Array<Account>;
+  token = '';
   intentos : number = 0;
+  accounts!: Array<Account>;
   userLogin?: User;
   showPassword = false;
   errorMessage = '';
-  token = '';
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';

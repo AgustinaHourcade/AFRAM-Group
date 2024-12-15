@@ -1,9 +1,9 @@
-import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Transaction } from '@transactions/interface/transaction.interface';
-import { ReceiptComponent } from '@transactions/components//receipt/receipt.component';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
+import { ReceiptComponent } from '@transactions/components//receipt/receipt.component';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-transaction',

@@ -1,10 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
+import localeEsAr from '@angular/common/locales/es-AR';
 import { routes } from './app.routes';
+import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
-import localeEsAr from '@angular/common/locales/es-AR';
+import { ApplicationConfig, provideZoneChangeDetection, LOCALE_ID } from '@angular/core';
 
 registerLocaleData(localeEsAr, 'es-AR');
 

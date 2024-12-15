@@ -19,7 +19,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './chat-support-admin.component.css'
 })
 export class ChatSupportAdminComponent implements OnInit{
-
+  // Dependency injection
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private userService = inject(UserService);
@@ -28,12 +28,19 @@ export class ChatSupportAdminComponent implements OnInit{
   private supportService = inject(SupportService);
   private notificationService = inject(NotificationsService);
 
-  id?: number;
+  // Variables
+  id?: number; // Stores the thread ID from the route parameters
+  flag = false; // Prevents multiple notifications for a single thread
   user?: User;
-  flag = false;
   thread?: Thread;
   messages: Array<Message> = [];
 
+  // Form control for message input
+  form = this.fb.nonNullable.group({
+    message: ['', Validators.required]
+  })
+
+  // Functions
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -41,24 +48,22 @@ export class ChatSupportAdminComponent implements OnInit{
         this.loadMessages();
         this.loadThread();
       },
-      error: (error: Error) =>{
-        console.log(error.message);
-      }
+      error: (error: Error) => console.log(error.message)
     });
 
   }
 
+  // Fetches user data based on their ID
   loadUser(id: number){
     this.userService.getUser(id).subscribe({
       next: (user) =>{
         this.user = user;
       },
-      error: (error: Error) =>{
-        console.log(error.message);
-      }
+      error: (error: Error) => console.log(error.message)
     })
   }
 
+  // Fetches thread details and associated user information
   loadThread(){
     this.supportService.getThreadById(Number (this.id)).subscribe({
       next: (thread: Thread) => {
@@ -66,102 +71,89 @@ export class ChatSupportAdminComponent implements OnInit{
         this.loadUser(thread.user_id);
       },
       error: (e: Error) =>{
-        this.router.navigate(['/not-found']);
-        console.log('Error al cargar la cuenta:', e);        }
+        this.router.navigate(['/not-found']); 
+      }
     })
   }
 
+  // Loads all messages associated with the thread
   loadMessages(){
     this.messageService.getMessages(Number(this.id)).subscribe({
       next: (messages) => {
         this.messages = messages;
 
         setTimeout(() => {
-          this.scrollToBottom();
+          this.scrollToBottom(); // Ensures the latest message is visible
         }, 100);
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      error: (e: Error) => console.log(e.message)
     });
   }
 
-  formulario = this.fb.nonNullable.group({
-    message: ['', Validators.required]
-  })
-
-  // Function to post a thread message
+  // Sends a message in the current thread
   postThread() {
-    const message = this.formulario.get('message')?.value;
+    const message = this.form.get('message')?.value;
     this.messageService.postMessage(Number (this.id), 'support', message as string).subscribe({
       next: (data) => {
-            if(data){
-              this.loadMessages();
-              this.sendNotification();
-            }
-          },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
-        });
-        this.formulario.reset();
-        setTimeout(() => {
-          this.scrollToBottom();
-        }, 100);
+        if(data){
+          this.loadMessages();
+          this.sendNotification();
+        }
+      },
+      error: (e: Error) => console.log(e.message)
+    });
+    this.form.reset();
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 100);
   }
 
+  // Toggles the thread status to closed
   toggleThread(){
     this.supportService.updateStatus(Number (this.id), 'closed').subscribe({
       next: (data) => {
-        if(data){Swal.fire({
+        if(data){
+          Swal.fire({
           title: `Consulta finalizada`,
           icon: 'success',
         }).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['admin-support']);
-          }
-        })
-      }
+            this.router.navigate(['admin-support']); // Redirects after confirmation
+          }})
+        }
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
-  // Function to send a notification
+  // Sends a notification to the user
   sendNotification() {
-    if(this.flag) return;
+    if(this.flag) return; // Ensures notifications are not sent multiple times
 
     const notification = {
-      title: 'Recibio una respuesta de soporte.',
+      title: 'Recibió una respuesta de soporte.',
       message: `Puede ver el contenido en la seccion "Soporte".`,
       user_id: this.thread?.user_id
     }
 
     this.postNotification(notification)
-    this.flag = true;
+    this.flag = true; // Prevents further notifications
   }
 
+  // Posts a notification using the notification service
   postNotification(notification: any){
     this.notificationService.postNotification(notification).subscribe({
-      next: (flag) =>{
-        if(flag){
-          console.log('Notificacion enviada');
-        }
-      },
-      error: (e: Error)=>{
-        console.log(e.message);
-      }
+      next: () =>{},
+      error: (e: Error)=> console.log(e.message)
     })
   }
 
+  // Scrolls to the bottom of the message list
   scrollToBottom() {
     const lastElement = document.querySelector('.message:last-child');
     if (lastElement) {
-      lastElement.scrollIntoView({ behavior: 'instant', block: 'end' });
+      lastElement.scrollIntoView({ behavior: 'instant', block: 'end' }); // Ensures smooth scrolling
     }
   }
-
 }
 

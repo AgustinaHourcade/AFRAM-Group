@@ -1,14 +1,14 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
 import { Account } from '@accounts/interface/account.interface';
-import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { Transaction } from '@transactions/interface/transaction.interface';
+import { CommonModule } from '@angular/common';
+import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { TransactionService } from '@transactions/services/transaction.service';
 import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Observable, catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-my-transactions',
@@ -18,19 +18,19 @@ import { NavbarComponent } from '@shared/navbar/navbar.component';
   styleUrl: './my-transactions.component.css',
 })
 export class MyTransactionsComponent {
-  accounts: Array<Account> = [];
-  transfers: Array<Transaction> = [];
-  pendingTransfers: Array<Transaction> = [];
   userId: number = 0;
   pageSize = 4 ;
+  accounts: Array<Account> = [];
+  transfers: Array<Transaction> = [];
   currentPage = 1;
+  pendingTransfers: Array<Transaction> = [];
+  selectedAccountId !: number;
   currentPagePending = 1;
-  selectedAccountId!: number;
 
   private changeDetector = inject(ChangeDetectorRef);
-  private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
-  private  transactionService = inject(TransactionService);
+  private userSessionService = inject(UserSessionService);
+  private transactionService = inject(TransactionService);
 
 
   get totalPages(): number {

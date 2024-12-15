@@ -1,9 +1,9 @@
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { User } from '@users/interface/user.interface';
+import { RouterLink } from '@angular/router';
 import { UserService } from '@users/services/user.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({

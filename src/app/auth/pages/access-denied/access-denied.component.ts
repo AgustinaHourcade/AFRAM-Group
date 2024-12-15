@@ -1,5 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, OnInit, inject } from '@angular/core';
 
 @Component({
   selector: 'app-access-denied',

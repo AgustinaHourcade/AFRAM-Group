@@ -21,8 +21,8 @@ export class DetailUsersComponent implements OnInit{
   private activatedRoute = inject(ActivatedRoute);
   private accountService = inject(AccountService);
 
-  user?: User;
   flag: boolean = false;
+  user?: User;
   accounts: Array<Account> = [];
 
   ngOnInit(): void {

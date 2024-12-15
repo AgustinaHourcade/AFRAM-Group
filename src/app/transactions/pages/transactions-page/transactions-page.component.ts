@@ -1,12 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { TransferModalComponent } from "@transactions/components/transfer-modal/transfer-modal.component";
-import { TransferProgrammingComponent } from "@transactions/components/transfer-programming/transfer-programming.component";
-import { AccountService } from '@accounts/services/account.service';
 import { Account } from '@accounts/interface/account.interface';
+import { CommonModule } from '@angular/common';
+import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Router, RouterModule } from '@angular/router';
+import { TransferModalComponent } from "@transactions/components/transfer-modal/transfer-modal.component";
+import { Component, inject, OnInit } from '@angular/core';
+import { TransferProgrammingComponent } from "@transactions/components/transfer-programming/transfer-programming.component";
 
 @Component({
   selector: 'app-transactions-page',
@@ -16,10 +16,10 @@ import { UserSessionService } from '@auth/services/user-session.service';
   styleUrl: './transactions-page.component.css'
 })
 export class TransactionsPageComponent implements OnInit{
-  isModalOpen = false;
-  appTransferProgramming = false;
-  appTransferModal = false;
   accounts: Array<Account> = [];
+  isModalOpen = false;
+  appTransferModal = false;
+  appTransferProgramming = false;
 
   ngOnInit(): void {
     this.cargarCuentas();

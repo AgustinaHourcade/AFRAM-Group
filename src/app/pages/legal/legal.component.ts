@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from '@shared/footer/footer.component';
+import { Component, OnInit } from '@angular/core';
 import { NavbarHomeComponent } from '@shared/navbar-home/navbar-home.component';
 
 @Component({

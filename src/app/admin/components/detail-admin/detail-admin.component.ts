@@ -14,30 +14,31 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 })
 export class DetailAdminComponent implements OnInit{
 
+  // Dependency injection
   private router = inject(Router)
   private userService = inject(UserService);
   private activatedRoute = inject(ActivatedRoute);
 
+  // Variable
   admin ?: User;
 
+  //Functions
   ngOnInit(): void {
+    // Subscribe to route parameters to fetch the admin data based on the 'id' parameter
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
         this.userService.getUser(Number(id)).subscribe({
           next: (user) => {
-            this.admin = user;
+            this.admin = user; // Assign the fetched user to 'admin'
           },
-          error: (e :Error) =>{
-            this.router.navigate(['/not-found']);
-            console.error('Error al cargar usuario:', e);          
-          }
+          error: (e :Error) => this.router.navigate(['/not-found']) // Navigate to 'not-found' page in case of error
         })
       }
     })
   }
 
-  // Function to change admin status (active/inactive)
+  // Toggle admin active/inactive status
   changeStatus() : void {
     let isActive = ''
     if(this.admin?.is_Active === 'yes'){
@@ -64,15 +65,13 @@ export class DetailAdminComponent implements OnInit{
             confirmButtonColor: '#00b4d8'
           });
         }
-        this.router.navigate(['list-admins'])
+        this.router.navigate(['list-admins']) // Redirect to the admin list page
       },
-      error: (e: Error)=>{
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
-  // Funtion to change rol admin to user
+  // Change the admin's role to a regular user
   changeAdminStatus() {
     Swal.fire({
       title: '¿Está seguro que desea quitar el rol de administrador a ' + this.admin?.real_name + ' ' + this.admin?.last_name + '?',
@@ -85,7 +84,7 @@ export class DetailAdminComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.changeAdminStatus(Number(this.admin?.id), 'user').subscribe({
-          next: (data) => {
+          next: () => {
             Swal.fire({
               title: 'Rol quitado correctamente!',
               text: 'Ahora ' + this.admin?.real_name + ' ' + this.admin?.last_name + ' no tiene rol de administrador.',
@@ -94,16 +93,14 @@ export class DetailAdminComponent implements OnInit{
               confirmButtonColor: '#00b4d8',
             }).then((result) => {
               if (result.isConfirmed) {
+                // Redirect after success
                 this.router.navigateByUrl('list-admins');
               }
             });
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         });
       }
     });
   }
-
 }

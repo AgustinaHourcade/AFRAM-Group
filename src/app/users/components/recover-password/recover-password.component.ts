@@ -1,10 +1,10 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { UserService } from '@users/services/user.service';
 import { EmailService } from '@email/service/email.service';
+import { Component, inject } from '@angular/core';
 import { NavbarHomeComponent } from '@shared/navbar-home/navbar-home.component';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-recover-password',
@@ -15,9 +15,9 @@ import { NavbarHomeComponent } from '@shared/navbar-home/navbar-home.component';
 })
 export class RecoverPasswordComponent {
   private fb = inject(FormBuilder);
+  private route = inject(Router);
   private userService = inject(UserService);
   private emailService = inject(EmailService);
-  private route = inject(Router);
 
   formulario = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],

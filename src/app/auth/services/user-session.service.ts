@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { Account } from '@accounts/interface/account.interface';
+import { inject, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',

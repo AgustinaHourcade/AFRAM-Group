@@ -1,12 +1,12 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
-import { UserService } from '@users/services/user.service';
 import { Address } from '@addresses/interface/address.interface';
+import { UserService } from '@users/services/user.service';
 import { AddressService } from '@addresses/service/address.service';
+import { Router, RouterLink } from '@angular/router';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-update-profile',
@@ -20,14 +20,14 @@ export class UpdateProfileComponent implements OnInit {
   @Output() userPhone = new EventEmitter<string>();
 
   private fb = inject(FormBuilder);
+  private route = inject(Router);
   private userService = inject(UserService);
   private sessionService = inject(UserSessionService);
   private addressService = inject(AddressService);
-  private route = inject(Router);
   
+  id: number = 0;
   type !:string;
   flag = false;
-  id: number = 0;
   phone ?: string = '';
   user?: User;
   address?: Address;

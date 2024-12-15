@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink } from '@angular/router';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-navbar-admin',

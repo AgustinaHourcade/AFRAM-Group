@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { UserSessionService } from '@auth/services/user-session.service';
-import { UserService } from '@users/services/user.service';
 import { User } from '@users/interface/user.interface';
-import { AddressService } from '@addresses/service/address.service';
 import { Address } from '@addresses/interface/address.interface';
+import { RouterLink } from '@angular/router';
+import { UserService } from '@users/services/user.service';
+import { AddressService } from '@addresses/service/address.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -15,10 +15,10 @@ import { Address } from '@addresses/interface/address.interface';
 })
 export class ProfileComponent implements OnInit {
 
-  userId: number = 0;
   user ?: User;
-  address ?: Address;
   type ?:string;
+  userId: number = 0;
+  address ?: Address;
 
   private sesionService = inject(UserSessionService);
   private userService = inject(UserService);

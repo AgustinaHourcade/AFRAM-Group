@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { Card } from '@cards/interface/card';
 import { User } from '@users/interface/user.interface';
 import { Account } from '@accounts/interface/account.interface';
@@ -19,7 +20,6 @@ import { TransactionComponent } from '@transactions/components/transaction/trans
 import { NotificationsService } from '@notifications/service/notifications.service';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Observable, catchError, firstValueFrom, forkJoin, of } from 'rxjs';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-main-page',

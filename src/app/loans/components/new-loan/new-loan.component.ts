@@ -1,17 +1,17 @@
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Loan } from '@loans/interface/loan';
-import { LoanService } from '@loans/service/loan.service';
+import { Router } from '@angular/router';
 import { Account } from '@accounts/interface/account.interface';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { AccountService } from '@accounts/services/account.service';
-import { UserSessionService } from '@auth/services/user-session.service';
+import { LoanService } from '@loans/service/loan.service';
 import { Transaction } from '@transactions/interface/transaction.interface';
-import { TransactionService } from '@transactions/services/transaction.service';
 import { InterestRates } from '@interestRates/interface/interest-rates.interface';
+import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { TransactionService } from '@transactions/services/transaction.service';
 import { InterestRatesService } from '@interestRates/service/interest-rates.service';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-loan',
@@ -30,9 +30,9 @@ export class NewLoanComponent implements OnInit {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private loanService = inject(LoanService);
-  private userSessionService = inject(UserSessionService);
   private accountService = inject(AccountService);
   private interestService = inject(InterestRatesService);
+  private userSessionService = inject(UserSessionService);
   private transactionService = inject(TransactionService);
 
   ngOnInit() {

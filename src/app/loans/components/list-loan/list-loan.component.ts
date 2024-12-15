@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { Loan } from '@loans/interface/loan';
-import { LoanService } from '@loans/service/loan.service';
 import { Account } from '@accounts/interface/account.interface';
-import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { RouterLink } from '@angular/router';
+import { LoanService } from '@loans/service/loan.service';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
+import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { Component, inject } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({

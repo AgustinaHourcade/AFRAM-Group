@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { InterestRates } from '../interface/interest-rates.interface';
+import { inject, Injectable } from '@angular/core';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ import { InterestRates } from '../interface/interest-rates.interface';
 export class InterestRatesService {
 
   private http = inject(HttpClient);
-  private userSessionService = inject(UserSessionService);  // Inyectamos el UserSessionService
   private urlBase = 'http://localhost:3000/interestrates';
+  private userSessionService = inject(UserSessionService);  // Inyectamos el UserSessionService
 
   // Función para obtener los headers con token y userId
   private getHeaders(): HttpHeaders {

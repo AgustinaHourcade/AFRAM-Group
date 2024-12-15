@@ -1,16 +1,16 @@
-import { Component, inject, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import { TransactionService } from '@transactions/services/transaction.service';
-import { Transaction } from '@transactions/interface/transaction.interface';
-import { Account } from '@accounts/interface/account.interface';
-import { AccountService } from '@accounts/services/account.service';
 import { User } from '@users/interface/user.interface';
+import { Router } from '@angular/router';
+import { Account } from '@accounts/interface/account.interface';
+import { Transaction } from '@transactions/interface/transaction.interface';
 import { UserService } from '@users/services/user.service';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { EmailService } from '@email/service/email.service';
+import { CommonModule } from '@angular/common';
+import { AccountService } from '@accounts/services/account.service';
+import { TransactionService } from '@transactions/services/transaction.service';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-transfer-programming',
@@ -25,17 +25,17 @@ export class TransferProgrammingComponent implements OnInit {
   @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
   @Input() data: any;
   @Output() transactionConfirmed = new EventEmitter<Transaction>();
-  confirmar = false;
-  account: any = null;
-  flag: boolean = false;
-  errorMessage: string = '';
-  user!: User;
-  userDestino !: User;
-  accounts!: Array<Account>;
   id !: number;
+  flag: boolean = false;
+  user!: User;
   origen!: Account;
-  fechaValida: boolean = false;
+  account: any = null;
+  confirmar = false;
+  accounts!: Array<Account>;
   openModal: boolean = false;
+  userDestino !: User;
+  fechaValida: boolean = false;
+  errorMessage: string = '';
 
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);

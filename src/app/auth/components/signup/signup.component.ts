@@ -1,15 +1,15 @@
-import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
-import { UserService } from '@users/services/user.service';
-import { Account } from '@accounts/interface/account.interface';
+import { Router } from '@angular/router';
 import { Address } from '@addresses/interface/address.interface';
+import { Account } from '@accounts/interface/account.interface';
+import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { AddressService } from '@addresses/service/address.service';
+import { Component, inject } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',

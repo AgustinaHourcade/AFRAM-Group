@@ -1,8 +1,8 @@
+import { User } from '../interface/user.interface';
+import { Observable } from 'rxjs';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { User } from '../interface/user.interface';
-import { UserSessionService } from '@auth/services/user-session.service';
 
 @Injectable({
   providedIn: 'root',

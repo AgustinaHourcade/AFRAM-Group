@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-not-found',

@@ -1,8 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { Message } from '../interface/thread';
+import { Observable } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,9 @@ import { Message } from '../interface/thread';
 export class MessageService {
 
   private http = inject(HttpClient);
+  private baseUrl = 'http://localhost:3000/message';
   private userSessionService = inject(UserSessionService); // Inyectamos el UserSessionService
 
-  private baseUrl = 'http://localhost:3000/message';
 
   // Función para obtener los headers con token y userId
   private getHeaders(): HttpHeaders {

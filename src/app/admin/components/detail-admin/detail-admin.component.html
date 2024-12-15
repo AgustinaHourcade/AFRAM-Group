@@ -1,5 +1,5 @@
-<!-- ! LISTO -->
 <app-navbar-admin></app-navbar-admin>
+<!-- Back button to navigate to the admin list -->
 <button class="go-back" routerLink="/list-admins"><i class="bi bi-caret-left"></i>Volver</button>
 <div class="profile-container">
     <h2>Información Personal</h2>
@@ -36,6 +36,8 @@
           <span class="field-value">No</span>
         }
       </div>
+
+      <!-- Action buttons based on admin status -->
       @if(admin?.is_Active === 'yes'){
           <div class="admin-buttons">
               <button class="action-button delete" (click)="changeAdminStatus()">Quitar admin</button>

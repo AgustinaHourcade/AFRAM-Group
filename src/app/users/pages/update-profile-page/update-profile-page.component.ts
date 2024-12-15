@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../../../shared/navbar/navbar.component";
 import { UpdateProfileComponent } from '../../components/update-profile/update-profile.component';
-import { User } from '@users/interface/user.interface';
 
 @Component({
   selector: 'app-update-profile-page',
@@ -12,7 +11,7 @@ import { User } from '@users/interface/user.interface';
 })
 export class UpdateProfilePageComponent {
 
- phone: string = '';
+  phone: string = '';
 
   onProfileUpdated(value: any) {
     this.phone = value.toString();

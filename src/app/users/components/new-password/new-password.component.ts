@@ -1,10 +1,10 @@
-import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { NavbarHomeComponent } from "@shared/navbar-home/navbar-home.component";
+import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-new-password',
@@ -16,8 +16,8 @@ import { NavbarHomeComponent } from "@shared/navbar-home/navbar-home.component";
 export class NewPasswordComponent {
 
   private fb = inject(FormBuilder);
-  private userService = inject(UserService);
   private route = inject(Router);
+  private userService = inject(UserService);
 
   flag = false;
   showPassword1 = false;

@@ -1,7 +1,9 @@
 <app-navbar-admin></app-navbar-admin>
 <div class="buttons">
     <div class="buttons-container">
+        <!-- Navigation button to return to the admin support page -->
         <button [routerLink]="['/admin-support']" class="back-button"><i class="bi bi-caret-left"></i>Volver</button>
+        <!-- Button to end the chat if the thread is still active -->
         @if(thread?.support_status === 'open'){
             <button (click)="toggleThread()" class="end-button">Finalizar chat</button>
         }
@@ -9,9 +11,11 @@
 </div>
 <div class="page">
     <div class="chat">
+        <!-- Display the user's full name -->
         <h3 class="user"><i class="bi bi-person"></i> {{user?.real_name}} {{user?.last_name}}</h3>
         <div class="chat-container">
             <div class="messages-container">
+                <!-- Loop through messages and apply dynamic classes based on sender type -->
                 @for (message of messages; track $index) {
                     <div class="message"
                         [ngClass]="{ 'admin-message': message.sender_type === 'support', 'user-message': message.sender_type === 'user' }">
@@ -23,10 +27,13 @@
                 }
             </div>
 
+            <!-- Input form to send a new message if the thread is open -->
             @if(thread?.support_status === 'open'){
-                <form [formGroup]="formulario" (ngSubmit)="postThread()" class="message-input-form">
+                <form [formGroup]="form" (ngSubmit)="postThread()" class="message-input-form">
+                    <!-- Input field for the message text -->
                     <input formControlName="message" type="text" placeholder="Escribe tu mensaje..." class="message-input" />
-                    <button type="submit" class="send-button" [disabled]="formulario.invalid">Enviar</button>
+                    <!-- Submit button, disabled when the form is invalid -->
+                    <button type="submit" class="send-button" [disabled]="form.invalid">Enviar</button>
                 </form>
             }
         </div>

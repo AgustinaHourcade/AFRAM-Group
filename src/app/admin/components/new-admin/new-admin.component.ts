@@ -1,16 +1,16 @@
-import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { User } from '@users/interface/user.interface';
-import { UserService } from '@users/services/user.service';
+import { Router } from '@angular/router';
 import { Account } from '@accounts/interface/account.interface';
 import { Address } from '@addresses/interface/address.interface';
+import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { AddressService } from '@addresses/service/address.service';
+import { Component, inject } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { NavbarAdminComponent } from '@admin/shared/navbar-admin/navbar-admin.component';
+import { ReactiveFormsModule, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-new-admin',

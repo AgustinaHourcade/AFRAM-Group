@@ -1,11 +1,11 @@
+import Swal from 'sweetalert2';
+import { User } from '@users/interface/user.interface';
+import { Router } from '@angular/router';
+import { UserService } from '@users/services/user.service';
+import { CommonModule } from '@angular/common';
+import { UserSessionService } from '@auth/services/user-session.service';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import Swal from 'sweetalert2';
-import { UserService } from '@users/services/user.service';
-import { User } from '@users/interface/user.interface';
-import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
   selector: 'app-update-password',

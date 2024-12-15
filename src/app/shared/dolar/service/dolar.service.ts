@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cotizacion } from '@shared/dolar/interface/cotizacion';
+import { inject, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'

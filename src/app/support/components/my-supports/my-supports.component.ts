@@ -1,14 +1,14 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { UserSessionService } from '@auth/services/user-session.service';
 import { Thread } from '@support/interface/thread';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MessageService } from '@support/service/messages.service';
 import { SupportService } from '@support/service/support.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
+import { UserSessionService } from '@auth/services/user-session.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-my-supports',
@@ -19,22 +19,22 @@ import { NavbarComponent } from '@shared/navbar/navbar.component';
 })
 export class MySupportsComponent implements OnInit{
 
+  private fb = inject(FormBuilder);
   private supportService = inject(SupportService);
   private messageService = inject(MessageService);
   private sessionService = inject(UserSessionService);
-  private fb = inject(FormBuilder);
 
 
   id : number = this.sessionService.getUserId();
   new = false;
   threads : Array<Thread> = [];
-  selectedAccountId !: number;
+  pageSize = 4 ;
   activesThreads : Array<Thread> = [];
   finishedThreads : Array<Thread> = [];
-  pageSize = 4 ;
+  selectedAccountId !: number;
   currentPageActive = 1;
-  currentPageFinished = 1;
   currentCharacters = 0;
+  currentPageFinished = 1;
   
 
   ngOnInit(): void {
