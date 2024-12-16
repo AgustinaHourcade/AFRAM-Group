@@ -4,13 +4,13 @@
   </p>
 
   <p class="transaction-type">
-    @if(transaction.transaction_type == 'transfer') {
+    @if(transaction.transaction_type === 'transfer') {
       Transferencia
-    } @else if(transaction.transaction_type == 'loan') {
+    } @else if(transaction.transaction_type === 'loan') {
       Préstamo
-    } @else if(transaction.transaction_type == 'fixed term'){
+    } @else if(transaction.transaction_type === 'fixed term'){
       Plazo fijo
-    } @else if (transaction.transaction_type == 'exchange') {
+    } @else if (transaction.transaction_type === 'exchange') {
       Cambio
     }
   </p>

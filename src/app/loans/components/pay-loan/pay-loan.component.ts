@@ -6,7 +6,7 @@ import { Transaction } from '@transactions/interface/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { TransactionService } from '@transactions/services/transaction.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -19,7 +19,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   templateUrl: './pay-loan.component.html',
   styleUrl: './pay-loan.component.css',
 })
-export class PayLoanComponent {
+export class PayLoanComponent implements OnInit {
 
   private fb = inject(FormBuilder);
   private route = inject(Router);
@@ -31,17 +31,16 @@ export class PayLoanComponent {
 
   loan: any = {};
   account?: Account;
-  accounts?: Array<Account>;
-
-  ngOnInit() {
-    this.cargarCuentas();
-  }
-
+  accounts?: Account[];
 
   formulario = this.fb.nonNullable.group({
     amount: [null, [Validators.required, Validators.min(1), Validators.pattern(/^\d*\.?\d{0,2}$/)]],
     account_id: [0, [Validators.required, Validators.min(1)]],
   });
+
+  ngOnInit() {
+    this.cargarCuentas();
+  }
 
   cargarPrestamo() {
     console.log("accounts en cargar prestamo" + this.accounts);
@@ -51,16 +50,12 @@ export class PayLoanComponent {
         this.loanService.getLoanById(Number(id)).subscribe({
           next: (loan: Loan) => {
             if (!this.accounts?.some(account => account.id === loan.account_id)) {
-              console.log("No tiene acceso");
               this.route.navigate(['/access-denied']);
             } else {
               this.loan = loan;
             }
           },
-          error: (e: Error) => {
-            this.route.navigate(['/not-found']);
-            console.log('Error al cargar la cuenta:', e);
-          },
+          error: (e: Error) => this.route.navigate(['/not-found'])
         });
       },
     });
@@ -82,9 +77,6 @@ export class PayLoanComponent {
     } else {
       this.accountService.getAccountById(Number(account_id)).subscribe({
         next: (account) => {
-          console.log(this.account?.id);
-
-          console.log(account.id);
           if (account.balance > amount) {
             Swal.fire({
               title: `¿Está seguro que desea pagar el préstamo?`,
@@ -108,12 +100,9 @@ export class PayLoanComponent {
                           confirmButtonColor: '#00b4d8'
                         });
                         this.accountService.updateBalance(amount, 1).subscribe({
-                          next: () => {
-                            console.log('saldo actualizado en la cuenta 1 del banco');
-                          }, error: (err: Error) => {
-                            console.log(err.message);
-                          }
+                          error: (err: Error) => console.log(err.message)
                         })
+
                         const transaction = {
                           amount: amount,
                           source_account_id: this.loan.account_id,
@@ -121,25 +110,17 @@ export class PayLoanComponent {
                           transaction_type: 'loan'
                         }
                         this.transactionService.postTransaction(transaction as Transaction).subscribe({
-                          next: (transactionId) => {
-                            console.log(transactionId);
-                          },
-                          error: (error: Error) => {
-                            console.log(error.message);
-                          },
+                          error: (error: Error) => console.log(error.message)
                         })
                         this.route.navigate(['/list-loan']);
                       },
-                      error: (error: Error) => {
-                        console.log(error.message);
-                      },
+                      error: (error: Error) => console.log(error.message)
                     });
                   },
                 });
               }
             });
           } else {
-            console.log(account.balance);
             Swal.fire({
               text: 'No tiene suficiente dinero en la cuenta.',
               icon: 'error',
@@ -148,9 +129,7 @@ export class PayLoanComponent {
             });
           }
         },
-        error: (error: Error) => {
-          console.log(error);
-        },
+        error: (error: Error) => console.log(error)
       });
     }
   }
@@ -160,13 +139,9 @@ export class PayLoanComponent {
     this.accountService.getAccountsByIdentifier(id).subscribe({
       next: (accounts) => {
         this.accounts = accounts;
-        console.log("accounts en cargar cuentas" + this.accounts);
         this.cargarPrestamo();
-
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      error: (e: Error) => console.log(e.message)
     });
   }
 
@@ -189,8 +164,4 @@ export class PayLoanComponent {
       inputElement.setSelectionRange(adjustment, adjustment);
     }
   }
-
-
-
-
 }

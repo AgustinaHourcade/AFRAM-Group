@@ -28,11 +28,11 @@ export class SignupComponent{
 
   account!: Account;
   hasNumber: boolean = false;
-  hasUpperCase: boolean = false;
-  isLongEnough: boolean = false;
+  hasUpperCase: boolean  = false;
+  isLongEnough: boolean  = false;
   passwordForm: FormGroup;
-  showPassword1 = false;
-  showPassword2 = false;
+  showPassword1: boolean  = false;
+  showPassword2: boolean  = false;
 
   passwordValidation = {
     containsNumber: false,
@@ -118,7 +118,6 @@ export class SignupComponent{
     return password === confirmPassword ? null : { matchPasswords: true };
   }
 
-
   addUsuario() {
     if (this.formulario.invalid) {
       Swal.fire({
@@ -152,7 +151,7 @@ export class SignupComponent{
   }
 
   createAccount(id: number): Account {
-    let cuenta = {
+    const cuenta = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
       account_type: 'Savings',
@@ -161,12 +160,7 @@ export class SignupComponent{
       currency: 'ars'
     };
     this.accountService.createAccount(cuenta).subscribe({
-      next: (id) => {
-        console.log("Caja de ahorros creada, id = " + id);
-      },
-      error: (error: Error) => {
-        console.log(error.message);
-      }
+      error: (error: Error) =>console.log(error.message)
     });
     return cuenta as Account;
   }
@@ -174,18 +168,13 @@ export class SignupComponent{
   createAddress(id: number) {
     const address = {} as Address;
     this.addressService.createAddress(id, address).subscribe({
-      next: (addressId) => {
-        console.log('Dirección creada, id = ' + addressId);
-      },
-      error: (error: Error) => {
-        console.error('Error al crear dirección:', error.message);
-      }
+      error: (error: Error) => console.error('Error al crear dirección:', error.message)
     });
   }
 
   agregarCliente(user: User) {
     let account : Account;
-    let accounts : Array<Account> = [];
+    const accounts : Account[] = [];
     this.userService.postUser(user).subscribe({
       next: (response) => {
         this.sesionService.setUserId(Number(response.id));
@@ -196,9 +185,7 @@ export class SignupComponent{
         this.sesionService.setToken(response.token);
         this.route.navigate(['update-profile/']);
       },
-      error: (error: Error) => {
-        console.error('Error al crear usuario:', error);
-      }
+      error: (error: Error) => console.error('Error al crear usuario:', error)
     });
   }
 

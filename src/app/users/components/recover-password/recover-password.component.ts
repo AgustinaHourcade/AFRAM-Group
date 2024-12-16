@@ -49,9 +49,9 @@ export class RecoverPasswordComponent {
     });
 
     this.userService.getIdByEmail(email as string).subscribe({
-      next: (id) => {
+      next: () => {
         this.emailService.sendRecoverEmail(email as string).subscribe({
-          next: (flag) => {
+          next: () => {
             Swal.fire({
               title: 'Hemos enviado un email con los pasos a seguir para cambiar su contraseña.',
               icon: 'success',
@@ -60,8 +60,7 @@ export class RecoverPasswordComponent {
             });
             this.route.navigate(['/new-password']);
           },
-          error: (e: Error) => {
-            console.log(e.message);
+          error: () => {
             Swal.fire({
               title: 'Lo sentimos. Hubo un error al enviar el correo, intente nuevamente.',
               icon: 'error',

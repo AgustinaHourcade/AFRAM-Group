@@ -5,7 +5,7 @@ import { LoanService } from '@loans/service/loan.service';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
@@ -15,16 +15,15 @@ import { UserSessionService } from '@auth/services/user-session.service';
   templateUrl: './list-loan.component.html',
   styleUrl: './list-loan.component.css'
 })
-export class ListLoanComponent {
-
-  loans: Array<Loan> = [];
-  userId: number = 0;
-  accounts: Array<Account> = [];
-  expiredLoans: Array<Loan> = [];
-
+export class ListLoanComponent implements OnInit {
   private loanService = inject(LoanService);
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
+
+  loans: Loan[] = [];
+  userId: number = 0;
+  accounts: Account[] = [];
+  expiredLoans: Loan[] = [];
 
   ngOnInit(): void {
     this.userId = this.userSessionService.getUserId();
@@ -35,7 +34,7 @@ export class ListLoanComponent {
     this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
       next: (accounts) => {
         this.accounts = accounts;
-        for (let account of this.accounts) {
+        for (const account of this.accounts) {
           this.loanService.getLoanByAccountId(account.id).subscribe({
             next: (loans: Loan[]) => {
               const today = new Date();
@@ -48,15 +47,11 @@ export class ListLoanComponent {
                 }
               });
             },
-            error: (error: Error) => {
-              console.error(`Error loading loans for account ${account.id}:`,error);
-            },
+            error: (error: Error) => console.error(`Error loading loans for account ${account.id}:`,error)
           });
         }
       },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
 

@@ -26,9 +26,9 @@ export class NewcardComponent implements OnInit {
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
 
-  user !: User;
-  userId !: number;
-  accounts: Array<Account> = [];
+  user!: User;
+  userId!: number;
+  accounts: Account[] = [];
 
   formulario = this.fb.nonNullable.group({
     cardType: ['', Validators.required],
@@ -43,23 +43,15 @@ export class NewcardComponent implements OnInit {
 
   loadUserData(): void {
     this.userService.getUser(this.userId).subscribe({
-      next: (user) => {
-        this.user = user;
-      },
-      error: (e: Error) => {
-        console.error('Error fetching user data:', e.message);
-      },
+      next: (user) => this.user = user,
+      error: (e: Error) => console.error('Error fetching user data:', e.message)
     });
   }
 
   loadAccounts(): void {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts.filter(account => account.closing_date == null);
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
+      next: (accounts: Account[]) => this.accounts = accounts.filter(account => account.closing_date == null),
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
 
@@ -113,9 +105,7 @@ export class NewcardComponent implements OnInit {
           this.route.navigate(['/cards']);
         }
       },
-      error: (e: Error) => {
-        console.error('Error creating card:', e.message);
-      },
+      error: (e: Error) => console.error('Error creating card:', e.message)
     });
   }
 

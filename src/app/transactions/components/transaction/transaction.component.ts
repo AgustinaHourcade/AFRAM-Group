@@ -15,11 +15,11 @@ import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, Ren
 export class TransactionComponent  implements OnInit{
   @Input() transaction!: Transaction;
   @Input() selectedAccountId!: number;
-  @Input() isDownloading: boolean = false;
+  @Input() isDownloading = false;
 
   ownAccountsId: number[] = [];
-  destinatario: string = '';
-  flag: boolean = false;
+  destinatario = '';
+  flag = false;
   id ?:number;
 
   private userSessionService = inject(UserSessionService);
@@ -29,7 +29,7 @@ export class TransactionComponent  implements OnInit{
     this.getUserAccounts();
   }
 
-  @Input() isOpen: boolean = false;
+  @Input() isOpen = false;
   @Output() toggle = new EventEmitter<void>();
   
   toggleFlag(): void {

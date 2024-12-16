@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from '@auth/components/login/login.component';
 import { SignupComponent } from '@auth/components/signup/signup.component';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 
 @Component({
@@ -11,11 +11,10 @@ import { UserSessionService } from '@auth/services/user-session.service';
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.css'
 })
-export class AuthPageComponent {
-  //  ! LISTO
+export class AuthPageComponent implements OnInit {
   private userSessionService = inject(UserSessionService);
 
-  isLoginActive = true;
+  isLoginActive: boolean  = true;
 
   // Feature to toggle between login and registration forms
   toggleForm(formType: string) {

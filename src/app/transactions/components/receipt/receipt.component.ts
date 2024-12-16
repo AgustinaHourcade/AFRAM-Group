@@ -36,7 +36,7 @@ export class ReceiptComponent implements OnInit{
   lastNameD!: string | undefined ;
 
   ngOnInit(): void {
-    this.getUserById(this.id)
+    this.getUserById(/*this.id*/)
   }
 
   downloadAsPDF() {
@@ -78,7 +78,7 @@ export class ReceiptComponent implements OnInit{
 
   account!: Account;
 
-  getUserById(id: number){
+  getUserById(/*id: number*/){
     this.accountService.getAccountById(this.transaction.destination_account_id).subscribe({
     next: (account) => {
       this.account = account;

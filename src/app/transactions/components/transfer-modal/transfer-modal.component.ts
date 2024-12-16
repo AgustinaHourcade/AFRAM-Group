@@ -26,14 +26,14 @@ export class TransferModalComponent implements OnInit {
   @Input() data: any;
   @Output() transactionConfirmed = new EventEmitter<Transaction>();
   id !: number;
-  flag: boolean = false;
+  flag = false;
   user !: User;
   origen!: Account;
   account: any = null;
-  accounts !: Array<Account>;
+  accounts !: Account[];
   confirmar = false;
   userDestino !: User;
-  errorMessage: string = '';
+  errorMessage = '';
   transactionData !: Transaction;
 
   private fb = inject(FormBuilder);

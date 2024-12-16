@@ -3,7 +3,7 @@
 <main>
   <div class="accounts">
     <h2>Cuentas</h2>
-    @if(activeAccounts.length == 0){
+    @if(activeAccounts.length === 0){
       <p class="aviso">No posee cuentas activas</p>
     }
     <div class="accounts-div">
@@ -17,7 +17,7 @@
 
   <div>
     <h2>Tarjetas</h2>
-    @if(activeCards.length == 0){
+    @if(activeCards.length === 0){
       <p class="aviso">No posee tarjetas activas</p>
     }
     <div class="cardsFlex" >
@@ -52,25 +52,25 @@
 
   <div class="transactions">
     <h2>Movimientos</h2>
-    @if(activeAccounts.length == 0){
+    @if(activeAccounts.length === 0){
       <p class="aviso">No posee cuentas activas</p>
     }@else {
-       <div class="accounts">
+      <div class="accounts">
         <div class="accounts-div">
           <label for="accountSelect"></label>
           <select id="accountSelect" (change)="onAccountSelect($event)">
             <option value="">Seleccione una cuenta</option>
             @for (account of accounts; track $index) {
-              @if(account.closing_date == null) {
+              @if(account.closing_date === null) {
                 <option [value]="account.id">
-                  @if (account.account_type == "Savings") {
+                  @if (account.account_type === "Savings") {
                     <h3>CA </h3>
                     @if (account.currency === 'usd') {
                       <p>{{ account.id }}-{{userId }}/1--U$S {{account.balance |  number:'1.2-2'}}</p>
                     }@else {
                       <p>{{ account.id }}-{{userId }}/1--{{account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
                     }
-                  } @else if (account.account_type == "Checking") {
+                  } @else if (account.account_type === "Checking") {
                     <h3>CC </h3>
                     <p>{{ account.id }}-{{ userId }}/2--{{account.balance | currency:'ARS':'symbol-narrow':'1.2-2'}}</p>
                   }
@@ -82,7 +82,7 @@
       </div>
 
 
-    @if (paginatedTransactions.length == 0) {
+    @if (paginatedTransactions.length === 0) {
       <p class="aviso">No hay movimientos para mostrar</p>
     }@else {
       <div class="transactions-page">

@@ -17,8 +17,8 @@ export class ListAdminsComponent implements OnInit {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
 
-  admins: Array<User> = [];
-  adminsFilter: Array<User> = [];
+  admins: User[] = [];
+  adminsFilter: User[] = [];
 
   filterForm = this.fb.nonNullable.group({
     dni: [''],
@@ -38,9 +38,7 @@ export class ListAdminsComponent implements OnInit {
         this.admins = users.filter(user => user.user_type === 'admin');
         this.adminsFilter = [...this.admins];
       },
-      error: (e: Error) => {
-        console.error(e.message);
-      }
+      error: (e: Error) => console.error(e.message)
     });
 
     this.filterForm.valueChanges.subscribe(() => this.applyFilter());

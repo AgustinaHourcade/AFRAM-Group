@@ -15,37 +15,30 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
   styleUrl: './list-transaction.component.css'
 })
 export class ListTransactionComponent implements OnInit {
-
-  id: number = 0;
-  flag: boolean = false;
-  coming = false;
-  pageSize = 4;
-  currentPage = 1;
-  destinatario: string = '';
-  transactions: Array<Transaction> = [];
-
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
+
+  id = 0;
+  flag = false;
+  coming = false;
+  pageSize = 4;
+  currentPage = 1;
+  destinatario = '';
+  transactions: Transaction[] = [];
+  openedTransactionId: number | undefined = undefined;
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         this.id = Number(params.get('id'));
         this.transactionService.getTransactionsByAccountId(this.id).subscribe({
-          next: (transactions) => {
-            this.transactions = transactions;
-          },
-          error: (e: Error) => {
-            this.router.navigate(['/not-found']);
-            console.error('Error al cargar transacciones:', e);
-          }
+          next: (transactions) => this.transactions = transactions,
+          error: () => this.router.navigate(['/not-found'])
         })
       },
-      error: (e: Error) => {
-        this.router.navigate(['/not-found']);
-        console.error('Error al cargar transacciones:', e);      }
+      error: (e: Error) => this.router.navigate(['/not-found'])
     })
   }
 
@@ -72,8 +65,6 @@ export class ListTransactionComponent implements OnInit {
       this.currentPage = page;
     }
   }
-
-  openedTransactionId: number | undefined = undefined;
 
   toggleReceipt(transactionId: number|undefined): void {
     this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;

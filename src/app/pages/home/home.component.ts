@@ -12,7 +12,6 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  // ! Listo
   private userSessionService = inject(UserSessionService);
   
   isScrolled = false;

@@ -11,7 +11,7 @@ import { UpdateProfileComponent } from '../../components/update-profile/update-p
 })
 export class UpdateProfilePageComponent {
 
-  phone: string = '';
+  phone = '';
 
   onProfileUpdated(value: any) {
     this.phone = value.toString();

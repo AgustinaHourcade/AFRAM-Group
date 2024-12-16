@@ -25,7 +25,7 @@ export class UpdateProfileComponent implements OnInit {
   private sessionService = inject(UserSessionService);
   private addressService = inject(AddressService);
   
-  id: number = 0;
+  id = 0;
   type !:string;
   flag = false;
   phone ?: string = '';

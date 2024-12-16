@@ -47,11 +47,11 @@
         @if (accounts.length === 0) {
         <option value="" disabled selected>No hay cuentas disponibles</option>
         } @for (item of accounts; track $index) { @if(item.currency !== 'usd'){
-        @if (item.account_type == "Savings") {
+        @if (item.account_type === "Savings") {
         <option [value]="item.id">
           CA {{ item.id }}-{{ userId }}/1 - ${{ item.balance }}
         </option>
-        } @else if (item.account_type == "Checking") {
+        } @else if (item.account_type === "Checking") {
         <option [value]="item.id">
           CC {{ item.id }}-{{ userId }}/2 - ${{ item.balance }}
         </option>

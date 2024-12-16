@@ -3,7 +3,7 @@ import { Account } from '@accounts/interface/account.interface';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { Router, RouterModule } from '@angular/router';
 import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
@@ -16,7 +16,7 @@ import { CardAccountComponent } from '@accounts/components/card-account/card-acc
   styleUrl: './accounts.component.css'
 })
 
-export class AccountsComponent {
+export class AccountsComponent implements OnInit {
 
   // Dependency injections
   private router = inject(Router);
@@ -25,7 +25,7 @@ export class AccountsComponent {
 
   // Variables
   userId: number = 0;
-  accounts: Array<Account> = [];
+  accounts: Account[] = [];
 
   ngOnInit(): void {
     // Get the user ID from session
@@ -33,10 +33,8 @@ export class AccountsComponent {
 
     // Fetch accounts associated with the user ID
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts) => {
-        // Filter active accounts
-        this.accounts = accounts.filter(account => account.closing_date == null);
-      },
+      // Filter active accounts
+      next: (accounts) => this.accounts = accounts.filter(account => account.closing_date == null),
       error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }

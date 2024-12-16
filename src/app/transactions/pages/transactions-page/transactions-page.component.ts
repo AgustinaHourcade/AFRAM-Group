@@ -16,7 +16,7 @@ import { TransferProgrammingComponent } from "@transactions/components/transfer-
   styleUrl: './transactions-page.component.css'
 })
 export class TransactionsPageComponent implements OnInit{
-  accounts: Array<Account> = [];
+  accounts: Account[] = [];
   isModalOpen = false;
   appTransferModal = false;
   appTransferProgramming = false;

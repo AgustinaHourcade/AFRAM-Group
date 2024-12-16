@@ -19,7 +19,7 @@ export class ListRatesComponent implements OnInit{
   private rateService = inject(InterestRatesService);
 
   flag: boolean = false;
-  rates: Array<InterestRates> = [];
+  rates: InterestRates[] = [];
   showingBubble: string | null = null;
 
   ngOnInit(): void {
@@ -28,12 +28,8 @@ export class ListRatesComponent implements OnInit{
 
   getRates(){
     this.rateService.getRates().subscribe({
-      next: (rates) =>{
-        this.rates = rates;
-      },
-      error: (e: Error) =>{
-        console.log(e.message);
-      }
+      next: (rates) => this.rates = rates,
+      error: (e: Error) => console.log(e.message)
     })
   }
 
@@ -59,7 +55,7 @@ export class ListRatesComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.rateService.postRates(Number(loan_interest_rate), Number (fixed_term_interest_rate)).subscribe({
-          next: (data) =>{
+          next: () =>{
             Swal.fire({
               title: 'Nueva tasa creada correctamente!',
               icon: 'success',
@@ -68,9 +64,7 @@ export class ListRatesComponent implements OnInit{
             })
             this.getRates();
           },
-          error: (e: Error) =>{
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         })
         this.flag = false;
       } else {
@@ -87,5 +81,4 @@ export class ListRatesComponent implements OnInit{
   hideBubble() {
     this.showingBubble = null;
   }
-
 }

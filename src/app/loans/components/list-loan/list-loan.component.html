@@ -21,7 +21,7 @@
     </thead>
     <tbody>
       @for (loan of loans; track $index) {
-        @if (loan.paid != loan.return_amount) {  
+        @if (loan.paid !== loan.return_amount) {  
           <tr >
             <td>{{ loan.account_id }}</td>
             <td>${{ loan.amount }}</td>

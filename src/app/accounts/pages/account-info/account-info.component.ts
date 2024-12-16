@@ -36,11 +36,11 @@ export class AccountInfoComponent implements OnInit{
   today: Date = new Date();
   accountId!: number;
   openingDate!: Date;
-  transactions: Array<Transaction> = [];
-  isDownloading: boolean = false;
-  isLastDayOfMonth: boolean = false;
+  transactions: Transaction[] = [];
+  isDownloading = false;
+  isLastDayOfMonth = false;
   openedTransactionId: number | undefined = undefined;
-  filteredTransactions: Array<Transaction> = [];
+  filteredTransactions: Transaction[] = [];
 
   // Reactive form for date selection
   dateForm = this.fb.nonNullable.group({
@@ -48,6 +48,39 @@ export class AccountInfoComponent implements OnInit{
   });
 
   // Functions
+  ngOnInit(): void {
+    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.accountId) {
+      this.accountService.getAccountById(this.accountId).subscribe({
+        next: (account) => {      
+          const userId = this.userSessionService.getUserId();
+          // Verify if user has access to the account
+          if (account.user_id !== userId) {
+            this.router.navigate(['/access-denied']); 
+          } else {
+            this.accountId = account.id;
+            this.openingDate = new Date(account.opening_date);
+            this.setDefaultMonthYear();
+            this.loadTransactions();
+          }
+        },
+        error: () => this.router.navigate(['/not-found'])
+      });
+
+      // Subscribe to date changes
+      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+        this.filterTransactions();
+      });
+      
+      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
+        this.updateLastDayCheck();
+      });
+
+      this.updateLastDayCheck();
+    }
+  }
+  
   // Set default month and year to the current date
   setDefaultMonthYear() {
     const currentMonthYear = `${this.today.getFullYear()}-${String(
@@ -208,40 +241,5 @@ export class AccountInfoComponent implements OnInit{
   // Checks if the given transactionId matches the currently opened transaction
   isReceiptOpen(transactionId: number|undefined): boolean {
     return this.openedTransactionId === transactionId;
-  }
-
-  ngOnInit(): void {
-    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (this.accountId) {
-      this.accountService.getAccountById(this.accountId).subscribe({
-        next: (account) => {      
-          const userId = this.userSessionService.getUserId();
-          // Verify if user has access to the account
-          if (account.user_id !== userId) {
-            this.router.navigate(['/access-denied']); 
-          } else {
-            this.accountId = account.id;
-            this.openingDate = new Date(account.opening_date);
-            this.setDefaultMonthYear();
-            this.loadTransactions();
-          }
-        },
-        error: (error) => {
-          this.router.navigate(['/not-found']);
-        }}
-      );
-
-      // Subscribe to date changes
-      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
-        this.filterTransactions();
-      });
-      
-      this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
-        this.updateLastDayCheck();
-      });
-
-      this.updateLastDayCheck();
-    }
   }
 }

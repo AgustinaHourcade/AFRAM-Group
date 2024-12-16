@@ -15,7 +15,7 @@ export class UserSessionService {
   private readonly USER_TOKEN = 'userToken';
   private route = inject(Router);
 
-  estoyLogeado: boolean = false;
+  estoyLogeado = false;
 
   constructor() {
     this.initializeInactivityListener();

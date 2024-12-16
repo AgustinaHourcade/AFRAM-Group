@@ -18,8 +18,8 @@ export class ListUsersComponent implements OnInit {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
 
-  clients: Array<User> = [];
-  clientsFilter: Array<User> = [];
+  clients: User[] = [];
+  clientsFilter: User[] = [];
 
   filterForm = this.fb.nonNullable.group({
     dni: [''],
@@ -39,9 +39,7 @@ export class ListUsersComponent implements OnInit {
         this.clients = users;
         this.clientsFilter = users;
       },
-      error: (e: Error) => {
-        console.error(e.message);
-      },
+      error: (e: Error) => console.error(e.message)
     });
 
     this.filterForm.valueChanges.subscribe(() => this.applyFilter());

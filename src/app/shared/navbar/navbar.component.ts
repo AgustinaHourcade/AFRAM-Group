@@ -22,22 +22,26 @@ export class NavbarComponent implements OnInit{
   private userSessionService = inject(UserSessionService);
   private notificationsService = inject(NotificationsService);
 
-  id : number = 0;
+  id: number = 0;
   type !: string;
   activeMenu: string | null = null;
-  notifications: Array<Notification> = [];
-  isDropdownOpen: boolean = false;
-  unreadNotifications: Array<Notification> = [];
+  isNavbarOpen = false;
+  notifications: Notification[] = [];
+  isDropdownOpen = false;
+  unreadNotifications: Notification[] = [];
   selectedNotifications: number[] = [];
-  isResponsiveMenuVisible: boolean = false;
+  isResponsiveMenuVisible = false;
 
-
-
+  isSubmenuOpen = {
+    fixedTerms: false,
+    loans: false,
+  };
+  
   ngOnInit(): void {
     this.getUserById();
   }
 
-   constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
     this.renderer.listen('document', 'click', (event: Event) => {
       const targetElement = event.target as HTMLElement;
       if (!this.elementRef.nativeElement.contains(targetElement)) {
@@ -83,9 +87,7 @@ export class NavbarComponent implements OnInit{
         this.id = Number (user.id)
         this.getNotification(this.id);
       },
-      error: (error: Error) => {
-        console.error('Error: ', error);
-      }
+      error: (error: Error) => console.error('Error: ', error)
     });
   }
 
@@ -123,9 +125,7 @@ export class NavbarComponent implements OnInit{
           (notification) => notification.is_read === 'no'
         );
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      error: (e: Error) => console.log(e.message)
     });
   }
 
@@ -159,9 +159,7 @@ toggleSelectAll(): void {
           this.getNotification(user_id);
         }
       },
-      error: (e: Error) =>{
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
@@ -173,31 +171,23 @@ toggleSelectAll(): void {
           this.getNotification(user_id);
         }
       },
-      error: (e: Error) =>{
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
   // Delete a notification
   deleteNotification(id:number, user_id: number){
     this.notificationsService.deleteNotification(id).subscribe({
-      next:()=>{
-        this.getNotification(user_id);
-      },error:(err:Error)=>{
-        console.log(err.message);
-      }
+      next:() => this.getNotification(user_id),
+      error:(err:Error) => console.log(err.message)
     })
   }
 
   // Delete all notifications
   deleteAllNotifications(user_id: number){
     this.notificationsService.deleteAllNotifications(user_id).subscribe({
-      next:()=>{
-        this.getNotification(user_id);
-      },error:(err:Error)=>{
-        console.log(err.message);
-      }
+      next:() => this.getNotification(user_id),
+      error:(err:Error) => console.log(err.message)
     })
   }
 
@@ -208,30 +198,22 @@ toggleSelectAll(): void {
   }
 
   @HostListener('document:click', ['$event'])
-closeDropdown(event: Event): void {
-  const target = event.target as HTMLElement;
-  console.log('Document click detected');
+  closeDropdown(event: Event): void {
+    const target = event.target as HTMLElement;
+    console.log('Document click detected');
 
-  // Busca tanto en la campana como en el contenedor de notificaciones
-  const isInsideNotification =
-    target.closest('.notification-icon') || target.closest('.notification-dropdown');
+    // Busca tanto en la campana como en el contenedor de notificaciones
+    const isInsideNotification =
+      target.closest('.notification-icon') || target.closest('.notification-dropdown');
 
-  if (!isInsideNotification && this.isDropdownOpen) {
-    this.isDropdownOpen = false;
+    if (!isInsideNotification && this.isDropdownOpen) {
+      this.isDropdownOpen = false;
+    }
   }
-}
-
-
-  isNavbarOpen = false;
 
   toggleNavbar() {
     this.isNavbarOpen = !this.isNavbarOpen;
   }
-
-  isSubmenuOpen = {
-    fixedTerms: false,
-    loans: false,
-  };
 
   toggleSubmenu(menu: 'fixedTerms' | 'loans', event: Event) {
     event.stopPropagation(); // Evita que el evento cierre el menú inmediatamente

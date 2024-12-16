@@ -18,10 +18,9 @@ export class NavbarAdminComponent implements OnInit {
   private userService = inject(UserService);
   private userSessionService = inject(UserSessionService);
 
-  type !: string;
+  type!: string;
   activeMenu: string | null = null;
   isResponsiveMenuVisible: boolean = false;
-
 
   ngOnInit(): void {
     this.getUserById();
@@ -45,40 +44,12 @@ export class NavbarAdminComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     });
-
-    // let timerInterval: any;
-
-    // Swal.fire({
-    //   title: "Sesión cerrada correctamente!",
-    //   html: "Gracias por confiar en AFRAM Group.",
-    //   timer: 1500,
-    //   timerProgressBar: true,
-    //   didOpen: () => {
-    //     Swal.showLoading();
-    //     const timer = Swal.getPopup()?.querySelector("b");
-    //     if (timer) {
-    //     timerInterval = setInterval(() => {
-    //       timer.textContent = `${Swal.getTimerLeft()}`;
-    //     }, 100);}
-    //   },
-    //   willClose: () => {
-    //     clearInterval(timerInterval);
-    //   }
-    // }).then((result) => {
-    //   if (result.dismiss === Swal.DismissReason.timer) {
-    //     this.router.navigate(['/home']);
-    //   }
-    // });
   }
 
   getUserById(){
     this.userService.getUser(this.userSessionService.getUserId()).subscribe({
-      next: (user) => {
-        this.type = user.user_type as string;
-      },
-      error: (error: Error) => {
-        console.error('Error: ', error);
-      }
+      next: (user) => this.type = user.user_type as string,
+      error: (error: Error) => console.error('Error: ', error)
     });
   }
 

@@ -26,16 +26,16 @@ export class TransferProgrammingComponent implements OnInit {
   @Input() data: any;
   @Output() transactionConfirmed = new EventEmitter<Transaction>();
   id !: number;
-  flag: boolean = false;
+  flag = false;
   user!: User;
   origen!: Account;
   account: any = null;
   confirmar = false;
-  accounts!: Array<Account>;
-  openModal: boolean = false;
+  accounts!: Account[];
+  openModal = false;
   userDestino !: User;
-  fechaValida: boolean = false;
-  errorMessage: string = '';
+  fechaValida = false;
+  errorMessage = '';
 
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
@@ -46,9 +46,9 @@ export class TransferProgrammingComponent implements OnInit {
   private montoTransferencia: number | null | undefined = 0
   private fb = inject(FormBuilder);
 
-  showModal: boolean = false;
-  minDate: string = '';
-  maxDate: string = '';
+  showModal = false;
+  minDate = '';
+  maxDate = '';
   currentDate = Date.now();
   dateFromTimestamp: Date = new Date(this.currentDate);
   transferDate !: Date;

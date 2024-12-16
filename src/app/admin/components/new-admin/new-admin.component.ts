@@ -31,8 +31,8 @@ export class NewAdminComponent {
   hasNumber: boolean = false;
   hasUpperCase: boolean = false;
   isLongEnough: boolean = false;
-  showPassword1 = false;
-  showPassword2 = false;
+  showPassword1: boolean = false;
+  showPassword2: boolean = false;
 
   preventNumbers(event: KeyboardEvent): void {
     const regex = /[0-9]/;
@@ -135,12 +135,7 @@ export class NewAdminComponent {
   createAddress(id: number) {
     const address = {} as Address;
     this.addressService.createAddress(id, address).subscribe({
-      next: (addressId) => {
-        console.log('Dirección creada, id = ' + addressId);
-      },
-      error: (error: Error) => {
-        console.error('Error al crear dirección:', error.message);
-      }
+      error: (error: Error) => console.error('Error al crear dirección:', error.message)
     });
   }
 
@@ -173,9 +168,7 @@ export class NewAdminComponent {
           }
         })
       },
-      error: (error: Error) => {
-        console.error('Error al crear usuario:', error);
-      }
+      error: (error: Error) => console.error('Error al crear usuario:', error)
     });
   }
 
@@ -197,7 +190,7 @@ export class NewAdminComponent {
   }
 
   createAccount(id: number): Account {
-    let cuenta = {
+    const cuenta = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
       account_type: 'Savings',
@@ -206,13 +199,9 @@ export class NewAdminComponent {
       currency: 'ars'
     };
     this.accountService.createAccount(cuenta).subscribe({
-      next: (id) => {
-        console.log("Caja de ahorros creada, id = " + id);
-      },
-      error: (error: Error) => {
-        console.log(error.message);
-      }
+      error: (error: Error) => console.log(error.message)
     });
+    
     return cuenta as Account;
   }
 

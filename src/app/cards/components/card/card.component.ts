@@ -22,27 +22,22 @@ export class CardComponent implements OnInit {
   private sesionService = inject(UserSessionService);
   private accountService = inject(AccountService);
 
-  cards!: Array<any>;
-  borrar = false;
-  userId = this.sesionService.getUserId();
-  accounts!: Array<Account>;
-  activeCards: Array<any> = [];
-  showNumbers: boolean= false;
+  cards!: any[];
+  borrar: boolean  = false;
+  userId: number = this.sesionService.getUserId();
+  accounts!: Account[];
+  activeCards: any[] = [];
+  showNumbers: boolean = false;
 
   ngOnInit(): void {
     this.getCards();
     this.getAccounts();
-
   }
 
   getAccounts(){
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts;
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
+      next: (accounts: Account[]) => this.accounts = accounts,
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
 
@@ -61,9 +56,7 @@ export class CardComponent implements OnInit {
           }
         });
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      error: (e: Error) => console.log(e.message)
     });
   }
 
@@ -81,9 +74,7 @@ export class CardComponent implements OnInit {
           }
         });
         },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      error: (e: Error) => console.log(e.message)
     });
   }
 
@@ -103,10 +94,7 @@ export class CardComponent implements OnInit {
     });
   }
 
- 
-
   toggleVisibility(card: any): void {
     card.showNumbers = !card.showNumbers;
   }
-
 }

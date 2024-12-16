@@ -4,7 +4,7 @@
     <div class="form-group">  
       <div class="input-wrapper">
         <input type="text" id="real_name" formControlName="real_name" (keydown)="preventNumbers($event)"  [ngClass]="{ errorInput:(formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched)}"/>
-        <label [ngClass]="{ filled: formulario.get('real_name')?.value, errorLabel: formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched }">
+        <label for="real_name" [ngClass]="{ filled: formulario.get('real_name')?.value, errorLabel: formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched }">
             @if (formulario.controls['real_name'].invalid && formulario.controls['real_name'].touched) {
               <i class="bi bi-exclamation-circle"></i> 
             }
@@ -18,7 +18,7 @@
     <div class="form-group">
       <div class="input-wrapper">
         <input type="text" id="last_name" formControlName="last_name" (keydown)="preventNumbers($event)"/>
-        <label [ngClass]="{ filled: formulario.get('last_name')?.value, errorLabel: formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched }">
+        <label for="last_name" [ngClass]="{ filled: formulario.get('last_name')?.value, errorLabel: formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched }">
             @if (formulario.controls['last_name'].invalid && formulario.controls['last_name'].touched) {
               <i class="bi bi-exclamation-circle"></i> 
             }
@@ -33,7 +33,7 @@
     <div class="form-group">
       <div class="input-wrapper">
         <input type="text" id="name_user" formControlName="name_user" placeholder=" " />
-        <label [ngClass]="{
+        <label for="name_user" [ngClass]="{
           filled: formulario.get('name_user')?.value,
           errorLabel: formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched }">
             @if (formulario.controls['name_user'].invalid && formulario.controls['name_user'].touched) {
@@ -50,7 +50,7 @@
     <div class="form-group">
       <div class="input-wrapper">
         <input type="number" id="dni" formControlName="dni" placeholder=" " />
-        <label [ngClass]="{
+        <label for="dni" [ngClass]="{
           filled: formulario.get('dni')?.value,
           errorLabel: formulario.controls['dni'].invalid && formulario.controls['dni'].touched }">
             @if (formulario.controls['dni'].invalid && formulario.controls['dni'].touched) {
@@ -76,7 +76,7 @@
           placeholder=" "
           (input)="validatePassword()"
         />
-        <label [ngClass]="{
+        <label for="hashed_password" [ngClass]="{
           filled: formulario.get('hashed_password')?.value,
           errorLabel: formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched }">
             @if (formulario.controls['hashed_password'].invalid && formulario.controls['hashed_password'].touched) {
@@ -105,7 +105,7 @@
           placeholder=" "
           [ngClass]="{ errorInput: formulario.controls['confirm_password'].invalid && formulario.controls['confirm_password'].touched || (formulario.hasError('matchPasswords') && formulario.controls['confirm_password'].touched)}"
         />
-        <label [ngClass]="{
+        <label for="confirm_password" [ngClass]="{
           filled: formulario.get('confirm_password')?.value,
           errorLabel: (formulario.controls['confirm_password'].invalid && formulario.controls['confirm_password'].touched) || (formulario.hasError('matchPasswords') && formulario.controls['confirm_password'].touched)}">
             @if (formulario.controls['confirm_password'].invalid && formulario.controls['confirm_password'].touched || (formulario.hasError('matchPasswords') && formulario.controls['confirm_password'].touched)) {

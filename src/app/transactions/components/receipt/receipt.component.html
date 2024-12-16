@@ -2,9 +2,9 @@
   <div class="header">
     <img src="/logo-fff.png" alt="Bank Logo"/>
     
-    @if(transaction.transaction_type == 'transfer'){
+    @if(transaction.transaction_type === 'transfer'){
       <h2>Comprobante de Transferencia</h2>
-    }@else if(transaction.transaction_type == 'loan'){
+    }@else if(transaction.transaction_type === 'loan'){
       <h2>Comprobante de Préstamo</h2>
     }@else if(transaction.transaction_type === 'fixed term'){
       <h2>Comprobante de Plazo Fijo</h2>
@@ -22,7 +22,7 @@
     </div>
     <div class="row">
       <label>Monto</label>
-      @if (transaction.transaction_type === 'exchange' && (transaction.destination_account_id == 2 || transaction.source_account_id == 2)) {
+      @if (transaction.transaction_type === 'exchange' && (transaction.destination_account_id === 2 || transaction.source_account_id === 2)) {
         <span> U$S{{ transaction.amount}}</span>
       }@else{
       <span>{{ transaction.amount | currency:'ARS':'symbol-narrow':'1.2-2'}}</span>

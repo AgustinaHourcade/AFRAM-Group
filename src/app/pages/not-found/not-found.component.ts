@@ -1,6 +1,6 @@
 import { UserSessionService } from '@auth/services/user-session.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-not-found',
@@ -9,13 +9,13 @@ import { Component, inject, OnInit } from '@angular/core';
   templateUrl: './not-found.component.html',
   styleUrl: './not-found.component.css'
 })
-export class NotFoundComponent implements OnInit {
+export class NotFoundComponent implements OnInit, OnDestroy {
   private userSessionService = inject(UserSessionService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
 
-  redirectUrl: string = '/';
-  countdown: number = 5;  
+  redirectUrl = '/';
+  countdown = 5;  
   private countdownInterval: any;
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class NotFoundComponent implements OnInit {
       clearInterval(this.countdownInterval);
     }
   }
-  }
+}
   
   
 

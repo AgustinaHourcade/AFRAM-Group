@@ -42,18 +42,26 @@ export class MainPageComponent implements OnInit {
   private notificationService = inject(NotificationsService);
 
   user!: User;
-  cards: Array<Card> = [];
+  cards: Card[] = [];
   userId: number = 0;
   accounts: Account[] = [];
   pageSize: number = 4;
-  fixedTerms: Array<FixedTerm> = [];
-  activeCards: Array<Card> = [];
+  fixedTerms: FixedTerm[] = [];
+  activeCards: Card[] = [];
   showActions: boolean = false;
   currentPage: number = 1;
-  transactions: Array<Transaction> = [];
-  activeAccounts: Array<Account> = [];
-  allTransactions: Array<Transaction> = [];
+  transactions: Transaction[] = [];
+  activeAccounts: Account[] = [];
+  allTransactions: Transaction[] = [];
   selectedAccountId!: number;
+  openedTransactionId: number | undefined = undefined;
+
+  ngOnInit(): void {
+    this.userId = this.userSessionService.getUserId();
+    this.getAccounts();
+    this.verifyFixedTerms();
+    this.getCards();
+  }
 
   get totalPages(): number {
     return Math.ceil(this.transactions.length / this.pageSize);
@@ -71,8 +79,6 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  openedTransactionId: number | undefined = undefined;
-
   toggleReceipt(transactionId: number | undefined): void {
     this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
   }
@@ -80,14 +86,6 @@ export class MainPageComponent implements OnInit {
   isReceiptOpen(transactionId: number | undefined): boolean {
     return this.openedTransactionId === transactionId;
   }
-
-  ngOnInit(): void {
-    this.userId = this.userSessionService.getUserId();
-    this.getAccounts();
-    this.verifyFixedTerms();
-    this.getCards();
-  }
-
 
 
   private getAccounts() {
@@ -104,9 +102,7 @@ export class MainPageComponent implements OnInit {
         });
         this.verifyTransferProgramming();
       },
-      error: (error: Error) => {
-        console.error(error.message);
-      },
+      error: (error: Error) => console.error(error.message)
     });
   }
 
@@ -126,9 +122,7 @@ export class MainPageComponent implements OnInit {
           this.getAccounts();
         }
       },
-      error: (err: Error) => {
-        console.log(err.message);
-      },
+      error: (err: Error) => console.log(err.message)
     });
   }
 
@@ -142,28 +136,17 @@ export class MainPageComponent implements OnInit {
         }
         const descontar = -1 * amount;
         this.accountService.updateBalance(descontar, 1).subscribe({
-          next: () => {
-            console.log('saldo actualizado en la cuenta 1 del banco');
-          }, error: (err: Error) => {
-            console.log(err.message);
-          }
+         error: (err: Error) => console.log(err.message)
         })
       },
-      error: (err: Error) => {
-        console.log(err.message);
-      },
+      error: (err: Error) => console.log(err.message)
     });
   }
 
   private markFixedTermAsPaid(item: FixedTerm, amount: number) {
     this.fixedTermService.setPayFixedTerms(item.id as number).subscribe({
-      next: () => {
-        this.createFixedTermTransaction(item, amount);
-
-      },
-      error: (error: Error) => {
-        console.error('Error marking fixed term as paid:', error);
-      },
+      next: () => this.createFixedTermTransaction(item, amount),
+      error: (error: Error) => console.error('Error marking fixed term as paid:', error)
     });
   }
 
@@ -176,15 +159,9 @@ export class MainPageComponent implements OnInit {
       is_paid: 'yes'
     };
 
-    console.log('Posting transaction:', transaction);
-
     this.transactionService.postTransaction(transaction as Transaction).subscribe({
-      next: () => {
-        this.showFixedTermSuccessAlert();
-      },
-      error: (error: Error) => {
-        console.log('Error posting transaction:', error.message);
-      },
+      next: () => this.showFixedTermSuccessAlert(),
+      error: (error: Error) => console.log('Error posting transaction:', error.message)
     });
   }
   private showFixedTermSuccessAlert() {
@@ -201,14 +178,7 @@ export class MainPageComponent implements OnInit {
 
   private postNotification(notification: any) {
     this.notificationService.postNotification(notification).subscribe({
-      next: (flag) => {
-        if (flag) {
-          console.log('Notificacion enviada');
-        }
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
@@ -223,9 +193,7 @@ export class MainPageComponent implements OnInit {
         });
         this.expiredCards();
       },
-      error: (error: Error) => {
-        console.log(error.message);
-      },
+      error: (error: Error) => console.log(error.message)
     });
   }
 
@@ -244,10 +212,7 @@ export class MainPageComponent implements OnInit {
   private loadTransactions(accountId: number): Observable<Transaction[]> {
     return this.transactionService.getTransactionsByAccountId(accountId).pipe(
       catchError((error: Error) => {
-        console.error(
-          `Error loading transactions for account ${accountId}:`,
-          error
-        );
+        console.error(`Error loading transactions for account ${accountId}:`, error);
         return of([]);
       })
     );
@@ -259,6 +224,7 @@ export class MainPageComponent implements OnInit {
       const selectedAccountId = Number(target.value);
       this.selectedAccountId = selectedAccountId;
     }
+
     this.transactions = [];
     this.currentPage = 1;
 
@@ -276,9 +242,7 @@ export class MainPageComponent implements OnInit {
           this.scrollToBottom();
         }, 50);
       },
-      error: (error: Error) => {
-        console.error(`Error loading transactions for account ${this.selectedAccountId}:`, error);
-      },
+      error: (error: Error) => console.error(`Error loading transactions for account ${this.selectedAccountId}:`, error)
     });
   }
 
@@ -289,10 +253,7 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-
-
   private verifyTransferProgramming() {
-    let account: Account;
     this.activeAccounts.forEach((account) => {
       this.loadTransactions(account.id).subscribe({
         next: (transactions) => {
@@ -308,9 +269,7 @@ export class MainPageComponent implements OnInit {
                 next: (account) => {
                   account = account
                 },
-                error: (e: Error) => {
-                  console.log(e.message);
-                }
+                error: (e: Error) =>  console.log(e.message)
               })
               if (account.balance < item.amount) {
                 this.deleteTransfer(Number(item.id));
@@ -326,24 +285,16 @@ export class MainPageComponent implements OnInit {
             }
           });
         },
-        error: (err: Error) => {
-          console.log(err.message);
-        },
+        error: (err: Error) => console.log(err.message)
       });
     });
   }
 
   deleteTransfer(id: number) {
     this.transactionService.deleteTransaction(id).subscribe({
-      next: (flag) => {
-        console.log('Transferencia eliminada por falta de saldo');
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
-
 
   sendNotificationFail(id: number) {
     const notification = {
@@ -369,9 +320,7 @@ export class MainPageComponent implements OnInit {
           console.error('Error actualizando saldos en las cuentas. Transferencia no completada.');
         }
       },
-      error: (err) => {
-        console.error('Error procesando la transferencia programada:', err);
-      },
+      error: (err) => console.error('Error procesando la transferencia programada:', err)
     });
   }
 
@@ -385,9 +334,7 @@ export class MainPageComponent implements OnInit {
 
         this.getAccounts();
       },
-      error: (error: Error) => {
-        console.error('Error al marcar la transferencia como pagada:', error);
-      },
+      error: (error: Error) => console.error('Error al marcar la transferencia como pagada:', error)
     });
   }
 
@@ -395,16 +342,14 @@ export class MainPageComponent implements OnInit {
     this.accountService.getAccountById(id).subscribe({
       next: (account) => {
         const notification = {
-          title: 'Se realizo una transferencia programada!',
-          message: 'Se le debito una transferencia que programó, puede ver el detalle en la seccion "Mis movimientos"',
+          title: 'Se realizó una transferencia programada!',
+          message: 'Se le debitó una transferencia que programó, puede ver el detalle en la sección "Mis movimientos"',
           user_id: account.user_id
         }
 
         this.postNotification(notification)
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
@@ -413,55 +358,39 @@ export class MainPageComponent implements OnInit {
       next: (account) => {
         const notification = {
           title: 'Transferencia acreditada!',
-          message: 'Se le acreditó una transferencia, puede ver el detalle en la seccion "Mis transferencias"',
+          message: 'Se le acreditó una transferencia, puede ver el detalle en la sección "Mis transferencias"',
           user_id: account.user_id
         }
 
         this.postNotification(notification)
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
   async sendEmail(transaction: Transaction): Promise<void> {
     let destinationAccount !: Account;
 
-
     try {
       await this.getUserByAccountId(transaction.destination_account_id);
 
       this.accountService.getAccountById(transaction.destination_account_id).subscribe({
-        next: (account) => {
-          destinationAccount = account
-        }, error: (e: Error) => {
-          console.log(e.message);
-        }
+        next: (account) => destinationAccount = account, 
+        error: (e: Error) => console.log(e.message)
       })
 
       this.accountService.getAccountById(transaction.source_account_id).subscribe({
         next: (account) => {
           this.userService.getUser(account.id).subscribe({
             next: (user) => {
-              this.emailService.sendTransferEmail(
-                user.email as string,
-                transaction.amount,
-                account.user_id,
-                destinationAccount.user_id
-              )
-                .subscribe({
-                  next: () => console.log('Correo de notificación enviado'),
+              this.emailService.sendTransferEmail(user.email as string, transaction.amount, account.user_id, destinationAccount.user_id).subscribe({
                   error: (error: Error) => console.log('Error al enviar el correo:', error),
                 });
             },
             error: (e: Error) => console.log(e.message)
           })
-
         }, error: (e: Error) => console.log(e.message)
       })
-
-
     } catch (error) {
       console.error('Error en sendEmail:', error);
     }
@@ -478,8 +407,8 @@ export class MainPageComponent implements OnInit {
   }
 
   async expiredCards() {
-    let now = Date.now();
-    for (let card of this.cards) {
+    const now = Date.now();
+    for (const card of this.cards) {
       const expirationDate = new Date(card.expiration_date);
       if (Number(expirationDate) < now && card.is_Active === 'yes') {
         const userDecision = await Swal.fire({
@@ -517,7 +446,6 @@ export class MainPageComponent implements OnInit {
               confirmButtonColor: '#00b4d8'
             });
           } catch (err: any) {
-            console.error(`Error al procesar la tarjeta ${card.card_number}: ${err.message}`);
             Swal.fire({
               title: 'Error',
               text: `No se pudo extender la tarjeta ${card.card_number}.`,
@@ -528,8 +456,8 @@ export class MainPageComponent implements OnInit {
           }
           this.getCards();
         } else {
-           this.cardService.disableCard(card.card_id).toPromise();
-           this.getCards();
+          this.cardService.disableCard(card.card_id).toPromise();
+          this.getCards();
         }
       }
     }
@@ -540,5 +468,4 @@ export class MainPageComponent implements OnInit {
     fechaOriginal.setFullYear(fechaOriginal.getFullYear() + 5);
     return fechaOriginal.toISOString().split('T')[0];
   }
-
 }

@@ -25,18 +25,22 @@ export class MySupportsComponent implements OnInit{
   private sessionService = inject(UserSessionService);
 
 
-  id : number = this.sessionService.getUserId();
-  new = false;
-  threads : Array<Thread> = [];
-  pageSize = 4 ;
-  activesThreads : Array<Thread> = [];
-  finishedThreads : Array<Thread> = [];
-  selectedAccountId !: number;
-  currentPageActive = 1;
-  currentCharacters = 0;
-  currentPageFinished = 1;
+  id: number = this.sessionService.getUserId();
+  new: boolean = false;
+  threads: Thread[] = [];
+  pageSize: number = 4 ;
+  activesThreads: Thread[] = [];
+  finishedThreads: Thread[] = [];
+  selectedAccountId!: number;
+  currentPageActive: number = 1;
+  currentCharacters: number = 0;
+  currentPageFinished: number = 1;
   
-
+  formulario = this.fb.nonNullable.group({
+    support_subject: ['',Validators.required],
+    message: ['',[Validators.required, Validators.maxLength(140)]]
+  })
+  
   ngOnInit(): void {
     this.loadThreads();
     this.trackCharacterCount();
@@ -94,16 +98,9 @@ export class MySupportsComponent implements OnInit{
           }
         });
       },
-      error: (e: Error) =>{
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
-
-  formulario = this.fb.nonNullable.group({
-    support_subject: ['',Validators.required],
-    message: ['',[Validators.required, Validators.maxLength(140)]]
-  })
 
   // Function to post a new thread
   postThread() {
@@ -129,14 +126,10 @@ export class MySupportsComponent implements OnInit{
               });
             }
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         });
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     });
   }
 
@@ -144,28 +137,16 @@ export class MySupportsComponent implements OnInit{
   deleteThread(event: MouseEvent, id: number) {
     event.stopPropagation();  // Detener la propagación del evento
     this.supportService.deleteThread(id).subscribe({
-      next: (flag) => {
-        console.log("Thread eliminado");
-        this.loadThreads()
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      next: () => this.loadThreads(),
+      error: (e: Error) => console.log(e.message)
     });
   }
 
   // Funtion to delete all threads
   deleteAllThreads(){
     this.supportService.deleteAllThreads(Number(this.id)).subscribe({
-      next: (flag) => {
-        console.log("Thread eliminado");
-        this.loadThreads();
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      next: () => this.loadThreads(),
+      error: (e: Error) => console.log(e.message)
     })
   }
-
-
 }

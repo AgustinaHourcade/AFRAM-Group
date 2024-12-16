@@ -29,10 +29,8 @@ export class DetailAdminComponent implements OnInit{
       next: (params) => {
         const id = params.get('id');
         this.userService.getUser(Number(id)).subscribe({
-          next: (user) => {
-            this.admin = user; // Assign the fetched user to 'admin'
-          },
-          error: (e :Error) => this.router.navigate(['/not-found']) // Navigate to 'not-found' page in case of error
+          next: (user) => this.admin = user, // Assign the fetched user to 'admin'
+          error: () => this.router.navigate(['/not-found']) // Navigate to 'not-found' page in case of error
         })
       }
     })
@@ -47,7 +45,7 @@ export class DetailAdminComponent implements OnInit{
       isActive = 'yes'
     }
     this.userService.changeStatus(Number(this.admin?.id), isActive ).subscribe({
-      next: (flag) => {
+      next: () => {
         if(isActive == 'yes'){
           Swal.fire({
             title: "Administrador dado de alta correctamente!",

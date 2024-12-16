@@ -22,7 +22,7 @@ export class NewAccountComponent {
   private userSessionService = inject(UserSessionService);
 
   // Variables
-  flag: string =''; // Flag indicating the type of account selected
+  flag =''; // Flag indicating the type of account selected
   user_id: number = this.userSessionService.getUserId();
 
   // Reactive form for creating an account
@@ -53,8 +53,8 @@ export class NewAccountComponent {
   }
 
   createAccount() {
-    // The new account object is assembled with values ​​from the form and random values ​​for CBU and alias
-    let account = {
+  // The new account object is assembled with values ​​from the form and random values ​​for CBU and alias
+    const account = {
       cbu: this.generateRandomCBU(),
       alias: this.generateRandomAlias(),
       account_type: this.form.get('account_type')?.value as string,

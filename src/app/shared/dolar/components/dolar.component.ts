@@ -16,9 +16,7 @@ export class DolarComponent implements OnInit {
 
   ngOnInit(): void {
     this.dolarService.getDolarOficial().subscribe({
-      next: (dolar) => {
-        this.dolar = dolar;
-      },
+      next: (dolar) => this.dolar = dolar
     });
   }
 }

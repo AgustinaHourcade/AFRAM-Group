@@ -26,12 +26,12 @@ export class LoginComponent {
 
   id: number = 0;
   user?: User;
-  token = '';
-  intentos : number = 0;
-  accounts!: Array<Account>;
+  token: string = '';
+  intentos: number = 0;
+  accounts!: Account[];
   userLogin?: User;
-  showPassword = false;
-  errorMessage = '';
+  showPassword: boolean = false;
+  errorMessage: string = '';
 
   togglePasswordVisibility(input: HTMLInputElement) {
     input.type = this.showPassword ? 'password' : 'text';
@@ -54,17 +54,11 @@ export class LoginComponent {
     this.userService.getIdByDni(dni).subscribe({
       next: (id) => {
         this.userService.getUser(id).subscribe({
-          next: (user) => {
-            this.user = user;
-          },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          next: (user) => this.user = user,
+          error: (e: Error) => console.log(e.message)
         })
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
 
     this.admitirCliente();
@@ -91,33 +85,28 @@ export class LoginComponent {
 
                   this.userSessionService.setUserId(this.id); // Guarda el ID en el servicio
                   this.userSessionService.setToken(this.token);
+
                   if(this.intentos > 0){
                     this.userService.unblockUser(user.dni).subscribe({
-                      next: (flag) => {
-                        console.log("Cuenta desbloqueada con exito.");
-                      },
-                      error: (e:Error) => {
-                        console.log(e.message);
-                      }
+                      error: (e:Error) => console.log(e.message)
                     })
                   }
                   this.userService.getUser(Number(id)).subscribe({
                     next: (user) => {
-
                       this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
-                      if (user.user_type === 'admin') {
+                      if (user.user_type === 'admin') { 
                         Swal.fire({
                           title: `¿Como desea iniciar sesión?`,
-                        text: 'Puede ingresar como Administrator o como Cliente.',
-                        icon: 'question',
-                        showCancelButton: true,
-                        showDenyButton: true,
-                        confirmButtonColor: '#00b4d8',
-                        denyButtonColor: "#003559",
-                        cancelButtonColor: "#e63946",
-                        confirmButtonText: 'Cliente',
-                        cancelButtonText: 'Cancelar',
-                        denyButtonText: `Administrador`,
+                          text: 'Puede ingresar como Administrator o como Cliente.',
+                          icon: 'question',
+                          showCancelButton: true,
+                          showDenyButton: true,
+                          confirmButtonColor: '#00b4d8',
+                          denyButtonColor: "#003559",
+                          cancelButtonColor: "#e63946",
+                          confirmButtonText: 'Cliente',
+                          cancelButtonText: 'Cancelar',
+                          denyButtonText: `Administrador`,
                       }).then((result) => {
                         if (result.isConfirmed) {
                           this.userSessionService.setUserType('user');
@@ -125,14 +114,13 @@ export class LoginComponent {
                         } else if(result.isDenied) {
                           this.router.navigate(['/admin-main']);
                         }
-                      });}
+                      });
+                      }
                       else {
-                      this.router.navigate(['/main']);
-                    }
-                  },
-                  error: (e: Error) => {
-                    console.log(e.message);
-                  }
+                        this.router.navigate(['/main']);
+                      }
+                    },
+                    error: (e: Error) => console.log(e.message)
                 })
                 },
                 error: (error: Error) => {
@@ -145,28 +133,20 @@ export class LoginComponent {
                           text: 'Ha excedido el límite de intentos. Le hemos enviado un email a su cuenta con los pasos a seguir para restablecer la contraseña.',
                           icon: 'error',
                           confirmButtonText: 'Aceptar',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        confirmButtonColor: '#00b4d8'
-                      })
-                      this.emailService.sendRecoverEmail(this.user?.email as string).subscribe({
-                        next: () => {
-                        console.log("Mail enviado");
-                      },
-                      error: (e: Error) => {
-                        console.log(e.message);
-                      },
-                    })
-                    this.router.navigate(['/new-password']);
-                  }
+                          allowOutsideClick: false,
+                          allowEscapeKey: false,
+                          confirmButtonColor: '#00b4d8'
+                        })
+
+                        this.emailService.sendRecoverEmail(this.user?.email as string).subscribe({
+                          error: (e: Error) => console.log(e.message)
+                        })
+                        this.router.navigate(['/new-password']);
+                      }
                     },
-                    error: (e:Error) => {
-                      console.log(e.message);
-                    }
+                    error: (e:Error) => console.log(e.message)
                   })
-                  console.error('Error al verificar usuario:', error);
-                  this.errorMessage =
-                  'Usuario, DNI o contraseña incorrecta. Por favor, intenta de nuevo.';
+                  this.errorMessage = 'Usuario, DNI o contraseña incorrecta. Por favor, intenta de nuevo.';
                 },
               });
             }else{
@@ -181,17 +161,11 @@ export class LoginComponent {
               })
               this.router.navigate(['/new-password']);
             }
-
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         })
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
-
   }
 }

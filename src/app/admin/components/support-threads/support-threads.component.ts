@@ -16,24 +16,22 @@ export class SupportThreadsComponent implements OnInit{
 
   private supportService = inject(SupportService);
 
-  new = false;
-  threads : Array<Thread> = [];
-  pageSize = 4 ;
-  activesThreads: Array<Thread> = [];
-  finishedThreads: Array<Thread> = [];
-  currentPageActive = 1;
-  currentPageFinished = 1;
+  new: boolean = false;
+  threads: Thread[] = [];
+  pageSize: number = 4 ;
+  activesThreads: Thread[] = [];
+  finishedThreads: Thread[] = [];
+  currentPageActive: number = 1;
+  currentPageFinished: number = 1;
 
   ngOnInit(): void {
-      this.supportService.getAllThreads().subscribe({
-        next: (threads) =>{
-          this.threads = threads;
-          this.loadThreads();
-        },
-        error: (e: Error) =>{
-          console.log(e.message);
-        }
-      })
+    this.supportService.getAllThreads().subscribe({
+      next: (threads) =>{
+        this.threads = threads;
+        this.loadThreads();
+      },
+      error: (e: Error) => console.log(e.message)
+    })
   }
 
   loadThreads(){
@@ -78,5 +76,5 @@ export class SupportThreadsComponent implements OnInit{
     }
   }
 
-  }
+}
 

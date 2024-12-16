@@ -19,9 +19,9 @@ export class NewPasswordComponent {
   private route = inject(Router);
   private userService = inject(UserService);
 
-  flag = false;
-  showPassword1 = false;
-  showPassword2 = false;
+  flag: boolean = false;
+  showPassword1: boolean = false;
+  showPassword2: boolean = false;
 
   // Funcion para que la contraseña contenga una Mayuscula, Minuscila y algun numero.
   passwordValidator(control: AbstractControl): ValidationErrors | null {
@@ -103,11 +103,8 @@ export class NewPasswordComponent {
 
     const token = token1 + token2 + token3 + token4 + token5 + token6;
     this.userService.getUserIdByToken(Number(token)).subscribe({
-      next: (id)=> {
-        this.flag=true;
-      },
+      next: ()=> this.flag=true,
       error: (err: Error) =>{
-        console.log(err.message);
         Swal.fire({
           icon: "error",
           showCloseButton: true,
@@ -129,12 +126,11 @@ export class NewPasswordComponent {
 
     const newPassword = this.formularioContra.get('confirm_password')?.value;
     const token = token1 + token2 + token3 + token4 + token5 + token6;
-    let dni: string;
 
     this.userService.getUserIdByToken(Number (token)).subscribe({
       next: (id) =>{
         this.userService.changePasswordById(newPassword as string, id).subscribe({
-          next: (flag) =>{
+          next: () =>{
             Swal.fire({
               title: 'Se ha restablecido su contraseña.',
               icon: 'success',
@@ -143,20 +139,12 @@ export class NewPasswordComponent {
               next: (user) =>{
                 if(Number (user.login_attempts) >= 3){
                   this.userService.unblockUser(user.dni).subscribe({
-                    next: (flag) => {
-                      console.log("Cuenta desbloqueada con exito.");
-                      this.route.navigate(['/auth']);
-                    },
-                    error: (e:Error) => {
-                      console.log(e.message);
-                    }
+                    next: (flag) => this.route.navigate(['/auth']),
+                    error: (e:Error) => console.log(e.message)
                   })
                 }
                 this.route.navigate(['/auth']);
-                
-              },error: (e: Error) => {
-                console.log(e.message);
-              }
+              },error: (e: Error) => console.log(e.message)
             })
           },
           error: (e: Error) =>{
@@ -164,17 +152,14 @@ export class NewPasswordComponent {
               title: 'No se ha podido restablecer su contraseña.',
               icon: 'error',
             });
-            console.log(e.message);
           }
-
         })
       },
-      error: (e: Error) =>{
+      error: () =>{
         Swal.fire({
           title: 'El token ingresado no es válido.',
           icon: 'error',
         });
-        console.log(e.message);
       }
     })
   }

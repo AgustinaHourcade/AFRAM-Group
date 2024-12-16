@@ -23,19 +23,15 @@ export class DetailUsersComponent implements OnInit{
 
   flag: boolean = false;
   user?: User;
-  accounts: Array<Account> = [];
+  accounts: Account[] = [];
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
         this.userService.getUser(Number(id)).subscribe({
-          next: (user) => {
-            this.user = user;
-          },
-          error: (e :Error) =>{
-            this.router.navigate(['/not-found']);
-            console.error('Error al cargar usuario:', e);           }
+          next: (user) => this.user = user,
+          error: () => this.router.navigate(['/not-found'])
         })
       }
     })
@@ -50,11 +46,11 @@ export class DetailUsersComponent implements OnInit{
       isActive = 'yes'
     }
     this.userService.changeStatus(Number(this.user?.id), isActive ).subscribe({
-      next: (flag) => {
+      next: () => {
         if(isActive == 'yes'){
           Swal.fire({
             title: "Usuario dado de alta correctamente!",
-            text: 'EL usuario '+this.user?.real_name+', '+this.user?.last_name +' fue dado de alta en el sistema.',
+            text: 'El usuario '+this.user?.real_name+', '+this.user?.last_name +' fue dado de alta en el sistema.',
             icon: "success",
             confirmButtonText: 'Aceptar',
             confirmButtonColor: '#00b4d8',
@@ -70,9 +66,7 @@ export class DetailUsersComponent implements OnInit{
         }
         this.router.navigate(['list-users']);
       },
-      error: (e: Error)=>{
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
@@ -85,9 +79,7 @@ export class DetailUsersComponent implements OnInit{
           this.scrollToBottom();
         }, 300);
       },
-      error: (e: Error) =>{
-        console.log(e.message);
-      }
+      error: (e: Error) => console.log(e.message)
     })
   }
 
@@ -103,7 +95,7 @@ export class DetailUsersComponent implements OnInit{
   // Function to change the status acount.
   changeStatusAcount(id: number){
       this.accountService.deactivateAccount(id).subscribe({
-        next: (data) => {
+        next: () => {
           Swal.fire({
             title: '¿Está seguro que desea dar de baja la cuenta numero '+id+', perteneciente a '+this.user?.real_name+' '+this.user?.last_name+'?',
             text:'Esta accion es irreversible.',
@@ -129,9 +121,7 @@ export class DetailUsersComponent implements OnInit{
           }
         });
       },
-        error: (e: Error) =>{
-          console.log(e.message);
-        }
+        error: (e: Error) => console.log(e.message)
       })
   }
 
@@ -149,7 +139,7 @@ export class DetailUsersComponent implements OnInit{
     }).then((result) => {
       if (result.isConfirmed) {
         this.userService.changeAdminStatus(Number(this.user?.id), 'admin').subscribe({
-          next: (data) => {
+          next: () => {
             Swal.fire({
               title: 'Rol concedido correctamente!',
               text: 'Ahora ' + this.user?.real_name + ' ' + this.user?.last_name + ' es administrador.',
@@ -162,9 +152,7 @@ export class DetailUsersComponent implements OnInit{
               }
             });
           },
-          error: (e: Error) => {
-            console.log(e.message);
-          }
+          error: (e: Error) => console.log(e.message)
         });
       }
     });
@@ -176,7 +164,6 @@ export class DetailUsersComponent implements OnInit{
       lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }
-
 }
 
 

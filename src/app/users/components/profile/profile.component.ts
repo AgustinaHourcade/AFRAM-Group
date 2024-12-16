@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
 
   user ?: User;
   type ?:string;
-  userId: number = 0;
+  userId = 0;
   address ?: Address;
 
   private sesionService = inject(UserSessionService);

@@ -10,7 +10,7 @@ import { Component, HostListener, Input } from '@angular/core';
   styleUrl: './navbar-home.component.css'
 })
 export class NavbarHomeComponent {
-  @Input() backgroundColor: string = 'transparent';
+  @Input() backgroundColor = 'transparent';
 
   isScrolled = false;
   scrollThreshold = 100;

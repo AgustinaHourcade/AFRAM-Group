@@ -39,6 +39,31 @@ export class CbuAliasComponent implements OnInit {
   });
 
   // Functions
+  ngOnInit(): void {
+    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (this.accountId) {
+      this.accountService.getAccountById(this.accountId).subscribe({
+        next: (account) => {
+          // Verify user access to account
+          const userId = this.userSessionService.getUserId();
+          if (account.user_id !== userId) {
+            // Redirect if user does not have access
+            this.router.navigate(['access-denied']); 
+          } else {
+            this.account = account;
+            this.userService.getUser(this.account.user_id).subscribe({
+              next: (user) => this.user = user,
+              error: (error: Error) => console.log(error)
+            });
+          }
+        },
+        // Log error if fetching account fails
+        error: (error) => console.error('Error al cargar la cuenta:', error)   
+      });
+    }
+  }
+  
   // Toggle edit mode
   toggleEditing() {
     this.isEditing = !this.isEditing;
@@ -185,32 +210,5 @@ export class CbuAliasComponent implements OnInit {
 
   ViewChild( arg0: string, arg1: { static: boolean }): (target: CbuAliasComponent, propertyKey: 'pdfContent') => void {
     throw new Error('Function not implemented.');
-  }
-
-  ngOnInit(): void {
-    this.accountId = Number(this.route.snapshot.paramMap.get('id'));
-
-    if (this.accountId) {
-      this.accountService.getAccountById(this.accountId).subscribe({
-        next: (account) => {
-          // Verify user access to account
-          const userId = this.userSessionService.getUserId();
-          if (account.user_id !== userId) {
-            // Redirect if user does not have access
-            this.router.navigate(['access-denied']); 
-          } else {
-            this.account = account;
-            this.userService.getUser(this.account.user_id).subscribe({
-              next: (user) => {
-                this.user = user;
-              },
-              error: (error: Error) => console.log(error)
-            });
-          }
-        },
-        // Log error if fetching account fails
-        error: (error) => console.error('Error al cargar la cuenta:', error)   }     
-      );
-    }
   }
 }

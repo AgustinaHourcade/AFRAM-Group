@@ -20,15 +20,15 @@ export class UpdatePasswordComponent implements OnInit {
   private userSessionService = inject(UserSessionService);
   private route = inject(Router);
 
-  id: number = 0;
+  id = 0;
   user !: User;
   type ?: string;
-  hasNumber: boolean = false;
+  hasNumber = false;
   showPassword1 = false;
   showPassword2 = false;
   showPassword3 = false;
-  hasUpperCase: boolean = false;
-  isLongEnough: boolean = false;
+  hasUpperCase = false;
+  isLongEnough = false;
 
   ngOnInit(): void {
     this.id = this.userSessionService.getUserId();
@@ -118,7 +118,7 @@ export class UpdatePasswordComponent implements OnInit {
         }
         this.route.navigate(['/profile']);
       },
-      error: (err: Error) => {
+      error: () => {
         Swal.fire({
           title: 'Contraseña actual incorrecta.',
           icon: 'error',

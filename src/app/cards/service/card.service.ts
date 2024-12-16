@@ -8,7 +8,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class CardService {
-  constructor() {}
 
   private http = inject(HttpClient);
   private userSessionService = inject(UserSessionService);  // Inyectamos el UserSessionService

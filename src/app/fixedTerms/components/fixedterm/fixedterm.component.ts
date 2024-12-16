@@ -32,20 +32,8 @@ export class NewFixedtermComponent implements OnInit {
 
   rate!: InterestRates;
   account?: Account;
-  accounts: Array<Account> = [];
+  accounts: Account[] = [];
   calculatedDate: Date | undefined;
-
-  ngOnInit() {
-    this.cargarCuentas();
-    this.interestService.getLastRate().subscribe({
-      next: (rate) => {
-        this.rate = rate;
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      }
-    });
-  }
 
   fixedTerm: FixedTerm = {
     account_id: 0,
@@ -63,6 +51,14 @@ export class NewFixedtermComponent implements OnInit {
     daysToAdd: [30],
   });
 
+  ngOnInit() {
+    this.cargarCuentas();
+    this.interestService.getLastRate().subscribe({
+      next: (rate) => this.rate = rate,
+      error: (e: Error) => console.log(e.message)
+    });
+  }
+
   createFixedTerm(): void {
 
     if (this.formulario.invalid) {
@@ -79,8 +75,7 @@ export class NewFixedtermComponent implements OnInit {
 
         if (this.fixedTerm.invested_amount <= this.account.balance) {
           const dias = this.formulario.get('daysToAdd')?.value || 0;
-          const total = this.fixedTerm.invested_amount +
-                        this.fixedTerm.invested_amount * (this.rate.fixed_term_interest_rate * dias) / 100;
+          const total = this.fixedTerm.invested_amount + this.fixedTerm.invested_amount * (this.rate.fixed_term_interest_rate * dias) / 100;
 
           this.fixedTerm.interest_earned = total - this.fixedTerm.invested_amount;
           this.fixedTerm.expiration_date = this.formatDate(this.updateDate());
@@ -98,7 +93,7 @@ export class NewFixedtermComponent implements OnInit {
           }).then((result) => {
             if (result.isConfirmed) {
               this.fixedTermService.createFixedTerm(this.fixedTerm).subscribe({
-                next: (response) => {
+                next: () => {
                   Swal.fire({
                     title:'Plazo fijo creado correctamente!',
                     icon: 'success',
@@ -116,33 +111,22 @@ export class NewFixedtermComponent implements OnInit {
                           destination_account_id: 1,
                           transaction_type: 'fixed term'
                         }
+
                         this.accountService.updateBalance(this.fixedTerm.invested_amount, 1).subscribe({
-                          next: ()=>{
-                            console.log('saldo actualizado en la cuenta 1 del banco');
-                          }, error : (err:Error)=>{
-                            console.log(err.message);
-                          }
+                           error : (err:Error)=> console.log(err.message)
                         })
+
                         this.transactionService.postTransaction(transaction as Transaction).subscribe({
-                          next: (id: number) => {
-                            console.log('Transacción creada correctamente con id:', id);
-                          },
-                          error: (error: Error) => {
-                            console.log(error.message);
-                          },
+                          error: (error: Error) => console.log(error.message)
                         })
                       }
                     },
-                    error: (e: Error) => {
-                      console.log(e.message);
-                    },
+                    error: (e: Error) => console.log(e.message)
                   });
 
                   this.router.navigate(['/fixed-terms']);
                 },
-                error: (error: Error) => {
-                  console.log(error.message);
-                },
+                error: (error: Error) => console.log(error.message)
               });
             }
           });
@@ -155,9 +139,7 @@ export class NewFixedtermComponent implements OnInit {
           });
         }
       },
-      error: (error) => {
-        console.error('Error al obtener la cuenta', error);
-      },
+      error: (error) => console.error('Error al obtener la cuenta', error)
     });
   }
 
@@ -186,12 +168,8 @@ export class NewFixedtermComponent implements OnInit {
   cargarCuentas() {
     const id = this.userSessionService.getUserId();
     this.accountService.getAccountsByIdentifier(id).subscribe({
-      next: (accounts) => {
-        this.accounts = accounts.filter(account => account.closing_date === null);
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      next: (accounts) => this.accounts = accounts.filter(account => account.closing_date === null),
+      error: (e: Error) => console.log(e.message)
     });
   }
 

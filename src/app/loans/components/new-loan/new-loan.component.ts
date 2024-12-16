@@ -21,12 +21,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './new-loan.component.css',
 })
 export class NewLoanComponent implements OnInit {
-
-  rate!: InterestRates;
-  account?: Account;
-  accounts: Array<Account> = [];
-  calculatedDate: Date | undefined;
-
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private loanService = inject(LoanService);
@@ -35,17 +29,10 @@ export class NewLoanComponent implements OnInit {
   private userSessionService = inject(UserSessionService);
   private transactionService = inject(TransactionService);
 
-  ngOnInit() {
-    this.cargarCuentas();
-    this.interestService.getLastRate().subscribe({
-      next: (rate) => {
-        this.rate = rate;
-      },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
-    });
-  }
+  rate!: InterestRates;
+  account?: Account;
+  accounts: Account[] = [];
+  calculatedDate: Date | undefined;
 
   loan = {
     account_id: 0,
@@ -62,6 +49,13 @@ export class NewLoanComponent implements OnInit {
     account_id: [0, [Validators.required, Validators.min(1)]],
     daysToAdd: [30],
   });
+  ngOnInit() {
+    this.cargarCuentas();
+    this.interestService.getLastRate().subscribe({
+      next: (rate) => this.rate = rate,
+      error: (e: Error) => console.log(e.message)
+    });
+  }
 
   createLoan() {
     this.loan.amount = this.formulario.get('amount')?.value || 0;
@@ -79,9 +73,7 @@ export class NewLoanComponent implements OnInit {
       next: (account) => {
         this.account = account;
         const dias = this.formulario.get('daysToAdd')?.value || 0;
-        const total =
-          this.loan.amount +
-          (this.loan.amount * (this.rate.loan_interest_rate * dias)) / 100;
+        const total = this.loan.amount + (this.loan.amount * (this.rate.loan_interest_rate * dias)) / 100;
 
         this.loan.return_amount = total;
         this.loan.expiration_date = this.formatDate(this.updateDate());
@@ -89,13 +81,7 @@ export class NewLoanComponent implements OnInit {
 
         Swal.fire({
           title: `¿Está seguro que desea solicitar el préstamo?`,
-          text:
-            'El monto que va a recibir es $' +
-            Math.trunc(this.loan.amount) +
-            ', debe devolver $' +
-            Math.trunc(total) +
-            ' el dia ' +
-            this.formatearFecha() + '.',
+          text: 'El monto que va a recibir es $' + Math.trunc(this.loan.amount) + ', debe devolver $' + Math.trunc(total) + ' el dia ' + this.formatearFecha() + '.',
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#00b4d8',
@@ -105,7 +91,7 @@ export class NewLoanComponent implements OnInit {
         }).then((result) => {
           if (result.isConfirmed) {
             this.loanService.createLoan(this.loan as Loan).subscribe({
-              next: (response) => {
+              next: () => {
                 this.accountService.updateBalance(this.loan.amount, this.loan.account_id).subscribe({
                     next: (flag: any) => {
                       if (flag) {
@@ -116,26 +102,17 @@ export class NewLoanComponent implements OnInit {
                           transaction_type: 'loan'
                         }
                         const descontar = -1 * this.loan.amount;
+
                         this.accountService.updateBalance(descontar, 1).subscribe({
-                          next: ()=>{
-                            console.log('saldo actualizado en la cuenta 1 del banco');
-                          }, error : (err:Error)=>{
-                            console.log(err.message);
-                          }
+                          error : (err:Error)=> console.log(err.message)
                         })
+
                         this.transactionService.postTransaction(transaction as Transaction).subscribe({
-                          next: () => {
-                            console.log('Transacción de préstamo realizada');
-                          },
-                          error: (e: Error) => {
-                            console.log(e.message);
-                          },
+                          error: (e: Error) => console.log(e.message)
                         })
                       }
                     },
-                    error: (e: Error) => {
-                      console.log(e.message);
-                    },
+                    error: (e: Error) => console.log(e.message)
                   });
 
                 Swal.fire({
@@ -146,16 +123,12 @@ export class NewLoanComponent implements OnInit {
                 });
                 this.router.navigate(['/list-loan']);
               },
-              error: (error: Error) => {
-                console.log(error.message);
-              },
+              error: (error: Error) => console.log(error.message)
             });
           }
         });
       },
-      error: (error) => {
-        console.error('Error al obtener la cuenta', error);
-      },
+      error: (error) => console.error('Error al obtener la cuenta', error)
     });
   }
   }
@@ -189,11 +162,8 @@ export class NewLoanComponent implements OnInit {
   cargarCuentas() {
     const id = this.userSessionService.getUserId();
     this.accountService.getAccountsByIdentifier(id).subscribe({
-      next: (accounts) => {
-        this.accounts = accounts.filter(account => account.closing_date === null);      },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      next: (accounts) => this.accounts = accounts.filter(account => account.closing_date === null),
+      error: (e: Error) => console.log(e.message)
     });
   }
 

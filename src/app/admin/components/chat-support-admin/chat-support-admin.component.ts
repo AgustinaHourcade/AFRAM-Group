@@ -33,7 +33,7 @@ export class ChatSupportAdminComponent implements OnInit{
   flag = false; // Prevents multiple notifications for a single thread
   user?: User;
   thread?: Thread;
-  messages: Array<Message> = [];
+  messages: Message[] = [];
 
   // Form control for message input
   form = this.fb.nonNullable.group({
@@ -56,9 +56,7 @@ export class ChatSupportAdminComponent implements OnInit{
   // Fetches user data based on their ID
   loadUser(id: number){
     this.userService.getUser(id).subscribe({
-      next: (user) =>{
-        this.user = user;
-      },
+      next: (user) => this.user = user,
       error: (error: Error) => console.log(error.message)
     })
   }
@@ -70,9 +68,7 @@ export class ChatSupportAdminComponent implements OnInit{
         this.thread = thread;
         this.loadUser(thread.user_id);
       },
-      error: (e: Error) =>{
-        this.router.navigate(['/not-found']); 
-      }
+      error: () => this.router.navigate(['/not-found'])
     })
   }
 
@@ -143,7 +139,6 @@ export class ChatSupportAdminComponent implements OnInit{
   // Posts a notification using the notification service
   postNotification(notification: any){
     this.notificationService.postNotification(notification).subscribe({
-      next: () =>{},
       error: (e: Error)=> console.log(e.message)
     })
   }

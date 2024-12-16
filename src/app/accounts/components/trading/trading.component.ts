@@ -31,11 +31,11 @@ export class TradingComponent implements OnInit {
   // Variables
   id: number = this.sessionService.getUserId();
   dolar?: Cotizacion;
-  trading: string = '';
-  accounts: Array<Account> = [];
-  accountsUSD: Array<Account> = [];
-  calculatedValueARSbuy: number = 0;
-  calculatedValueARSsell: number = 0;
+  trading : string = '';
+  accounts: Account[] = [];
+  accountsUSD: Account[] = [];
+  calculatedValueARSbuy = 0;
+  calculatedValueARSsell = 0;
 
   // Reactive form for trading operations
   form = this.fb.nonNullable.group({
@@ -145,14 +145,12 @@ export class TradingComponent implements OnInit {
                 this.trading = '';
 
                 this.accountService.updateBalance(Number(transaction.amount), 1).subscribe({
-                  next: ()=>{},
                   error : (err:Error) => console.log(err.message)
                 })
 
                 const descontarUSD = -1 * transactionUSD.amount;
 
                 this.accountService.updateBalance(descontarUSD, 2).subscribe({
-                  next: () => {},
                   error : (e: Error) => console.log(e.message)
                 })
               },
@@ -230,12 +228,11 @@ export class TradingComponent implements OnInit {
                 this.trading = '';
 
                 this.accountService.updateBalance(Number(transactionUSD.amount), 2).subscribe({
-                  next: ()=>{}, 
                   error : (err:Error) => console.log(err.message)
                 })
                 const descontarARS = -1 * transaction.amount;
+                
                 this.accountService.updateBalance(descontarARS, 1).subscribe({
-                  next: ()=>{},
                   error : (e: Error)=> console.log(e.message)
                 })
               },
@@ -270,9 +267,7 @@ export class TradingComponent implements OnInit {
     this.getAccounts()
 
     this.dolarService.getDolarOficial().subscribe({
-      next: (cotizacion) => {
-        this.dolar = cotizacion
-      },
+      next: (cotizacion) => this.dolar = cotizacion,
       error: (e: Error) => console.log(e.message)
     })
   }
