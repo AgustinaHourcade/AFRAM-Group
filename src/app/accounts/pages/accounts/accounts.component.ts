@@ -48,69 +48,90 @@ export class AccountsComponent implements OnInit {
   }
 
   // Function to deactivate a bank account
-  deactivateAccount(id: number){
+async deactivateAccount(id: number) {
+  this.fixedTerms = [];
+  this.loans = [];
+  try {
+    // Load fixed terms and loans, ensuring they are fully loaded before validation
+    await Promise.all([this.loadFixedTerms(id), this.loadLoans(id)]);
 
-    this.accountService.getAccountById(id).subscribe({
-      next: (account) =>{
-        this.loadFixedTerms(account.id);
-        this.loadLoans(account.id);
-        
-        if(account.balance >= 1){
-          Swal.fire({
-            title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
-            icon: "error"
-          });
-        }
+    // Validate if the account can be deactivated
+    const flag = await this.validate();
 
-        // Show error if account balance is greater than or equal to $1
-        if(account.balance >= 1){
-          Swal.fire({
-            title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
-            icon: "error"
-          });
-        }
-          // Confirm deactivation
-          Swal.fire({
-            title: `¿Está seguro que desea dar de baja la cuenta?`,
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#00b4d8',
-            cancelButtonColor: "#e63946",
-            confirmButtonText: "Si, dar de baja",
-            cancelButtonText: "Cancelar"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              this.accountService.deactivateAccount(id).subscribe({
-                next: (flag) => {
-                  if(flag){
-                    Swal.fire({
-                      title: "Cuenta suspendida correctamente!",
-                      icon: "success"
-                    });
-                  }
-                  this.router.navigate(['/main']);
-                },
-                error: (err: Error) => console.log(err.message)
-              });
-            }
-          });
-      },
-      error: (error: Error) => console.log(error.message)
-    })
+    if (!flag) {
+      Swal.fire({
+        title: "No puede cerrar esta cuenta",
+        text: "Esta cuenta posee algún préstamo o plazo fijo pendiente.",
+        icon: "error",
+      });
+      return;
+    }
+
+    // Fetch the account details
+    const account = await this.accountService.getAccountById(id).toPromise();
+
+    // Check account balance
+    if (Number (account?.balance) >= 1) {
+      Swal.fire({
+        title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
+        icon: "error",
+      });
+      return;
+    }
+
+    // Confirm deactivation
+    const result = await Swal.fire({
+      title: `¿Está seguro que desea dar de baja la cuenta?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#00b4d8",
+      cancelButtonColor: "#e63946",
+      confirmButtonText: "Sí, dar de baja",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (result.isConfirmed) {
+      const deactivateFlag = await this.accountService.deactivateAccount(id).toPromise();
+      if (deactivateFlag) {
+        Swal.fire({
+          title: "Cuenta suspendida correctamente!",
+          icon: "success",
+        });
+        this.router.navigate(["/main"]);
+      }
+    }
+  } catch (error) {
+    console.error(error);
   }
+}
 
-  loadFixedTerms(id: number){
-    this.fixedTermService.getFixedTermsByAccountId(id).subscribe({
-      next: (fixedTerm) =>  this.fixedTerms = fixedTerm,
-      error: (err: Error) => console.log(err.message)
+// Load fixed terms
+loadFixedTerms(id: number): Promise<void> {
+  return this.fixedTermService.getFixedTermsByAccountId(id)
+    .toPromise()
+    .then((fixedTerms) => {
+      this.fixedTerms = fixedTerms as FixedTerm[];
     })
-  }
+    .catch((err) => console.error(err));
+}
 
-  loadLoans(id : number){
-    this.loanService.getLoanByAccountId(id).subscribe({
-      next: (loans) => this.loans = loans,
-      error: (err: Error) => console.log(err.message)
+// Load loans
+loadLoans(id: number): Promise<void> {
+  return this.loanService.getLoanByAccountId(id)
+    .toPromise()
+    .then((loans) => {
+      this.loans = loans as Loan[];
     })
-  }
+    .catch((err) => console.error(err));
+}
+
+// Validation function
+async validate(): Promise<boolean> {
+  const invalidLoan = this.loans.some((loan) => loan.paid !== loan.return_amount);
+  const invalidFixedTerm = this.fixedTerms.some((fixedTerm) => fixedTerm.is_paid === "no");
+
+  return !(invalidLoan || invalidFixedTerm);
+}
+
 
 }

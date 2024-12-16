@@ -40,13 +40,6 @@ export class SignupComponent{
     validLength: false,
   };
 
-  preventNumbers(event: KeyboardEvent): void {
-    const regex = /[0-9]/;
-    if (regex.test(event.key)) {
-      event.preventDefault();
-    }
-  }
-
   formulario = this.fb.group(
     {
       name_user: ['', [Validators.required, Validators.minLength(4)]],
@@ -58,6 +51,23 @@ export class SignupComponent{
     },
     { validators: this.matchPasswords }
   );
+
+  constructor(private fb2: FormBuilder) {
+    this.passwordForm = this.fb2.group({
+      password: ['', Validators.required],
+    });
+
+    this.passwordForm.get('password')?.valueChanges.subscribe(value => {
+      this.updatePasswordValidation(value);
+    });
+  }
+
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
   minLengthValidator(minLength: number): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -186,16 +196,6 @@ export class SignupComponent{
         this.route.navigate(['update-profile/']);
       },
       error: (error: Error) => console.error('Error al crear usuario:', error)
-    });
-  }
-
-  constructor(private fb2: FormBuilder) {
-    this.passwordForm = this.fb2.group({
-      password: ['', Validators.required],
-    });
-
-    this.passwordForm.get('password')?.valueChanges.subscribe(value => {
-      this.updatePasswordValidation(value);
     });
   }
 

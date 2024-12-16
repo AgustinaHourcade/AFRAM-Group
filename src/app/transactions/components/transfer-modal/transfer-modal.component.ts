@@ -37,17 +37,17 @@ export class TransferModalComponent implements OnInit {
   @Output() transactionConfirmed = new EventEmitter<Transaction>();
 
   id !: number;
-  flag = false;
+  flag: boolean = false;
   user !: User;
   origen!: Account;
   account: any = null;
   accounts !: Account[];
-  confirmar = false;
+  confirmar: boolean = false;
   userDestino !: User;
-  errorMessage = '';
+  errorMessage: string = '';
   transactionData !: Transaction;
 
-  userId = this.userSessionService.getUserId();
+  userId: number = this.userSessionService.getUserId();
 
   newRecipientForm = this.fb.group({
     searchType: ['alias', Validators.required],

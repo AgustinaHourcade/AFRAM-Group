@@ -21,9 +21,9 @@ export class TransactionsPageComponent implements OnInit{
   private userSessionService = inject(UserSessionService);
 
   accounts: Account[] = [];
-  isModalOpen = false;
-  appTransferModal = false;
-  appTransferProgramming = false;
+  isModalOpen: boolean = false;
+  appTransferModal: boolean = false;
+  appTransferProgramming: boolean = false;
 
   userId = this.userSessionService.getUserId();
 
@@ -34,6 +34,7 @@ export class TransactionsPageComponent implements OnInit{
   openModal() {
     this.isModalOpen = true;
   }
+
   goToNewTransfer(account: any) {
     this.isModalOpen = false;
     this.router.navigate(['/transactions/new-transfer'], { state: { account } });

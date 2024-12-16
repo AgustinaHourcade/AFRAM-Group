@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrl: './home-card.component.css'
 })
 export class HomeCardComponent {
-
 }

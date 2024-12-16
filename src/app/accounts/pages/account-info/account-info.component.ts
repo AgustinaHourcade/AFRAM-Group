@@ -8,14 +8,14 @@ import { CbuAliasComponent } from '@accounts/components/cbu-alias/cbu-alias.comp
 import { UserSessionService } from '@auth/services/user-session.service';
 import { TransactionService } from '@transactions/services/transaction.service';
 import { TransactionComponent } from '@transactions/components/transaction/transaction.component';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-account-info',
   standalone: true,
-  imports: [CbuAliasComponent, NavbarComponent, ReactiveFormsModule, TransactionComponent, CommonModule],
+  imports: [CbuAliasComponent, NavbarComponent, ReactiveFormsModule, TransactionComponent, CommonModule, RouterLink],
   templateUrl: './account-info.component.html',
   styleUrl: './account-info.component.css'
 })
@@ -37,8 +37,8 @@ export class AccountInfoComponent implements OnInit{
   accountId!: number;
   openingDate!: Date;
   transactions: Transaction[] = [];
-  isDownloading = false;
-  isLastDayOfMonth = false;
+  isDownloading: boolean = false;
+  isLastDayOfMonth: boolean = false;
   openedTransactionId: number | undefined = undefined;
   filteredTransactions: Transaction[] = [];
 
@@ -53,11 +53,11 @@ export class AccountInfoComponent implements OnInit{
 
     if (this.accountId) {
       this.accountService.getAccountById(this.accountId).subscribe({
-        next: (account) => {      
+        next: (account) => {
           const userId = this.userSessionService.getUserId();
           // Verify if user has access to the account
           if (account.user_id !== userId) {
-            this.router.navigate(['/access-denied']); 
+            this.router.navigate(['/access-denied']);
           } else {
             this.accountId = account.id;
             this.openingDate = new Date(account.opening_date);
@@ -72,7 +72,7 @@ export class AccountInfoComponent implements OnInit{
       this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
         this.filterTransactions();
       });
-      
+
       this.dateForm.get('monthYear')?.valueChanges.subscribe(() => {
         this.updateLastDayCheck();
       });
@@ -80,7 +80,7 @@ export class AccountInfoComponent implements OnInit{
       this.updateLastDayCheck();
     }
   }
-  
+
   // Set default month and year to the current date
   setDefaultMonthYear() {
     const currentMonthYear = `${this.today.getFullYear()}-${String(

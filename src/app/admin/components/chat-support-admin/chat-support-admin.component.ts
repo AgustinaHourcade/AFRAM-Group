@@ -30,7 +30,7 @@ export class ChatSupportAdminComponent implements OnInit{
 
   // Variables
   id?: number; // Stores the thread ID from the route parameters
-  flag = false; // Prevents multiple notifications for a single thread
+  flag: boolean = false; // Prevents multiple notifications for a single thread
   user?: User;
   thread?: Thread;
   messages: Message[] = [];

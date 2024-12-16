@@ -31,8 +31,26 @@ export class NewAdminComponent {
   hasNumber: boolean = false;
   hasUpperCase: boolean = false;
   isLongEnough: boolean = false;
+  passwordForm: FormGroup;
   showPassword1: boolean = false;
   showPassword2: boolean = false;
+
+  passwordValidation = {
+    containsNumber: false,
+    containsUppercase: false,
+    validLength: false,
+  };
+
+  constructor(private fb2: FormBuilder) {
+    this.passwordForm = this.fb2.group({
+      password: ['', Validators.required],
+    });
+
+
+    this.passwordForm.get('password')?.valueChanges.subscribe(value => {
+      this.updatePasswordValidation(value);
+    });
+  }
 
   preventNumbers(event: KeyboardEvent): void {
     const regex = /[0-9]/;
@@ -201,27 +219,8 @@ export class NewAdminComponent {
     this.accountService.createAccount(cuenta).subscribe({
       error: (error: Error) => console.log(error.message)
     });
-    
+
     return cuenta as Account;
-  }
-
-  passwordForm: FormGroup;
-
-  passwordValidation = {
-    containsNumber: false,
-    containsUppercase: false,
-    validLength: false,
-  };
-
-  constructor(private fb2: FormBuilder) {
-    this.passwordForm = this.fb2.group({
-      password: ['', Validators.required],
-    });
-
-
-    this.passwordForm.get('password')?.valueChanges.subscribe(value => {
-      this.updatePasswordValidation(value);
-    });
   }
 
   updatePasswordValidation(password: string): void {

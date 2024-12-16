@@ -13,6 +13,7 @@
             <!-- Dropdown to select currency type -->
             <label for="currency">Seleccione el tipo de divisa</label>
             <select formControlName="currency" id="currency">
+                <option value="" selected disabled>Seleccione una opción</option>
                 <option value="ars">ARS</option>
                 <!-- Add 'USD' option only if the flag is 'all' -->
                 @if (flag === 'all') {

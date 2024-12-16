@@ -22,7 +22,7 @@ export class NewAccountComponent {
   private userSessionService = inject(UserSessionService);
 
   // Variables
-  flag =''; // Flag indicating the type of account selected
+  flag: string =''; // Flag indicating the type of account selected
   user_id: number = this.userSessionService.getUserId();
 
   // Reactive form for creating an account

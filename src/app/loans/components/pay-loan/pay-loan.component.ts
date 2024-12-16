@@ -6,9 +6,9 @@ import { Transaction } from '@transactions/interface/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { TransactionService } from '@transactions/services/transaction.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -76,7 +76,7 @@ export class PayLoanComponent implements OnInit {
     } else {
       this.accountService.getAccountById(Number(account_id)).subscribe({
         next: (account) => {
-          if (account.balance > amount) {
+          if (account.balance >= amount) {
             Swal.fire({
               title: `¿Está seguro que desea pagar el préstamo?`,
               text: 'El monto que va a pagar es de $' + amount + '.',

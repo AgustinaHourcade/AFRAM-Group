@@ -9,5 +9,4 @@ import { RouterLink } from '@angular/router';
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-
 }

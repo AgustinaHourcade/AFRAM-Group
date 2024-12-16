@@ -5,8 +5,8 @@ import { LoanService } from '@loans/service/loan.service';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list-loan',
@@ -37,7 +37,7 @@ export class ListLoanComponent implements OnInit {
             this.loanService.getLoanByAccountId(account.id).subscribe({
               next: (loans: Loan[]) => {
                 const today = new Date();
-                
+
                 loans.forEach(loan => {
                   if (loan.paid !== loan.return_amount && new Date(loan.expiration_date) > today) {
                     this.loans.push(loan);
@@ -53,5 +53,5 @@ export class ListLoanComponent implements OnInit {
       error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
-  
+
 }

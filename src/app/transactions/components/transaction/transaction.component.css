@@ -54,7 +54,7 @@
 .pdf-styles .transaction-amount {
   padding-bottom: 4px;
   border-bottom: 1px solid var(--gray-2);
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 
 .pdf-styles .transaction-date {

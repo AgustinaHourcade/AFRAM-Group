@@ -15,10 +15,10 @@ import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
 export class ChatComponent {
   @ViewChild('chatMessages') private messagesContainer!: ElementRef;
 
-  isOpen = false;
+  isOpen: boolean = false;
   topics: TopicItem[];
   messages: Message[] = [];
-  currentMessage = '';
+  currentMessage: string = '';
   currentTopicFaqs: FaqItem[] = [];
 
   constructor(private faqService: FaqService) {

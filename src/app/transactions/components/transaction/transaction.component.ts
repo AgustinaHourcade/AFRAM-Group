@@ -24,11 +24,10 @@ export class TransactionComponent  implements OnInit{
   @Output() toggle = new EventEmitter<void>();
 
   ownAccountsId: number[] = [];
-  destinatario = '';
-  flag = false;
+  // destinatario = '';
+  flag: boolean = false;
   id ?:number;
 
-  
   ngOnInit(): void {
     this.getUserAccounts();
   }
@@ -36,7 +35,7 @@ export class TransactionComponent  implements OnInit{
   toggleFlag(): void {
     this.toggle.emit(); // Notifica al padre
   }
-  
+
   getUserAccounts(): void {
     this.id = Number(this.userSessionService.getUserId());
 
