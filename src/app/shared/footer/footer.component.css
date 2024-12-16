@@ -15,6 +15,12 @@ footer {
   margin-bottom: 10px;
 }
 
+img {
+  width: 100px;
+  height: 50px;
+  object-fit: contain;
+}
+
 .footer-links {
   color: var(--extra-light-color);
   margin: 0 10px;
@@ -49,13 +55,6 @@ footer {
 .footer-social a:hover {
   color: var(--button-hover);
 }
-
-img {
-  width: 100px;
-  height: 50px;
-  object-fit: contain;
-}
-
 
 @media (max-width: 767px) {
   .footer-links {

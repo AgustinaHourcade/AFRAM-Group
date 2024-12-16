@@ -35,6 +35,8 @@ export class ReceiptComponent implements OnInit{
   lastNameS!: string | undefined ;
   lastNameD!: string | undefined ;
 
+  @Output() cancel = new EventEmitter<void>();
+
   ngOnInit(): void {
     this.getUserById(/*this.id*/)
   }
@@ -92,14 +94,11 @@ export class ReceiptComponent implements OnInit{
             this.typeD = "CC";
           }
         },
-        error: (error) => {
-          console.error('Error el usuario', error);
-        }
+        error: (error) => console.error('Error el usuario', error)
       });
     },
-    error: (error) => {
-      console.error('Error al obtener la cuenta', error);
-    } })
+    error: (error) => console.error('Error al obtener la cuenta', error)
+    })
 
     this.accountService.getAccountById(this.transaction.source_account_id).subscribe({
       next: (account: Account) => {
@@ -114,18 +113,12 @@ export class ReceiptComponent implements OnInit{
               this.typeS = "CC";
             }
           },
-          error: (error) => {
-            console.error('Error el usuario', error);
-          }
+          error: (error) => console.error('Error el usuario', error)
         });
       },
-      error: (error: Error) => {
-        console.error('Error al obtener la cuenta', error);
-      }
+      error: (error: Error) => console.error('Error al obtener la cuenta', error)
   })
-
-}
-  @Output() cancel = new EventEmitter<void>();
+  }
 
   onCancel(): void {
     this.cancel.emit();

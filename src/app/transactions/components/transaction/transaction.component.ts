@@ -13,25 +13,26 @@ import { Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, Ren
   styleUrl: './transaction.component.css'
 })
 export class TransactionComponent  implements OnInit{
+
+  private userSessionService = inject(UserSessionService);
+  private accountService = inject(AccountService);
+
   @Input() transaction!: Transaction;
   @Input() selectedAccountId!: number;
   @Input() isDownloading = false;
+  @Input() isOpen = false;
+  @Output() toggle = new EventEmitter<void>();
 
   ownAccountsId: number[] = [];
   destinatario = '';
   flag = false;
   id ?:number;
 
-  private userSessionService = inject(UserSessionService);
-  private accountService = inject(AccountService);
-
+  
   ngOnInit(): void {
     this.getUserAccounts();
   }
 
-  @Input() isOpen = false;
-  @Output() toggle = new EventEmitter<void>();
-  
   toggleFlag(): void {
     this.toggle.emit(); // Notifica al padre
   }
@@ -40,12 +41,8 @@ export class TransactionComponent  implements OnInit{
     this.id = Number(this.userSessionService.getUserId());
 
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
-      next: (accounts) => {
-        this.ownAccountsId = accounts.map(account => account.id);
-      },
-      error: (error) => {
-        console.error('Error al obtener las cuentas', error);
-      }
+      next: (accounts) => this.ownAccountsId = accounts.map(account => account.id),
+      error: (error) => console.error('Error al obtener las cuentas', error)
     });
   }
 
@@ -57,7 +54,6 @@ export class TransactionComponent  implements OnInit{
   }
 
   constructor(private renderer: Renderer2, private elRef: ElementRef) {}
-
 
   applyPDFStyles(apply: boolean, element: HTMLElement): void {
     if (apply) {

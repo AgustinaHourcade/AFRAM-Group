@@ -14,6 +14,7 @@ import { Router, ActivatedRoute, NavigationEnd, RouterOutlet } from '@angular/ro
 
 export class AppComponent implements OnInit {
   title = 'AframGroup';
+  
   constructor(
     private titleService: Title,
   ) {}

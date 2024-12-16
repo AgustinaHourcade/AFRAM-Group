@@ -16,20 +16,20 @@ import { TransferProgrammingComponent } from "@transactions/components/transfer-
   styleUrl: './transactions-page.component.css'
 })
 export class TransactionsPageComponent implements OnInit{
+  private router = inject(Router);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+
   accounts: Account[] = [];
   isModalOpen = false;
   appTransferModal = false;
   appTransferProgramming = false;
 
+  userId = this.userSessionService.getUserId();
+
   ngOnInit(): void {
     this.cargarCuentas();
   }
-
-  private router = inject(Router);
-  private accountService = inject(AccountService);
-  private userSessionService = inject(UserSessionService);
-
-  userId = this.userSessionService.getUserId();
 
   openModal() {
     this.isModalOpen = true;
@@ -57,14 +57,8 @@ export class TransactionsPageComponent implements OnInit{
 
   cargarCuentas() {
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts.filter(account => account.closing_date === null);
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
+      next: (accounts: Account[]) => this.accounts = accounts.filter(account => account.closing_date === null),
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
-
-  
 }

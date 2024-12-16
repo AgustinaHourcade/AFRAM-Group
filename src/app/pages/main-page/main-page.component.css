@@ -13,23 +13,27 @@ h2 {
   border-bottom: 2px solid var(--secondary-color);
 }
 
-.accounts-div, .cardsFlex {
+.aviso {
+  color: var(--gray-3);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--extra-light-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 4px 6px var(--box-shadow-color);
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.accounts-div,
+.cardsFlex {
   display: flex;
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
-}
-
-.transactions-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.transactions-container {
-  flex-grow: 1;
-  min-height: 315px;
 }
 
 .card {
@@ -46,11 +50,11 @@ h2 {
 }
 
 .credit-card .card {
-  background-image: linear-gradient(to left,var(--cancel-button) 5%, var(--gray-4) 95%);
+  background-image: linear-gradient(to left, var(--cancel-button) 5%, var(--gray-4) 95%);
 }
 
 .debit-card .card {
-  background-image: linear-gradient(to left,var(--secondary-color) 5%,var(--gray-4) 95%);
+  background-image: linear-gradient(to left, var(--secondary-color) 5%, var(--gray-4) 95%);
 }
 
 .card-header {
@@ -93,13 +97,38 @@ h2 {
 .card-number {
   letter-spacing: 2px;
   /* color: var(--white); */
-
 }
 
 .expiry-date {
   margin-left: 5px;
   /* color: var(--white); */
+}
 
+.tipo {
+  grid-column: 1 / -1;
+  display: grid;
+  align-items: end;
+  font-size: 0.875rem;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+#accountSelect {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: var(--white);
+  outline: none;
+}
+
+.transactions-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.transactions-container {
+  flex-grow: 1;
+  min-height: 315px;
 }
 
 .pagination-wrapper {
@@ -145,36 +174,6 @@ h2 {
   font-weight: bold;
 }
 
-.aviso {
-  color: var(--gray-3);
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 20px;
-  padding: 15px;
-  background-color: var(--extra-light-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0px 4px 6px var(--box-shadow-color);
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.tipo {
-  grid-column: 1 / -1;
-  display: grid;
-  align-items: end;
-  font-size: 0.875rem;
-  color: var(--white);
-  text-transform: uppercase;
-}
-
-#accountSelect {
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: var(--white);
-  outline: none;
-}
-
 /* Responsividad */
 @media (max-width: 1024px) {
   main {
@@ -183,7 +182,9 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .accounts-div, .cardsFlex {
+
+  .accounts-div,
+  .cardsFlex {
     flex-direction: column;
     gap: 10px;
     justify-content: center;

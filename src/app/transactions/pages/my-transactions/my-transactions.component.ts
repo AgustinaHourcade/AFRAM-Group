@@ -18,6 +18,11 @@ import { Observable, catchError, of } from 'rxjs';
   styleUrl: './my-transactions.component.css',
 })
 export class MyTransactionsComponent implements OnInit {
+  private changeDetector = inject(ChangeDetectorRef);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+  private transactionService = inject(TransactionService);
+
   userId = 0;
   pageSize = 4 ;
   accounts: Account[] = [];
@@ -26,12 +31,20 @@ export class MyTransactionsComponent implements OnInit {
   pendingTransfers: Transaction[] = [];
   selectedAccountId !: number;
   currentPagePending = 1;
+  openedTransactionId: number | undefined = undefined;
 
-  private changeDetector = inject(ChangeDetectorRef);
-  private accountService = inject(AccountService);
-  private userSessionService = inject(UserSessionService);
-  private transactionService = inject(TransactionService);
+  ngOnInit(): void {
+    this.userId = this.userSessionService.getUserId();
 
+    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
+      next: (accounts: Account[]) => {
+        this.accounts = accounts.filter(account => account.closing_date === null);
+      },
+      error: (error: Error) => {
+        console.error('Error fetching accounts:', error);
+      },
+    });
+  }
 
   get totalPages(): number {
     return Math.ceil(this.transfers.length / this.pageSize);
@@ -65,26 +78,10 @@ export class MyTransactionsComponent implements OnInit {
     }
   }
 
-
-  ngOnInit(): void {
-    this.userId = this.userSessionService.getUserId();
-
-    this.accountService.getAccountsByIdentifier(this.userId).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts.filter(account => account.closing_date === null);
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
-    });
-  }
   private loadTransactions(accountId: number): Observable<Transaction[]> {
     return this.transactionService.getTransactionsByAccountId(accountId).pipe(
       catchError((error: Error) => {
-        console.error(
-          `Error loading transactions for account ${accountId}:`,
-          error
-        );
+        console.error(`Error loading transactions for account ${accountId}:`, error);
         return of([]);
       })
     );
@@ -110,13 +107,10 @@ export class MyTransactionsComponent implements OnInit {
         this.changeDetector.detectChanges();
       }
       ,
-      error: (error: Error) => {
-        console.error(`Error loading transactions for account ${this.selectedAccountId}:`, error);
-      },
+      error: (error: Error) => console.error(`Error loading transactions for account ${this.selectedAccountId}:`, error)
     });
   }
 
-  openedTransactionId: number | undefined = undefined;
 
   toggleReceipt(transactionId: number|undefined): void {
     this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;

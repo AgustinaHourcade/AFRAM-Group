@@ -16,11 +16,19 @@
   background-color: var(--white);
 }
 
+.container {
+  transition: transform 0.6s ease-in-out, background-color 0.6s ease-in-out;
+}
+
 .left-panel {
   width: 50%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.left-panel {
+  transition: background-image 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
 
 .left-panel.signup {
@@ -39,8 +47,24 @@
   flex-direction: row;
 }
 
-img {
-  width: 150px;
+/* Cuando el formulario es visible */
+.container-login .right-panel h2,
+.container-login .right-panel img,
+.container-login .right-panel form,
+.container-signup .right-panel h2,
+.container-signup .right-panel img,
+.container-signup .right-panel form {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ajuste en la dirección del contenido */
+.container.container-signup {
+  transform: translateX(-50px);
+}
+
+.container.container-login {
+  transform: translateX(0);
 }
 
 .right-panel {
@@ -49,6 +73,22 @@ img {
   grid-template-rows: 80px 430px 80px;
   justify-items: center;
   align-self: center;
+}
+
+.right-panel {
+  transition: opacity 0.6s ease-in-out;
+}
+
+.right-panel h2,
+.right-panel img,
+.right-panel form {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+img {
+  width: 150px;
 }
 
 .form-container {
@@ -82,56 +122,14 @@ img {
   outline: none;
 }
 
-.toggle:hover, .toggle-2:hover {
+/* .toggle:hover, .toggle-2:hover {
   background-color: #2196f3;
   color: #fff;
 }
 
 .toggle:focus, .toggle-2:focus {
   outline: none;
-}
-
-.container {
-  transition: transform 0.6s ease-in-out, background-color 0.6s ease-in-out;
-}
-
-/* Panel izquierdo */
-.left-panel {
-  transition: background-image 0.6s ease-in-out, transform 0.6s ease-in-out;
-}
-
-/* Ajuste en la dirección del contenido */
-.container.container-signup {
-  transform: translateX(-50px);
-}
-
-.container.container-login {
-  transform: translateX(0);
-}
-
-/* Transición de opacidad para los textos e imágenes */
-.right-panel {
-  transition: opacity 0.6s ease-in-out;
-}
-
-.right-panel h2,
-.right-panel img,
-.right-panel form {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-}
-
-/* Cuando el formulario es visible */
-.container-login .right-panel h2,
-.container-login .right-panel img,
-.container-login .right-panel form,
-.container-signup .right-panel h2,
-.container-signup .right-panel img,
-.container-signup .right-panel form {
-  opacity: 1;
-  transform: translateY(0);
-}
+} */
 
 /* Botón de alternar */
 .toggle {
@@ -141,6 +139,7 @@ img {
 .toggle:hover {
   transform: scale(1.05);
 }
+
 
 /* Pantallas de hasta 1024px */
 @media (max-width: 1024px) {

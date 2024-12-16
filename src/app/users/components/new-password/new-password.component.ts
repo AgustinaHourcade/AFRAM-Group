@@ -23,6 +23,22 @@ export class NewPasswordComponent {
   showPassword1: boolean = false;
   showPassword2: boolean = false;
 
+  formularioToken = this.fb.group({
+    token1: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
+    token2: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
+    token3: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
+    token4: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
+    token5: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
+    token6: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
+  }) as FormGroup;
+
+  formularioContra = this.fb.group(
+    {
+      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
+      confirm_password: ['', [Validators.required]]
+    }, { validators: this.matchPasswords }
+  );
+
   // Funcion para que la contraseña contenga una Mayuscula, Minuscila y algun numero.
   passwordValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
@@ -41,22 +57,6 @@ export class NewPasswordComponent {
 
     return password === confirmPassword ? null : { matchPasswords: true };
   }
-
-  formularioToken = this.fb.group({
-    token1: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
-    token2: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
-    token3: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
-    token4: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
-    token5: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
-    token6: new FormControl<string>('', [Validators.required, Validators.maxLength(1)]),
-  }) as FormGroup;
-
-  formularioContra = this.fb.group(
-    {
-      hashed_password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator.bind(this)]],
-      confirm_password: ['', [Validators.required]]
-    }, { validators: this.matchPasswords }
-  );
 
   moveFocus(event: any, nextInputId: string) {
     if (event.target.value.length === 1) {
@@ -103,7 +103,7 @@ export class NewPasswordComponent {
 
     const token = token1 + token2 + token3 + token4 + token5 + token6;
     this.userService.getUserIdByToken(Number(token)).subscribe({
-      next: ()=> this.flag=true,
+      next: ()=> this.flag = true,
       error: (err: Error) =>{
         Swal.fire({
           icon: "error",
@@ -144,7 +144,8 @@ export class NewPasswordComponent {
                   })
                 }
                 this.route.navigate(['/auth']);
-              },error: (e: Error) => console.log(e.message)
+              },
+              error: (e: Error) => console.log(e.message)
             })
           },
           error: (e: Error) =>{

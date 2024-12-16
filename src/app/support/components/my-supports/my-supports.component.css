@@ -1,3 +1,8 @@
+.new-thread-button {
+  text-align: end;
+  margin: 20px;
+}
+
 .support-container {
   padding: 20px;
   background-color: var(--white);
@@ -65,11 +70,6 @@
 
 .thread-item .bi-patch-exclamation:hover {
   transform: scale(1.2);
-}
-
-.new-thread-button {
-  text-align: end;
-  margin: 20px;
 }
 
 .page {

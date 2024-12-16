@@ -69,7 +69,6 @@ export class RecoverPasswordComponent {
         });
       },
       error: (e: Error) => {
-        console.log(e.message);
         const responseTime = Date.now() - startTime;
         const adjustedTime = Math.max(2000, responseTime);
 

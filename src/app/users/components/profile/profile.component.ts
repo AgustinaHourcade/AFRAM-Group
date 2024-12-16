@@ -15,19 +15,18 @@ import { Component, inject, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  private sesionService = inject(UserSessionService);
+  private userService = inject(UserService);
+  private addressService = inject(AddressService);
+
   user ?: User;
   type ?:string;
   userId = 0;
   address ?: Address;
 
-  private sesionService = inject(UserSessionService);
-  private userService = inject(UserService);
-  private addressService = inject(AddressService);
-
   ngOnInit(): void {
     this.userId = this.sesionService.getUserId();
     this.type = this.sesionService.getUserType() as string;
-    console.log(this.type);
 
     if (this.userId !== undefined) {
       this.userService.getUser(this.userId).subscribe({
@@ -36,20 +35,14 @@ export class ProfileComponent implements OnInit {
 
           if (this.user.id !== undefined) {
             this.addressService.getAddressByUserId(this.user.id).subscribe({
-              next: (address) => {
-                this.address = address;
-              },
-              error: (e: Error) => {
-                console.log(e.message);
-              }
+              next: (address) => this.address = address,
+              error: (e: Error) => console.log(e.message),
             });
           } else {
             console.log('Error: El ID de usuario es undefined');
           }
         },
-        error: (e: Error) => {
-          console.log(e.message);
-        }
+        error: (e: Error) => console.log(e.message)
       });
     } else {
       console.log('Error: El ID de sesión es undefined');

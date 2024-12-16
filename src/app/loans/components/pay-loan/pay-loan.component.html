@@ -4,27 +4,25 @@
 <form [formGroup]="formulario" (ngSubmit)="updatePaid()">
   <div>
     <div>
-          <h2>Pagar préstamo</h2>
-          @if (loan) {
-              <h3>Total de deuda: {{loan?.return_amount - loan?.paid | currency:'ARS':'symbol-narrow':'1.2-2'}}</h3>
-              <h3>Fecha de vencimiento: {{loan.expiration_date | date:'dd/MM/yyyy':'es-AR'}}</h3>
-            }
+      <h2>Pagar préstamo</h2>
+      @if (loan) {
+        <h3>Total de deuda: {{loan?.return_amount - loan?.paid | currency:'ARS':'symbol-narrow':'1.2-2'}}</h3>
+        <h3>Fecha de vencimiento: {{loan.expiration_date | date:'dd/MM/yyyy':'es-AR'}}</h3>
+      }
 
     </div>
     <label for="account_id">Seleccione una cuenta para pagar: </label>
     <select name="account_id" id="account_id" formControlName="account_id">
       @for (item of accounts; track $index) {
         @if (!item.closing_date && item.currency === 'ars') {
-            <option [value]="item.id">
-              {{ item.id }} - {{ item.balance }}
-            </option>
+          <option [value]="item.id">{{ item.id }} - {{ item.balance }}</option>
         }
     }
     </select>
 
     @if(formulario.controls['account_id'].touched &&
     formulario.controls['account_id'].getError('required')){
-    <p>El ID de cuenta es obligatorio.</p>
+      <p>El ID de cuenta es obligatorio.</p>
     }
   </div>
 

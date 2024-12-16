@@ -8,8 +8,8 @@
 <form [formGroup]="formulario" (ngSubmit)="createLoan()">
   <div>
     <div>
-          <h2>Solicitar préstamo</h2>
-          <h3>Tasa de interés: {{rate.loan_interest_rate  * 30}}% mensual</h3>
+      <h2>Solicitar préstamo</h2>
+      <h3>Tasa de interés: {{rate.loan_interest_rate  * 30}}% mensual</h3>
     </div>
     <label for="account_id">Seleccione una cuenta:</label>
     <select name="account_id" id="account_id" formControlName="account_id">

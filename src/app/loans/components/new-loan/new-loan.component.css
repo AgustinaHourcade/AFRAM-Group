@@ -28,6 +28,14 @@ select, input {
   margin-top: 0;
 }
 
+.ng-invalid.ng-touched {
+  border-color: var(--cancel-button);
+}
+
+.ng-valid.ng-touched {
+  border-color: var(--accent-color);
+}
+
 .error {
   color: var(--cancel-button);
   /* font-size: 14px; */
@@ -35,12 +43,4 @@ select, input {
 
 button {
   width: 100%;
-}
-
-.ng-invalid.ng-touched {
-  border-color: var(--cancel-button);
-}
-
-.ng-valid.ng-touched {
-  border-color: var(--accent-color);
 }

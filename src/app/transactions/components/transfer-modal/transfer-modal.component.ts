@@ -21,10 +21,21 @@ import { Component, EventEmitter, inject, Output, OnInit, Input } from '@angular
   styleUrl: './transfer-modal.component.css',
 })
 export class TransferModalComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private userService = inject(UserService);
+  private emailService = inject(EmailService);
+  private accountService = inject(AccountService);
+  private userSessionService = inject(UserSessionService);
+  private transactionService = inject(TransactionService);
+  private montoTransferencia: number | null | undefined = 0
+  private notificationService = inject(NotificationsService);
+
   @Output() close = new EventEmitter<void>();
   @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
   @Input() data: any;
   @Output() transactionConfirmed = new EventEmitter<Transaction>();
+
   id !: number;
   flag = false;
   user !: User;
@@ -35,16 +46,6 @@ export class TransferModalComponent implements OnInit {
   userDestino !: User;
   errorMessage = '';
   transactionData !: Transaction;
-
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private userService = inject(UserService);
-  private emailService = inject(EmailService);
-  private accountService = inject(AccountService);
-  private userSessionService = inject(UserSessionService);
-  private transactionService = inject(TransactionService);
-  private montoTransferencia: number | null | undefined = 0
-  private notificationService = inject(NotificationsService);
 
   userId = this.userSessionService.getUserId();
 
@@ -61,11 +62,8 @@ export class TransferModalComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.userSessionService.getUserId();
     this.userService.getUser(this.id).subscribe({
-      next: (user) => {
-          this.user = user;
-      },error: (e : Error) =>{
-        console.log(e.message);
-      }
+      next: (user) =>  this.user = user,
+      error: (e : Error) => console.log(e.message)
     })
 
     this.cargarCuentas();
@@ -74,7 +72,6 @@ export class TransferModalComponent implements OnInit {
   onClose() {
     this.close.emit();
   }
-
 
   searchAccount() {
     const searchType = this.newRecipientForm.get('searchType')?.value;
@@ -100,16 +97,12 @@ export class TransferModalComponent implements OnInit {
                       this.userDestino = user;
                       this.flag = true;
                     },
-                    error: (error: Error) => {
-                      console.log('Error al obtener el usuario:', error);
-                    },
+                    error: (error: Error) => console.log('Error al obtener el usuario:', error)
                   });
                 }
                 setTimeout(() => this.scrollToBottom(), 100);
               },
-              error: (error: Error) => {
-              console.log('Error al obtener la cuenta por ID:', error);
-            },
+              error: (error: Error) => console.log('Error al obtener la cuenta por ID:', error)
           });
         },
         error: () => {
@@ -144,16 +137,12 @@ export class TransferModalComponent implements OnInit {
                       this.userDestino = user;
                       this.flag = true;
                     },
-                    error: (error: Error) => {
-                      console.log('Error al obtener el usuario:', error);
-                    },
+                    error: (error: Error) => console.log('Error al obtener el usuario:', error)
                   });
                 }
                 setTimeout(() => this.scrollToBottom(), 100);
             },
-            error: (error: Error) => {
-              console.log('Error al obtener la cuenta por ID:', error);
-            },
+            error: (error: Error) => console.log('Error al obtener la cuenta por ID:', error)
           });
         },
         error: () => {
@@ -174,20 +163,14 @@ export class TransferModalComponent implements OnInit {
 
   cargarCuentas() {
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts.filter(account => account.closing_date == null);
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
+      next: (accounts: Account[]) => this.accounts = accounts.filter(account => account.closing_date == null),
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
 
   realizarTransfer() {
     const selectedAccountId = this.amount.get('selectedAccountId')?.value;
-    const selectedAccount = this.accounts.find(
-      (account) => account.id === Number(selectedAccountId)
-    );
+    const selectedAccount = this.accounts.find((account) => account.id === Number(selectedAccountId));
     this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
     let destinationAccount! : Account;
 
@@ -266,41 +249,22 @@ export class TransferModalComponent implements OnInit {
             this.accountService.getAccountById(transaction.destination_account_id).subscribe({
               next: (account) =>{
                 destinationAccount = account
-                this.emailService.sendTransferEmail(
-                    this.user.email as string,
-                    this.montoTransferencia!,
-                    selectedAccount.user_id,
-                    destinationAccount.user_id
-                ).subscribe({
-                    next: () => {
-                      console.log('Correo de notificación enviado')
-                    }, 
-                      error: (error: Error) => {
-                        console.log('Error al enviar el correo:', error)
-                      }
-                  });
-              },error: (e: Error) =>{
-                console.log(e.message);
-              }
+                this.emailService.sendTransferEmail(this.user.email as string, this.montoTransferencia!, selectedAccount.user_id, destinationAccount.user_id).subscribe({
+                  error: (error: Error) => console.log('Error al enviar el correo:', error)
+                });
+              },
+              error: (e: Error) => console.log(e.message)
             })
-
-            
           },
           error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
         });
 
         const newAmount = -1 * (this.montoTransferencia as number);
         this.accountService.updateBalance(newAmount, selectedAccount.id).subscribe({
-          next: (flag) => {
-            if (flag) console.log('Saldo actualizado en la cuenta de origen');
-          },
           error: (e: Error) => console.log(e.message),
         });
 
         this.accountService.updateBalance(this.montoTransferencia as number, this.account?.id).subscribe({
-          next: (flag) => {
-            if (flag) console.log('Saldo actualizado en la cuenta de destino');
-          },
           error: (e: Error) => console.log(e.message),
         });
 
@@ -319,24 +283,13 @@ export class TransferModalComponent implements OnInit {
         }
         this.postNotification(notification)
       },
-      error: (e: Error)=>{
-        console.log(e.message);
-      }
+      error: (e: Error)=> console.log(e.message)
     })
-
-
   }
 
   postNotification(notification: any){
     this.notificationService.postNotification(notification).subscribe({
-      next: (flag) =>{
-        if(flag){
-          console.log('Notificacion enviada');
-        }
-      },
-      error: (e: Error)=>{
-        console.log(e.message);
-      }
+      error: (e: Error)=> console.log(e.message)
     })
   }
 
@@ -346,6 +299,4 @@ export class TransferModalComponent implements OnInit {
       lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }
-
-
 }

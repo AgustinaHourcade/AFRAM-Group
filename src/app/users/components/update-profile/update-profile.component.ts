@@ -17,14 +17,14 @@ import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 })
 export class UpdateProfileComponent implements OnInit {
 
-  @Output() userPhone = new EventEmitter<string>();
-
   private fb = inject(FormBuilder);
   private route = inject(Router);
   private userService = inject(UserService);
   private sessionService = inject(UserSessionService);
   private addressService = inject(AddressService);
-  
+
+  @Output() userPhone = new EventEmitter<string>();
+
   id = 0;
   type !:string;
   flag = false;
@@ -32,12 +32,17 @@ export class UpdateProfileComponent implements OnInit {
   user?: User;
   address?: Address;
 
-  preventNumbers(event: KeyboardEvent): void {
-    const regex = /[0-9]/;
-    if (regex.test(event.key)) {
-      event.preventDefault();
-    }
-  }
+  formulario = this.fb.nonNullable.group({
+    email: ['', [Validators.required, Validators.email]],
+    phone: [0, [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
+    street: ['', [Validators.required]],
+    address_number: [ 0, [Validators.required, Validators.pattern('^[0-9]{1,5}$')],],
+    floor: [''],
+    apartment: [''],
+    city: ['', [Validators.required]],
+    postal_code: [0, [Validators.required]],
+    country: ['', [Validators.required]],
+  });
 
   ngOnInit(): void {
     this.id = this.sessionService.getUserId();
@@ -55,23 +60,16 @@ export class UpdateProfileComponent implements OnInit {
           },
         });
       },
-      error: (e: Error) => {
-        console.log(e.message);
-      },
+      error: (e: Error) => console.log(e.message)
     });
   }
 
-  formulario = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    phone: [0, [Validators.required, Validators.pattern('^[0-9]{8,15}$')]],
-    street: ['', [Validators.required]],
-    address_number: [ 0, [Validators.required, Validators.pattern('^[0-9]{1,5}$')],],
-    floor: [''],
-    apartment: [''],
-    city: ['', [Validators.required]],
-    postal_code: [0, [Validators.required]],
-    country: ['', [Validators.required]],
-  });
+  preventNumbers(event: KeyboardEvent): void {
+    const regex = /[0-9]/;
+    if (regex.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
   setUser(user: User | undefined, address: Address) {
     if (user!.email?.includes('@example')) {
@@ -106,12 +104,8 @@ export class UpdateProfileComponent implements OnInit {
     };
 
     this.addressService.updateAddress(data, this.id).subscribe({
-      next: (data) => {
-        this.address = data;
-      },
-      error: (err: Error) => {
-        console.log(err.message);
-      },
+      next: (data) => this.address = data,
+      error: (err: Error) => console.log(err.message)
     });
   }
 
@@ -137,9 +131,7 @@ export class UpdateProfileComponent implements OnInit {
           this.route.navigate(['/admin-profile']);
         }
       },
-      error: (err: Error) => {
-        console.log('Error al actualizar los datos.', err.message);
-      },
+      error: (err: Error) => console.log('Error al actualizar los datos.', err.message)
     });
   }
 }

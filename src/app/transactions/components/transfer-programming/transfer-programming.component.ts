@@ -21,50 +21,39 @@ import { Component, inject, OnInit, Input, Output, EventEmitter } from '@angular
 })
 export class TransferProgrammingComponent implements OnInit {
 
-  @Output() close = new EventEmitter<void>();
-  @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
-  @Input() data: any;
-  @Output() transactionConfirmed = new EventEmitter<Transaction>();
-  id !: number;
-  flag = false;
-  user!: User;
-  origen!: Account;
-  account: any = null;
-  confirmar = false;
-  accounts!: Account[];
-  openModal = false;
-  userDestino !: User;
-  fechaValida = false;
-  errorMessage = '';
-
   private router = inject(Router);
   private userSessionService = inject(UserSessionService);
   private userService = inject(UserService);
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
-  private emailService = inject(EmailService);
+  // private emailService = inject(EmailService);
   private montoTransferencia: number | null | undefined = 0
   private fb = inject(FormBuilder);
 
-  showModal = false;
-  minDate = '';
-  maxDate = '';
-  currentDate = Date.now();
-  dateFromTimestamp: Date = new Date(this.currentDate);
-  transferDate !: Date;
+  @Output() close = new EventEmitter<void>();
+  @Output() confirm = new EventEmitter<{ account: Account; user: User }>();
+  @Input() data: any;
+  @Output() transactionConfirmed = new EventEmitter<Transaction>();
 
-  ngOnInit(): void {
-    this.id = this.userSessionService.getUserId();
-    this.userService.getUser(this.id).subscribe({
-      next: (user) => {
-          this.user = user;
-      },error: (e : Error) =>{
-        console.log(e.message);
-      }
-    })
-    this.cargarCuentas();
-    this.setDateRange();
-  }
+  id !: number;
+  flag: boolean = false;
+  user!: User;
+  origen!: Account;
+  minDate: string = '';
+  maxDate: string = '';
+  account: any = null;
+  showModal: boolean = false;
+  confirmar: boolean = false;
+  accounts!: Account[];
+  openModal: boolean = false;
+  modalData: Transaction | null = null;
+  userDestino!: User;
+  currentDate = Date.now();
+  fechaValida: boolean = false;
+  errorMessage: string = '';
+  transferDate!: Date;
+  dateFromTimestamp: Date = new Date(this.currentDate);
+
   newRecipientForm = this.fb.group({
     searchType: ['alias', Validators.required],
     accountSearch: ['', Validators.required],
@@ -79,111 +68,120 @@ export class TransferProgrammingComponent implements OnInit {
   transaction_date: ['', [Validators.required]],
   });
 
-  modalData: Transaction | null = null;
-    realizarTransfer() {
-      const selectedAccountId = this.amount.get('selectedAccountId')?.value;
-      const selectedAccount = this.accounts.find(
-        (account) => account.id === Number(selectedAccountId)
-      );
-      this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
-      if (selectedAccount?.id == this.account?.id) {
-        Swal.fire({
-          text: 'No puede hacer una transferencia a la cuenta de origen.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8',
-        });
-        return;
-      }
+  ngOnInit(): void {
+    this.id = this.userSessionService.getUserId();
 
-      if (!selectedAccount) {
-        Swal.fire({
-          text: 'Seleccione una cuenta de origen.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8',
-        });
-        return;
-      }
+    this.userService.getUser(this.id).subscribe({
+      next: (user) => this.user = user,
+      error: (e : Error) => console.log(e.message)
+    })
 
-      if (this.montoTransferencia! < 1) {
-        Swal.fire({
-          text: 'El monto mínimo para transferir es de $1.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8',
-        });
-        return;
-      }
+    this.cargarCuentas();
+    this.setDateRange();
+  }
 
-      if (this.montoTransferencia! > selectedAccount.balance) {
-        Swal.fire({
-          text: 'Saldo insuficiente',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8',
-        });
-        this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
-        return;
-      }
 
-      const transaction_date_value = this.dateForm.get('transaction_date')?.value;
-      console.log(transaction_date_value);
-
-      if (!transaction_date_value) {
-        Swal.fire({
-          text: 'Por favor, seleccione una fecha de transferencia.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          confirmButtonColor: '#00b4d8',
-        });
-        return;
-      }
-
+  realizarTransfer() {
+    const selectedAccountId = this.amount.get('selectedAccountId')?.value;
+    const selectedAccount = this.accounts.find((account) => account.id === Number(selectedAccountId));
+    this.montoTransferencia = this.amount.get('amountToTransfer')?.value;
+    if (selectedAccount?.id == this.account?.id) {
       Swal.fire({
-        text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id},
-        para el dia ${transaction_date_value}?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, transferir',
-        cancelButtonText: 'Cancelar',
+        text: 'No puede hacer una transferencia a la cuenta de origen.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
         confirmButtonColor: '#00b4d8',
-        cancelButtonColor: "#e63946"
-      }).then((result) => {
-        if (result.isConfirmed) {
-      const transaction_date = new Date(transaction_date_value);
-      console.log(transaction_date);
-
-      const transactionData = {
-        amount: this.montoTransferencia!,
-        source_account_id: selectedAccount.id,
-        destination_account_id: this.account?.id,
-        transaction_type: 'transfer',
-        transaction_date: transaction_date_value,
-        is_paid: 'no',
-      };
-
-      const transaction: Transaction = {
-        ...transactionData,
-        transaction_date: new Date(transactionData.transaction_date),
-      };
-
-      this.transactionConfirmed.emit(transaction);
-
-      this.transactionService.postFutureTransaction(transaction).subscribe({
-        next: () => {
-          Swal.fire({
-            text: '¡Transferencia programada!',
-            icon: 'success',
-            confirmButtonText: 'Aceptar',
-            confirmButtonColor: '#00b4d8',
-          });
-          this.router.navigate(['my-transactions']);
-        },
-        error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
       });
+      return;
     }
-  })};
+
+    if (!selectedAccount) {
+      Swal.fire({
+        text: 'Seleccione una cuenta de origen.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8',
+      });
+      return;
+    }
+
+    if (this.montoTransferencia! < 1) {
+      Swal.fire({
+        text: 'El monto mínimo para transferir es de $1.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8',
+      });
+      return;
+    }
+
+    if (this.montoTransferencia! > selectedAccount.balance) {
+      Swal.fire({
+        text: 'Saldo insuficiente',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8',
+      });
+      this.errorMessage = 'No tienes suficiente saldo para realizar la transferencia.';
+      return;
+    }
+
+    const transaction_date_value = this.dateForm.get('transaction_date')?.value;
+
+    if (!transaction_date_value) {
+      Swal.fire({
+        text: 'Por favor, seleccione una fecha de transferencia.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#00b4d8',
+      });
+      return;
+    }
+
+    Swal.fire({
+      text: `¿Está seguro de programar una transferencia de $${this.montoTransferencia} desde la cuenta ${selectedAccount.id},
+      para el dia ${transaction_date_value}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, transferir',
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#00b4d8',
+      cancelButtonColor: "#e63946"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const transaction_date = new Date(transaction_date_value);
+
+        const transactionData = {
+          amount: this.montoTransferencia!,
+          source_account_id: selectedAccount.id,
+          destination_account_id: this.account?.id,
+          transaction_type: 'transfer',
+          transaction_date: transaction_date_value,
+          is_paid: 'no',
+        };
+
+        const transaction: Transaction = {
+          ...transactionData,
+          transaction_date: new Date(transactionData.transaction_date),
+        };
+
+        this.transactionConfirmed.emit(transaction);
+
+        this.transactionService.postFutureTransaction(transaction).subscribe({
+          next: () => {
+            Swal.fire({
+              text: '¡Transferencia programada!',
+              icon: 'success',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#00b4d8',
+            });
+            this.router.navigate(['my-transactions']);
+          },
+          error: (e: Error) => console.log('Error al realizar la transacción:', e.message),
+        });
+      }
+    }
+  )};
 
   setDateRange() {
     const today = new Date();
@@ -211,21 +209,17 @@ export class TransferProgrammingComponent implements OnInit {
                   icon: 'error'
                 })
               }
-                if (this.account && this.account.user_id) {
-                  this.userService.getUser(this.account.user_id).subscribe({
-                    next: (user) => {
-                      this.userDestino = user;
-                      this.flag = true;
-                    },
-                    error: (error: Error) => {
-                      console.log('Error al obtener el usuario:', error);
-                    },
-                  });
-                }
+              if (this.account && this.account.user_id) {
+                this.userService.getUser(this.account.user_id).subscribe({
+                  next: (user) => {
+                    this.userDestino = user;
+                    this.flag = true;
+                  },
+                  error: (error: Error) => console.log('Error al obtener el usuario:', error)
+                });
+              }
               },
-              error: (error: Error) => {
-              console.log('Error al obtener la cuenta por ID:', error);
-            },
+              error: (error: Error) => console.log('Error al obtener la cuenta por ID:', error)
           });
         },
         error: () => {
@@ -259,15 +253,11 @@ export class TransferProgrammingComponent implements OnInit {
                       this.userDestino = user;
                       this.flag = true;
                     },
-                    error: (error: Error) => {
-                      console.log('Error al obtener el usuario:', error);
-                    },
+                    error: (error: Error) => console.log('Error al obtener el usuario:', error)
                   });
                 }
             },
-            error: (error: Error) => {
-              console.log('Error al obtener la cuenta por ID:', error);
-            },
+            error: (error: Error) => console.log('Error al obtener la cuenta por ID:', error)
           });
         },
         error: () => {
@@ -283,17 +273,12 @@ export class TransferProgrammingComponent implements OnInit {
         },
       });
     }
-
   }
 
   cargarCuentas() {
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
-      next: (accounts: Account[]) => {
-        this.accounts = accounts.filter(account => account.closing_date == null);
-      },
-      error: (error: Error) => {
-        console.error('Error fetching accounts:', error);
-      },
+      next: (accounts: Account[]) => this.accounts = accounts.filter(account => account.closing_date == null),
+      error: (error: Error) => console.error('Error fetching accounts:', error)
     });
   }
 
@@ -310,7 +295,4 @@ export class TransferProgrammingComponent implements OnInit {
       lastElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   }
-
-
-
 }

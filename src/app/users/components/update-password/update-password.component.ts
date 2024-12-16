@@ -23,17 +23,12 @@ export class UpdatePasswordComponent implements OnInit {
   id = 0;
   user !: User;
   type ?: string;
-  hasNumber = false;
-  showPassword1 = false;
-  showPassword2 = false;
-  showPassword3 = false;
-  hasUpperCase = false;
-  isLongEnough = false;
-
-  ngOnInit(): void {
-    this.id = this.userSessionService.getUserId();
-    this.type = this.userSessionService.getUserType() as string;
-  }
+  hasNumber: boolean = false;
+  showPassword1: boolean = false;
+  showPassword2: boolean = false;
+  showPassword3: boolean = false;
+  hasUpperCase: boolean = false;
+  isLongEnough: boolean = false;
 
   formularioContra = this.fb.group(
     {
@@ -42,6 +37,11 @@ export class UpdatePasswordComponent implements OnInit {
       confirm_password: ['', [Validators.required]]
     }, { validators: this.matchPasswords }
   );
+
+  ngOnInit(): void {
+    this.id = this.userSessionService.getUserId();
+    this.type = this.userSessionService.getUserType() as string;
+  }
 
   // Function to validate the password
   validatePassword() {
