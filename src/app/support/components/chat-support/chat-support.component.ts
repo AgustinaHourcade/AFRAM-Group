@@ -52,7 +52,7 @@ export class ChatSupportComponent implements OnInit{
           this.thread = thread;
         }
       },
-      error: (e: Error) => this.router.navigate(['/not-found'])
+      error: () => this.router.navigate(['/not-found'])
     })
   }
 

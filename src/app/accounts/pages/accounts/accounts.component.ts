@@ -1,12 +1,16 @@
 import Swal from 'sweetalert2';
+import { Loan } from '@loans/interface/loan';
 import { Account } from '@accounts/interface/account.interface';
+import { FixedTerm } from '@fixedTerms/interface/fixed-term';
+import { LoanService } from '@loans/service/loan.service';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject, OnInit } from '@angular/core';
+import { FixedTermService } from '@fixedTerms/service/fixed-term.service';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { Router, RouterModule } from '@angular/router';
 import { CardAccountComponent } from '@accounts/components/card-account/card-account.component';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-accounts',
@@ -22,10 +26,14 @@ export class AccountsComponent implements OnInit {
   private router = inject(Router);
   private accountService = inject(AccountService);
   private userSessionService = inject(UserSessionService);
+  private fixedTermService = inject(FixedTermService);
+  private loanService = inject(LoanService);
 
   // Variables
   userId: number = 0;
   accounts: Account[] = [];
+  fixedTerms: FixedTerm[] = [];
+  loans: Loan[] = [];
 
   ngOnInit(): void {
     // Get the user ID from session
@@ -44,13 +52,23 @@ export class AccountsComponent implements OnInit {
 
     this.accountService.getAccountById(id).subscribe({
       next: (account) =>{
+        this.loadFixedTerms(account.id);
+        this.loadLoans(account.id);
+        
+        if(account.balance >= 1){
+          Swal.fire({
+            title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
+            icon: "error"
+          });
+        }
+
         // Show error if account balance is greater than or equal to $1
         if(account.balance >= 1){
           Swal.fire({
             title: "El saldo de la cuenta a dar de baja debe ser menor a $1.",
             icon: "error"
           });
-        }else{
+        }
           // Confirm deactivation
           Swal.fire({
             title: `¿Está seguro que desea dar de baja la cuenta?`,
@@ -76,9 +94,23 @@ export class AccountsComponent implements OnInit {
               });
             }
           });
-        }
       },
       error: (error: Error) => console.log(error.message)
     })
   }
+
+  loadFixedTerms(id: number){
+    this.fixedTermService.getFixedTermsByAccountId(id).subscribe({
+      next: (fixedTerm) =>  this.fixedTerms = fixedTerm,
+      error: (err: Error) => console.log(err.message)
+    })
+  }
+
+  loadLoans(id : number){
+    this.loanService.getLoanByAccountId(id).subscribe({
+      next: (loans) => this.loans = loans,
+      error: (err: Error) => console.log(err.message)
+    })
+  }
+
 }

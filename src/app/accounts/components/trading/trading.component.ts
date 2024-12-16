@@ -43,8 +43,16 @@ export class TradingComponent implements OnInit {
     'source_account': ['', Validators.required],
     'destination_account': ['', Validators.required]
   })
-
+  
   // Functions
+  ngOnInit(): void {
+    this.getAccounts()
+  
+    this.dolarService.getDolarOficial().subscribe({
+      next: (cotizacion) => this.dolar = cotizacion,
+      error: (e: Error) => console.log(e.message)
+    })
+  }
   // Fetch accounts from the service
   getAccounts(){
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
@@ -70,7 +78,7 @@ export class TradingComponent implements OnInit {
   updateCalculatedARSbuy(amount: string | undefined) {
     const amountNum = parseFloat(amount as string);
     if (!isNaN(amountNum) && this.dolar?.compra) {
-      this.calculatedValueARSbuy = amountNum * Number(this.dolar.compra);
+      this.calculatedValueARSbuy = amountNum * Number(this.dolar.venta);
     } else {
       this.calculatedValueARSbuy = 0;
     }
@@ -263,13 +271,5 @@ export class TradingComponent implements OnInit {
   });
 }
 
-  ngOnInit(): void {
-    this.getAccounts()
-
-    this.dolarService.getDolarOficial().subscribe({
-      next: (cotizacion) => this.dolar = cotizacion,
-      error: (e: Error) => console.log(e.message)
-    })
-  }
 }
 

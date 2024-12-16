@@ -43,7 +43,6 @@ export class PayLoanComponent implements OnInit {
   }
 
   cargarPrestamo() {
-    console.log("accounts en cargar prestamo" + this.accounts);
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id = params.get('id');
@@ -55,7 +54,7 @@ export class PayLoanComponent implements OnInit {
               this.loan = loan;
             }
           },
-          error: (e: Error) => this.route.navigate(['/not-found'])
+          error: () => this.route.navigate(['/not-found'])
         });
       },
     });
@@ -138,7 +137,7 @@ export class PayLoanComponent implements OnInit {
     const id = this.userSessionService.getUserId();
     this.accountService.getAccountsByIdentifier(id).subscribe({
       next: (accounts) => {
-        this.accounts = accounts;
+        this.accounts = accounts.filter(account => account.closing_date == null);
         this.cargarPrestamo();
       },
       error: (e: Error) => console.log(e.message)
