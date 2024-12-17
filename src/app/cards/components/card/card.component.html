@@ -103,11 +103,16 @@
           </div>
         </div>
 
-        <button type="button" class="toggle-btn"  (click)="toggleVisibility(item)">
-          <i [class]="item.showNumbers ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-        </button>
+        <div class="buttons">
+          <div class="buttons-sub">
+          <button type="button" class="toggle-btn"  (click)="toggleVisibility(item)">
+            <i [class]="item.showNumbers ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+          </button>
 
-        <button (click)="alerta(item.card_id)">Dar de baja</button>
+          <button (click)="alerta(item.card_id)">Dar de baja</button>
+        </div>
+          <p>Cuenta {{item.account_id}}</p>
+        </div>
       </div>
     }
   </div>

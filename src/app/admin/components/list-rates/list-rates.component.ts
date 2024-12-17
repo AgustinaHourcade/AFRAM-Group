@@ -71,7 +71,6 @@ export class ListRatesComponent implements OnInit{
         this.flag = false;
       }
     });
-
   }
 
   showBubble(type: string) {

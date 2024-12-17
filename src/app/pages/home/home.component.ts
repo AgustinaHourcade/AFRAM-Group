@@ -13,21 +13,23 @@ import { Component, HostListener, inject, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   private userSessionService = inject(UserSessionService);
-  
-  isScrolled = false;
-  scrollThreshold = 550;
+
+  isScrolled: boolean = false;
+  scrollThreshold: number = 550;
+
+  ngOnInit(){
+    this.userSessionService.clearUserId();
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
     this.isScrolled = scrollPosition > this.scrollThreshold;
   }
-  
+
   scrollToTop(): void {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  ngOnInit(){
-    this.userSessionService.clearUserId();
-  }
+
 }

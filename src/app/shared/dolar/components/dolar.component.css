@@ -18,13 +18,15 @@
   line-height: 1.5;
 }
 
-.title {
+.dolar-info p:nth-child(1),
+.dolar-info p:nth-child(2) {
   font-size: 1.125rem;
   font-weight: 700;
   color: var(--secondary-color);
 }
 
-.title:hover {
+.dolar-info p:nth-child(1):hover,
+.dolar-info p:nth-child(2):hover {
   color: var(--button-hover);
 }
 
@@ -45,7 +47,8 @@
     font-size: 0.875rem;
   }
 
-  .title {
+  .dolar-info p:nth-child(1),
+  .dolar-info p:nth-child(2) {
     font-size: 1rem;
   }
 }

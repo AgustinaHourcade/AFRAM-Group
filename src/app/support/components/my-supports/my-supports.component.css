@@ -205,7 +205,7 @@ a.delete-thread:hover{
 }
 
 .char-counter {
-  text-align: end; 
+  text-align: end;
   font-size: 0.9rem;
   color: var(--gray-3);
   margin-top: 5px;

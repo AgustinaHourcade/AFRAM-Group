@@ -49,6 +49,7 @@ export class NewLoanComponent implements OnInit {
     account_id: [0, [Validators.required, Validators.min(1)]],
     daysToAdd: [30],
   });
+
   ngOnInit() {
     this.cargarCuentas();
     this.interestService.getLastRate().subscribe({

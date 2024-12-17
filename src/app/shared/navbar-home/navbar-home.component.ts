@@ -12,7 +12,7 @@ import { Component, HostListener, Input } from '@angular/core';
 export class NavbarHomeComponent {
   @Input() backgroundColor = 'transparent';
 
-  isScrolled = false;
+  isScrolled: boolean = false;
   scrollThreshold = 100;
 
   @HostListener('window:scroll', [])

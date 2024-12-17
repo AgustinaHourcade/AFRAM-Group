@@ -7,7 +7,6 @@ import { UserSessionService } from '@auth/services/user-session.service';
 import { NotificationsService } from '@notifications/service/notifications.service';
 import { Component, HostListener, inject, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
-
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -25,18 +24,18 @@ export class NavbarComponent implements OnInit{
   id: number = 0;
   type !: string;
   activeMenu: string | null = null;
-  isNavbarOpen = false;
+  isNavbarOpen: boolean = false;
   notifications: Notification[] = [];
-  isDropdownOpen = false;
+  isDropdownOpen: boolean = false;
   unreadNotifications: Notification[] = [];
   selectedNotifications: number[] = [];
-  isResponsiveMenuVisible = false;
+  isResponsiveMenuVisible: boolean = false;
 
   isSubmenuOpen = {
     fixedTerms: false,
     loans: false,
   };
-  
+
   ngOnInit(): void {
     this.getUserById();
   }

@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
+<button class="go-back" routerLink="/accounts"><i class="bi bi-caret-left"></i>Volver</button>
 <app-cbu-alias></app-cbu-alias>
-
 <div class="container">
   <h2>Movimientos de
     <!-- Form to select month and year -->
@@ -24,11 +24,11 @@
     <div #pdfContent class="transactions">
       @for(transaction of filteredTransactions; track $index){
         @if(transaction.is_paid === 'yes'){
-          <app-transaction 
-            [transaction]="transaction" 
-            [selectedAccountId]="accountId" 
+          <app-transaction
+            [transaction]="transaction"
+            [selectedAccountId]="accountId"
             [isDownloading]="isDownloading"
-            [isOpen]="isReceiptOpen(transaction.id)" 
+            [isOpen]="isReceiptOpen(transaction.id)"
             (toggle)="toggleReceipt(transaction.id)"
         ></app-transaction>
         }

@@ -5,8 +5,8 @@ import { LoanService } from '@loans/service/loan.service';
 import { CommonModule } from '@angular/common';
 import { AccountService } from '@accounts/services/account.service';
 import { NavbarComponent } from '@shared/navbar/navbar.component';
-import { Component, inject, OnInit } from '@angular/core';
 import { UserSessionService } from '@auth/services/user-session.service';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list-loan',
@@ -21,29 +21,28 @@ export class ListLoanComponent implements OnInit {
   private userSessionService = inject(UserSessionService);
 
   loans: Loan[] = [];
-  userId: number = 0;
+  userId: number = this.userSessionService.getUserId();
   accounts: Account[] = [];
   expiredLoans: Loan[] = [];
 
   ngOnInit(): void {
-    this.userId = this.userSessionService.getUserId();
     this.loadAccounts();
   }
 
   loadAccounts(){
     this.accountService.getAccountsByIdentifier(Number(this.userId)).subscribe({
       next: (accounts) => {
-        this.accounts = accounts;
+        this.accounts = accounts.filter(account => account.closing_date == null);
         for (const account of this.accounts) {
-          this.loanService.getLoanByAccountId(account.id).subscribe({
-            next: (loans: Loan[]) => {
-              const today = new Date();
+            this.loanService.getLoanByAccountId(account.id).subscribe({
+              next: (loans: Loan[]) => {
+                const today = new Date();
 
-              loans.forEach(loan => {
-                if (loan.paid !== loan.return_amount && new Date(loan.expiration_date) > today) {
-                  this.loans.push(loan);
-                } else if (loan.paid === loan.return_amount || new Date(loan.expiration_date) <= today) {
-                  this.expiredLoans.push(loan);
+                loans.forEach(loan => {
+                  if (loan.paid !== loan.return_amount && new Date(loan.expiration_date) > today) {
+                    this.loans.push(loan);
+                  } else if (loan.paid === loan.return_amount || new Date(loan.expiration_date) <= today) {
+                    this.expiredLoans.push(loan);
                 }
               });
             },

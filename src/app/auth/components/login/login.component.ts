@@ -33,16 +33,16 @@ export class LoginComponent {
   showPassword: boolean = false;
   errorMessage: string = '';
 
-  togglePasswordVisibility(input: HTMLInputElement) {
-    input.type = this.showPassword ? 'password' : 'text';
-    this.showPassword = !this.showPassword;
-  }
-
   formulario = this.fb.nonNullable.group({
     name_user: ['', [Validators.required, Validators.minLength(3)]],
     hashed_password: ['', [Validators.required, Validators.minLength(6)]],
     dni: ['', [Validators.required, Validators.min(999999)]]
   });
+
+  togglePasswordVisibility(input: HTMLInputElement) {
+    input.type = this.showPassword ? 'password' : 'text';
+    this.showPassword = !this.showPassword;
+  }
 
   admitUser() {
     this.formulario.markAllAsTouched();
@@ -80,8 +80,8 @@ export class LoginComponent {
             if(this.intentos < 3){
               this.userService.verifyUser(data).subscribe({
                 next: (response) => {
-                  this.id = response.id; 
-                  this.token = response.token; 
+                  this.id = response.id;
+                  this.token = response.token;
 
                   this.userSessionService.setUserId(this.id); // Guarda el ID en el servicio
                   this.userSessionService.setToken(this.token);
@@ -94,7 +94,7 @@ export class LoginComponent {
                   this.userService.getUser(Number(id)).subscribe({
                     next: (user) => {
                       this.userSessionService.logIn(Number(id), user.user_type as string, this.accounts);
-                      if (user.user_type === 'admin') { 
+                      if (user.user_type === 'admin') {
                         Swal.fire({
                           title: `¿Como desea iniciar sesión?`,
                           text: 'Puede ingresar como Administrator o como Cliente.',

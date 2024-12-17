@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '@users/services/user.service';
 import { CommonModule } from '@angular/common';
 import { UserSessionService } from '@auth/services/user-session.service';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -14,15 +14,15 @@ import { FormBuilder, AbstractControl, ValidationErrors, FormGroup, Validators, 
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.css',
 })
-export class UpdatePasswordComponent implements OnInit {
+export class UpdatePasswordComponent {
   private fb = inject(FormBuilder);
   private userService = inject(UserService);
   private userSessionService = inject(UserSessionService);
   private route = inject(Router);
 
-  id = 0;
+  id: number = this.userSessionService.getUserId();
   user !: User;
-  type ?: string;
+  type: string = this.userSessionService.getUserType() as string;
   hasNumber: boolean = false;
   showPassword1: boolean = false;
   showPassword2: boolean = false;
@@ -37,11 +37,6 @@ export class UpdatePasswordComponent implements OnInit {
       confirm_password: ['', [Validators.required]]
     }, { validators: this.matchPasswords }
   );
-
-  ngOnInit(): void {
-    this.id = this.userSessionService.getUserId();
-    this.type = this.userSessionService.getUserType() as string;
-  }
 
   // Function to validate the password
   validatePassword() {

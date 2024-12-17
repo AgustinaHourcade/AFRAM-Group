@@ -302,11 +302,30 @@ h2 {
   color: inherit;
 }
 
+.buttons{
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  /* width: 250px; */
+  padding: 15px;
+}
+
+.buttons-sub{
+  display: flex;
+  column-gap: 5px;
+  justify-content: center;
+}
+
+.buttons p{
+  font-size: 20px;
+  text-align: center;
+}
+
 @media(max-width: 660px){
   .cardsDiv-card {
     flex-direction: column;
   }
-  
+
   .card {
     width: 360px;
   }

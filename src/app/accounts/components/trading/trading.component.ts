@@ -4,9 +4,9 @@ import { Cotizacion } from '@shared/dolar/interface/cotizacion';
 import { Transaction } from '@transactions/interface/transaction.interface';
 import { CommonModule } from '@angular/common';
 import { DolarService } from '@shared/dolar/service/dolar.service';
-import { NavbarComponent } from "@shared/navbar/navbar.component";
 import { AccountService } from '@accounts/services/account.service';
 import { DolarComponent } from "@shared/dolar/components/dolar.component";
+import { NavbarComponent } from "@shared/navbar/navbar.component";
 import { TransactionService } from '@transactions/services/transaction.service';
 import { UserSessionService } from '@auth/services/user-session.service';
 import { Component, inject, OnInit } from '@angular/core';
@@ -34,8 +34,8 @@ export class TradingComponent implements OnInit {
   trading : string = '';
   accounts: Account[] = [];
   accountsUSD: Account[] = [];
-  calculatedValueARSbuy = 0;
-  calculatedValueARSsell = 0;
+  calculatedValueARSbuy: number = 0;
+  calculatedValueARSsell: number = 0;
 
   // Reactive form for trading operations
   form = this.fb.nonNullable.group({
@@ -45,6 +45,14 @@ export class TradingComponent implements OnInit {
   })
 
   // Functions
+  ngOnInit(): void {
+    this.getAccounts()
+
+    this.dolarService.getDolarOficial().subscribe({
+      next: (cotizacion) => this.dolar = cotizacion,
+      error: (e: Error) => console.log(e.message)
+    })
+  }
   // Fetch accounts from the service
   getAccounts(){
     this.accountService.getAccountsByIdentifier(this.id).subscribe({
@@ -70,7 +78,7 @@ export class TradingComponent implements OnInit {
   updateCalculatedARSbuy(amount: string | undefined) {
     const amountNum = parseFloat(amount as string);
     if (!isNaN(amountNum) && this.dolar?.compra) {
-      this.calculatedValueARSbuy = amountNum * Number(this.dolar.compra);
+      this.calculatedValueARSbuy = amountNum * Number(this.dolar.venta);
     } else {
       this.calculatedValueARSbuy = 0;
     }
@@ -231,7 +239,7 @@ export class TradingComponent implements OnInit {
                   error : (err:Error) => console.log(err.message)
                 })
                 const descontarARS = -1 * transaction.amount;
-                
+
                 this.accountService.updateBalance(descontarARS, 1).subscribe({
                   error : (e: Error)=> console.log(e.message)
                 })
@@ -263,13 +271,5 @@ export class TradingComponent implements OnInit {
   });
 }
 
-  ngOnInit(): void {
-    this.getAccounts()
-
-    this.dolarService.getDolarOficial().subscribe({
-      next: (cotizacion) => this.dolar = cotizacion,
-      error: (e: Error) => console.log(e.message)
-    })
-  }
 }
 

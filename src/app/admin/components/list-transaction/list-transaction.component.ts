@@ -20,12 +20,12 @@ export class ListTransactionComponent implements OnInit {
   private accountService = inject(AccountService);
   private transactionService = inject(TransactionService);
 
-  id = 0;
-  flag = false;
-  coming = false;
-  pageSize = 4;
-  currentPage = 1;
-  destinatario = '';
+  id: number = 0;
+  flag: boolean = false;
+  coming: boolean = false;
+  pageSize: number = 4;
+  currentPage: number = 1;
+  destinatario: string = '';
   transactions: Transaction[] = [];
   openedTransactionId: number | undefined = undefined;
 
@@ -69,7 +69,7 @@ export class ListTransactionComponent implements OnInit {
   toggleReceipt(transactionId: number|undefined): void {
     this.openedTransactionId = this.openedTransactionId === transactionId ? undefined : transactionId;
   }
-  
+
   isReceiptOpen(transactionId: number|undefined): boolean {
     return this.openedTransactionId === transactionId;
   }

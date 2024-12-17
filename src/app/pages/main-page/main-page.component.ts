@@ -51,7 +51,6 @@ export class MainPageComponent implements OnInit {
   showActions: boolean = false;
   currentPage: number = 1;
   transactions: Transaction[] = [];
-  activeAccounts: Account[] = [];
   allTransactions: Transaction[] = [];
   selectedAccountId!: number;
   openedTransactionId: number | undefined = undefined;
@@ -89,17 +88,11 @@ export class MainPageComponent implements OnInit {
 
 
   private getAccounts() {
-    this.activeAccounts = [];
     this.accountService.getAccountsByIdentifier(this.userId).subscribe({
       next: (accounts: Account[]) => {
         this.accounts = [];
         this.transactions = [];
-        this.accounts = accounts;
-        accounts.forEach((account) => {
-          if (!account.closing_date) {
-            this.activeAccounts.push(account);
-          }
-        });
+        this.accounts = accounts.filter(account => account.closing_date == null);
         this.verifyTransferProgramming();
       },
       error: (error: Error) => console.error(error.message)
@@ -254,7 +247,7 @@ export class MainPageComponent implements OnInit {
   }
 
   private verifyTransferProgramming() {
-    this.activeAccounts.forEach((account) => {
+    this.accounts.forEach((account) => {
       this.loadTransactions(account.id).subscribe({
         next: (transactions) => {
           this.allTransactions = [];

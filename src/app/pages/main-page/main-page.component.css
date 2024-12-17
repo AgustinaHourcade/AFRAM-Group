@@ -40,7 +40,7 @@ h2 {
   width: 300px;
   border-radius: var(--border-radius);
   padding: 20px;
-  /* color: var(--white); */
+  color: var(--white);
   box-shadow: 0 4px 8px var(--box-shadow-color);
   display: grid;
   grid-template-rows: auto auto auto;
