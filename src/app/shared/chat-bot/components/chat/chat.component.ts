@@ -77,7 +77,7 @@ export class ChatComponent {
     const faqs = this.faqService.getFaqsByTopic(topicTitle);
     this.currentTopicFaqs = faqs;
 
-    this.addUserMessage(`Me gustaría saber sobre ${topicTitle}`);
+    this.addUserMessage(`${topicTitle}`);
 
     setTimeout(() => {
       this.messages.push({

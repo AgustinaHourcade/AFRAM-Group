@@ -68,9 +68,9 @@ input:not(:focus) + label {
 
 .errorLabel {
   color: var(--cancel-button) !important;
-  /* top: -10px;
+  top: -10px;
   left: 5px;
-  font-size: 0.75rem; */
+  font-size: 0.75rem;
 }
 
 .toggle-btn {

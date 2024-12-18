@@ -150,7 +150,7 @@ input:not(:focus) + label {
 } */
 
 input.ng-invalid.ng-touched {
-  border-color: yellow;
+  border-color: var(--cancel-button);
   box-shadow: 0 0 4px var(--cancel-button-hover);
 }
 
@@ -161,7 +161,7 @@ input.ng-invalid.ng-touched {
 } */
 
 input.ng-invalid.ng-touched + label {
-  color: deeppink;
+  color: var(--cancel-button);
 }
 
 @media (max-width: 768px) {

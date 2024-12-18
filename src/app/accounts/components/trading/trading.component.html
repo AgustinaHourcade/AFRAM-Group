@@ -35,7 +35,7 @@
           <h2>Compra de USD</h2>
           <form [formGroup]="form" (ngSubmit)="buyUSD()">
             <label for="amount">Cantidad a comprar</label>
-            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en ARS" (input)="updateCalculatedARSbuy(form.get('amount')?.value)" />
+            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en U$S" (input)="updateCalculatedARSbuy(form.get('amount')?.value)" />
             @if(form.controls['amount'].getError('max')){
               <span class="error">El monto máximo de compra es de USD $10.000</span>
             }@else if (calculatedValueARSbuy > 0) {
@@ -88,7 +88,7 @@
           <h2>Venta de USD</h2>
           <form [formGroup]="form" (ngSubmit)="sellUSD()">
             <label for="amount">Cantidad a vender</label>
-            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en USD" (input)="updateCalculatedARSsell(form.get('amount')?.value)" />
+            <input id="amount" type="number" formControlName="amount" placeholder="Ingrese cantidad en U$S" (input)="updateCalculatedARSsell(form.get('amount')?.value)" />
             @if(form.controls['amount'].getError('max')){
               <span class="error">El monto máximo de venta es de USD $10.000</span>
             }@else if(calculatedValueARSsell > 0){
