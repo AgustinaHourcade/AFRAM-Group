@@ -226,7 +226,7 @@ export class TradingComponent implements OnInit {
                 this.postTransaction(transaction);
                 this.postTransaction(transactionUSD);
                 Swal.fire({
-                  text: 'Operacion realizada correctamente.',
+                  text: 'Operación realizada correctamente.',
                   icon: 'success',
                   confirmButtonText: 'Aceptar',
                   confirmButtonColor: '#00b4d8',
@@ -261,7 +261,7 @@ export class TradingComponent implements OnInit {
   this.transactionService.postTransaction(transaction as Transaction).subscribe({
     next: () => {
       Swal.fire({
-        text: '¡Transferencia realizada!',
+        text: '¡Operación realizada correctamente!',
         icon: 'success',
         confirmButtonText: 'Aceptar',
         confirmButtonColor: '#00b4d8'

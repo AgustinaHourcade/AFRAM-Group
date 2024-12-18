@@ -112,6 +112,7 @@ export class ChatSupportAdminComponent implements OnInit{
           Swal.fire({
           title: `Consulta finalizada`,
           icon: 'success',
+          confirmButtonColor: '#00b4d8'
         }).then((result) => {
           if (result.isConfirmed) {
             this.router.navigate(['admin-support']); // Redirects after confirmation
