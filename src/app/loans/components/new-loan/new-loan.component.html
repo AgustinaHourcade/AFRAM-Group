@@ -16,7 +16,7 @@
       @for (item of accounts; track $index) {
         @if (!item.closing_date && item.currency === 'ars') {
           <option [value]="item.id">
-              {{ item.id }} - {{ item.balance }}
+              {{ item.id }} - ${{ item.balance }}
             </option>
         }
     }

@@ -11,7 +11,7 @@ export class UserSessionService {
   private readonly USER_TYPE_KEY = 'userType';
   private readonly ACCOUNTS_KEY = 'accounts';
   private inactivityTimeout: any;
-  private readonly INACTIVITY_LIMIT = 600000;
+  private readonly INACTIVITY_LIMIT = 60000;
   private readonly USER_TOKEN = 'userToken';
   private route = inject(Router);
 

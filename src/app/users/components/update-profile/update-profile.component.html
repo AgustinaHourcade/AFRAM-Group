@@ -80,6 +80,10 @@
         formulario.controls['address_number'].touched) {
         <span> Campo requerido </span>
         }
+        @if (formulario.controls['address_number'].getError('pattern') &&
+        formulario.controls['address_number'].touched) {
+        <span> El número debe tener entre 1 y 5 dígitos. </span>
+      }
       </div>
 
       <div>
